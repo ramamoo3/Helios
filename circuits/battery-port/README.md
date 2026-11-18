@@ -1,0 +1,95 @@
+# Helios battery port · Rev A
+
+One base-unit channel connects one protected 16S LFP cabinet to the shared DC link. Each cabinet gets its own converter and sensing electronics. This revision covers the power path, analog telemetry and the gate-drive and protection chain for the low-voltage bench. The independent SPICE netlists use ideal supplies for the single-channel operating points and a finite capacitor for the two-channel link. Status is circuit study, prior to PCB layout and bench testing.
+
+Open the [12 V / 24 V bench project](battery-port-bench.kicad_pro) and its [top-level schematic](battery-port-bench.kicad_sch) to inspect the wired assembly. The bench power sheet uses a 1:2 transformer and the series current detector. The separate 700 V power study remains outside this assembly. [Bench component selection, updated model and startup limits](BENCH-PARTS.md)
+
+| Circuit | Editable source | Preview | Simulation |
+| --- | --- | --- | --- |
+| Isolated bidirectional power path | [Power schematic](battery-port-power.kicad_sch) | [View power sheet](battery-port-power.svg) | [Converter model](dab.lib), [operating points](dab-test.cir), [low-pack stress case](dab-low-pack.cir) |
+| Battery voltage and signed current measurement | [Sensing schematic](battery-port-sense.kicad_sch) | [View sensing sheet](battery-port-sense.svg) | [Sensing model](sense.lib), [calibration test](sense-test.cir) |
+| One bench half-bridge driver | [Driver schematic](battery-port-driver.kicad_sch) | [View driver](battery-port-driver.svg) | [Gate-load test](driver-test.cir) |
+| Bench winding-current detector | [Detector schematic](battery-port-detector.kicad_sch) | [View detector](battery-port-detector.svg) | [Protection model](protection.lib) |
+| Reset-dominant arm latch and logic | [Latch schematic](battery-port-triplogic.kicad_sch) | [View latch](battery-port-triplogic.svg) | [Fault sequences](protection-test.cir) |
+| Cross-barrier enable and bias feedback | [Isolation schematic](battery-port-trip-isolation.kicad_sch) | [View isolation](battery-port-trip-isolation.svg) | [Two-domain permission test](protection-test.cir) |
+| Local drive, logic and supervision (two instances) | [Bias sheet](battery-port-bias.kicad_sch) | [View bias](battery-port-bias.svg) | [Staggered startup and rail faults](bench-bias-test.cir) |
+| Complementary PWM and secondary enable | [PWM sheet](battery-port-pwm.kicad_sch) | [View PWM](battery-port-pwm.svg) | [Dead time and local veto](bench-pwm-test.cir) |
+| Scaled power stage and external connections | [Power](battery-port-bench-power.kicad_sch) · [Terminals](battery-port-bench-io.kicad_sch) | [Power](battery-port-bench-power.svg) · [Terminals](battery-port-bench-io.svg) | [Scaled power model](dab-test.cir) |
+
+## Measured in simulation
+
+Positive link power means the battery supplies the base. Negative link power means the base supplies the charger side of the port. The nominal full-scale model uses a 51.2 V pack, a **provisional** 700 V link, a 1:14 transformer, 1.5 µH effective primary-referred transfer inductance, 180 µH magnetizing inductance and 50 kHz switching. D is the signed phase shift as a fraction of half a switching period. The 40–60 V sweep is a converter study range. The battery manufacturer and BMS set actual operating limits.
+
+| Battery / link | D | Mean power into DC link | Observation |
+| --- | ---: | ---: | --- |
+| 12 V / 24 V scaled model | +0.20 / −0.20 | +23.0 / −23.1 W | Reversal at low voltage with 1:2 turns ratio and 10 µH transfer inductance |
+| 51.2 V / 700 V | +0.20 / −0.20 | +2.730 / −2.730 kW | Battery supplies 53.8 A average on discharge and receives 52.9 A average on charge |
+| 40 V / 700 V | +0.20 | +2.120 kW | Transfer-inductor current 58.9 A RMS |
+| 60 V / 700 V | +0.20 | +3.211 kW | Transfer-inductor current 71.0 A RMS |
+| 40 V / 700 V | +0.285 | +2.695 kW | Pack supplies 68.2 A average. Transfer inductor carries 79.0 A RMS and reaches 110.7 A peak |
+| 50 V / 700 V matched winding voltages | 0 | −11.7 W | Residual draw at the link with both bridges switching. Disabled-port standby requires a separate test |
+
+The open-loop tests average 20 switching cycles. The ideal single-phase-shift comparison is `P = Vpack × (Vlink / turns_ratio) × D × (1 − |D|) / (2 × fs × Ltransfer)`. The tests check sign and magnitude against this expression. Device capacitance, diodes, winding resistance and switching transitions are simplified. Device losses, saturation, insulation performance, cooling and delivered household AC power require further work. [Phase-shift control reference](https://imperix.com/doc/implementation/dab-converter-control)
+
+## Two cabinets on the same link
+
+The scaled two-port test connects a 12 V pack and an 11 V pack through separate converters to one 24 V link with 2,200 µF capacitance. A constant 1.45 A load remains connected. Before the inhibit, the two channels supplied 0.957 A and 0.659 A into the link. At 2 ms the second port stopped receiving gate commands. In the final 0.4 ms the first port still supplied 0.957 A and the second contributed less than 1 µA in magnitude. The bus averaged 24.13 V before the inhibit and 23.74 V in the final window.
+
+This demonstrates independent PWM inhibit in the scaled model. The disabled bridge retains diode paths. Fault isolation needs a separate disconnect. The observed voltage sag quantifies the need for a bus-voltage controller that redistributes load within the surviving pack's current limit. [Two-port SPICE deck](two-port-test.cir)
+
+## Sensing circuit
+
+A Kelvin-connected 0.5 mΩ external shunt feeds an INA240A1PW. Positive battery discharge raises the ADC signal above 1.65 V. The predicted transfer is 10 mV/A. The model produced 0.900, 1.650 and 2.400 V at −75, 0 and +75 A respectively. A 75 A continuous current alone dissipates 2.81 W in the shunt. Select the part using its temperature and pulse ratings. This channel measures pack current. The switching-current protection needs a separate fast path. [INA240 datasheet and TSSOP pin table](https://www.ti.com/lit/ds/symlink/ina240.pdf)
+
+The voltage divider uses three 56 kΩ resistors over 8.2 kΩ with 10 nF at its output. It produced 1.862, 2.383 and 2.792 V at 40, 51.2 and 60 V. Its nominal pole is 2.04 kHz. The shunt-amplifier model checks ideal DC gain and the external output filter. Input faults, amplifier dynamics, PWM rejection, ADC acquisition time, resistor tolerances and supply sequencing need characterization. The ADC and 3.3 V supply are local to each cabinet port. The controller interface requires isolated power and data where it crosses that boundary.
+
+## Gate-driver bench circuit
+
+Use one UCC27282DRC per leg, two legs per bridge. Each side of the transformer needs its own local bias supply and logic reference. The DRC package provides the enable input. Local pull-downs hold enable and gates low when undriven. Supply PWM with explicit dead time. [TI datasheet, pin table and application circuit](https://www.ti.com/lit/ds/symlink/ucc27282.pdf)
+
+The 10 V bias, 4.7 Ω gate resistors and 100 nF bootstrap capacitor are bench starting values. Select the final values from measured switching and MOSFET gate charge. Verify bootstrap refill before the first high-side pulse, minimum bias at maximum on-time and exposed-pad pin 11 in the selected footprint. The schematic shows the interface for local gate permission. The bench protection sheets provide the detector, latch and cross-barrier permission. The local bias and PWM sheets now supply those interfaces in the bench hierarchy.
+
+The behavioral test checks high- and low-side gate-to-source voltage under valid commands, overlapping commands, overcurrent and loss of bias. It uses an imposed switch-node voltage, a 2 nF load and an illustrative 4 A fault threshold. Actual propagation, fault-current overshoot, bootstrap operation and physical gate turn-off time require bench measurement.
+
+## Bench overcurrent shutdown
+
+T2 senses the alternating primary winding current. On the bench variant, split the L1-to-T1 connection and insert T2 pins 4 and 3 in series. Wire its 1:100 secondary across the permanent 10 Ω burden, giving an ideal 100 mV/A about 1.65 V. U3 compares this signal with 1.246 V and 2.054 V. The **nominal ±4.04 A** threshold is a fixture design choice. Actual trip current depends on supply tolerance, CT droop, winding resistance, pulse shape, resistor tolerance, comparator offset and hysteresis. Check both polarities at 50 kHz. Sustained DC and same-leg shoot-through require independent rail current limiting and branch protection. [Coilcraft CT data and pin diagram](https://www.coilcraft.com/getmedia/12ba6199-a24d-486f-ba70-4b6bec000ed3/cst7030datasheet.pdf) · [TI comparator data and pin table](https://www.ti.com/lit/ds/symlink/tlv3201.pdf)
+
+The comparator outputs feed an AND gate. Leaving the current window or losing either logic-domain power-good signal asserts the flip-flop's asynchronous clear. Arming samples the inverse of RUN on a rising ARM edge. A held ARM cannot restart the port after a trip. Two primary driver enables share PERMIT_P. Two secondary enables share PERMIT_S via the default-low ISO7710F. A second isolator returns SEC_OK to the primary latch. Each driver retains its own enable pull-down. [TI flip-flop](https://www.ti.com/lit/ds/symlink/sn74lvc1g74.pdf) · [TI quad AND](https://www.ti.com/lit/ds/symlink/sn74lvc08a.pdf) · [TI inverter](https://www.ti.com/lit/ds/symlink/sn74lvc1g04.pdf) · [TI isolator](https://www.ti.com/lit/ds/symlink/iso7710.pdf)
+
+The test injects ±2.4 A ordinary excursions and separate +5.4 A and −5.4 A fault pulses. It checks both enable outputs, a held arm request across fault recovery, an arm attempt while running, deliberate re-arming and loss of secondary power-good. Both modeled comparator-input threshold crossings reached the remote enable midpoint in approximately 62 ns. This measures a behavioral delay assumption. The input current is injected, the digital rails stay powered and the model omits gate discharge, supply-collapse timing, core saturation and semiconductor fault current. For the physical fixture record current, comparator output, both enables and gate-to-source voltages together. Also test loss and restoration of each actual bias rail.
+
+### Bench supplies, supervision and timing
+
+Each bridge derives its rails from its own externally supplied DC port. P0 and S0 are separate. J3 is the 12 V primary port and J4 is the prebiased 24 V secondary port. This setup assumes that both rails are available before arming and that the receiving supply or an external load can absorb returned power. The nominal 470 µF primary and 2,200 µF secondary capacitors need ripple-current, inrush and voltage-rating checks before assembly.
+
+U9 uses a 73.2 kΩ / 10 kΩ divider and a 1.193 V nominal reference for a 9.926 V drive rail. U10 derives 3.3 V logic from that rail. U9 power-good pulls U11 manual reset low when the drive rail is low. U11 also monitors the logic rail, nominally at 3.07 V, and delays release by a nominal 20 ms with CT open. The 10 kΩ pull-up and 100 kΩ downstream pull-down give a nominal 3.00 V healthy signal. Budget dissipation separately at 24 V. For example, at an assumed 20 mA total regulator output, the first stage dissipates about 0.28 W on the secondary side. The selected MOSFETs add up to 4.8 mA of gate-charge demand per side at 50 kHz. Check regulator temperature and all voltage thresholds with component tolerances. [Drive regulator](https://www.ti.com/lit/ds/symlink/tps7a16.pdf) · [Logic regulator](https://www.ti.com/lit/ds/symlink/tps7a24.pdf) · [Supervisor](https://www.ti.com/lit/ds/symlink/tps3808.pdf)
+
+The external timing controller uses J5 pins 1–4 for primary positive, primary negative, secondary positive and secondary negative commands. Pins 5–6 carry RUN and ARM. Pins 7–8 return current and voltage telemetry and pin 9 is P0. The controller supplies non-overlapping positive and negative commands for each bridge. Each pair drives opposite diagonals. The ISO7720F transfers the secondary commands and a secondary-side AND gate requires both isolated permission and local power-good. The upstream latch also receives the isolated return of secondary power-good. [Timing isolator](https://www.ti.com/lit/ds/symlink/iso7720.pdf)
+
+The behavioral startup test delays the 24 V source, lowers primary bias while 3.3 V logic survives, then lowers secondary logic while gate bias survives. Both enables dropped for each fault and recovered only after a fresh arm sequence. The timing test applies 200 ns nominal command spacing and unequal channel-delay assumptions. The two modeled gaps were approximately 211 ns and 190 ns with zero modeled overlap. The supervisor release timing, isolator propagation and regulator headroom are functional approximations. These results do not establish gate-to-source dead time, brownout behavior outside specified supply ranges, regulator thermal margin, or operation of a discharged secondary bus.
+
+## Reproducing the checks
+
+Open the bench project with the adjacent Helios symbol library and standard KiCad footprints. Its electrical connection grid is 25 mil. J3 and J4 represent independent external sources and the BOOT flag on each driver represents the supply fed through its internal bootstrap diode. Use independently isolated bench ports and account for any ground connections through instruments or controller cables when evaluating the isolation barrier.
+
+Run the following from this directory with Python 3 and an XSPICE-enabled build of ngspice. The Python check compares each sheet's pin connections with the expected nets, follows the parent wires and child ports, checks instance annotations and tests numerical results from ten simulation decks. The final command runs KiCad's native electrical-rules check on the same hierarchy.
+
+```sh
+python verify.py
+python verify.py --ngspice /path/to/ngspice
+python verify.py --schematics-only
+kicad-cli sch erc --exit-code-violations -o bench-erc.rpt battery-port-bench.kicad_sch
+```
+
+All ten simulations passed with ngspice 47. Ten sheet pin maps passed, and the hierarchy check covered 13 sheet instances, 118 sheet pins and 125 unique component references. KiCad CLI 10.99 nightly exported the assembled netlist and reported zero ERC violations. The pin groupings of all 125 components were compared across the ERC annotation changes, excluding the intentionally unused inverted latch output U5 pin 3. Hardware testing remains outstanding.
+
+## Next circuit revision
+
+The [PWM interlock model](trip.lib) and [fault-injection test](trip-test.cir) define the intended hardware behavior. At startup both bridges must stay inhibited. A valid arm edge with the run request low permits a subsequent start. Either current polarity crossing the test threshold or loss of gate bias revokes permission. Recovery needs a fresh arm edge once the fault clears, with the run request low.
+
+The test injects a 110.7 A normal peak and ±135 A fault pulses, using 125 A as an illustrative trip threshold. It checks the permission signal independently of the power-stage model. Comparator delay, sensing bandwidth, isolation delay, driver turn-off time and current rise during shutdown must be established against component ratings before selecting an actual threshold. The bench protection sheets implement a separate scaled current window for the 12 V / 24 V fixture.
+
+The 2.5 kW per-cabinet AC-equivalent target depends on the downstream inverter, the pack's allowable current and thermal performance. Design the full-power detector separately and establish its trip threshold from the selected magnetics and switches, with margin over the verified normal waveform. Model the link capacitor, pack impedance, startup/precharge, loss of a cabinet and load rejection before validating closed-loop operation. Pack and link fusing, isolation coordination, DC disconnects, and safe stored-energy discharge remain open design items. Fabrication and connection to a battery, house or mains require completion of those circuits and hardware qualification.
+
+[Comparison circuits and reuse decisions](../REFERENCE-DESIGNS.md) · [System architecture](../../HELIOS-ARCHITECTURE.md)

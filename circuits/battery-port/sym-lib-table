@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "Helios") (type "KiCad") (uri "${KIPRJMOD}/Helios.kicad_sym") (options "") (descr "Project Helios battery-port symbols"))
+)

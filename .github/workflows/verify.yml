@@ -1,0 +1,13 @@
+name: Verify battery port
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  circuits:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install ngspice
+        run: sudo apt-get update && sudo apt-get install -y ngspice
+      - name: Check circuit connections and simulations
+        run: python3 circuits/battery-port/verify.py --ngspice ngspice

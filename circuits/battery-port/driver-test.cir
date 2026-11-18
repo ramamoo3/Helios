@@ -1,0 +1,33 @@
+Helios bench gate drive - PWM interlock driving one representative leg
+.include trip.lib
+* Switching-node voltage is imposed. Characterize output RC and logic only.
+Vsw sw 0 12
+Vbias bias 0 PWL(0 0 0.1u 1 11u 1 11.01u 0)
+Varm arm 0 PWL(0 0 1u 0 1.01u 1 1.5u 1 1.51u 0 6u 0 6.01u 1 6.5u 1 6.51u 0)
+Vrun run 0 PWL(0 0 2u 0 2.01u 1 5.5u 1 5.51u 0 7u 0 7.01u 1)
+* Signed current supplied as 1 V per ampere. 4 A is a fixture stimulus threshold.
+Vcur cur 0 PWL(0 0 4u 0 4.01u 5 4.5u 5 4.51u 0)
+Xtrip cur bias arm run permit 0 PORT_TRIP ITRIP=4
+Vhi hi 0 PWL(0 1 7.6u 1 7.61u 0 8.5u 0 8.51u 1 9.5u 1 9.51u 0)
+Vli li 0 PWL(0 0 8u 0 8.01u 1)
+* Logic-level abstraction. Ideal local output swings, illustrative source impedance.
+Bho dh sw V={10*(v(permit)>0.7 && v(hi)>0.7 && v(li)<0.3)}
+Blo dl 0 V={10*(v(permit)>0.7 && v(li)>0.7 && v(hi)<0.3)}
+RhOut dh ho 2
+RlOut dl lo 2
+R6 ho gh 4.7
+R7 lo gl 4.7
+R8 gh sw 10k
+R9 gl 0 10k
+Ch gh sw 2n
+Cl gl 0 2n
+Bhgs hgs 0 V=v(gh,sw)
+.tran 1n 12u
+.meas tran high_on MIN v(hgs) from=2.2u to=3.95u
+.meas tran trip_high_off MAX v(hgs) from=4.15u to=5.45u
+.meas tran low_on MIN v(gl) from=8.2u to=8.45u
+.meas tran overlap_high MAX v(hgs) from=8.65u to=9.45u
+.meas tran overlap_low MAX v(gl) from=8.65u to=9.45u
+.meas tran low_restored MIN v(gl) from=9.7u to=10.95u
+.meas tran bias_low_off MAX v(gl) from=11.2u to=11.9u
+.end

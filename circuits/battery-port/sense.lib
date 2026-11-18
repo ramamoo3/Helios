@@ -1,0 +1,14 @@
+* Single battery port, pack-referenced electronics. Pin order matches the
+* signal labels on the editable schematic. The shunt is external to this sheet.
+.subckt PORT_SENSE PACK_V KELVIN_P KELVIN_N PACK_0 V3V3 I_ADC V_ADC
+R1 PACK_V div1 56k
+R2 div1 div2 56k
+R3 div2 V_ADC 56k
+R4 V_ADC PACK_0 8.2k
+C1 V_ADC PACK_0 10n
+C2 V3V3 PACK_0 100n
+* Ideal DC transfer and supply clipping, not a TI transistor-level macro-model.
+BU1 amp PACK_0 V={min(max(0,0.5*v(V3V3,PACK_0)+20*v(KELVIN_P,KELVIN_N)),v(V3V3,PACK_0))}
+R5 amp I_ADC 100
+C3 I_ADC PACK_0 10n
+.ends PORT_SENSE

@@ -1,0 +1,58 @@
+Helios 12/24 V bench hardware candidates at 50 kHz
+.include dab.lib
+.options method=gear reltol=0.0005 abstol=1n
+* LK includes primary-referred transformer leakage. RP includes both windings
+* referred to the primary and L1 DCR. The two corner cases use a low assumed RP.
+* 200 ns command spacing, 9.5 milliohm per idealized switch.
+Vp_forward p_forward 0 12
+Vs_forward s_forward 0 24
+Xforward p_forward 0 s_forward 0 DAB D=0.16 NSEC=2 LK=11u LM=1064.8u RP=0.2148 RLO=9.5m RHI=9.5m DT=200n
+
+Vp_reverse p_reverse 0 12
+Vs_reverse s_reverse 0 24
+Xreverse p_reverse 0 s_reverse 0 DAB D=-0.16 NSEC=2 LK=11u LM=1064.8u RP=0.2148 RLO=9.5m RHI=9.5m DT=200n
+
+Vp_plow p_plow 0 11.4
+Vs_plow s_plow 0 25.2
+Xplow p_plow 0 s_plow 0 DAB D=0.12 NSEC=2 LK=8u LM=851.84u RP=0.06 RLO=9.5m RHI=9.5m DT=200n
+
+Vp_phigh p_phigh 0 12.6
+Vs_phigh s_phigh 0 22.8
+Xphigh p_phigh 0 s_phigh 0 DAB D=-0.12 NSEC=2 LK=8u LM=851.84u RP=0.06 RLO=9.5m RHI=9.5m DT=200n
+Vp_plowstart p_plowstart 0 11.4
+Vs_plowstart s_plowstart 0 25.2
+Xplowstart p_plowstart 0 s_plowstart 0 DAB D=0.06 NSEC=2 LK=8u LM=851.84u RP=0.06 RLO=9.5m RHI=9.5m DT=200n
+
+Vp_phighstart p_phighstart 0 12.6
+Vs_phighstart s_phighstart 0 22.8
+Xphighstart p_phighstart 0 s_phighstart 0 DAB D=-0.06 NSEC=2 LK=8u LM=851.84u RP=0.06 RLO=9.5m RHI=9.5m DT=200n
+
+.tran 100n 4m 0 100n
+.meas tran forward_bus AVG i(Vs_forward) from=3.6m to=4m
+.meas tran forward_max MAX i(l.xforward.ltransfer) from=3.6m to=4m
+.meas tran forward_min MIN i(l.xforward.ltransfer) from=3.6m to=4m
+.meas tran forward_startmax MAX i(l.xforward.ltransfer) from=0 to=3.6m
+.meas tran forward_startmin MIN i(l.xforward.ltransfer) from=0 to=3.6m
+
+.meas tran reverse_bus AVG i(Vs_reverse) from=3.6m to=4m
+.meas tran reverse_max MAX i(l.xreverse.ltransfer) from=3.6m to=4m
+.meas tran reverse_min MIN i(l.xreverse.ltransfer) from=3.6m to=4m
+.meas tran reverse_startmax MAX i(l.xreverse.ltransfer) from=0 to=3.6m
+.meas tran reverse_startmin MIN i(l.xreverse.ltransfer) from=0 to=3.6m
+
+.meas tran plow_bus AVG i(Vs_plow) from=3.6m to=4m
+.meas tran plow_max MAX i(l.xplow.ltransfer) from=3.6m to=4m
+.meas tran plow_min MIN i(l.xplow.ltransfer) from=3.6m to=4m
+.meas tran plow_startmax MAX i(l.xplow.ltransfer) from=0 to=3.6m
+.meas tran plow_startmin MIN i(l.xplow.ltransfer) from=0 to=3.6m
+
+.meas tran phigh_bus AVG i(Vs_phigh) from=3.6m to=4m
+.meas tran phigh_max MAX i(l.xphigh.ltransfer) from=3.6m to=4m
+.meas tran phigh_min MIN i(l.xphigh.ltransfer) from=3.6m to=4m
+.meas tran phigh_startmax MAX i(l.xphigh.ltransfer) from=0 to=3.6m
+.meas tran phigh_startmin MIN i(l.xphigh.ltransfer) from=0 to=3.6m
+.meas tran plowstart_startmax MAX i(l.xplowstart.ltransfer) from=0 to=3.6m
+.meas tran plowstart_startmin MIN i(l.xplowstart.ltransfer) from=0 to=3.6m
+.meas tran phighstart_startmax MAX i(l.xphighstart.ltransfer) from=0 to=3.6m
+.meas tran phighstart_startmin MIN i(l.xphighstart.ltransfer) from=0 to=3.6m
+.end

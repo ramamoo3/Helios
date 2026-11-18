@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="930" viewBox="0 0 230 148"><title>Bench terminals and DC decoupling</title><rect width="230" height="148" fill="white"/>
+<polyline fill="none" points="52,44.5 58,44.5" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="52,49.5 58,49.5" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="52,74.5 58,74.5" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="52,79.5 58,79.5" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="105,46.5 99,46.5" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="105,51.5 99,51.5" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="135,46.5 141,46.5" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="135,51.5 141,51.5" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="134,85 140,85" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="134,90 140,90" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="134,95 140,95" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="134,100 140,100" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="134,105 140,105" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="134,110 140,110" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="134,115 140,115" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="134,120 140,120" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="134,125 140,125" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="30,100 30,105" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="30,111 30,117" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="56,100 56,105" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="56,111 56,117" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="185,49 185,54" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="185,60 185,66" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="185,92 185,97" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="185,103 185,109" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="26,41 48,41 48,53 26,53 26,41" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="52,44.5 48,44.5" stroke="#25384b" stroke-width="0.24"/>
+<text x="47.3" y="44.9" fill="#203b50" font-size="1.1" text-anchor="end" font-family="Segoe UI,Arial,sans-serif">+</text>
+<text x="50" y="44.1" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">1</text>
+<polyline fill="none" points="52,49.5 48,49.5" stroke="#25384b" stroke-width="0.24"/>
+<text x="47.3" y="49.9" fill="#203b50" font-size="1.1" text-anchor="end" font-family="Segoe UI,Arial,sans-serif">-</text>
+<text x="50" y="49.1" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">2</text>
+<text x="26" y="34" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">J3</text>
+<text x="26" y="35.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">BenchDC</text>
+<polyline fill="none" points="26,71 48,71 48,83 26,83 26,71" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="52,74.5 48,74.5" stroke="#25384b" stroke-width="0.24"/>
+<text x="47.3" y="74.9" fill="#203b50" font-size="1.1" text-anchor="end" font-family="Segoe UI,Arial,sans-serif">+</text>
+<text x="50" y="74.1" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">1</text>
+<polyline fill="none" points="52,79.5 48,79.5" stroke="#25384b" stroke-width="0.24"/>
+<text x="47.3" y="79.9" fill="#203b50" font-size="1.1" text-anchor="end" font-family="Segoe UI,Arial,sans-serif">-</text>
+<text x="50" y="79.1" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">2</text>
+<text x="26" y="64" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">J4</text>
+<text x="26" y="65.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">BenchDC</text>
+<polyline fill="none" points="109,43 131,43 131,55 109,55 109,43" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="105,46.5 109,46.5" stroke="#25384b" stroke-width="0.24"/>
+<text x="109.7" y="46.9" fill="#203b50" font-size="1.1" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">FORCE+</text>
+<text x="107" y="46.1" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">1</text>
+<polyline fill="none" points="105,51.5 109,51.5" stroke="#25384b" stroke-width="0.24"/>
+<text x="109.7" y="51.9" fill="#203b50" font-size="1.1" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">SENSE+</text>
+<text x="107" y="51.1" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">2</text>
+<polyline fill="none" points="135,46.5 131,46.5" stroke="#25384b" stroke-width="0.24"/>
+<text x="130.3" y="46.9" fill="#203b50" font-size="1.1" text-anchor="end" font-family="Segoe UI,Arial,sans-serif">FORCE-</text>
+<text x="133" y="46.1" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">4</text>
+<polyline fill="none" points="135,51.5 131,51.5" stroke="#25384b" stroke-width="0.24"/>
+<text x="130.3" y="51.9" fill="#203b50" font-size="1.1" text-anchor="end" font-family="Segoe UI,Arial,sans-serif">SENSE-</text>
+<text x="133" y="51.1" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">3</text>
+<text x="109" y="36" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">R30</text>
+<text x="109" y="37.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">BenchShunt4</text>
+<polyline fill="none" points="108,81.5 130,81.5 130,128.5 108,128.5 108,81.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="134,85 130,85" stroke="#25384b" stroke-width="0.24"/>
+<text x="129.3" y="85.4" fill="#203b50" font-size="1.1" text-anchor="end" font-family="Segoe UI,Arial,sans-serif">P_POS</text>
+<text x="132" y="84.6" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">1</text>
+<polyline fill="none" points="134,90 130,90" stroke="#25384b" stroke-width="0.24"/>
+<text x="129.3" y="90.4" fill="#203b50" font-size="1.1" text-anchor="end" font-family="Segoe UI,Arial,sans-serif">P_NEG</text>
+<text x="132" y="89.6" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">2</text>
+<polyline fill="none" points="134,95 130,95" stroke="#25384b" stroke-width="0.24"/>
+<text x="129.3" y="95.4" fill="#203b50" font-size="1.1" text-anchor="end" font-family="Segoe UI,Arial,sans-serif">S_POS_IN</text>
+<text x="132" y="94.6" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">3</text>
+<polyline fill="none" points="134,100 130,100" stroke="#25384b" stroke-width="0.24"/>
+<text x="129.3" y="100.4" fill="#203b50" font-size="1.1" text-anchor="end" font-family="Segoe UI,Arial,sans-serif">S_NEG_IN</text>
+<text x="132" y="99.6" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">4</text>
+<polyline fill="none" points="134,105 130,105" stroke="#25384b" stroke-width="0.24"/>
+<text x="129.3" y="105.4" fill="#203b50" font-size="1.1" text-anchor="end" font-family="Segoe UI,Arial,sans-serif">RUN</text>
+<text x="132" y="104.6" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">5</text>
+<polyline fill="none" points="134,110 130,110" stroke="#25384b" stroke-width="0.24"/>
+<text x="129.3" y="110.4" fill="#203b50" font-size="1.1" text-anchor="end" font-family="Segoe UI,Arial,sans-serif">ARM</text>
+<text x="132" y="109.6" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">6</text>
+<polyline fill="none" points="134,115 130,115" stroke="#25384b" stroke-width="0.24"/>
+<text x="129.3" y="115.4" fill="#203b50" font-size="1.1" text-anchor="end" font-family="Segoe UI,Arial,sans-serif">I_ADC</text>
+<text x="132" y="114.6" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">7</text>
+<polyline fill="none" points="134,120 130,120" stroke="#25384b" stroke-width="0.24"/>
+<text x="129.3" y="120.4" fill="#203b50" font-size="1.1" text-anchor="end" font-family="Segoe UI,Arial,sans-serif">V_ADC</text>
+<text x="132" y="119.6" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">8</text>
+<polyline fill="none" points="134,125 130,125" stroke="#25384b" stroke-width="0.24"/>
+<text x="129.3" y="125.4" fill="#203b50" font-size="1.1" text-anchor="end" font-family="Segoe UI,Arial,sans-serif">P0</text>
+<text x="132" y="124.6" fill="#486078" font-size="0.95" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif">9</text>
+<text x="108" y="74.5" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">J5</text>
+<text x="108" y="76.2" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">BenchIO</text>
+<polyline fill="none" points="28.2,107.5 31.8,107.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="28.2,108.5 31.8,108.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="30,105 30,107.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="30,111 30,108.5" stroke="#25384b" stroke-width="0.24"/>
+<text x="33" y="108" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">C24</text>
+<text x="33" y="109.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">470u / 25V</text>
+<polyline fill="none" points="54.2,107.5 57.8,107.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="54.2,108.5 57.8,108.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="56,105 56,107.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="56,111 56,108.5" stroke="#25384b" stroke-width="0.24"/>
+<text x="59" y="108" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">C25</text>
+<text x="59" y="109.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">2200u / 50V</text>
+<polyline fill="none" points="183.2,56.5 186.8,56.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="183.2,57.5 186.8,57.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="185,54 185,56.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="185,60 185,57.5" stroke="#25384b" stroke-width="0.24"/>
+<text x="188" y="57" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">C26</text>
+<text x="188" y="58.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">1u / 25V</text>
+<polyline fill="none" points="183.2,99.5 186.8,99.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="183.2,100.5 186.8,100.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="185,97 185,99.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="185,103 185,100.5" stroke="#25384b" stroke-width="0.24"/>
+<text x="188" y="100" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">C27</text>
+<text x="188" y="101.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">1u / 50V</text>
+<text x="58" y="44.05" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">PACK12</text>
+<text x="58" y="49.05" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">P0</text>
+<text x="58" y="74.05" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">LINK24</text>
+<text x="58" y="79.05" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">S0</text>
+<text x="99" y="46.05" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">PACK12</text>
+<text x="99" y="51.05" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">KP</text>
+<text x="141" y="46.05" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">PRIMARY12</text>
+<text x="141" y="51.05" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">KN</text>
+<text x="140" y="84.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">P_POS</text>
+<text x="140" y="89.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">P_NEG</text>
+<text x="140" y="94.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">S_POS_IN</text>
+<text x="140" y="99.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">S_NEG_IN</text>
+<text x="140" y="104.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">RUN</text>
+<text x="140" y="109.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">ARM</text>
+<text x="140" y="114.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">I_ADC</text>
+<text x="140" y="119.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">V_ADC</text>
+<text x="140" y="124.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">P0</text>
+<text x="30" y="99.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">PRIMARY12</text>
+<text x="30" y="116.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">P0</text>
+<text x="56" y="99.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">LINK24</text>
+<text x="56" y="116.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">S0</text>
+<text x="185" y="48.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">PRIMARY12</text>
+<text x="185" y="65.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">P0</text>
+<text x="185" y="91.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">LINK24</text>
+<text x="185" y="108.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">S0</text>
+<text x="8" y="14.35" fill="#16364f" font-size="2.5795275590551174" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">12 V / 24 V bench connections</text>
+<text x="8" y="23.35" fill="#42566a" font-size="1.4992125984251967" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Both power supplies must tolerate return power or an independent sink must absorb it.</text>
+<text x="8" y="136.35" fill="#42566a" font-size="1.3921259842519687" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">R30 is a 0.5 milliohm four-terminal shunt. Confirm the pin assignment on the selected part.</text>
+</svg>

@@ -1,0 +1,23 @@
+Helios port interlock, injected peak current and bias faults
+.include trip.lib
+* Healthy bias at startup. Drop bias during operation at 22 us.
+Vbias bias 0 PWL(0 0 0.1u 1 22u 1 22.01u 0 23u 0 23.01u 1)
+Vcurrent cur 0 PWL(0 0 4u 110.7 5u 110.7 5.01u 135 7u 135 7.01u 0
++ 14u 0 14.01u -135 16u -135 16.01u 0)
+Varm arm 0 PWL(0 0 2u 0 2.01u 1 2.5u 1 2.51u 0
++ 8u 0 8.01u 1 8.5u 1 8.51u 0 10u 0 10.01u 1 10.5u 1 10.51u 0
++ 15u 0 15.01u 1 18u 1 18.01u 0 19u 0 19.01u 1 19.5u 1 19.51u 0)
+Vrun run 0 PWL(0 1 1u 1 1.01u 0 3u 0 3.01u 1
++ 9u 1 9.01u 0 11u 0 11.01u 1 14.5u 1 14.51u 0
++ 16.5u 0 16.51u 1 18.5u 1 18.51u 0 20u 0 20.01u 1)
+Xtrip cur bias arm run permit 0 PORT_TRIP
+.tran 5n 25u
+.meas tran initial_block MAX v(permit) from=0.2u to=0.95u
+.meas tran normal_peak MIN v(permit) from=3.5u to=4.99u
+.meas tran positive_trip MAX v(permit) from=5.03u to=9.99u
+.meas tran rearmed MIN v(permit) from=11.1u to=13.99u
+.meas tran negative_trip MAX v(permit) from=14.03u to=14.49u
+.meas tran held_arm_block MAX v(permit) from=16.6u to=18.45u
+.meas tran second_rearm MIN v(permit) from=20.1u to=21.99u
+.meas tran bias_trip MAX v(permit) from=22.03u to=24.9u
+.end

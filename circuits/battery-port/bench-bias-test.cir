@@ -1,0 +1,51 @@
+Helios bench startup, independent rail faults and latch recovery
+.include protection.lib
+* Two local bias domains. All voltages in this logic-only deck are referred
+* to simulation ground. The isolation boundary is checked in the schematic.
+.subckt BENCH_BIAS RAW LOGIC_LIMIT DRIVE LOGIC OK
+* Nominal transfer, illustrative headroom. LOGIC_LIMIT injects a local brownout.
+Bdrive DRIVE 0 V={max(0,min(1.193*(1+73.2/10),v(RAW)-0.4))}
+Blogic LOGIC 0 V={max(0,min(v(LOGIC_LIMIT),min(3.3,v(DRIVE)-0.2)))}
+* Approximate TPS7A16 PG at 90% nominal for this functional stimulus.
+* G33 nominal SENSE threshold; open CT nominal reset hold is 20 ms.
+Binvalid invalid 0 V={(v(DRIVE)<8.93 || v(LOGIC)<3.07) ? 1 : 0}
+Sreset timer 0 invalid 0 reset_switch
+.model reset_switch SW(Ron=5 Roff=1e14 Vt=0.5 Vh=0.05)
+Vone one 0 1
+Rtimer one timer 28.854Meg
+Ctimer timer 0 1n IC=0
+Bopen sink 0 V={(v(invalid)>0.5 || v(timer)<0.5) ? 1 : 0}
+Sout OK 0 sink 0 reset_switch
+Rpull LOGIC OK 10k
+Rbleed OK 0 100k
+.ends BENCH_BIAS
+Vp rawp 0 PWL(0 0 1m 12 35m 12 35.1m 7 40m 7 40.1m 12)
+Vs raws 0 PWL(0 0 6m 0 7m 24)
+Vpl pl 0 3.3
+Vsl sl 0 PWL(0 3.3 72m 3.3 72.1m 2.8 76m 2.8 76.1m 3.3)
+Xp rawp pl pdrive plog pok BENCH_BIAS
+Xs raws sl sdrive slog sok BENCH_BIAS
+Vcur cur 0 0
+Varm arm 0 PWL(0 0 4m 0 4.01m 3.3 5m 3.3 5.01m 0 30m 0 30.01m 3.3 31m 3.3 31.01m 0
++ 65m 0 65.01m 3.3 66m 3.3 66.01m 0 101m 0 101.01m 3.3 102m 3.3 102.01m 0)
+Vrun run 0 PWL(0 0 8m 0 8.01m 3.3 29m 3.3 29.01m 0 32m 0 32.01m 3.3
++ 64m 3.3 64.01m 0 67m 0 67.01m 3.3 100m 3.3 100.01m 0 103m 0 103.01m 3.3)
+Xlatch cur pok sok arm run enp isol_permit sense BENCH_PROTECT
+Bsec ens 0 V={v(slog)*(v(isol_permit)>1.65 && v(sok)>1.65)}
+Bany any_en 0 V={max(v(ens),v(enp))}
+Bboth both_en 0 V={min(v(ens),v(enp))}
+.tran 15u 106m
+.meas tran pdrive_on FIND v(pdrive) AT=34m
+.meas tran ok_high FIND v(pok) AT=34m
+.meas tran late_supply MAX v(sok) from=9m to=25m
+.meas tran premature_arm MAX v(any_en) from=9m to=28m
+.meas tran running MIN v(both_en) from=33m to=34m
+.meas tran gate_rail_trip MAX v(any_en) from=36m to=63m
+.meas tran logic_survives MIN v(plog) from=36m to=39m
+.meas tran gate_recover_hold MAX v(pok) from=41m to=59m
+.meas tran next_run MIN v(both_en) from=68m to=71m
+.meas tran logic_rail_trip MAX v(any_en) from=73m to=99m
+.meas tran gate_survives MIN v(sdrive) from=73m to=75m
+.meas tran logic_recover_hold MAX v(sok) from=77m to=95m
+.meas tran final_run MIN v(both_en) from=104m to=105m
+.end

@@ -1,0 +1,17 @@
+Helios battery port sensing sheet - bidirectional calibration and filter steps
+.include sense.lib
+Vrail rail 0 3.3
+Vpack pk 0 PWL(0 40 1m 40 1.001m 51.2 2m 51.2 2.001m 60 3m 60)
+* Ideal external four-terminal shunt: force current bypasses the sensing board.
+Rshunt pk load 0.5m
+Iload load 0 PWL(0 -75 1m -75 1.001m 0 2m 0 2.001m 75 3m 75)
+Xsense pk pk load 0 rail iadc vadc PORT_SENSE
+.tran 1u 3m
+.meas tran voltage_40 FIND v(vadc) AT=0.9m
+.meas tran voltage_nom FIND v(vadc) AT=1.9m
+.meas tran voltage_60 FIND v(vadc) AT=2.9m
+.meas tran current_minus75 FIND v(iadc) AT=0.9m
+.meas tran current_zero FIND v(iadc) AT=1.9m
+.meas tran current_plus75 FIND v(iadc) AT=2.9m
+.meas tran vfilter_mid FIND v(vadc) AT=2.055m
+.end

@@ -1,0 +1,13 @@
+Helios battery port - current stress at low pack voltage and increased shift
+.include dab.lib
+.options method=gear reltol=0.0005 abstol=1n
+Vpack pk 0 40
+Vlink link 0 700
+Xboost pk 0 link 0 DAB D=0.285
+.tran 50n 3m 0 50n
+.meas tran boost_link_i AVG i(Vlink) from=2.6m to=3m
+.meas tran boost_pack_i AVG i(Vpack) from=2.6m to=3m
+.meas tran boost_transfer_rms RMS i(l.xboost.ltransfer) from=2.6m to=3m
+.meas tran boost_transfer_max MAX i(l.xboost.ltransfer) from=2.6m to=3m
+.meas tran boost_transfer_min MIN i(l.xboost.ltransfer) from=2.6m to=3m
+.end

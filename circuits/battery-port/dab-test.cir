@@ -1,0 +1,46 @@
+Helios Rev A battery port - switched converter, open-loop operating points
+.include dab.lib
+.options method=gear reltol=0.0005 abstol=1n
+
+* Bench-scale model, two independent cases. Nominal rails 12 V and 24 V.
+Vbsmall1 p1 0 12
+Vlsmall1 h1 0 24
+Xsmall1 p1 0 h1 0 DAB D=0.20 NSEC=2 LK=10u LM=1m RP=20m RHI=3m
+Vbsmall2 p2 0 12
+Vlsmall2 h2 0 24
+Xsmall2 p2 0 h2 0 DAB D=-0.20 NSEC=2 LK=10u LM=1m RP=20m RHI=3m
+
+* Candidate full-scale model. Link voltage and magnetics remain study variables.
+Vbfull1 p3 0 51.2
+Vlfull1 h3 0 700
+Xfull1 p3 0 h3 0 DAB D=0.20
+Vbfull2 p4 0 51.2
+Vlfull2 h4 0 700
+Xfull2 p4 0 h4 0 DAB D=-0.20
+* Equal referred voltages: zero-command leakage / magnetizing baseline.
+Vbzero p5 0 50
+Vlzero h5 0 700
+Xzero p5 0 h5 0 DAB D=0
+* Same positive shift at pack voltage extremes to quantify current stress.
+Vblow p6 0 40
+Vllow h6 0 700
+Xlow p6 0 h6 0 DAB D=0.20
+Vbhigh p7 0 60
+Vlhigh h7 0 700
+Xhigh p7 0 h7 0 DAB D=0.20
+
+* 20 switching periods per measurement window. Currents into the DC-link
+* sources are positive on discharge. Currents into the pack are positive on charge.
+.tran 100n 3m 0 100n
+.meas tran small_discharge_i AVG i(Vlsmall1) from=2.6m to=3m
+.meas tran small_charge_i AVG i(Vlsmall2) from=2.6m to=3m
+.meas tran full_discharge_i AVG i(Vlfull1) from=2.6m to=3m
+.meas tran full_charge_i AVG i(Vlfull2) from=2.6m to=3m
+.meas tran battery_discharge_i AVG i(Vbfull1) from=2.6m to=3m
+.meas tran battery_charge_i AVG i(Vbfull2) from=2.6m to=3m
+.meas tran zero_link_i AVG i(Vlzero) from=2.6m to=3m
+.meas tran low_link_i AVG i(Vllow) from=2.6m to=3m
+.meas tran high_link_i AVG i(Vlhigh) from=2.6m to=3m
+.meas tran low_transfer_rms RMS i(l.xlow.ltransfer) from=2.6m to=3m
+.meas tran high_transfer_rms RMS i(l.xhigh.ltransfer) from=2.6m to=3m
+.end

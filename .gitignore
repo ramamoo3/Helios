@@ -1,0 +1,7 @@
+*.kicad_prl
+*.lck
+~*.lck
+*-backups/
+fp-info-cache
+__pycache__/
+bench-erc.rpt

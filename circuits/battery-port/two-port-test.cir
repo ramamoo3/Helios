@@ -1,0 +1,20 @@
+Helios two scaled battery ports on a finite DC link, single-port inhibit
+.include dab.lib
+.options method=gear reltol=0.0005 abstol=1n
+VpackA pa 0 12
+VpackB pb 0 11
+XportA pa 0 ha 0 DAB D=0.20 NSEC=2 LK=10u LM=1m RP=20m RHI=3m
+XportB pb 0 hb 0 DAB D=0.14 NSEC=2 LK=10u LM=1m RP=20m RHI=3m STOP=2m
+VmA ha link 0
+VmB hb link 0
+Clink link 0 2200u
+.ic v(link)=24
+Iload link 0 1.45
+.tran 75n 4m 0 75n uic
+.meas tran a_before AVG i(VmA) from=1.6m to=2m
+.meas tran b_before AVG i(VmB) from=1.6m to=2m
+.meas tran a_after AVG i(VmA) from=3.6m to=4m
+.meas tran b_after AVG i(VmB) from=3.6m to=4m
+.meas tran bus_before AVG v(link) from=1.6m to=2m
+.meas tran bus_after AVG v(link) from=3.6m to=4m
+.end

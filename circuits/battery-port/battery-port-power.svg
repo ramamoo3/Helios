@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="930" viewBox="0 0 230 148"><title>Helios battery port | isolated power transfer study</title><rect width="230" height="148" fill="white"/>
+<polyline fill="none" points="11,40 27,40" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="27,40 60,40" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="11,104 27,104" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="27,104 60,104" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="27,40 27,49" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="27,61 27,71" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="27,71 27,82" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="27,94 27,104" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="27,71 37,71" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="10,56 21,56" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="10,89 21,89" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="60,40 60,49" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="60,61 60,71" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="60,71 60,82" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="60,94 60,104" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="60,71 70,71" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="43,56 54,56" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="43,89 54,89" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="150,40 166,40" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="166,40 199,40" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="150,104 166,104" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="166,104 199,104" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="166,40 166,49" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="166,61 166,71" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="166,71 166,82" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="166,94 166,104" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="166,71 176,71" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="149,56 160,56" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="149,89 160,89" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="199,40 199,49" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="199,61 199,71" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="199,71 199,82" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="199,94 199,104" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="199,71 209,71" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="182,56 193,56" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="182,89 193,89" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="84,58 93,58" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="105,58 113,58" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="113,58 113,64" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="121,58 121,64" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="121,58 136,58" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="113,82 97,82" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="121,82 136,82" stroke="#15735b" stroke-width="0.24"/>
+<polyline fill="none" points="27,51 27,53 28.6,53" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="28.6,52 28.6,58" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="27,59 27,57 28.6,57" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="24,56 26,56" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="26,52.4 26,57.6" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="27,51.6 30.7,51.6 30.7,54.3" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="27,58.4 30.7,58.4 30.7,55.7" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="29.8,55.7 31.6,55.7 30.7,54.35 29.8,55.7" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="29.8,54.3 31.6,54.3" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="21,56 24,56" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="27,49 27,51" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="27,61 27,59" stroke="#25384b" stroke-width="0.24"/>
+<text x="32" y="52" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Q1</text>
+<text x="32" y="53.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">N-MOS</text>
+<polyline fill="none" points="27,84 27,86 28.6,86" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="28.6,85 28.6,91" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="27,92 27,90 28.6,90" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="24,89 26,89" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="26,85.4 26,90.6" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="27,84.6 30.7,84.6 30.7,87.3" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="27,91.4 30.7,91.4 30.7,88.7" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="29.8,88.7 31.6,88.7 30.7,87.35 29.8,88.7" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="29.8,87.3 31.6,87.3" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="21,89 24,89" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="27,82 27,84" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="27,94 27,92" stroke="#25384b" stroke-width="0.24"/>
+<text x="32" y="85" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Q2</text>
+<text x="32" y="86.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">N-MOS</text>
+<polyline fill="none" points="60,51 60,53 61.6,53" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="61.6,52 61.6,58" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="60,59 60,57 61.6,57" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="57,56 59,56" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="59,52.4 59,57.6" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="60,51.6 63.7,51.6 63.7,54.3" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="60,58.4 63.7,58.4 63.7,55.7" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="62.8,55.7 64.6,55.7 63.7,54.35 62.8,55.7" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="62.8,54.3 64.6,54.3" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="54,56 57,56" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="60,49 60,51" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="60,61 60,59" stroke="#25384b" stroke-width="0.24"/>
+<text x="65" y="52" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Q3</text>
+<text x="65" y="53.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">N-MOS</text>
+<polyline fill="none" points="60,84 60,86 61.6,86" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="61.6,85 61.6,91" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="60,92 60,90 61.6,90" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="57,89 59,89" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="59,85.4 59,90.6" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="60,84.6 63.7,84.6 63.7,87.3" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="60,91.4 63.7,91.4 63.7,88.7" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="62.8,88.7 64.6,88.7 63.7,87.35 62.8,88.7" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="62.8,87.3 64.6,87.3" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="54,89 57,89" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="60,82 60,84" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="60,94 60,92" stroke="#25384b" stroke-width="0.24"/>
+<text x="65" y="85" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Q4</text>
+<text x="65" y="86.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">N-MOS</text>
+<polyline fill="none" points="166,51 166,53 167.6,53" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="167.6,52 167.6,58" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="166,59 166,57 167.6,57" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="163,56 165,56" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="165,52.4 165,57.6" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="166,51.6 169.7,51.6 169.7,54.3" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="166,58.4 169.7,58.4 169.7,55.7" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="168.8,55.7 170.6,55.7 169.7,54.35 168.8,55.7" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="168.8,54.3 170.6,54.3" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="160,56 163,56" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="166,49 166,51" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="166,61 166,59" stroke="#25384b" stroke-width="0.24"/>
+<text x="171" y="52" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Q5</text>
+<text x="171" y="53.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">N-MOS</text>
+<polyline fill="none" points="166,84 166,86 167.6,86" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="167.6,85 167.6,91" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="166,92 166,90 167.6,90" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="163,89 165,89" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="165,85.4 165,90.6" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="166,84.6 169.7,84.6 169.7,87.3" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="166,91.4 169.7,91.4 169.7,88.7" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="168.8,88.7 170.6,88.7 169.7,87.35 168.8,88.7" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="168.8,87.3 170.6,87.3" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="160,89 163,89" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="166,82 166,84" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="166,94 166,92" stroke="#25384b" stroke-width="0.24"/>
+<text x="171" y="85" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Q6</text>
+<text x="171" y="86.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">N-MOS</text>
+<polyline fill="none" points="199,51 199,53 200.6,53" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="200.6,52 200.6,58" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="199,59 199,57 200.6,57" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="196,56 198,56" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="198,52.4 198,57.6" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="199,51.6 202.7,51.6 202.7,54.3" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="199,58.4 202.7,58.4 202.7,55.7" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="201.8,55.7 203.6,55.7 202.7,54.35 201.8,55.7" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="201.8,54.3 203.6,54.3" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="193,56 196,56" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="199,49 199,51" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="199,61 199,59" stroke="#25384b" stroke-width="0.24"/>
+<text x="204" y="52" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Q7</text>
+<text x="204" y="53.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">N-MOS</text>
+<polyline fill="none" points="199,84 199,86 200.6,86" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="200.6,85 200.6,91" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="199,92 199,90 200.6,90" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="196,89 198,89" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="198,85.4 198,90.6" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="199,84.6 202.7,84.6 202.7,87.3" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="199,91.4 202.7,91.4 202.7,88.7" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="201.8,88.7 203.6,88.7 202.7,87.35 201.8,88.7" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="201.8,87.3 203.6,87.3" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="193,89 196,89" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="199,82 199,84" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="199,94 199,92" stroke="#25384b" stroke-width="0.24"/>
+<text x="204" y="85" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Q8</text>
+<text x="204" y="86.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">N-MOS</text>
+<polyline fill="none" points="95,58 95.5,57 96.5,57 97,58 97.5,57 98.5,57 99,58 99.5,57 100.5,57 101,58 101.5,57 102.5,57 103,58" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="93,58 95,58" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="105,58 103,58" stroke="#25384b" stroke-width="0.24"/>
+<text x="91" y="51" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">L1</text>
+<text x="91" y="52.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">1.5 uH effective</text>
+<polyline fill="none" points="113,67 113,68 114.5,69 114.5,70.2 113,71 114.5,71.8 114.5,73.3 113,74 114.5,75 114.5,76.5 113,77.5 113,79" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="121,67 121,68 119.5,69 119.5,70.2 121,71 119.5,71.8 119.5,73.3 121,74 119.5,75 119.5,76.5 121,77.5 121,79" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="116.5,67.5 116.5,78.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="117.5,67.5 117.5,78.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="113.9,67.5 114.4,67.5 114.4,68 113.9,68 113.9,67.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="119.6,67.5 120.1,67.5 120.1,68 119.6,68 119.6,67.5" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="113,64 113,67" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="113,82 113,79" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="121,64 121,67" stroke="#25384b" stroke-width="0.24"/>
+<polyline fill="none" points="121,82 121,79" stroke="#25384b" stroke-width="0.24"/>
+<text x="112" y="85" fill="#172e44" font-size="1.32" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">T1</text>
+<text x="112" y="86.7" fill="#172e44" font-size="1.15" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">1:14 study</text>
+<text x="11" y="39.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">PACK_SW_P</text>
+<text x="11" y="103.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">PACK_0</text>
+<text x="37" y="70.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">PRI_A</text>
+<text x="10" y="55.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">G1</text>
+<text x="10" y="88.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">G2</text>
+<text x="70" y="70.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">PRI_B</text>
+<text x="43" y="55.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">G3</text>
+<text x="43" y="88.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">G4</text>
+<text x="150" y="39.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">LINK_P</text>
+<text x="150" y="103.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">LINK_N</text>
+<text x="176" y="70.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">SEC_A</text>
+<text x="149" y="55.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">G5</text>
+<text x="149" y="88.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">G6</text>
+<text x="209" y="70.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">SEC_B</text>
+<text x="182" y="55.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">G7</text>
+<text x="182" y="88.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">G8</text>
+<text x="84" y="57.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">PRI_A</text>
+<text x="136" y="57.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">SEC_A</text>
+<text x="97" y="81.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">PRI_B</text>
+<text x="136" y="81.55" fill="#11563f" font-size="1.22" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">SEC_B</text>
+<circle cx="27" cy="40" r=".4" fill="#15735b"/>
+<circle cx="27" cy="104" r=".4" fill="#15735b"/>
+<circle cx="27" cy="71" r=".4" fill="#15735b"/>
+<circle cx="60" cy="71" r=".4" fill="#15735b"/>
+<circle cx="166" cy="40" r=".4" fill="#15735b"/>
+<circle cx="166" cy="104" r=".4" fill="#15735b"/>
+<circle cx="166" cy="71" r=".4" fill="#15735b"/>
+<circle cx="199" cy="71" r=".4" fill="#15735b"/>
+<text x="9" y="10.35" fill="#42566a" font-size="1.7133858267716537" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">PROJECT HELIOS   /   BASE UNIT</text>
+<text x="9" y="15.35" fill="#16364f" font-size="2.948031496062992" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">One bidirectional battery power channel</text>
+<text x="9" y="20.35" fill="#42566a" font-size="1.3385826771653544" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Rev A   |   Dual active bridge   |   Power-path study for simulation</text>
+<text x="9" y="31.35" fill="#16364f" font-size="1.84251968503937" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Battery bridge</text>
+<text x="85" y="31.35" fill="#16364f" font-size="1.84251968503937" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Transfer magnetics</text>
+<text x="148" y="31.35" fill="#16364f" font-size="1.84251968503937" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">DC-link bridge</text>
+<text x="9" y="114.35" fill="#42566a" font-size="1.3385826771653544" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Pack model: 40-60 V; nominal 51.2 V.</text>
+<text x="9" y="118.35" fill="#42566a" font-size="1.3385826771653544" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Positive transfer: battery to common link.</text>
+<text x="9" y="122.35" fill="#42566a" font-size="1.3385826771653544" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Bus isolation and precharge precede enable.</text>
+<text x="83" y="114.35" fill="#42566a" font-size="1.3385826771653544" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">50 kHz; phase shift sets direction and power.</text>
+<text x="83" y="118.35" fill="#42566a" font-size="1.3385826771653544" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Dots mark corresponding winding polarity.</text>
+<text x="83" y="122.35" fill="#42566a" font-size="1.3385826771653544" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">180 uH primary magnetizing inductance in model.</text>
+<text x="152" y="114.35" fill="#42566a" font-size="1.3385826771653544" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">700 V study point. Generic switches only.</text>
+<text x="152" y="118.35" fill="#42566a" font-size="1.3385826771653544" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Each gate requires a source-referenced driver.</text>
+<text x="152" y="122.35" fill="#42566a" font-size="1.3385826771653544" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Link capacitors and faults need separate design.</text>
+<text x="9" y="133.35" fill="#42566a" font-size="1.3385826771653544" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">Simulation boundary: stiff DC rails. No physical gate drives, fusing, isolation coordination or switching-device selection on this sheet.</text>
+<text x="9" y="141.35" fill="#42566a" font-size="1.3385826771653544" text-anchor="start" font-family="Segoe UI,Arial,sans-serif">POWER CIRCUIT STUDY   /   Not released for fabrication or energization</text>
+</svg>

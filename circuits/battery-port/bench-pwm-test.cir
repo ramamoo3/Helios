@@ -1,0 +1,25 @@
+Helios complementary timing distribution and local secondary veto, 50 kHz
+* Positive and negative commands originate at the external bench controller.
+* 200 ns edge spacing is a fixture stimulus. Channel RCs stand in for unequal delays.
+Vp pos 0 PULSE(0 3.3 1u 3n 3n 9.797u 20u)
+Vn neg 0 PULSE(0 3.3 11u 3n 3n 9.797u 20u)
+Rpos pos a 17
+Rneg neg b 31
+Ca a 0 1n
+Cb b 0 1n
+Vpermit permit 0 3.3
+Vok ok 0 PWL(0 3.3 26u 3.3 26.005u 0)
+Ballow allow 0 V={3.3*(v(permit)>1.65 && v(ok)>1.65)}
+Bdiag1 d1 0 V={3.3*(v(a)>1.65 && v(allow)>1.65)}
+Bdiag2 d2 0 V={3.3*(v(b)>1.65 && v(allow)>1.65)}
+Bsameleg overlap 0 V={min(v(d1),v(d2))}
+Bany any_pwm 0 V={max(v(d1),v(d2))}
+.tran 3n 42u
+.meas tran diag1 MIN v(d1) from=3u to=9u
+.meas tran diag2 MIN v(d2) from=13u to=19u
+.meas tran overlap_peak MAX v(overlap) from=0.5u to=41u
+.meas tran gap_ab TRIG v(d1) VAL=1.65 FALL=1 TARG v(d2) VAL=1.65 RISE=1
+.meas tran gap_ba TRIG v(d2) VAL=1.65 FALL=1 TARG v(d1) VAL=1.65 RISE=2
+.meas tran command_still_high MIN v(permit) from=27u to=41u
+.meas tran local_veto MAX v(any_pwm) from=27u to=41u
+.end
