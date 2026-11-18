@@ -6,6 +6,7 @@ import math
 import re
 import subprocess
 import xml.etree.ElementTree as ET
+from startup_test import check_startup
 
 ROOT = Path(__file__).resolve().parent
 SENSE = """
@@ -453,6 +454,7 @@ def check_simulations(executable):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ngspice", default="ngspice", help="path to batch simulator")
+    parser.add_argument("--cc", default="cc", help="C99 compiler (cc, gcc, clang or zig)")
     parser.add_argument("--schematics-only", action="store_true")
     args = parser.parse_args()
     check_sheet("sense", SENSE)
@@ -467,4 +469,5 @@ if __name__ == "__main__":
     check_sheet("bench-power", POWER.replace("L1.2 T1.1", "CT_OUTBOUND L1.2\nCT_RETURN T1.1"))
     check_bench_hierarchy()
     if not args.schematics_only:
+        check_startup(args.cc, args.ngspice, run_spice)
         check_simulations(args.ngspice)

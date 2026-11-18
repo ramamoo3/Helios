@@ -73,16 +73,16 @@ The behavioral startup test delays the 24 V source, lowers primary bias while 3.
 
 Open the bench project with the adjacent Helios symbol library and standard KiCad footprints. Its electrical connection grid is 25 mil. J3 and J4 represent independent external sources and the BOOT flag on each driver represents the supply fed through its internal bootstrap diode. Use independently isolated bench ports and account for any ground connections through instruments or controller cables when evaluating the isolation barrier.
 
-Run the following from this directory with Python 3 and an XSPICE-enabled build of ngspice. The Python check compares each sheet's pin connections with the expected nets, follows the parent wires and child ports, checks instance annotations and tests numerical results from ten simulation decks. The final command runs KiCad's native electrical-rules check on the same hierarchy.
+Run the following from this directory with Python 3, a C99 host compiler and an XSPICE-enabled build of ngspice. The Python check compares each sheet's pin connections with the expected nets, follows the parent wires and child ports, checks instance annotations and tests numerical results from ten simulation decks. It also compiles the portable C startup controller and drives the converter from its actual timer compare values across 12 startup conditions. The final command runs KiCad's native electrical-rules check on the same hierarchy.
 
 ```sh
 python verify.py
-python verify.py --ngspice /path/to/ngspice
+python verify.py --ngspice /path/to/ngspice --cc /path/to/cc
 python verify.py --schematics-only
 kicad-cli sch erc --exit-code-violations -o bench-erc.rpt battery-port-bench.kicad_sch
 ```
 
-All ten simulations passed with ngspice 47. Ten sheet pin maps passed, and the hierarchy check covered 13 sheet instances, 118 sheet pins and 125 unique component references. KiCad CLI 10.99 nightly exported the assembled netlist and reported zero ERC violations. The pin groupings of all 125 components were compared across the ERC annotation changes, excluding the intentionally unused inverted latch output U5 pin 3. Hardware testing remains outstanding.
+All ten existing decks and the 12-case startup sweep passed with ngspice 47. The sweep includes both power directions at both mismatched rail pairs, with three initial magnetizing currents. [Timing implementation and results](BENCH-PARTS.md#controlled-startup) Ten sheet pin maps passed, and the hierarchy check covered 13 sheet instances, 118 sheet pins and 125 unique component references. KiCad CLI 10.99 nightly exported the assembled netlist and reported zero ERC violations. The pin groupings of all 125 components were compared across the ERC annotation changes, excluding the intentionally unused inverted latch output U5 pin 3. Hardware testing remains outstanding.
 
 ## Next circuit revision
 
