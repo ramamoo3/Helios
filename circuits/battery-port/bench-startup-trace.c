@@ -1,5 +1,6 @@
 /* Host fixture for the same portable scheduler intended for a timer backend. */
 #include "bench-startup.h"
+#include "bench-hrtim.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,9 +25,41 @@ static void check_interlocks(void)
     assert(!bench_next_frame(&state, true, true, 30, &frame));
 }
 
+static void check_hrtim(void)
+{
+    bench_hrtim timer = {0};
+    bench_hrtim_frame f;
+    assert(!bench_hrtim_next(&timer, true, true, 120, &f));
+    assert(!bench_hrtim_next(&timer, false, true, 120, &f));
+    assert(!bench_hrtim_next(&timer, true, true, 120, &f));
+    assert(!bench_hrtim_next(&timer, false, false, 120, &f));
+    assert(!bench_hrtim_next(&timer, true, false, 120, &f));
+    for (int i = 0; i < 75; ++i) {
+        assert(bench_hrtim_next(&timer, true, true, 120, &f));
+        int offset = i < 10 ? 60 : (i < 70 ? i + 51 : 120);
+        int previous = offset > 60 && i <= 69 ? offset - 1 : offset;
+        assert(f.primary.cmp4 == 25472 && f.primary.cmp1 == 128);
+        assert(f.secondary.cmp4 == bench_hrtim_counts(previous - 10));
+        assert(f.secondary.cmp1 == bench_hrtim_counts(offset + 10));
+        assert(f.secondary.cmp1 - f.secondary.cmp4 >= 256);
+        assert(f.secondary.cmp3 - f.secondary.cmp2 == 256);
+    }
+    assert(!bench_hrtim_next(&timer, true, false, 120, &f));
+    assert(!bench_hrtim_next(&timer, true, true, 120, &f));
+    assert(f.primary.cmp1 == 0 && f.secondary.cmp4 == 0);
+    assert(!bench_hrtim_next(&timer, false, false, -120, &f));
+    assert(bench_hrtim_next(&timer, true, true, -120, &f));
+    assert(f.primary.cmp4 == 640 && f.secondary.cmp4 == 25472);
+    bench_hrtim_abort(&timer);
+    assert(!bench_hrtim_next(&timer, true, true, -120, &f));
+    assert(!bench_hrtim_next(&timer, false, false, 59, &f));
+    assert(!bench_hrtim_next(&timer, true, true, 59, &f));
+}
+
 int main(int argc, char **argv)
 {
     check_interlocks();
+    check_hrtim();
     if (argc != 3) return 1;
     int target = atoi(argv[1]), frames = atoi(argv[2]);
     bench_startup state = {0};
