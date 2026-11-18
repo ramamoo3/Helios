@@ -2,9 +2,23 @@
 
 The deliverable is one wall-mounted base containing the inverter, solar inputs, import-only utility charger and four independent battery ports, plus one to four matching 5.12 kWh LFP cabinets. The Madurai pilot uses three phases plus neutral. The product family also calls for a single-phase starter. Completion of the pilot and readiness to manufacture have separate acceptance tests.
 
-**Current evidence.** The 12 V / 24 V bench project now connects the bias supplies, supervisors, isolated timing, gate drivers, trip latch, current detector, telemetry, power stage and bench terminals. Native KiCad ERC reported zero violations for the assembled schematic, and all ten existing simulation decks passed. The compiled startup controller also passed 12 simulated starts. Physical shutdown time, closed-loop operation, PCB layouts and full-appliance performance still require verification. [Bench project](circuits/battery-port/battery-port-bench.kicad_pro) · [Circuit results](circuits/battery-port/README.md)
+## Where the project stands
 
-**Section 2 is active.** The ramp peaked at 2.67 A across the simulated starts. The STM32G474 timer compare adapter is host-tested and the bench schematic routes hardware permit to J5 pin 10 for the MCU fault input. Complete the board-specific clock, GPIO and timer setup and capture the four timer outputs with the bridge rails off. Then finish the transformer and inductor footprints and measure gate timing and shutdown in the current-limited fixture. [Component choices and startup results](circuits/battery-port/BENCH-PARTS.md) · [Timer setup and bench capture](circuits/battery-port/BENCH-HRTIM.md)
+| System | Evidence available now | Work before release |
+| --- | --- | --- |
+| 12 V ↔ 24 V bench battery port | Hierarchical KiCad schematic covering both bridges, gate bias and drivers, isolated commands, hardware overcurrent shutdown and telemetry. The controlled ramp peaked at 2.67 A across 12 simulated starts. | Finish PCB parts, placement and routing. Build the current-limited fixture and measure the first cycle, gate dead time and fault shutdown. |
+| Bench controller | STM32G474 charge and discharge firmware images, validated flash entry points and a logic-only test procedure. | Flash a physical Nucleo and scope PWM and fault behavior. Add closed-loop current and DC-link regulation after the open-loop bench converter works. |
+| Bench PCB | 116 of 125 schematic footprints assigned, including the switches, gate drivers, transfer inductor, transformer and current transformer. ERC reports zero violations. | Finish the two bulk capacitors, power and sensing connectors, shunt and adjustable bias regulator footprints. Review transformer fit, isolation, gate loops and return paths on the routed board. |
+| LFP cabinet and full-power battery port | Cabinet concept, independent battery-port architecture and converter models. | Build and characterize the 16S cabinet and BMS, qualify one full-power converter and validate four-port operation on the shared link. |
+| Household base and pilot | Three-phase product architecture, sizing targets and published comparison designs. | Build the PV MPPT, utility charger, three-phase inverter, transfer/bypass and supervisory control. Validate phase balance, starting loads, protection and installation. |
+
+Bench firmware and a PCB layout are separate deliverables. The first fabrication package is for the current-limited 12 V ↔ 24 V prototype. The full-power battery and household boards follow separate electrical and physical reviews. [Bench schematic](circuits/battery-port/battery-port-bench.kicad_pro) · [Controller build and scope procedure](circuits/battery-port/BENCH-HRTIM.md) · [Reference designs and reuse decisions](circuits/REFERENCE-DESIGNS.md)
+
+### First PCB handoff
+
+1. Complete footprint choices and pin-to-pad review, including the ETD29 former fit and winding polarity. Check the Nucleo logic signals and asynchronous fault response before applying bridge power.
+2. Deliver the editable KiCad `.kicad_pcb`, routed and checked against the schematic. Review actual copper clearances, Kelvin sense connections, the isolation boundary, gate-drive loop placement and connector orientation.
+3. Export the fabricator's Gerbers and plated/non-plated drill files. Reopen the exports to check layers, outline, pin 1 and hole sizes. Include an assembly drawing and BOM, plus placement coordinates and paste layers if the board house will populate it. Keep unpowered inspection and current-limited bring-up with the board version.
 
 ## 1. Establish the design inputs
 

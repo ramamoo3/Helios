@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "Helios_Bench")(type "KiCad")(uri "${KIPRJMOD}/Helios_Bench.pretty")(options "")(descr "Project Helios low-voltage bench footprints"))
+)

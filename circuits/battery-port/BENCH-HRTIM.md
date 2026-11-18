@@ -9,10 +9,12 @@ The bench controller target is the NUCLEO-G474RE. It uses timer A for the primar
 | 3 | Secondary positive diagonal command | PA10, HRTIM CHB1, CN10.33 |
 | 4 | Secondary negative diagonal command | PA11, HRTIM CHB2, CN10.14 |
 | 5 | RUN output | PB10, CN10.25 |
-| 6 | ARM output | PB4, CN10.27 |
+| 6 | ARM output | PB5, CN10.29 |
 | 7–8 | Current and voltage telemetry | Available for later ADC integration |
 | 9 | Primary reference P0 | CN10.20 GND |
 | 10 | PERMIT_P input | PA12, HRTIM FLT1, CN10.12 |
+
+The firmware moved ARM from the earlier PB4 assignment to PB5. PB4 has a reset-time debug pull-up. The hold-to-run input is separate from J5. Use a momentary switch from the Nucleo 3.3 V rail to PA6 (CN10.13) and leave the internal pull-down enabled. LD2 is on while the firmware runs the timer. [STM32G474 datasheet, GPIO reset states](https://www.st.com/resource/en/datasheet/stm32g474re.pdf)
 
 ## Timer configuration
 
@@ -20,10 +22,20 @@ Use a 160 MHz HRTIM source, ×8 prescaler and 25,600 counts per 20 µs frame. Us
 
 The compare adapter converts the scheduler's 10 ns ticks to the timer counts and carries the delayed negative pulse's original falling edge into the next frame. Loading the next phase offset at rollover does not shift that edge. Restrict this bench adapter to absolute targets of 60–120 ticks so the early compare always sits at least 0.50 µs after rollover. The portable scheduler retains its smaller targets for other backends. Host checks cover rollover, both directions, 256-count minimum compare spacing and reset after fault. [Compare adapter](bench-hrtim.h) · [Host test](bench-startup-trace.c)
 
+## Build and load
+
+Run the build program with Python 3, Zig 0.13 and the pinned ST and Arm CMSIS include directories. It cross-compiles both directions, validates the Cortex-M4 reset address and writes the ELF and raw flash image into the ignored `firmware/out` directory.
+
+```sh
+python firmware/build.py --device-include /path/to/cmsis-device-g4/Include --core-include /path/to/CMSIS_5/CMSIS/Core/Include
+```
+
+Load one image with the Nucleo's ST-LINK over SWD. For a raw BIN, use flash address `0x08000000`. Hold-to-run begins only after a release, a new press, an ARM pulse with RUN low and a subsequent high permit. The firmware stops on release, failed permit or a missed compare preload deadline. A separate watchdog resets the MCU if the control loop stalls. [Firmware source](firmware/stm32g474.c) · [ST STM32CubeProgrammer](https://www.st.com/en/development-tools/stm32cubeprog.html)
+
 ## First bench capture
 
 1. Begin with timer outputs disabled and both RUN and ARM low. Observe a low permit. Keep RUN low for a deliberate ARM edge. Assert RUN and wait for PERMIT_P to go high. Stage the first frame, reset the output state low and enable outputs from a known frame boundary. The controller request stays distinct from physical RUN so the firmware can wait for permit without deadlocking the hardware latch.
-2. With the bridge DC ports off, use a 3.3 V test signal for the disconnected FLT1 input and capture all four timer pins. Check the 50 kHz period, both phase directions and the minimum 200 ns compare spacing across rollover. Pull FLT1 low during an active pulse and confirm that all four pins stop, stay off after permission returns, and restart only after the operator releases the request and arms again. The board firmware must disable outputs, clear pending compare updates and reset the adapter on a fault or a missed preload deadline.
+2. Disconnect J5 from the power board for the logic-only check. With the bridge rails off, feed RUN from PB10 through a 1 kΩ series resistor and a switch to PA12 to emulate the latch's permit response. Start with the permit switch closed. Capture all four timer pins and check the 50 kHz period, both current directions and at least 200 ns between opposing commands through rollover. Open the permit switch during a pulse and confirm that all four pins stop. Close the switch again while holding the request and confirm the commands stay off. Release the hold-to-run switch and then make a fresh press to restart.
 3. With the prebiased, current-limited bench fixture, record both rail voltages, primary current, trip signal, enables and actual gate-to-source voltage. Measure the first-cycle current, bias and gate dead time in both directions and measure fault-clearing time from the current threshold through gate turn-off. Record drain overshoot and verify the high-side bootstrap rail before increasing load.
 
-The board-specific clock, GPIO, HRTIM initialization and preload interrupt still need to be built and flashed. The current evidence covers the native schematic and C compare calculations. Actual timer behavior and gate timing require hardware capture.
+The two images cross-compile and the reset vectors were checked. Flashing and the scope captures require a connected NUCLEO-G474RE and instruments.

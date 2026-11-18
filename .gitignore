@@ -5,3 +5,4 @@
 fp-info-cache
 __pycache__/
 bench-erc.rpt
+/circuits/battery-port/firmware/out/
