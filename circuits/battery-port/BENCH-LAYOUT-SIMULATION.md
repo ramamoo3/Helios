@@ -71,4 +71,4 @@ python half_bridge_test.py --output bench-half-bridge-results.json
 
 The checked-in measurements identify the exact board and extraction by SHA-256. The runner verifies that the simulated local short leaves the winding permit asserted and that the injected winding-current control trips it. Its completion indicates that these scenarios produced usable screening results. [Numerical results](bench-half-bridge-results.json)
 
-**Fabrication remains on hold.** Add a hardware detection and interruption path for bridge-local faults. Establish its timing and device energy with source and capacitor tolerances. Correlate off-gate behavior, reverse recovery and peak Vds with an independently converged switching model. Close the board-level thermal and mechanical review on the same revision.
+The subsequent shunt-trip model clears simulated faults confined to the bridge and shows how transfer inductance can cause nuisance trips. **Fabrication remains on hold** pending integration and final stress verification. [Bridge-local shutdown design and simulation](BENCH-LOCAL-SHUTDOWN.md)

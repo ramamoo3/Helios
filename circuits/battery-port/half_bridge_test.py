@@ -78,18 +78,19 @@ Brecover rr 0 V=max(-i(Vsense),0)
     return {"transit_ns": transit, "qrr_c": qrr}
 
 
-def bridge(extraction, supply_v, transit_ns, avalanche):
-    network = port_network(extraction["legs"]["sa"]["frequencies_hz"], BOOTSTRAP_PORTS)
+def bridge(extraction, supply_v, transit_ns, avalanche, *, leg="sa"):
+    network = port_network(extraction["legs"][leg]["frequencies_hz"], BOOTSTRAP_PORTS)
     device = DEVICE.replace("@body_model@", body_model("{DTT}", avalanche))
-    return f"""Helios Q5/Q6 routed secondary half bridge
+    bulk, esr = ("470u", "40m") if leg.startswith("p") else ("2200u", "25m")
+    return f"""Helios {leg} routed half bridge
 .options method=gear maxord=2 reltol=0.004 abstol=10n vntol=30u itl4=500
 .param DTT={transit_ns:.8g}n
 {device}
 Vrail supply 0 {supply_v}
 Rsource supply bus 60m
 Lbulk bus bulk_r 15n
-Rbulk bulk_r bulk_c 25m
-Cbulk bulk_c 0 2200u
+Rbulk bulk_r bulk_c {esr}
+Cbulk bulk_c 0 {bulk}
 Llocal bus local_r 0.6n
 Rlocal local_r local_c 10m
 Clocal local_c 0 700n
