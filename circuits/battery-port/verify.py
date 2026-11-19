@@ -321,8 +321,8 @@ def check_bench_hierarchy():
     print(f"Bench hierarchy passed: {parent_pins} sheet pins, {components} component references")
 
 
-def run_spice(executable, deck):
-    run = subprocess.run([executable, "-b", deck], cwd=ROOT, capture_output=True,
+def run_spice(executable, deck, *, cwd=ROOT, options=()):
+    run = subprocess.run([executable, *options, "-b", str(deck)], cwd=cwd, capture_output=True,
                          text=True, errors="replace", timeout=180)
     output = run.stdout + "\n" + run.stderr
     if run.returncode or re.search(r"aborted|timestep too small|measurement.*failed", output, re.I):

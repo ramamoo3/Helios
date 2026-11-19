@@ -1,0 +1,31 @@
+* Switched bench port with winding-current feedback to the existing trip latch.
+* This fixture ties N and L to simulation ground. Logic supply collapse is
+* represented by power-good inputs. No insulation or common-mode behavior.
+.subckt PROTECTED_DAB P N H L PA PB SA SB PRI_OK SEC_OK ARM RUN ENP ENS VSENSE IP PMP SMP
+.param LK=8u LM=851.84u NSEC=2 RP=0.06 RLO=9.5m RHI=9.5m IMAG0=0
+Bcs IP 0 V=i(Ltransfer)
+Xprotect IP PRI_OK SEC_OK ARM RUN ENP ENS VSENSE BENCH_PROTECT
+
+* Inhibit both commands on each bridge. The secondary paths include separate
+* timing-isolator delays and a local power-good veto. The command RC is a
+* simplified switching-conductance transition, with no MOSFET Miller plateau.
+Rsa SA sai 1k
+Csa sai 0 18p
+Rsb SB sbi 1k
+Csb sbi 0 18p
+Ba da 0 V={v(PA)*(v(ENP)>1.65)}
+Bb db 0 V={v(PB)*(v(ENP)>1.65)}
+Bc dc 0 V={v(sai)*(v(ENS)>1.65 && v(SEC_OK)>1.65)}
+Bd dd 0 V={v(sbi)*(v(ENS)>1.65 && v(SEC_OK)>1.65)}
+Ra da cpa 6.7
+Rb db cpb 6.7
+Rc dc csa 6.7
+Rd dd csb 6.7
+Caout cpa 0 2n
+Cbout cpb 0 2n
+Ccout csa 0 2n
+Cdout csb 0 2n
+Bpwm_p PMP 0 V={v(cpa)+v(cpb)}
+Bpwm_s SMP 0 V={v(csa)+v(csb)}
+.include dab-power.inc
+.ends PROTECTED_DAB

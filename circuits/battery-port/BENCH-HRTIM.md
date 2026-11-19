@@ -32,6 +32,17 @@ python firmware/build.py --device-include /path/to/cmsis-device-g4/Include --cor
 
 Load one image with the Nucleo's ST-LINK over SWD. For a raw BIN, use flash address `0x08000000`. Hold-to-run begins only after a release, a new press, an ARM pulse with RUN low and a subsequent high permit. The firmware stops on release, failed permit or a missed compare preload deadline. A separate watchdog resets the MCU if the control loop stalls. [Firmware source](firmware/stm32g474.c) · [ST STM32CubeProgrammer](https://www.st.com/en/development-tools/stm32cubeprog.html)
 
+## Emulate the compiled image
+
+Run the register-model tests against the two ELF/BIN pairs from the build directory. The script executes the actual Thumb instructions starting at each binary's reset vector. It supplies simulated clocks, GPIO levels and HRTIM status events, then checks that firmware writes the expected compare and enable registers. It verifies startup inhibition, the ramp in both directions, lost permit, recovery with RUN held, a fresh re-arm, a missing preload event and a latched fault after permission returns.
+
+```sh
+python -m pip install unicorn==2.1.4 pyelftools==0.32
+python firmware/emulate.py
+```
+
+The register model does not emulate PWM pin timing, the live HRTIM fault circuit, watchdog reset timing or interrupt latency. [Emulator test](firmware/emulate.py) · [Unicorn Engine](https://github.com/unicorn-engine/unicorn)
+
 ## First bench capture
 
 1. Begin with timer outputs disabled and both RUN and ARM low. Observe a low permit. Keep RUN low for a deliberate ARM edge. Assert RUN and wait for PERMIT_P to go high. Stage the first frame, reset the output state low and enable outputs from a known frame boundary. The controller request stays distinct from physical RUN so the firmware can wait for permit without deadlocking the hardware latch.

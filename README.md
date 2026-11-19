@@ -4,6 +4,7 @@ Helios is a modular residential solar and LFP storage system for Tamil Nadu. Dev
 
 - [System architecture](HELIOS-ARCHITECTURE.md)
 - [Build checklist](HELIOS-BUILD-CHECKLIST.md)
+- [Whole-design software verification and fabrication status](HELIOS-VERIFICATION.md)
 - [Open the KiCad bench project](circuits/battery-port/battery-port-bench.kicad_pro)
 - [Bench component choices and current limits](circuits/battery-port/BENCH-PARTS.md)
 - [Simulation and electrical checks](circuits/battery-port/README.md)

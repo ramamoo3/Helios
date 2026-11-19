@@ -12,7 +12,7 @@ The deliverable is one wall-mounted base containing the inverter, solar inputs, 
 | LFP cabinet and full-power battery port | Cabinet concept, independent battery-port architecture and converter models. | Build and characterize the 16S cabinet and BMS, qualify one full-power converter and validate four-port operation on the shared link. |
 | Household base and pilot | Three-phase product architecture, sizing targets and published comparison designs. | Build the PV MPPT, utility charger, three-phase inverter, transfer/bypass and supervisory control. Validate phase balance, starting loads, protection and installation. |
 
-Bench firmware and a PCB layout are separate deliverables. The first fabrication package is for the current-limited 12 V ↔ 24 V prototype. The full-power battery and household boards follow separate electrical and physical reviews. [Bench schematic](circuits/battery-port/battery-port-bench.kicad_pro) · [Controller build and scope procedure](circuits/battery-port/BENCH-HRTIM.md) · [Reference designs and reuse decisions](circuits/REFERENCE-DESIGNS.md)
+Bench firmware and a PCB layout are separate deliverables. The first fabrication package is for the current-limited 12 V ↔ 24 V prototype. The project is holding fabrication until the agreed whole-design software verification is complete. The full-power battery and household boards follow separate electrical and physical reviews. [Software verification tracker](HELIOS-VERIFICATION.md) · [Bench schematic](circuits/battery-port/battery-port-bench.kicad_pro) · [Controller build and scope procedure](circuits/battery-port/BENCH-HRTIM.md) · [Reference designs and reuse decisions](circuits/REFERENCE-DESIGNS.md)
 
 ### First PCB handoff
 

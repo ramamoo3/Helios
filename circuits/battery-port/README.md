@@ -84,6 +84,29 @@ kicad-cli sch erc --exit-code-violations -o bench-erc.rpt battery-port-bench.kic
 
 All ten existing decks and the 12-case startup sweep passed with ngspice 47. The sweep includes both power directions at both mismatched rail pairs, with three initial magnetizing currents. The compiled host fixture checks the STM32 compare mapping and rearm behavior. Ten sheet pin maps passed, and the hierarchy check covered 13 sheet instances, 119 sheet pins and 125 unique component references. KiCad CLI 10.99 nightly exported the assembled netlist and reported zero ERC violations. Netlist comparison verified J5.10 on PERMIT_P as the only connectivity change for the timer integration. Hardware testing remains outstanding. [Startup results](BENCH-PARTS.md#controlled-startup) · [Timer setup](BENCH-HRTIM.md)
 
+## Integrated protection regression
+
+The switched winding current now feeds the CT burden, comparator and trip latch in the same transient run. Compiled scheduler traces supply the four PWM inputs. A simulated 24 V to 42 V secondary rail step during either active half-cycle creates both overcurrent polarities. Separate cases drop primary or secondary power-good. Test both operating directions. After a fault clears, the simulated controller holds ARM and RUN high and both bridges stay off. Lowering RUN and making a fresh ARM edge restores transfer.
+
+| Injected fault | Cases | Both enables below 1.65 V | Both switching command envelopes below 0.10 V | Largest winding peak |
+| --- | ---: | ---: | ---: | ---: |
+| Positive or negative winding overcurrent | 4 | 61–73 ns from the modeled threshold crossing | 113–124 ns | 4.35 A |
+| Primary or secondary power-good loss | 4 | 22–34 ns from the power-good midpoint | 73 ns | — |
+
+These are ngspice behavioral timings. The command envelope tracks switch conductance in the model. The model uses ideal rail sources, linear magnetics and assumed comparator, isolator and switch-transition delays. This sweep does not quantify actual device turn-off, common-mode transients, insulation, shoot-through, a shorted MOSFET or a disconnected CT. [Protected converter model](protected-dab.lib) · [Integrated test](startup_test.py)
+
+## Vendor model half bridge
+
+The 24 V fixture uses TI's UCC27282 driver, two CSD18534KCS MOSFETs, 4.7 Ω gate resistors, a 100 nF bootstrap capacitor, and a 10 Ω load to a stiff 12 V midpoint. With a 7 µs low-side precharge pulse, the high-side gate held at least 9.617 V over the measured on-time. Deasserting enable took 36.3–37.2 ns to bring the modeled high-side gate below 1.5 V. Peak drain-source voltage was approximately 24.85 V. During a held overlap of both logic commands the two gates stayed low. These results use ngspice 47 in PSpice compatibility mode with two Gear solver tolerances. They cover this 24 V fixture and its assumed source and load. [Driver model SLUM720](https://www.ti.com/lit/zip/slum720) · [MOSFET model SLPM046B](https://www.ti.com/lit/zip/slpm046b)
+
+With the low-side precharge pulse omitted, the first high-side gate reached only 2.95 mV in this single-leg model. The bench design therefore still needs a verified startup path that charges both bridges' bootstrap capacitors before the first transfer command. The state of a complete bridge depends on its opposite leg, transformer and rail voltages. [Test fixture](vendor-halfbridge.cir) · [Vendor model test](vendor_test.py)
+
+Extract the two TI libraries and run the command below. The runner translates six PSpice parameter declarations in a temporary copy of the MOSFET file for ngspice.
+
+```sh
+python vendor_test.py --driver /path/to/driver.lib --mosfet /path/to/CSD18534KCS.lib
+```
+
 ## Next circuit revision
 
 The [PWM interlock model](trip.lib) and [fault-injection test](trip-test.cir) define the intended hardware behavior. At startup both bridges must stay inhibited. A valid arm edge with the run request low permits a subsequent start. Either current polarity crossing the test threshold or loss of gate bias revokes permission. Recovery needs a fresh arm edge once the fault clears, with the run request low.

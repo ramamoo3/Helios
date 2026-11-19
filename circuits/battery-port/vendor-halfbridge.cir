@@ -1,0 +1,39 @@
+Helios 24 V bench half bridge with TI PSpice device models
+.include ti-driver.lib
+.include ti-mosfet.lib
+.options method=gear maxord=2 reltol=0.005 abstol=10n vntol=10u gmin=1e-10 itl4=500
+Vbus src 0 24
+Rbus src bus 60m
+Cbus bus 0 470u
+Vbias vdd 0 9.926
+Vmid mid 0 12
+Rload sw mid 10
+Vlo li 0 PWL(0 0 1u 0 1.01u 3.3 8u 3.3 8.01u 0 20u 0 20.01u 3.3 23u 3.3 23.01u 0 24u 0 24.01u 3.3 29u 3.3 29.01u 0)
+Vhi hi 0 PWL(0 0 8.2u 0 8.21u 3.3 16u 3.3 16.01u 0 20u 0 20.01u 3.3 23u 3.3 23.01u 0)
+Ven en 0 PWL(0 3.3 13u 3.3 13.01u 0 18u 0 18.01u 3.3)
+Xdriver li hi en vdd 0 hb ho sw lo UCC27282
+Cboot hb sw 100n
+Rghi ho gh 4.7
+Rglo lo gl 4.7
+Rghs gh sw 10k
+Rgls gl 0 10k
+Xhigh bus gh sw CSD18534KCS
+Xlow sw gl 0 CSD18534KCS
+Bhigh high 0 V=v(gh,sw)
+Bboot vboot 0 V=v(hb,sw)
+Bboth both 0 V=min(v(high),v(gl))
+Bhighds highds 0 V=v(bus,sw)
+.tran 1n 30u 0 1n
+.meas tran low_on MIN v(gl) from=3u to=7u
+.meas tran high_on MIN v(high) from=9u to=12u
+.meas tran boot_min MIN v(vboot) from=9u to=12u
+.meas tran en_off WHEN v(en)=1.65 FALL=1
+.meas tran high_off WHEN v(high)=1.5 FALL=1 TD=13u
+.meas tran disable_hold MAX v(high) from=13.5u to=15.9u
+.meas tran simultaneous MAX v(both) from=1u to=29u
+.meas tran low_after MIN v(gl) from=25u to=28u
+.meas tran high_vds MAX v(highds) from=1u to=29u
+.meas tran low_vds MAX v(sw) from=1u to=29u
+.meas tran overlap_hi MAX v(high) from=20.5u to=22.9u
+.meas tran overlap_lo MAX v(gl) from=20.5u to=22.9u
+.end
