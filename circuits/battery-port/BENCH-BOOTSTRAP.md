@@ -12,7 +12,9 @@ The model gates the four driver enables through the existing current trip and bi
 | 0 | 1 | 0 | Negative diagonal |
 | Any other combination | — | — | All gates off |
 
-The receiving-side implementation needs a way to confirm precharge reached both bridges before allowing PWM. This must cover an absent request path and a bias drop or abort while priming. The KiCad PWM decoder and STM32 bench images still need the dedicated precharge signal, local decode and qualification. The new tests exercise modeled logic and the existing compiled PWM frames. [Four-leg circuit model](vendor-dab-startup.cir) · [Test runner](vendor_startup_test.py)
+The KiCad decoder now routes PRE_REQ from J5.11 directly to the primary bridge and across an ISO7721FD to the secondary bridge. Each side acknowledges its own two-low-side decode only while its driver permit is present. The primary readback goes to J5.12. The secondary readback returns over the reverse isolator channel to J5.13. Separate inputs let the STM32 require both readbacks to rise and both to fall. [Schematic](battery-port-precharge.kicad_sch) · [Schematic preview](battery-port-precharge.svg) · [ISO7721 pinout and default output states](https://www.ti.com/lit/ds/symlink/iso7721.pdf)
+
+The firmware checks for both readbacks low before asserting PRE_REQ. It allows up to 20 µs for both to assert, holds precharge for at least 7 µs after that, removes PRE_REQ and allows up to 20 µs for both to clear. It then waits an additional 1 µs with both clear before starting the first PWM frame. A missing or stuck readback or loss of permit inhibits the run and requires a fresh operator request. If a readback asserts during active PWM, firmware stops the run. These readbacks confirm digital commands and permission. The SPICE fixture separately measures capacitor voltage. [Firmware wiring and verification](BENCH-HRTIM.md) · [Four-leg circuit model](vendor-dab-startup.cir) · [Test runner](vendor_startup_test.py)
 
 ## Results from ngspice 47
 

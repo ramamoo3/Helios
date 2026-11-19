@@ -4,8 +4,11 @@
 enum {
     CORE_HZ = 160000000, CYCLES_PER_US = CORE_HZ / 1000000,
     REQUEST_PIN = 6, PERMIT_PIN = 12, RUN_PIN = 10, ARM_PIN = 5, LED_PIN = 5,
+    PRECHARGE_PIN = 1, ACK_PRIMARY_PIN = 2, ACK_SECONDARY_PIN = 12,
+    ACK_MASK = (1u << ACK_PRIMARY_PIN) | (1u << ACK_SECONDARY_PIN),
     HRTIM_AF = 13,
     PRESS_MS = 20, RELEASE_MS = 20, PERMIT_TIMEOUT_MS = 2,
+    ACK_TIMEOUT_US = 20, PRECHARGE_US = 7, PRECHARGE_GAP_US = 1,
     MID_FRAME = BENCH_HRTIM_PERIOD / 2,
     LATEST_UPDATE = BENCH_HRTIM_PERIOD * 3 / 4
 };
@@ -31,6 +34,7 @@ static uint32_t last_midpoint;
 
 static bool request_high(void) { return (GPIOA->IDR & (1u << REQUEST_PIN)) != 0; }
 static bool permit_high(void) { return (GPIOA->IDR & (1u << PERMIT_PIN)) != 0; }
+static unsigned precharge_ack(void) { return GPIOB->IDR & ACK_MASK; }
 
 static void gpio_mode(GPIO_TypeDef *port, unsigned pin, unsigned mode, unsigned pull)
 {
@@ -39,9 +43,10 @@ static void gpio_mode(GPIO_TypeDef *port, unsigned pin, unsigned mode, unsigned 
     port->MODER = (port->MODER & ~(3u << shift)) | (mode << shift);
 }
 
-static void arm_and_run_low(void)
+static void disable_requests(void)
 {
-    GPIOB->BSRR = (1u << (RUN_PIN + 16)) | (1u << (ARM_PIN + 16));
+    GPIOB->BSRR = (1u << (RUN_PIN + 16)) | (1u << (ARM_PIN + 16)) |
+                  (1u << (PRECHARGE_PIN + 16));
 }
 
 static void stop_timer(void)
@@ -49,7 +54,7 @@ static void stop_timer(void)
     COMMON.ODISR = DISABLE_OUTPUTS;
     MASTER.MCR &= ~COUNTERS;
     COMMON.CR1 &= ~MASK_UPDATES;
-    arm_and_run_low();
+    disable_requests();
     GPIOA->BSRR = 1u << (LED_PIN + 16);
     bench_hrtim_abort(&adapter);
 }
@@ -59,7 +64,7 @@ void Fault_Handler(void)
     if (RCC->APB2ENR & RCC_APB2ENR_HRTIM1EN)
         COMMON.ODISR = DISABLE_OUTPUTS;
     if (RCC->AHB2ENR & RCC_AHB2ENR_GPIOBEN)
-        arm_and_run_low();
+        disable_requests();
     for (;;) __NOP();
 }
 
@@ -148,6 +153,47 @@ static void program_compares(HRTIM_Timerx_TypeDef *timer, bench_hrtim_compares v
     timer->CMP4xR = values.cmp4;
 }
 
+static bool start_permitted(void)
+{
+    return request_high() && permit_high() && !(COMMON.ISR & HRTIM_ISR_FLT1);
+}
+
+static bool wait_for_ack(unsigned expected)
+{
+    uint32_t start = DWT->CYCCNT;
+    while (DWT->CYCCNT - start < ACK_TIMEOUT_US * CYCLES_PER_US) {
+        if (!start_permitted())
+            return false;
+        if (precharge_ack() == expected)
+            return true;
+    }
+    return false;
+}
+
+static bool hold_precharge_state(unsigned expected, unsigned microseconds)
+{
+    uint32_t start = DWT->CYCCNT;
+    do {
+        if (!start_permitted() || precharge_ack() != expected)
+            return false;
+    } while (DWT->CYCCNT - start < microseconds * CYCLES_PER_US);
+    return true;
+}
+
+static bool prepare_bootstrap(void)
+{
+    /* The timer outputs are disabled when entering this handshake. */
+    if (precharge_ack())
+        return false;
+    COMMON.ICR = HRTIM_ICR_FLT1C;
+    if (!start_permitted())
+        return false;
+    GPIOB->BSRR = 1u << PRECHARGE_PIN;
+    bool charged = wait_for_ack(ACK_MASK) && hold_precharge_state(ACK_MASK, PRECHARGE_US);
+    GPIOB->BSRR = 1u << (PRECHARGE_PIN + 16);
+    return charged && wait_for_ack(0) && hold_precharge_state(0, PRECHARGE_GAP_US);
+}
+
 static bool start_timer(void)
 {
     bench_hrtim_frame frame;
@@ -164,8 +210,7 @@ static bool start_timer(void)
     program_compares(&HRTIM1->sTimerxRegs[1], frame.secondary);
     COMMON.CR2 = HRTIM_CR2_TASWU | HRTIM_CR2_TBSWU;
     MASTER.MICR = HRTIM_MICR_MCMP1;
-    COMMON.ICR = HRTIM_ICR_FLT1C;
-    if (!request_high() || !permit_high())
+    if (!start_permitted() || precharge_ack())
         return false;
     COMMON.OENR = OUTPUTS;
     MASTER.MCR |= COUNTERS;
@@ -176,7 +221,7 @@ static bool start_timer(void)
 
 static bool service_timer(void)
 {
-    if (!request_high() || !permit_high() || (COMMON.ISR & HRTIM_ISR_FLT1) ||
+    if (!start_permitted() || precharge_ack() ||
         DWT->CYCCNT - last_midpoint >= 24u * CYCLES_PER_US)
         return false;
     if (!(MASTER.MISR & HRTIM_MISR_MCMP1))
@@ -220,7 +265,7 @@ static void run_bench(void)
         bool request = request_high();
         switch (mode) {
         case WAIT_RELEASE:
-            if (request || permit_high())
+            if (request || permit_high() || precharge_ack())
                 changed = now;
             else if (now - changed >= RELEASE_MS) {
                 bench_hrtim_frame unused;
@@ -230,7 +275,7 @@ static void run_bench(void)
             }
             break;
         case WAIT_PRESS:
-            if (permit_high()) {
+            if (permit_high() || precharge_ack()) {
                 mode = WAIT_RELEASE;
                 changed = now;
             } else if (!request) {
@@ -248,7 +293,7 @@ static void run_bench(void)
         case WAIT_PERMIT:
             if (request) {
                 if (permit_high()) {
-                    if (start_timer()) {
+                    if (prepare_bootstrap() && start_timer()) {
                         mode = RUNNING;
                         break;
                     }
@@ -288,9 +333,12 @@ void Reset_Handler(void)
     __ISB();
     RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN | RCC_AHB2ENR_GPIOBEN;
     (void)RCC->AHB2ENR;
-    arm_and_run_low();
+    disable_requests();
     gpio_mode(GPIOB, RUN_PIN, 1, 2);
     gpio_mode(GPIOB, ARM_PIN, 1, 2);
+    gpio_mode(GPIOB, PRECHARGE_PIN, 1, 2);
+    gpio_mode(GPIOB, ACK_PRIMARY_PIN, 0, 2);
+    gpio_mode(GPIOB, ACK_SECONDARY_PIN, 0, 2);
     GPIOA->BSRR = 1u << (LED_PIN + 16);
     gpio_mode(GPIOA, LED_PIN, 1, 0);
     gpio_mode(GPIOA, REQUEST_PIN, 0, 2);

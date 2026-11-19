@@ -13,6 +13,9 @@ The bench controller target is the NUCLEO-G474RE. It uses timer A for the primar
 | 7–8 | Current and voltage telemetry | Available for later ADC integration |
 | 9 | Primary reference P0 | CN10.20 GND |
 | 10 | PERMIT_P input | PA12, HRTIM FLT1, CN10.12 |
+| 11 | PRE_REQ output | PB1, CN10.24 |
+| 12 | Primary precharge acknowledgement | PB2, CN10.22 |
+| 13 | Secondary precharge acknowledgement | PB12, CN10.16 |
 
 The firmware moved ARM from the earlier PB4 assignment to PB5. PB4 has a reset-time debug pull-up. The hold-to-run input is separate from J5. Use a momentary switch from the Nucleo 3.3 V rail to PA6 (CN10.13) and leave the internal pull-down enabled. LD2 is on while the firmware runs the timer. [STM32G474 datasheet, GPIO reset states](https://www.st.com/resource/en/datasheet/stm32g474re.pdf)
 
@@ -30,11 +33,11 @@ Run the build program with Python 3, Zig 0.13 and the pinned ST and Arm CMSIS in
 python firmware/build.py --device-include /path/to/cmsis-device-g4/Include --core-include /path/to/CMSIS_5/CMSIS/Core/Include
 ```
 
-Load one image with the Nucleo's ST-LINK over SWD. For a raw BIN, use flash address `0x08000000`. Hold-to-run begins only after a release, a new press, an ARM pulse with RUN low and a subsequent high permit. The firmware stops on release, failed permit or a missed compare preload deadline. A separate watchdog resets the MCU if the control loop stalls. [Firmware source](firmware/stm32g474.c) · [ST STM32CubeProgrammer](https://www.st.com/en/development-tools/stm32cubeprog.html)
+Load one image with the Nucleo's ST-LINK over SWD. For a raw BIN, use flash address `0x08000000`. Hold-to-run begins only after a release, a new press, an ARM pulse with RUN low and a subsequent high permit. Both precharge readbacks must assert, stay asserted for 7 µs and clear before the 1 µs blanking interval. The firmware stops on release, a failed permit or acknowledgement, or a missed compare preload deadline. A separate watchdog resets the MCU if the control loop stalls. [Firmware source](firmware/stm32g474.c) · [ST STM32CubeProgrammer](https://www.st.com/en/development-tools/stm32cubeprog.html)
 
 ## Emulate the compiled image
 
-Run the register-model tests against the two ELF/BIN pairs from the build directory. The script executes the actual Thumb instructions starting at each binary's reset vector. It supplies simulated clocks, GPIO levels and HRTIM status events, then checks that firmware writes the expected compare and enable registers. It verifies startup inhibition, the ramp in both directions, lost permit, recovery with RUN held, a fresh re-arm, a missing preload event and a latched fault after permission returns.
+Run the register-model tests against the two ELF/BIN pairs from the build directory. The script executes the actual Thumb instructions starting at each binary's reset vector. It supplies simulated clocks, independent precharge acknowledgement levels and HRTIM status events. It checks precharge timing, missing acknowledgement, a secondary acknowledgement stuck high after the primary clears, loss of permit during precharge, the ramp in both directions, a missing preload event and latched fault behavior.
 
 ```sh
 python -m pip install unicorn==2.1.4 pyelftools==0.32
@@ -45,8 +48,8 @@ The register model does not emulate PWM pin timing, the live HRTIM fault circuit
 
 ## First bench capture
 
-1. Begin with timer outputs disabled and both RUN and ARM low. Observe a low permit. Keep RUN low for a deliberate ARM edge. Assert RUN and wait for PERMIT_P to go high. Stage the first frame, reset the output state low and enable outputs from a known frame boundary. The controller request stays distinct from physical RUN so the firmware can wait for permit without deadlocking the hardware latch.
-2. Disconnect J5 from the power board for the logic-only check. With the bridge rails off, feed RUN from PB10 through a 1 kΩ series resistor and a switch to PA12 to emulate the latch's permit response. Start with the permit switch closed. Capture all four timer pins and check the 50 kHz period, both current directions and at least 200 ns between opposing commands through rollover. Open the permit switch during a pulse and confirm that all four pins stop. Close the switch again while holding the request and confirm the commands stay off. Release the hold-to-run switch and then make a fresh press to restart.
+1. Begin with timer outputs disabled and RUN, ARM and PRE_REQ low. Keep RUN low through the ARM edge. PERMIT_P should rise after RUN rises. Verify each precharge acknowledgement asserts on request and deasserts before the first timer frame. [Startup sequence](BENCH-BOOTSTRAP.md)
+2. Disconnect J5 from the power board for the later logic-only check. With the bridge rails off, feed RUN from PB10 through a 1 kΩ series resistor and a switch to PA12 to emulate the latch. Use separate 1 kΩ resistors between PB1 and each of PB2 and PB12 to emulate the two readbacks. Capture PRE_REQ, both readbacks and the four timer pins. Check the 50 kHz period and at least 200 ns between opposing commands through rollover. Open the permit switch during a pulse and confirm all four pins stop. Close the switch and verify the commands stay off with the request held. Release the request and make a fresh press to restart.
 3. With the prebiased, current-limited bench fixture, record both rail voltages, primary current, trip signal, enables and actual gate-to-source voltage. Measure the first-cycle current, bias and gate dead time in both directions and measure fault-clearing time from the current threshold through gate turn-off. Record drain overshoot and verify the high-side bootstrap rail before increasing load.
 
 The two images cross-compile and the reset vectors were checked. Flashing and the scope captures require a connected NUCLEO-G474RE and instruments.

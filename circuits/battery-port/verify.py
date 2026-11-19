@@ -1,6 +1,7 @@
 """Check the two Helios pin maps and run the single- and two-port test decks."""
 import argparse
 from collections import defaultdict
+from itertools import product
 from pathlib import Path
 import math
 import re
@@ -138,7 +139,108 @@ ARM J5.6
 I_ADC J5.7
 V_ADC J5.8
 PERMIT_P J5.10
+PRE_REQ J5.11
+PRE_ACK_P J5.12
+PRE_ACK_S J5.13
 """
+
+
+PRECHARGE = """
+P3V3 U40.14 U41.14 U42.14 U43.14 U48.1 C40.1 C41.1 C42.1 C43.1 C48.1
+P0 U40.7 U40.9 U40.11 U40.13 U41.7 U41.9 U41.10 U41.12 U41.13 U42.7 U43.7 U48.4 R40.2 R41.2 R42.2 C40.2 C41.2 C42.2 C43.2 C48.2
+S3V3 U44.14 U45.14 U46.14 U47.14 U48.8 C44.1 C45.1 C46.1 C47.1 C49.1
+S0 U44.7 U44.9 U44.11 U44.13 U45.7 U45.9 U45.10 U45.12 U45.13 U46.7 U47.7 U48.5 C44.2 C45.2 C46.2 C47.2 C49.2
+P_POS U40.1 U41.5 U42.9
+P_NEG U40.3 U41.2 U42.12
+S_POS U44.1 U45.5 U46.9
+S_NEG U44.3 U45.2 U46.12
+PERMIT_P U43.13
+SEC_EN U47.13
+PRE_REQ U40.5 U41.1 U41.4 U48.3 R40.1
+PRE_ACK_P U43.11 R41.1
+PRE_ACK_S U48.2 R42.1
+PA_H U43.3
+PA_L U42.3 U43.9
+PB_H U43.6
+PB_L U42.6 U43.10
+SA_H U47.3
+SA_L U46.3 U47.9
+SB_H U47.6
+SB_L U46.6 U47.10
+P_NP U40.2 U42.1 U42.13
+P_NN U40.4 U42.4 U42.10
+P_NPC U40.6 U43.2 U43.5
+NC-U40.8 U40.8
+NC-U40.10 U40.10
+NC-U40.12 U40.12
+P_XN U41.3 U42.2
+P_XP U41.6 U42.5
+NC-U41.8 U41.8
+NC-U41.11 U41.11
+P_PX U42.8 U43.1
+P_NX U42.11 U43.4
+P_ACK U43.8 U43.12
+S_NP U44.2 U46.1 U46.13
+S_NN U44.4 U46.4 U46.10
+PRE_S U44.5 U45.1 U45.4 U48.6
+S_NPC U44.6 U47.2 U47.5
+NC-U44.8 U44.8
+NC-U44.10 U44.10
+NC-U44.12 U44.12
+S_XN U45.3 U46.2
+S_XP U45.6 U46.5
+NC-U45.8 U45.8
+NC-U45.11 U45.11
+S_PX U46.8 U47.1
+S_NX U46.11 U47.4
+S_ACK U47.8 U47.12
+S_LOCAL_ACK U47.11 U48.7
+"""
+
+
+def check_precharge_logic():
+    pins = {}
+    for line in PRECHARGE.strip().splitlines():
+        net, *terminals = line.split()
+        pins.update((pin, net) for pin in terminals)
+    quad = [(1, 2, 3), (4, 5, 6), (9, 10, 8), (12, 13, 11)]
+    commands = {(True, False, False): (True, False, False, True),
+                (False, True, False): (False, True, True, False),
+                (False, False, True): (False, True, False, True)}
+    inputs = ("P_POS", "P_NEG", "S_POS", "S_NEG", "PRE_REQ", "PERMIT_P", "SEC_EN")
+    for pattern in product((False, True), repeat=len(inputs)):
+        signals = dict(zip(inputs, pattern))
+        signals.update(P0=False, S0=False, P3V3=True, S3V3=True)
+
+        def read(unit, pin):
+            return signals[pins[f"U{unit}.{pin}"]]
+
+        def set_pin(unit, pin, value):
+            signals[pins[f"U{unit}.{pin}"]] = value
+
+        set_pin(48, 6, read(48, 3))
+        for prefix, base, enable in (("P", 40, "PERMIT_P"), ("S", 44, "SEC_EN")):
+            for inp, out in ((1, 2), (3, 4), (5, 6), (9, 8), (11, 10), (13, 12)):
+                set_pin(base, out, not read(base, inp))
+            for a, b, y in quad:
+                set_pin(base + 1, y, read(base + 1, a) ^ read(base + 1, b))
+            for unit in (base + 2, base + 3):
+                for a, b, y in quad:
+                    set_pin(unit, y, read(unit, a) and read(unit, b))
+
+            pos, neg = signals[prefix + "_POS"], signals[prefix + "_NEG"]
+            pre = signals["PRE_REQ"]
+            actual = tuple(signals[prefix + output] for output in ("A_H", "A_L", "B_H", "B_L"))
+            if actual != commands.get((pos, neg, pre), (False,) * 4):
+                raise ValueError(f"Unsafe {prefix} gate decode for {pattern}: {actual}")
+            ack = "PRE_ACK_P" if prefix == "P" else "S_LOCAL_ACK"
+            if signals[ack] != (signals[enable] and pre and not pos and not neg):
+                raise ValueError(f"Unexpected {prefix} acknowledgement for {pattern}")
+
+        set_pin(48, 2, read(48, 7))
+        if signals["PRE_ACK_S"] != signals["S_LOCAL_ACK"]:
+            raise ValueError(f"Incorrect isolated precharge acknowledgement for {pattern}")
+    print("Precharge gate truth table passed for all 128 combinations")
 
 
 def read_schematic(path):
@@ -268,7 +370,9 @@ def check_bench_hierarchy():
         "Isolated permission": ("trip-isolation", None, {}),
         "PWM and local inhibit": ("pwm", PWM, {}),
     }
+    expected["Bootstrap precharge and gate decode"] = ("precharge", None, {})
     required = {
+        "precharge": "P3V3 P0 S3V3 S0 P_POS P_NEG S_POS S_NEG PERMIT_P SEC_EN PRE_REQ PRE_ACK_P PRE_ACK_S PA_H PA_L PB_H PB_L SA_H SA_L SB_H SB_L",
         "bench-power": "PACK_SW_P PACK_0 LINK_P LINK_N PRI_A PRI_B SEC_A SEC_B CT_OUTBOUND CT_RETURN G1 G2 G3 G4 G5 G6 G7 G8",
         "sense": "PACK_V KELVIN_P KELVIN_N PACK_0 V3V3 I_ADC V_ADC",
         "detector": "FROM_L1 TO_T1 HI_OK LO_OK P3V3 P0",
@@ -283,9 +387,9 @@ def check_bench_hierarchy():
     ]:
         expected[domain + " bias"] = ("bias", None, {"RAW": raw, "RTN": prefix+"0",
             "DRIVE": prefix+"10", "LOGIC": prefix+"3V3", "OK": ok})
-        for leg, offset, hi, lo in [("A", 0, "POS", "NEG"), ("B", 2, "NEG", "POS")]:
+        for leg, offset in [("A", 0), ("B", 2)]:
             expected[domain+" "+leg] = ("driver", None, {"BIAS_10V": prefix+"10",
-                "DRV_0": prefix+"0", "PWM_H": prefix+"_"+hi, "PWM_L": prefix+"_"+lo,
+                "DRV_0": prefix+"0", "PWM_H": prefix+leg+"_H", "PWM_L": prefix+leg+"_L",
                 "PERMIT": permit, "SW": ("PRI_" if prefix == "P" else "SEC_")+leg,
                 "GATE_H": f"G{base+offset}", "GATE_L": f"G{base+offset+1}"})
 
@@ -467,6 +571,8 @@ if __name__ == "__main__":
     check_sheet("bias", BIAS)
     check_sheet("pwm", PWM)
     check_sheet("bench-io", BENCH_IO)
+    check_sheet("precharge", PRECHARGE)
+    check_precharge_logic()
     check_sheet("bench-power", POWER.replace("L1.2 T1.1", "CT_OUTBOUND L1.2\nCT_RETURN T1.1"))
     check_bench_hierarchy()
     if not args.schematics_only:

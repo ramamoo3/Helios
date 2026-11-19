@@ -19,6 +19,9 @@ DWT_COUNTER = 0xE0001004
 COUNTER_ENABLE = 0x70000
 ARM = 1 << 5
 RUN = 1 << 10
+PRE = 1 << 1
+ACK_PRIMARY = 1 << 2
+ACK_SECONDARY = 1 << 12
 CYCLES_PER_MS = 160_000
 COMPARE_OFFSETS = (0x1C, 0x24, 0x28, 0x2C)
 TIMERS = (HRTIM + 0x80, HRTIM + 0x100)
@@ -51,6 +54,9 @@ class BenchRegisters:
         self.registers = {}
         self.request = True
         self.allow_permit = True
+        self.allow_precharge_ack = True
+        self.hold_precharge_ack = False
+        self.trip_during_precharge = False
         self.block_midpoint = False
         self.cycles = 0
         self.until = 0
@@ -58,6 +64,9 @@ class BenchRegisters:
         self.midpoint = False
         self.latched_fault = False
         self.gpio_b = 0
+        self.precharge_rise = None
+        self.precharge_fall = None
+        self.precharge_ack_at = None
         self.arming_edges = 0
         self.disable_writes = 0
         self.initial_compares = []
@@ -84,10 +93,20 @@ class BenchRegisters:
     def on_read(self, _cpu, offset, _size, base):
         address = base + offset
         if address == GPIO_A + 0x10:
-            self.advance(32 if self.started is not None else 1024)
+            self.advance(32 if self.gpio_b & RUN else 1024)
+            if (self.trip_during_precharge and self.gpio_b & PRE and
+                    self.cycles - self.precharge_rise > 400):
+                self.allow_permit = False
             permit = self.allow_permit and bool(self.gpio_b & RUN)
             self.latched_fault |= self.started is not None and not permit
             return (int(self.request) << 6) | (int(permit) << 12)
+        elif address == GPIO_B + 0x10:
+            local = (self.allow_permit and bool(self.gpio_b & RUN) and bool(self.gpio_b & PRE))
+            remote = local and self.allow_precharge_ack and self.cycles - self.precharge_rise >= 96
+            if remote and self.precharge_ack_at is None:
+                self.precharge_ack_at = self.cycles
+            stuck = self.hold_precharge_ack and self.precharge_ack_at is not None
+            return (ACK_PRIMARY if local else 0) | (ACK_SECONDARY if remote or stuck else 0)
         elif address == DWT_COUNTER:
             self.advance(32)
             return self.cycles
@@ -112,11 +131,20 @@ class BenchRegisters:
             if state & ARM and not self.gpio_b & ARM:
                 require(not state & RUN, "ARM edge while RUN was high")
                 self.arming_edges += 1
+            if state & PRE and not self.gpio_b & PRE:
+                require(state & RUN and self.started is None, "Precharge with RUN low or PWM active")
+                self.precharge_rise = self.cycles
+                self.precharge_ack_at = None
+            elif not state & PRE and self.gpio_b & PRE:
+                self.precharge_fall = self.cycles
             self.gpio_b = state
         elif address == COMMON + 0x0C and value & 1:
             self.latched_fault = False
         elif address == COMMON + 0x14 and value & 15:
             require(self.allow_permit and self.gpio_b & RUN, "Timer enabled without permit")
+            require(not self.gpio_b & PRE and self.precharge_ack_at is not None and
+                    self.precharge_fall - self.precharge_ack_at >= 7 * 160 and
+                    self.cycles - self.precharge_fall >= 160, "Timer enabled before precharge and blanking completed")
             require(value & 15 == 15, "Expected all four timer outputs enabled together")
             require(self.read(COMMON + 0x50) == 1, "FLT1 must use a raw, active-low GPIO input")
             for timer in TIMERS:
@@ -190,7 +218,27 @@ def check(binary, charging):
     board.latched_fault = True
     board.run(1)
     require(board.started is None and not board.gpio_b & RUN, "Latched flag was ignored after permit recovery")
-    print(f"{binary.name}: boot inhibit, ramp, permit loss, re-arm, preload timeout and latched FLT1 passed")
+
+    for condition in ("missing ack", "stuck ack", "permit lost during precharge"):
+        faulty = BenchRegisters(binary)
+        faulty.request = False
+        faulty.run(25)
+        faulty.allow_precharge_ack = condition != "missing ack"
+        faulty.hold_precharge_ack = condition == "stuck ack"
+        faulty.trip_during_precharge = condition == "permit lost during precharge"
+        faulty.request = True
+        faulty.run(25)
+        require(faulty.precharge_rise is not None and faulty.precharge_fall is not None,
+                f"Fixture failed to reach precharge for {condition}")
+        require(not faulty.initial_compares and not faulty.gpio_b & (RUN | PRE),
+                f"Precharge failure did not inhibit PWM for {condition}")
+        faulty.allow_permit = True
+        faulty.allow_precharge_ack = True
+        faulty.hold_precharge_ack = False
+        faulty.run(25)
+        require(not faulty.initial_compares, f"Held request restarted after {condition}")
+    print(f"{binary.name}: precharge timing, missing/stuck ACK, permit loss, "
+          "ramp, re-arm and latched faults passed")
 
 
 if __name__ == "__main__":
