@@ -8,23 +8,29 @@ import tempfile
 from verify import run_spice
 
 
-def check(ngspice, driver, mosfet):
-    fixture = Path(__file__).with_name("vendor-halfbridge.cir").read_text(encoding="ascii")
+PSPICE_OPTIONS = ("-n", "-D", "ngbehavior=psa")
+
+
+def stage_vendor_models(driver, mosfet, scratch):
     # PSpice accepts whitespace between a parameter name and its value. Keep
     # the vendor originals intact and translate only those six declarations.
     pattern = rb"(?im)^([ \t]*\.param[ \t]+\w+)[ \t]+([^=\s].*)$"
     definitions, count = re.subn(pattern, rb"\1=\2", mosfet.read_bytes())
     if count != 6 or b".SUBCKT CSD18534KCS" not in definitions:
         raise ValueError("Expected TI SLPM046B, with six parameter declarations to translate")
-    options = ("-n", "-D", "ngbehavior=psa")
+    shutil.copyfile(driver, scratch / "ti-driver.lib")
+    (scratch / "ti-mosfet.lib").write_bytes(definitions)
+
+
+def check(ngspice, driver, mosfet):
+    fixture = Path(__file__).with_name("vendor-halfbridge.cir").read_text(encoding="ascii")
     with tempfile.TemporaryDirectory() as directory:
         scratch = Path(directory)
-        shutil.copyfile(driver, scratch / "ti-driver.lib")
-        (scratch / "ti-mosfet.lib").write_bytes(definitions)
+        stage_vendor_models(driver, mosfet, scratch)
         deck = scratch / "halfbridge.cir"
         for reltol in (0.005, 0.02):
             deck.write_text(fixture.replace("reltol=0.005", f"reltol={reltol}"), encoding="ascii")
-            m = run_spice(ngspice, deck, cwd=scratch, options=options)
+            m = run_spice(ngspice, deck, cwd=scratch, options=PSPICE_OPTIONS)
             delay = m["high_off"] - m["en_off"]
             peak = max(m["high_vds"], m["low_vds"])
             if not (9 < m["high_on"] < 10.1 and 9 < m["boot_min"] < 10.1 and
@@ -41,7 +47,7 @@ def check(ngspice, driver, mosfet):
         cold = re.sub(r"^\.meas .*\n", "", cold, flags=re.M)
         cold = cold.replace(".end", ".meas tran cold_gate MAX v(high) from=8.2u to=12u\n.end")
         deck.write_text(cold, encoding="ascii")
-        m = run_spice(ngspice, deck, cwd=scratch, options=options)
+        m = run_spice(ngspice, deck, cwd=scratch, options=PSPICE_OPTIONS)
         if m["cold_gate"] >= 1.2:
             raise ValueError(f"Unexpected cold-start gate voltage: {m['cold_gate']}")
         print(f"First high-side pulse without precharge: gate stayed below 1.2 V ({m['cold_gate']:.3g} V peak)")

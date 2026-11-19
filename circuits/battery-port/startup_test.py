@@ -10,7 +10,8 @@ FRAMES = 120
 PERIOD = 2000  # 10 ns timer ticks
 
 
-def command_sources(program, target, *, start_ns=0, frames=FRAMES):
+def command_sources(program, target, *, start_ns=0, frames=FRAMES, amplitude=5,
+                    nodes=("pa", "pb", "sa", "sb")):
     trace = subprocess.check_output([program, str(target), str(frames)], text=True)
     rows = [list(map(int, line.split())) for line in trace.splitlines()]
     if len(rows) != frames:
@@ -30,9 +31,9 @@ def command_sources(program, target, *, start_ns=0, frames=FRAMES):
         for signal, points in enumerate(signals):
             rise, fall = (start_ns + (t + index * PERIOD) * 10
                           for t in row[2*signal:2*signal+2])
-            points.append(f"+ {rise}n 0 {rise+25}n 5 {fall}n 5 {fall+25}n 0")
+            points.append(f"+ {rise}n 0 {rise+25}n {amplitude} {fall}n {amplitude} {fall+25}n 0")
     sources = []
-    for node, points in zip(("pa", "pb", "sa", "sb"), signals):
+    for node, points in zip(nodes, signals):
         sources.extend([f"V{node} {node} 0 PWL(0 0", *points, "+ )"])
     return sources
 
@@ -102,13 +103,18 @@ def check_protected_converter(program, spice, run_spice, scratch):
                   + ", fresh re-arm passed", flush=True)
 
 
+def compile_trace(cc, scratch):
+    program = scratch / ("trace.exe" if os.name == "nt" else "trace")
+    compiler = [cc, "cc"] if Path(cc).stem == "zig" else [cc]
+    subprocess.run([*compiler, "-std=c99", "-Wall", "-Wextra", "-Werror",
+                    str(ROOT / "bench-startup-trace.c"), "-o", str(program)], check=True)
+    return program
+
+
 def check_startup(cc, spice, run_spice):
     with tempfile.TemporaryDirectory() as directory:
         scratch = Path(directory)
-        program = scratch / ("trace.exe" if os.name == "nt" else "trace")
-        compiler = [cc, "cc"] if Path(cc).stem == "zig" else [cc]
-        subprocess.run([*compiler, "-std=c99", "-Wall", "-Wextra", "-Werror",
-                        str(ROOT / "bench-startup-trace.c"), "-o", str(program)], check=True)
+        program = compile_trace(cc, scratch)
         for target in (120, -120):
             deck = ["Bench startup ramp from timer compare edges",
                     ".options method=gear reltol=0.0005 abstol=1n",

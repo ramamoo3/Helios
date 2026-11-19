@@ -1,0 +1,78 @@
+Helios isolated DAB with four TI gate drivers and eight TI MOSFET models
+.include ti-driver.lib
+.include ti-mosfet.lib
+.include protection.lib
+.options method=gear maxord=2 reltol=0.005 abstol=10n vntol=10u gmin=1e-10 itl4=500
+.param VBAT=12 VLINK=24 VBIAS=9.926 CBOOT=100n LK=8u LM=851.84u
+.param NSEC=2 RP=0.06
+
+* Because the vendor driver is ground-referenced, the two simulation returns
+* use node 0. The transformer model preserves the two independent windings.
+Vbattery ps 0 {VBAT}
+Vlink ss 0 {VLINK}
+Rsource_p ps p 60m
+Rsource_s ss s 60m
+Crail_p p 0 470u
+Crail_s s 0 2200u
+Vdrive_p dcp 0 {VBIAS}
+Vdrive_s dcs 0 {VBIAS}
+Rdrive_p dcp vp 0.25
+Rdrive_s dcs vs 0.25
+Cdrive_p vp 0 14.4u
+Cdrive_s vs 0 14.4u
+
+* COLD is a test-fixture discharge clamp. It is removed before precharge.
+* A DC operating point avoids inconsistent initial states in the TI
+* behavioral subcircuits. The clamp leaves the physical power rails charged.
+.subckt LEG BUS VDD MID HP LP PC EN COLD BOOT HG LG CB=100n
+Bhigh in_h 0 V={3.3*(v(PC)<1.65 && v(HP)>1.65 && v(LP)<1.65)}
+Blow in_l 0 V={3.3*(v(HP)<1.65 && ((v(PC)>1.65 && v(LP)<1.65) || (v(PC)<1.65 && v(LP)>1.65)))}
+Rin_h in_h hi 1k
+Rin_l in_l li 1k
+Cin_h hi 0 5p
+Cin_l li 0 5p
+Xdriver li hi en vdd 0 hb ho mid lo UCC27282
+Cboot hb mid {CB}
+Bdischarge hb mid I={v(hb,mid)*(v(COLD)/0.33+1e-10)}
+Rghi ho gh 4.7
+Rglo lo gl 4.7
+Rghs gh mid 10k
+Rgls gl 0 10k
+Xhigh bus gh mid CSD18534KCS
+Xlow mid gl 0 CSD18534KCS
+Rbleed_bus bus mid 1meg
+Rbleed_rt mid 0 1meg
+Bboot BOOT 0 V=v(hb,mid)
+Bgh HG 0 V=v(gh,mid)
+Bgl LG 0 V=v(gl)
+.ends LEG
+
+* TI vendor-gate and switch paths follow the schematic diagonal mapping.
+Xpa p vp a pp pn pre enp cold bpa hpa lpa LEG CB={CBOOT}
+Xpb p vp b pn pp pre enp cold bpb hpb lpb LEG CB={CBOOT}
+Xsa s vs c sp sn pre_s ens_local cold bsa hsa lsa LEG CB={CBOOT}
+Xsb s vs d sn sp pre_s ens_local cold bsb hsb lsb LEG CB={CBOOT}
+Rpre_iso pre pre_s 1k
+Cpre_iso pre_s 0 24p
+Rpos_iso sp_in sp 1k
+Cpos_iso sp 0 18p
+Rneg_iso sn_in sn 1k
+Cneg_iso sn 0 18p
+Bens_local ens_local 0 V={v(ens)*(v(sec_ok)>1.65)}
+
+* Same current-loop structure as the existing switched converter model.
+Ltransfer a lr {LK}
+Rprimary lr wp {RP}
+Lmag wp b {LM}
+EX sx d wp b {NSEC}
+VsecCurrent sx c 0
+FX wp b VsecCurrent {NSEC}
+Bcur ip 0 V=i(Ltransfer)
+Xprotect ip pri_ok sec_ok arm run enp ens ct BENCH_PROTECT
+
+Bbootmin bootmin 0 V=min(min(v(bpa),v(bpb)),min(v(bsa),v(bsb)))
+Bbootmax bootmax 0 V=max(max(abs(v(bpa)),abs(v(bpb))),max(abs(v(bsa)),abs(v(bsb))))
+Bhighmax highmax 0 V=max(max(v(hpa),v(hpb)),max(v(hsa),v(hsb)))
+Blowmin lowmin 0 V=min(min(v(lpa),v(lpb)),min(v(lsa),v(lsb)))
+Blowmax lowmax 0 V=max(max(v(lpa),v(lpb)),max(v(lsa),v(lsb)))
+Bboth both 0 V=max(max(min(v(hpa),v(lpa)),min(v(hpb),v(lpb))),max(min(v(hsa),v(lsa)),min(v(hsb),v(lsb))))
