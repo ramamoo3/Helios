@@ -170,7 +170,7 @@
 (symbol (lib_id "Helios:SN74LVC1G74DCU") (at 181.61 66.04 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (uuid 31668c6b-2927-4477-838e-a6cfb24c81c9)
 (property "Reference" "U5" (at 165.1 45.085 0) (effects (font (size 1.27 1.27)) (justify left)))
 (property "Value" "SN74LVC1G74DCU" (at 165.1 47.244 0) (effects (font (size 1.27 1.27)) (justify left)))
-(property "Footprint" "Package_SO:VSSOP-8_2.3x2mm_P0.5mm" (at 181.61 66.04 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Footprint" "Helios_Bench:TI_DCU0008A" (at 181.61 66.04 0) (effects (font (size 1.27 1.27)) (hide yes)))
 (pin "1" (uuid db87e681-9102-4735-a530-7723bba8824c))
 (pin "2" (uuid 6424c6c3-b1ef-46c4-ae2d-09529a80473f))
 (pin "6" (uuid 658c3b48-1892-4061-b041-1422ecca237f))

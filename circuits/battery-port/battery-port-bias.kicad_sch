@@ -142,7 +142,7 @@
 (symbol (lib_id "Helios:TPS7A1601DGN") (at 50.8 60.96 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (uuid d366e4c6-dfc2-4178-8c75-304baa334ce5)
 (property "Reference" "U9" (at 36.83 37.465 0) (effects (font (size 1.27 1.27)) (justify left)))
 (property "Value" "TPS7A1601DGN" (at 36.83 39.624 0) (effects (font (size 1.27 1.27)) (justify left)))
-(property "Footprint" "" (at 50.8 60.96 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Footprint" "Helios_Bench:TI_DGN0008C" (at 50.8 60.96 0) (effects (font (size 1.27 1.27)) (hide yes)))
 (pin "8" (uuid a3375485-fd2e-4c4b-8745-641f9e75316b))
 (pin "5" (uuid 8912e87d-1982-4529-9c1d-40873589cecc))
 (pin "4" (uuid e7ea6192-6cec-44ef-bc78-c17d44ed0abe))
