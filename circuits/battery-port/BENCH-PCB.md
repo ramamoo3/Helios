@@ -23,8 +23,26 @@ The rest of the routing covers both bias regulators, the current transformer’s
 
 ## Verification before fabrication
 
-KiCad 10.99 reported zero schematic electrical-rule violations, zero board design-rule violations, zero open connections and zero schematic-to-board mismatches. The board has 1,850 trace segments and 256 vias. A geometry comparison verified the preserved power copper and checked that every trace and via stays clear of the center keepout. The new through drills clear the SMD copper lands. The local SPICE regression passed with the existing circuit models.
+KiCad 10.99 reported zero schematic electrical-rule violations, zero board design-rule violations, zero open connections and zero schematic-to-board mismatches. The board has 1,850 trace segments and 256 vias. The L1 repair moved three through vias and their six attached segments. The routes retain 1.20 mm top copper, 1.25 mm bottom copper and parallel 0.40 mm drills on each end of L1. The circuit regression checks all 256 via holes against the SMD lands. It reproduced the three failures on the pre-repair board and passed on the revised board.
 
-Establish the copper thickness, dielectric stack and cooling provisions before freezing the layout. Confirm the mechanical fits at T1, the TO-220 bodies and the 35.5 mm-tall secondary bulk capacitor.
+| L1 pad and net | Old via centre (mm) | New via centre (mm) | Nominal gap from hole edge to land (mm) |
+| --- | --- | --- | ---: |
+| 1, PRI_A | (65.300, 93.500) | (64.300, 93.500) | 0.518 |
+| 1, PRI_A | (66.650, 93.500) | (66.650, 92.800) | 0.500 |
+| 2, CT_OUTBOUND | (74.100, 93.775) | (74.650, 94.650) | 0.435 |
+
+### Stack-up for electrical extraction
+
+KiCad models the nominal 1.6 mm JLC04161H-7628 four-layer construction. The stack uses 35 µm finished outer copper and 15.2 µm inner copper. From top to bottom, the copper layers are separated by 0.2104 mm prepreg, 1.065 mm core and 0.2104 mm prepreg. Use relative permittivities 4.4 for the prepreg and 4.6 for the core. The board models a uniform 15.24 µm solder mask on each side, based on the published over-trace value, with relative permittivity 3.8. The copper and dielectric thicknesses sum to 1.5862 mm beneath the mask. [Fabricator stack-up and dielectric data](https://jlcpcb.com/impedance)
+
+Use the actual copper on each layer to model return paths. The inner layers carry traces. Model the via barrel separately and sweep plating thickness until the selected process supplies an assured value. Verify the final stack, finished drills, via covering and stencil against the assembler's process at the fabrication review.
+
+### Component drawing review
+
+| Assembly | Drawing and board check | Remaining fit check |
+| --- | --- | --- |
+| T1 ETD29 transformer | The 13-hole footprint matches the drawing's 5.08 mm pitch, 25.4 mm row spacing, unoccupied middle position on the six-pin row and nominal 1.6 mm holes. Its 35.5 mm square fabrication outline encloses the 35.3 × 35.2 mm maximum former envelope. | Check the complete wound assembly with its two B66359S2000X000 yokes. Confirm the finished hole tolerance and map the winding dots on the drawing. [TDK former drawing, page 4](https://www.tdk-electronics.tdk.com/inf/80/db/fer/etd_29_16_10.pdf#page=4) |
+| Q1–Q8 TO-220 | The 2.54 mm lead pitch matches the KCS outline. The generic footprints use 1.10 mm holes. TI's example uses 1.20 mm. | Check worst-case finished-hole fit with the chosen process and confirm heatsink, live drain-tab clearance and hardware before release. [TI KCS drawing and land pattern](https://www.ti.com/lit/ds/symlink/csd18534kcs.pdf#page=12) |
+| C25 secondary bulk capacitor | The footprint matches the 18 mm body and 7.5 mm lead pitch. The nominal body edge sits 1.7 mm inside the board outline. The listed height is 35.5 mm. | Allow for body tolerance, soldered height and clearance to fixture hardware. [Panasonic EEUFC1H222 dimensions](https://industrial.panasonic.com/ww/products/pt/aluminum-cap-lead/models/EEUFC1H222) |
 
 For the next transient model, extract feed, return and shared source impedance from the selected stack-up and the routed copper, including the via and MOSFET pad geometry at each source takeoff. Include local capacitor effective capacitance, ESR and ESL and the TI package parasitics already in the device model. Use the extracted paths to check local rail current, MOSFET Vds, negative switch-node excursions and channel overlap in both power directions. Fabrication requires completion of the routing and the [software verification](../../HELIOS-VERIFICATION.md). [Prior switching simulations](BENCH-BOOTSTRAP.md#channel-overlap-during-startup)

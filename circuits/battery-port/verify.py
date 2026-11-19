@@ -1,4 +1,4 @@
-"""Check the two Helios pin maps and run the single- and two-port test decks."""
+"""Check the Helios pin maps and bench layout, then run the SPICE test decks."""
 import argparse
 from collections import defaultdict
 from itertools import product
@@ -269,6 +269,54 @@ def first(tree, key):
 
 def coord(tree):
     return tuple(round(float(v) * 1000) for v in tree[1:3])
+
+
+def check_bench_via_clearance(path):
+    """Detect via holes in SMD solder lands, including vias on the pad's net."""
+    board = read_schematic(path)
+    vias = [
+        (*map(float, first(via, "at")[1:3]), float(first(via, "drill")[1]) / 2,
+         set(first(via, "layers")[1:]))
+        for via in children(board, "via")
+    ]
+    overlaps = []
+    for footprint in children(board, "footprint"):
+        ref = next(prop[2] for prop in children(footprint, "property") if prop[1] == "Reference")
+        layer = first(footprint, "layer")[1]
+        fx, fy, *rotation = map(float, first(footprint, "at")[1:])
+        angle = math.radians(rotation[0]) if rotation else 0
+        cosine, sine = math.cos(angle), math.sin(angle)
+        for pad in children(footprint, "pad"):
+            if pad[2] != "smd" or layer not in first(pad, "layers")[1:]:
+                continue
+            px, py, *rotation = map(float, first(pad, "at")[1:])
+            x, y = fx + cosine * px + sine * py, fy - sine * px + cosine * py
+            # PCB pad angles are absolute. Their offsets are relative to the footprint.
+            angle = math.radians(rotation[0]) if rotation else 0
+            pad_cos, pad_sin = math.cos(angle), math.sin(angle)
+            width, height = map(float, first(pad, "size")[1:3])
+            if pad[3] == "roundrect":
+                radius = min(width, height) * float(first(pad, "roundrect_rratio")[1])
+            elif pad[3] == "rect":
+                radius = 0
+            elif pad[3] in ("circle", "oval"):
+                radius = min(width, height) / 2
+            else:
+                raise ValueError(f"Unsupported SMD land shape at {ref}.{pad[1]}: {pad[3]}")
+            # The land is a rectangle with its edges and corners expanded by the radius.
+            half_width, half_height = width / 2 - radius, height / 2 - radius
+            for vx, vy, drill_radius, via_layers in vias:
+                if layer not in via_layers:
+                    continue
+                dx, dy = vx - x, vy - y
+                local_x = abs(pad_cos * dx - pad_sin * dy)
+                local_y = abs(pad_sin * dx + pad_cos * dy)
+                distance = math.hypot(max(local_x - half_width, 0), max(local_y - half_height, 0))
+                if distance <= radius + drill_radius:
+                    overlaps.append(f"{ref}.{pad[1]} at ({vx:g}, {vy:g}) mm")
+    if overlaps:
+        raise ValueError("Via holes intersect SMD solder lands: " + ", ".join(overlaps))
+    print(f"Bench PCB: all {len(vias)} via holes clear SMD solder lands", flush=True)
 
 
 def check_sheet(name, expected):
@@ -575,6 +623,7 @@ if __name__ == "__main__":
     check_precharge_logic()
     check_sheet("bench-power", POWER.replace("L1.2 T1.1", "CT_OUTBOUND L1.2\nCT_RETURN T1.1"))
     check_bench_hierarchy()
+    check_bench_via_clearance(ROOT / "battery-port-bench.kicad_pcb")
     if not args.schematics_only:
         check_startup(args.cc, args.ngspice, run_spice)
         check_simulations(args.ngspice)
