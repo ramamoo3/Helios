@@ -28,12 +28,33 @@ The firmware checks for both readbacks low before asserting PRE_REQ. It allows u
 
 Both modeled bias-loss cases cleared permission during the precharge pulse. All eight gates remained off after bias returned, even though the test retained RUN and later supplied the scheduled PWM inputs. These cases assume the existing fault latch and independent driver enables. The regression checks all four bootstrap capacitors begin below 50 mV and pass the 8.5 V precharge target before PWM. In the normal cases, it also checks both the all-off gap and that winding current remains below 0.25 A during precharge and 3.5 A in the first cycle.
 
-The minimum of the two gates in one half-bridge briefly reached 1.39 V and 2.61 V in the two nominal discharge solver runs. The largest equivalent bump across the tested cases was 3.57 V. It is sensitive to the solver settings and needs a separate switching-transient check. Establish drain-channel overlap and peak current with verified loop and common-source inductances before choosing gate resistors or releasing the layout.
-
 The fixture has prebiased rails, stable bias reservoirs, a discharged bootstrap starting condition, zero initial winding current and a linear transformer. The vendor driver models use the simulator ground for both local returns. Insulation, actual driver tolerance, dead-rail startup and restart with residual transformer current need separate verification. The four gate drivers and eight MOSFETs use TI's unencrypted PSpice models. [UCC27282 datasheet](https://www.ti.com/lit/ds/symlink/ucc27282.pdf) · [Driver model](https://www.ti.com/lit/zip/slum720) · [MOSFET model](https://www.ti.com/lit/zip/slpm046b)
 
 Use the same two TI libraries as the single-leg fixture. The compiler generates the first two frames of each direction's controller trace.
 
 ~~~sh
 python vendor_startup_test.py --ngspice ngspice --cc cc --driver /path/to/driver.lib --mosfet /path/to/CSD18534KCS.lib
+~~~
+
+## Channel overlap during startup
+
+The gate bump is the largest simultaneous value of the lower gate-to-source voltage in any one leg. To check conduction directly, the diagnostic saves the intrinsic drain current and drain-source voltage of each TI MOSFET model's BSIM3 channel, without adding devices to the solver's circuit. It takes the smaller channel current in each leg when both intrinsic drain-source voltages are positive and integrates that common forward current from 17 to 39 µs. The explicit body-diode and capacitance branches are outside this measurement. A positive control forced both channels on through an ideal current-limited source. Both readbacks agreed with the 0.982 A supply current. [ngspice vector recording](https://nmg.gitlab.io/ngspice-manual/analysesandoutputcontrol_batchmode/batchoutput/save_namevector_s_tobesavedinrawfile.html) · [CSD18534KCS model and datasheet](https://www.ti.com/product/CSD18534KCS)
+
+| Full converter, packaged-device model with no PCB inductance | Gate bump | Peak simultaneous forward channel current | Largest positive package Vds |
+| --- | ---: | ---: | ---: |
+| Nominal discharge | 2.610 V | 0.000055 µA | 24.715 V |
+| Nominal discharge, alternate tolerance | 1.391 V | 0.000039 µA | 24.715 V |
+| Nominal charge | 2.527 V | 0.00095 µA | 24.748 V |
+| 11.4 V / 25.2 V discharge, 9.3 V bias, 120 nF | 3.571 V | 0.172 µA | 25.928 V |
+| 12.6 V / 22.8 V charge, 9.3 V bias, 60 nF | 2.868 V | 0.019 µA | 23.554 V |
+| Same charge case, 0.5 ns maximum step | 2.909 V | 0.072 µA | 23.556 V |
+| Same charge case, alternate tolerance | 2.820 V | 0.015 µA | 23.556 V |
+
+The baseline models put the simulated common forward channel current below 0.2 µA even in the 3.571 V case. Treat the small currents as numerical estimates. The metric does not cover total local rail current, diode reverse recovery or all switching losses. The winding current transformer senses transformer current and cannot qualify shoot-through confined to a half-bridge. [TI note on dV/dt-induced turn-on](https://www.ti.com/document-viewer/lit/html/SLYA091/GUID-2DA39407-8B48-4337-A3C3-C28780CB1745)
+
+The four pre-layout runs add either 2 nH in the capacitor feed and 1 nH in each common-source path at nominal voltages, or 10 nH in the feed and 3 nH in each source path at the low-bias rail and capacitor corners. The sweep covers both power directions. These are assumed values in addition to the TI model's package inductance. All four stopped with a timestep error during precharge or early switching. A retry with 8 mΩ feed resistance, 5 mΩ source resistance, alternate Gear tolerances and a 0.5 ns maximum step also stopped in all four cases. The runner exits with a failure status when a case is inconclusive. Before setting the gate resistance or releasing the PCB, qualify positive Vds, negative switch-node excursions and peak local rail current with layout-derived impedance and a converged commutation model. Include the final driver reference takeoff, source lead and local capacitor return.
+
+~~~sh
+python vendor_overlap_test.py --ngspice ngspice --cc cc --driver /path/to/driver.lib --mosfet /path/to/CSD18534KCS.lib
+python vendor_overlap_test.py --ngspice ngspice --cc cc --driver /path/to/driver.lib --mosfet /path/to/CSD18534KCS.lib --damped-layout
 ~~~

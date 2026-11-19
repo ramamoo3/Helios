@@ -13,11 +13,14 @@ ROOT = Path(__file__).resolve().parent
 PROFILES = {
     "nominal": "reltol=0.008 abstol=100n vntol=30u gmin=1e-9 rshunt=1e10",
     "alternate": "reltol=0.02 abstol=100n vntol=100u gmin=1e-9",
+    "layout_retry": "reltol=0.02 abstol=100n vntol=100u gmin=1e-9 trtol=3",
 }
 
 
-def write_deck(path, case, values, direction, pwm, profile, fault=None):
-    fixture = (ROOT / "vendor-dab-startup.cir").read_text(encoding="ascii")
+def write_deck(path, case, values, direction, pwm, profile, fault=None, *,
+               fixture=None, max_step="1n", diagnostics=()):
+    if fixture is None:
+        fixture = (ROOT / "vendor-dab-startup.cir").read_text(encoding="ascii")
     solver = f".options method=gear maxord=2 {PROFILES[profile]} itl4=500"
     text = "\n".join(solver if line.startswith(".options ") else line
                      for line in fixture.splitlines())
@@ -32,7 +35,7 @@ def write_deck(path, case, values, direction, pwm, profile, fault=None):
     lines.extend(pwm)
     lines.extend([".save v(bootmin) v(bootmax) v(highmax) v(lowmin) v(lowmax) v(ip)"
                   " v(hpa) v(hpb) v(hsa) v(hsb) v(both) v(enp) v(ens)",
-                  ".tran 1n 40u 0 1n",
+                  f".tran 1n 40u 0 {max_step}",
                   ".meas tran cold_boot MAX v(bootmax) from=8.2u to=8.4u",
                   ".meas tran prime_high MAX v(highmax) from=9u to=16u",
                   ".meas tran prime_low MIN v(lowmin) from=9.8u to=11.9u"])
@@ -54,7 +57,8 @@ def write_deck(path, case, values, direction, pwm, profile, fault=None):
         for leg, start in [("hpa", 18 + primary), ("hpb", 28 + primary),
                            ("hsa", 18 + secondary), ("hsb", 28 + secondary)]:
             lines.append(f".meas tran first_{leg} MIN v({leg}) from={start}u to={start+8}u")
-    path.write_text(text + f"\n* Case {case}\n" + "\n".join([*lines, ".end", ""]), encoding="ascii")
+    path.write_text(text + f"\n* Case {case}\n" + "\n".join([*lines, *diagnostics, ".end", ""]),
+                    encoding="ascii")
 
 
 def check_case(results, case, fault):
