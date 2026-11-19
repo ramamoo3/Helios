@@ -10,7 +10,7 @@ import shutil
 from subprocess import TimeoutExpired
 from tempfile import TemporaryDirectory
 
-from extract_layout import DEFAULT_BOARD, PORTS
+from extract_layout import BOOTSTRAP_PORTS, DEFAULT_BOARD, PORTS
 from startup_test import command_sources, compile_trace
 from vendor_overlap_test import (CASES, DEVICE_PATH, END, LEGS, START, check_channel_probes,
                                  reduce_trace, trace_samples)
@@ -23,6 +23,10 @@ CONNECTIONS = (
     ("bus", "drainh"), ("sourceh", "mid"), ("sourcel", "0"),
     ("hs", "sourceh"), ("vss", "sourcel"), ("ho", "hri"),
     ("hro", "gh"), ("lo", "lri"), ("lro", "gl"),
+)
+BOOTSTRAP_CONNECTIONS = (
+    *CONNECTIONS[:3], ("hs", "hs_junction"), *CONNECTIONS[4:],
+    ("hs_junction", "sourceh"), ("hb", "hb_cap"), ("hs_cap", "hs_junction"),
 )
 
 # Continuous-output driver for numerical screening with the same TI MOSFET models.
@@ -55,16 +59,17 @@ Mdevice di gi si BENCH_VDMOS
 """
 
 
-def port_network(matrices):
+def port_network(matrices, ports=PORTS):
+    connections = BOOTSTRAP_CONNECTIONS if tuple(ports) == BOOTSTRAP_PORTS else CONNECTIONS
     r = matrices["100000"]["resistance_ohm"]
     l = matrices["1e+07"]["inductance_h"]
     lines = []
-    for index, (port, (a, b)) in enumerate(zip(PORTS, CONNECTIONS)):
+    for index, (port, (a, b)) in enumerate(zip(ports, connections, strict=True)):
         lines.extend((f"Rpcb_{port} {a} r_{port} {r[index][index]:.8g}",
                       f"Lpcb_{port} r_{port} {b} {l[index][index]:.8g}"))
         for other in range(index):
             coupling = (l[index][other] + l[other][index]) / (2 * math.sqrt(l[index][index] * l[other][other]))
-            lines.append(f"K{port}_{PORTS[other]} Lpcb_{port} Lpcb_{PORTS[other]} {coupling:.8g}")
+            lines.append(f"K{port}_{ports[other]} Lpcb_{port} Lpcb_{ports[other]} {coupling:.8g}")
     return "\n".join(lines)
 
 
@@ -82,7 +87,10 @@ def layout_fixture(source, extraction, screening, screening_devices):
     native_driver = "Xdriver li hi en vdd 0 hb ho mid lo UCC27282"
     base = base.replace(native_driver, SCREENING_DRIVER if screening
                         else "Xdriver li hi en vdd vss hb ho hs lo UCC27282")
-    base = base.replace("Cboot hb mid", "Cboot hb hs").replace("Bdischarge hb mid", "Bdischarge hb hs")
+    ports = extraction["ports"]
+    hb, hs = ("hb_cap", "hs_cap") if tuple(ports) == BOOTSTRAP_PORTS else ("hb", "hs")
+    base = base.replace("Cboot hb mid", f"Cboot {hb} {hs}")
+    base = base.replace("Bdischarge hb mid I={v(hb,mid)", f"Bdischarge {hb} {hs} I={{v({hb},{hs})")
     base = base.replace("v(hb,mid)", "v(hb,hs)")
     base = base.replace("Rghi ho gh", "Rghi hri hro").replace("Rglo lo gl", "Rglo lri lro")
     base = base.replace("Rghs gh mid", "Rghs gh sourceh").replace("Rgls gl 0", "Rgls gl sourcel")
@@ -93,7 +101,7 @@ def layout_fixture(source, extraction, screening, screening_devices):
     measures = []
     mosfet = "PRINTED_FET" if screening_devices else "CSD18534KCS"
     for leg, _, midpoint in LEGS:
-        network = port_network(extraction["legs"][leg]["frequencies_hz"])
+        network = port_network(extraction["legs"][leg]["frequencies_hz"], ports)
         devices = f"""{network}
 Llocal bus local_r 0.6n
 Rlocal local_r local_c 10m
@@ -156,12 +164,17 @@ def switching_case(args, case, fault, fault_start, scratch, source, pwm, vectors
         return {"case": label, "error": detail}
 
 
-def run(args):
-    extraction = json.loads(args.extraction.read_text(encoding="utf-8"))
-    if list(PORTS) != extraction["ports"]:
+def read_extraction(path):
+    extraction = json.loads(path.read_text(encoding="utf-8"))
+    if tuple(extraction["ports"]) not in (PORTS, BOOTSTRAP_PORTS):
         raise ValueError("Unexpected extraction port order")
     if extraction["board_sha256"] != hashlib.sha256(DEFAULT_BOARD.read_bytes()).hexdigest():
         raise ValueError("Extraction was generated from a different board revision")
+    return extraction
+
+
+def run(args):
+    extraction = read_extraction(args.extraction)
     source, vectors, measures = layout_fixture((ROOT / "vendor-dab-startup.cir").read_text(encoding="ascii"),
                                                extraction, args.screening_driver, args.screening_devices)
     cases = [(case, None, 12) for case in CASES if "LFEED" in case.parameters]

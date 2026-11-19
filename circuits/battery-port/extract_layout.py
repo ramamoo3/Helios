@@ -22,6 +22,8 @@ LEGS = {
     "sb": ("Q7", "Q8", "U302", "R306", "R307", "C29"),
 }
 PORTS = ("feed", "switch", "return", "hs", "vss", "ho", "gh", "lo", "gl")
+BOOTSTRAP_PORTS = (*PORTS, "hs_source", "boot_feed", "boot_return")
+BOOTSTRAP_CAPS = {"pa": "C6", "pb": "C106", "sa": "C206", "sb": "C306"}
 DEFAULT_BOARD = ROOT / "battery-port-bench.kicad_pcb"
 
 
@@ -79,6 +81,7 @@ class Layout:
                     self.thickness[name] = value
                 depth += value
         self.pads = {}
+        self.land_diameter = {}
         barrels = []
         for footprint in children(board, "footprint"):
             ref = next(p[2] for p in children(footprint, "property") if p[1] == "Reference")
@@ -92,11 +95,13 @@ class Layout:
                 centre = (round(x + px * cosine + py * sine, 6),
                           round(y - px * sine + py * cosine, 6), "F.Cu")
                 # The main exposed pad is the largest of the driver's pad-11 shapes.
-                size = math.prod(point(pad, "size"))
+                dimensions = point(pad, "size")
+                size = math.prod(dimensions)
                 key = (ref, pad[1])
                 net = first(pad, "net")[1]
                 if key not in self.pads or self.pads[key][2] < size:
                     self.pads[key] = (centre, net, size)
+                    self.land_diameter[key] = min(dimensions)
                 if pad[2] == "thru_hole":
                     barrels.append((net, centre[:2], list(self.z), float(first(pad, "drill")[1])))
         self.graphs = defaultdict(lambda: defaultdict(list))
@@ -164,7 +169,7 @@ class Layout:
         raise ValueError(f"No centreline path from {start_pin} to {end_pin}")
 
 
-def leg_routes(layout, parts):
+def leg_routes(layout, parts, bootstrap=None):
     high, low, driver, rh, rl, cap = parts
     pins = [
         ((cap, "1"), (high, "2")),
@@ -177,14 +182,74 @@ def leg_routes(layout, parts):
         ((driver, "10"), (rl, "1")),
         ((rl, "2"), (low, "1")),
     ]
-    return [layout.route(start, end, top_only=i < 3) for i, (start, end) in enumerate(pins)]
+    routes = [layout.route(start, end, top_only=i < 3) for i, (start, end) in enumerate(pins)]
+    if bootstrap is None:
+        return routes
+
+    hs_index = PORTS.index("hs")
+    hs, source, hs_edges = routes[hs_index]
+    _, capacitor, boot_edges = layout.route((driver, "5"), (bootstrap, "2"))
+    shared = 0
+    junction = hs
+    for hs_edge, boot_edge in zip(hs_edges, boot_edges):
+        if hs_edge != boot_edge:
+            break
+        shared += 1
+        junction = hs_edge.end if junction == hs_edge.start else hs_edge.start
+    if not 0 < shared < min(len(hs_edges), len(boot_edges)):
+        raise ValueError(f"Expected a routed bootstrap return tee at {driver}")
+    routes[hs_index] = (hs, junction, hs_edges[:shared])
+    routes.extend(((junction, source, hs_edges[shared:]),
+                   layout.route((driver, "3"), (bootstrap, "1")),
+                   (capacitor, junction, list(reversed(boot_edges[shared:])))))
+    # Each selected MOSFET pin has one front-layer conductor in this model.
+    # The inscribed disk expands that conductor into the measured land without
+    # creating overlapping copper where the inner HS/VSS routes meet the barrel.
+    mosfet = {high, low}
+    return [widen_mosfet_lands(layout, route, pair, mosfet)
+            for route, pair in zip(routes[:len(pins)], pins, strict=True)] + routes[len(pins):]
 
 
-def write_geometry(path, layout, routes, mesh):
+def widen_mosfet_lands(layout, route, pins, mosfet):
+    start, end, edges = route
+    land_widths = {layout.pads[pin][0]: layout.land_diameter[pin] for pin in pins if pin[0] in mosfet}
+    result = []
+    for edge in edges:
+        if (edge.start[2] != "F.Cu" or edge.end[2] != "F.Cu"
+                or (edge.start not in land_widths and edge.end not in land_widths)):
+            result.append(edge)
+            continue
+        # Model the inscribed disk as three straight strips. Split both ends
+        # when one trace spans two terminals, retaining its original central width.
+        length = edge.length
+        limits = [0.0, length]
+        for origin, direction, node in ((0, 1, edge.start), (length, -1, edge.end)):
+            radius = land_widths.get(node, 0.0) / 2
+            reach = min(radius, length / 2)
+            if reach:
+                limits.extend(origin + direction * reach * i / 3 for i in (1, 2, 3))
+        limits = sorted(set(limits))
+        x, y, layer = edge.start
+        dx, dy = edge.end[0] - x, edge.end[1] - y
+        points = {0.0: edge.start, length: edge.end}
+        for t in limits[1:-1]:
+            points[t] = (x + dx * t / length, y + dy * t / length, layer)
+        for a, b in zip(limits, limits[1:]):
+            midpoint = (a + b) / 2
+            width = edge.width
+            for node, distance in ((edge.start, midpoint), (edge.end, length - midpoint)):
+                radius = land_widths.get(node, 0.0) / 2
+                if distance < radius:
+                    width = max(width, 2 * math.sqrt(radius**2 - distance**2))
+            result.append(Copper(points[a], points[b], width, edge.thickness))
+    return start, end, result
+
+
+def write_geometry(path, layout, routes, mesh, ports=PORTS):
     nodes = {}
     conductors = []
-    ports = []
-    for name, (start, end, copper) in zip(PORTS, routes):
+    external = []
+    for name, (start, end, copper) in zip(ports, routes, strict=True):
         for edge in copper:
             a, b = edge.start, edge.end
             for node in (a, b):
@@ -193,7 +258,7 @@ def write_geometry(path, layout, routes, mesh):
             orientation = " wx=1 wy=0 wz=0" if a[:2] == b[:2] else ""
             conductors.append(f"e{len(conductors)} {nodes[a]} {nodes[b]} "
                               f"w={edge.width:.9g} h={edge.thickness:.9g}{orientation}")
-        ports.append(f".external {nodes[start]} {nodes[end]} {name}")
+        external.append(f".external {nodes[start]} {nodes[end]} {name}")
     if len(conductors) != len(set(edge for *_, route in routes for edge in route)):
         raise ValueError("Overlapping conductor paths need an explicit shared port")
     text = ["Helios bench copper paths", ".units mm",
@@ -201,24 +266,24 @@ def write_geometry(path, layout, routes, mesh):
     for node, name in nodes.items():
         x, y, z = layout.xyz(node)
         text.append(f"{name} x={x:.9g} y={y:.9g} z={z:.9g}")
-    text += conductors + ports + [".freq fmin=1e5 fmax=1e7 ndec=1", ".end"]
+    text += conductors + external + [".freq fmin=1e5 fmax=1e7 ndec=1", ".end"]
     path.write_text("\n".join(text) + "\n", encoding="ascii")
 
 
-def read_matrices(path):
+def read_matrices(path, ports=PORTS):
     text = path.read_text(encoding="ascii")
     labels = re.findall(r"Row (\d+).+port name: (\S+)", text)
     names = [name for _, name in sorted(labels, key=lambda label: int(label[0]))]
-    if sorted(names) != sorted(PORTS):
+    if sorted(names) != sorted(ports):
         raise ValueError(f"Unexpected FastHenry ports: {names}")
-    order = [names.index(name) for name in PORTS]
+    order = [names.index(name) for name in ports]
     sections = re.split(r"Impedance matrix for frequency =\s+(\S+) \d+ x \d+\s*", text)
     matrices = {}
     for freq, values in zip(sections[1::2], sections[2::2]):
         frequency = float(freq)
         z = [[complex(float(r), float(x)) for r, x in re.findall(r"(\S+)\s+(\S+)j", row)]
              for row in values.strip().splitlines()]
-        if len(z) != len(PORTS) or any(len(row) != len(PORTS) for row in z):
+        if len(z) != len(ports) or any(len(row) != len(ports) for row in z):
             raise ValueError(f"Incomplete impedance matrix at {freq} Hz")
         z = [[z[i][j] for j in order] for i in order]
         for i, row in enumerate(z):
@@ -236,34 +301,37 @@ def read_matrices(path):
     return matrices
 
 
-def extract(board_path, executable, plating, mesh):
+def extract(board_path, executable, plating, mesh, bootstrap=False):
     layout = Layout(read_schematic(board_path), plating)
+    ports = BOOTSTRAP_PORTS if bootstrap else PORTS
     result = {
         "board_sha256": hashlib.sha256(board_path.read_bytes()).hexdigest(),
         "via_wall_mm": plating,
         "mesh_filaments_across_width": mesh,
-        "ports": PORTS,
+        "ports": ports,
         "legs": {},
     }
+    if bootstrap:
+        result["mosfet_lands"] = "three-strip inscribed-disk approximation"
     with TemporaryDirectory() as directory:
         work = Path(directory)
         for leg, parts in LEGS.items():
             target = work / leg
             target.mkdir()
             deck = target / "layout.inp"
-            routes = leg_routes(layout, parts)
-            write_geometry(deck, layout, routes, mesh)
+            routes = leg_routes(layout, parts, BOOTSTRAP_CAPS[leg] if bootstrap else None)
+            write_geometry(deck, layout, routes, mesh, ports)
             process = subprocess.run([executable, str(deck), "-s", "ludecomp", "-m", "direct"],
                                      cwd=target, capture_output=True, text=True, timeout=90, check=False)
             if process.returncode:
                 raise RuntimeError(f"FastHenry failed for {leg}:\n{process.stdout}\n{process.stderr}")
-            matrices = read_matrices(target / "Zc.mat")
+            matrices = read_matrices(target / "Zc.mat", ports)
             result["legs"][leg] = {
                 "length_mm": [sum(math.dist(layout.xyz(e.start), layout.xyz(e.end)) for e in route)
                               for _, _, route in routes],
                 "frequencies_hz": matrices,
             }
-            print(f"FastHenry {leg}: extracted {len(PORTS)} ports at three frequencies", flush=True)
+            print(f"FastHenry {leg}: extracted {len(ports)} ports at three frequencies", flush=True)
     return result
 
 
@@ -274,9 +342,10 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--via-wall-mm", type=float, default=0.020)
     parser.add_argument("--mesh", type=int, default=7)
+    parser.add_argument("--bootstrap", action="store_true", help="resolve the HB route and the HS return tee")
     args = parser.parse_args()
     solver = shutil.which(args.fasthenry)
     if not solver or not math.isfinite(args.via_wall_mm) or args.via_wall_mm <= 0 or args.mesh < 1:
         parser.error("Select an available FastHenry executable, positive via wall and positive mesh")
-    data = extract(args.board, str(Path(solver).resolve()), args.via_wall_mm, args.mesh)
+    data = extract(args.board, str(Path(solver).resolve()), args.via_wall_mm, args.mesh, args.bootstrap)
     args.output.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8", newline="\n")

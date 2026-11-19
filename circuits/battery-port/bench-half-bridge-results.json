@@ -1,0 +1,147 @@
+{
+  "board_sha256": "5cd05aa9062ec6da1a902fd3910d581091e5aa653d89a0bdbfaa5ac86bf6ec2d",
+  "extraction_sha256": "0966e915591c6d65e1d16985a17fa1123098eb49a01bf14c58fefc705b9dfca5",
+  "diode_fit": {
+    "transit_ns": 19.2724609375,
+    "qrr_c": 6.81171e-08
+  },
+  "switching": {
+    "low_0.75a": {
+      "precharge_vgs": 1.76073,
+      "peak_vds_high": 57.7393,
+      "peak_vds_low": 24.8197,
+      "min_hs": -11.4738,
+      "off_gate": 2.41748,
+      "peak_feed": 8.87329,
+      "high_turnon_j": 1.68316e-06,
+      "high_turnoff_j": 3.87343e-08,
+      "low_turnon_j": 2.86683e-07,
+      "low_turnoff_j": 9.11321e-08
+    },
+    "low_1.5a": {
+      "precharge_vgs": 1.76073,
+      "peak_vds_high": 57.7677,
+      "peak_vds_low": 26.6101,
+      "min_hs": -11.6432,
+      "off_gate": 2.47311,
+      "peak_feed": 11.124,
+      "high_turnon_j": 2.29398e-06,
+      "high_turnoff_j": 8.83126e-08,
+      "low_turnon_j": 4.23054e-07,
+      "low_turnoff_j": 2.19367e-07
+    },
+    "low_2.5a": {
+      "precharge_vgs": 1.76073,
+      "peak_vds_high": 57.7627,
+      "peak_vds_low": 25.0326,
+      "min_hs": -11.7608,
+      "off_gate": 2.67385,
+      "peak_feed": 13.2858,
+      "high_turnon_j": 2.69968e-06,
+      "high_turnoff_j": 1.57904e-07,
+      "low_turnon_j": 6.12627e-07,
+      "low_turnoff_j": 1.66004e-07
+    },
+    "high_0.75a": {
+      "precharge_vgs": 1.76073,
+      "peak_vds_high": 24.8208,
+      "peak_vds_low": 58.1615,
+      "min_hs": -0.795806,
+      "off_gate": 1.80933,
+      "peak_feed": 9.11676,
+      "high_turnon_j": 3.11503e-07,
+      "high_turnoff_j": 7.95825e-08,
+      "low_turnon_j": 6.13031e-06,
+      "low_turnoff_j": 1.46622e-08
+    },
+    "high_1.5a": {
+      "precharge_vgs": 1.76073,
+      "peak_vds_high": 26.0379,
+      "peak_vds_low": 58.2078,
+      "min_hs": -0.828065,
+      "off_gate": 2.2191,
+      "peak_feed": 12.1903,
+      "high_turnon_j": 4.40925e-07,
+      "high_turnoff_j": 1.60112e-07,
+      "low_turnon_j": 6.82981e-06,
+      "low_turnoff_j": 5.61439e-08
+    },
+    "high_2.5a": {
+      "precharge_vgs": 1.76073,
+      "peak_vds_high": 24.8985,
+      "peak_vds_low": 58.2115,
+      "min_hs": -0.853681,
+      "off_gate": 2.24008,
+      "peak_feed": 15.8397,
+      "high_turnon_j": 5.87731e-07,
+      "high_turnoff_j": 1.56112e-07,
+      "low_turnon_j": 7.08328e-06,
+      "low_turnoff_j": 1.28583e-07
+    },
+    "low_2.5a_half_step": {
+      "precharge_vgs": 1.77022,
+      "peak_vds_high": 57.7829,
+      "peak_vds_low": 25.4567,
+      "min_hs": -11.8855,
+      "off_gate": 2.7623,
+      "peak_feed": 13.5121,
+      "high_turnon_j": 3.06489e-06,
+      "high_turnoff_j": 1.59611e-07,
+      "low_turnon_j": 6.21294e-07,
+      "low_turnoff_j": 2.01061e-07
+    },
+    "low_2.5a_zero_diffusion": {
+      "precharge_vgs": 1.76073,
+      "peak_vds_high": 50.9168,
+      "peak_vds_low": 25.1042,
+      "min_hs": -8.13727,
+      "off_gate": 1.6081,
+      "peak_feed": 5.02145,
+      "high_turnon_j": 8.63549e-07,
+      "high_turnoff_j": 1.60544e-07,
+      "low_turnon_j": 2.41643e-07,
+      "low_turnoff_j": 1.66487e-07
+    },
+    "low_2.5a_no_avalanche": {
+      "precharge_vgs": 1.77022,
+      "peak_vds_high": 120.137,
+      "peak_vds_low": 25.465,
+      "min_hs": -29.4145,
+      "off_gate": 3.05878,
+      "peak_feed": 13.5121,
+      "high_turnon_j": 2.77739e-06,
+      "high_turnoff_j": 1.59817e-07,
+      "low_turnon_j": 5.87298e-07,
+      "low_turnoff_j": 2.01723e-07
+    }
+  },
+  "faults": {
+    "local_q6_short": {
+      "permit_before": 3.3,
+      "permit_after": 3.3,
+      "peak_feed": 148.653,
+      "current_below_1a": 3.64174e-06,
+      "command_fall": 3.505e-06,
+      "high_fet_energy_j": 0.000408684
+    },
+    "ct_positive_control": {
+      "permit_before": 3.3,
+      "permit_after": 2.59806e-12,
+      "peak_feed": 102.394,
+      "current_below_1a": 3.52221e-06,
+      "command_fall": 3.505e-06,
+      "high_fet_energy_j": 0.000179245
+    }
+  },
+  "thermal": {
+    "worst_measured_energy_pair_j": 7.211863e-06,
+    "frequency_hz": 50000,
+    "assumed_on_current_a": 2.5,
+    "assumed_hot_rds_ohm": 0.02,
+    "duty": 0.5,
+    "estimated_w_per_mosfet": 0.42309315,
+    "ambient_c": 40,
+    "theta_ja_c_per_w": 62,
+    "estimated_junction_c": 66.2317753
+  }
+}

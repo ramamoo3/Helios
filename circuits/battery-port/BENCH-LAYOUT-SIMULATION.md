@@ -46,4 +46,29 @@ python layout_switching_test.py --extraction bench-impedance.json --output scree
 
 Run from the battery-port directory. The runners write measured values or solver failures to JSON and return a failing exit status when a run stops early or a fault case fails the inhibit check. Each completed case also reports the precharge off-gate criterion. The screening run preserves the extracted topology and substitutes the driver and MOSFET models.
 
-**Fabrication remains on hold.** Correlate the vendor and compact models against an independent switching model, add pad and bootstrap parasitics, and establish bounds on drain stress, gate turn-on, rail current and fault energy. Complete the thermal and mechanical review on the same board revision.
+## Bootstrap extraction and independent half-bridge screen
+
+The revised extraction separates the driver HS pin, the board tee at the bootstrap return and the MOSFET source. Twelve ports per leg include the HB feed and capacitor return. The MOSFET front lands are represented by three strips across each pad's inscribed disk. This models copper width near the pins. The lead, solder fillet and annulus still need a three-dimensional fit for production. The bootstrap loops are about 8.76 nH at 10 MHz. The pad correction puts the commutation loops at 7.69 nH on the primary and 7.75 nH on the secondary. [Bootstrap impedance matrices](bench-bootstrap-impedance.json)
+
+The full-converter compact-model nominal charge rerun reduced Q6 peak Vds from 44.34 V to 41.59 V and the high-side precharge excursion from 2.14 V to 1.82 V. The latter exceeds the 0.1 V criterion. The TI PSpice nominal charge rerun reached the first PWM transition at 17.15 µs before stopping with a timestep error. The earlier extraction stopped during precharge.
+
+An independent Q5/Q6 model uses Level 1 MOSFET channels, a charge-formulated gate-drain capacitance, package inductance and separate body diodes. The imposed-current two-pulse fixture approximates a secondary winding that holds its current across a switching edge. It exercises 0.75 A, 1.5 A and 2.5 A in each polarity at 24 V. A separate diode fixture fits 68.12 nC of reverse recovery charge to the datasheet's 68 nC typical point at 40 A, 30 V and 300 A/µs. The fit does not establish the recovery shape, temperature dependence or actual low-current behavior. [TI characteristics](https://www.ti.com/lit/ds/symlink/csd18534kcs.pdf) · [Ngspice charge-formulated capacitors](https://nmg.gitlab.io/ngspice-manual/circuitelementsandmodels/elementarydevices/capacitors%2Cdependentonexpressions_behavioralcapacitor.html)
+
+| Screen | Result | Interpretation |
+| --- | --- | --- |
+| Six two-pulse runs with the diode breakdown model enabled | Peak package Vds 57.74–58.21 V. Minimum HS relative to VSS −11.76 V. Precharge high-side Vgs reached 1.76 V. | Predictions approach the 60 V MOSFET rating. The gate excursion persists in a second device model. |
+| Low-side 2.5 A sensitivity | Peak Vds 57.76 V at a 0.50 ns maximum timestep and 57.78 V at 0.25 ns. At zero diffusion storage it was 50.92 V. With breakdown disabled it was 120.14 V. | The unclamped run extrapolates beyond device ratings. The contrast quantifies how strongly the result depends on the recovery and breakdown models. |
+| Simulated local Q6 short, Q5 then commanded on | The secondary permit stayed at 3.3 V. Modeled local feed current peaked at 148.65 A with the stipulated source and 20 mΩ fault. Following the externally imposed command fall, the last crossing below 1 A occurred 137 ns later. The Q5 loss proxy integrated to 0.409 mJ. | The local current bypasses the primary current transformer. The imposed command terminates the event. Hardware has no demonstrated clearing time for this fault. |
+| Winding-current positive control | A separate 7 A winding-current stimulus cleared the permit. The same fault fixture peaked at 102.39 A and its Q5 loss proxy was 0.179 mJ. | Verifies the modeled winding trip responds when its input sees a fault. The injected winding current is a test stimulus. |
+| Sustained-load thermal estimate | The largest switching loss proxy was 7.21 µJ per turn-on and turn-off pair. At 50 kHz, 2.5 A during conduction, 50% duty, assumed 20 mΩ hot resistance and 40 °C ambient, the single-device estimate is 0.42 W and 66 °C junction using the datasheet's 62 °C/W. | A preliminary MOSFET estimate. Actual sustained thermal limits depend on the mounted board, airflow, magnetics, regulator, capacitors and neighboring devices. |
+
+Run from the battery-port directory. The new half-bridge check uses native ngspice and the independently fitted device.
+
+```sh
+python extract_layout.py --fasthenry fasthenry --bootstrap --mesh 11 --output bench-bootstrap-impedance.json
+python half_bridge_test.py --output bench-half-bridge-results.json
+```
+
+The checked-in measurements identify the exact board and extraction by SHA-256. The runner verifies that the simulated local short leaves the winding permit asserted and that the injected winding-current control trips it. Its completion indicates that these scenarios produced usable screening results. [Numerical results](bench-half-bridge-results.json)
+
+**Fabrication remains on hold.** Add a hardware detection and interruption path for bridge-local faults. Establish its timing and device energy with source and capacitor tolerances. Correlate off-gate behavior, reverse recovery and peak Vds with an independently converged switching model. Close the board-level thermal and mechanical review on the same revision.
