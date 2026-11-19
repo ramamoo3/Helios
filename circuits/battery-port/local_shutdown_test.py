@@ -23,6 +23,12 @@ class Circuit:
     offset_mv: float = 0.0
     comparator_ns: float = 4.0
     logic_ns: float = 6.0
+    force_nh: float | None = None
+    force_mohm: float | None = None
+
+    @property
+    def extracted_force_path(self):
+        return self.force_nh is not None and self.force_mohm is not None
 
 
 CORNERS = {
@@ -36,7 +42,7 @@ CORNERS = {
 }
 
 
-def sensed_bridge(extraction, transit, leg, circuit):
+def sensed_bridge(extraction, transit, leg, circuit, fast_inputs=False):
     rail = 12 if leg.startswith("p") else 24
     netlist = bridge(extraction, rail, transit, avalanche=True, leg=leg)
     netlist, count = re.subn(r"^Lpcb_return r_return 0 (\S+)$",
@@ -49,16 +55,34 @@ def sensed_bridge(extraction, transit, leg, circuit):
                             netlist, count=1, flags=re.M)
     if count != 1:
         raise ValueError("Review the bootstrap initialization after the fixture changes")
-    return netlist + f"""Lshunt shunt_force shunt_r {circuit.sense_nh:g}n
-Rshunt shunt_r 0 {circuit.shunt_mohm:g}m
+    if fast_inputs:
+        netlist = netlist.replace("v(hi,vss)", "v(hi_masked,vss)").replace("v(li,vss)", "v(li_masked,vss)")
+        # The 1 kOhm pole reaches its midpoint in approximately 30 ns, the
+        # maximum HI/LI-to-output falling delay in the TI datasheet test.
+        for name in ("Chi_delay", "Clo_delay"):
+            netlist, count = re.subn(rf"^({name} \S+ 0) 18p$", r"\1 43.28p", netlist, flags=re.M)
+            if count != 1:
+                raise ValueError("Review the driver input delay after the fixture changes")
+    force_nh = circuit.force_nh if circuit.extracted_force_path else circuit.sense_nh
+    force_mohm = circuit.force_mohm if circuit.extracted_force_path else circuit.shunt_mohm
+    netlist += f"""Lshunt shunt_force shunt_r {force_nh:.8g}n
+Rshunt shunt_r 0 {force_mohm:.8g}m
 Bisense iabs 0 V=abs(i(Lshunt))
 """
+    if circuit.extracted_force_path:
+        # Port 1 carries the return current. Port 2 is an open-circuit
+        # transfer voltage and need not have the force loop's R or L.
+        netlist += (f"Bkelvin kelvin 0 V={{{circuit.shunt_mohm/force_mohm:.9g}*v(shunt_r)"
+                    f"+({circuit.sense_nh/force_nh:.9g})*v(shunt_force,shunt_r)}}\n")
+    return netlist
 
 
-def shutdown_controls(circuit, switch_enabled=True):
+def shutdown_controls(circuit, switch_enabled=True, fast_inputs=False, mask_reference="vss"):
     # In the electrical fault cases the winding path is driven by a literal zero.
     # PEER uses short RC links as a stand-in for the default-low isolator and routes.
-    return f""".include protection.lib
+    sense_node = "kelvin" if circuit.extracted_force_path else "shunt_force"
+    disable_at_en = switch_enabled and not fast_inputs
+    controls = f""".include protection.lib
 .include local_shutdown.lib
 Vlogic logic 0 3.3
 Vpg pg 0 PWL(0 0 400n 0 410n 3.3)
@@ -66,19 +90,31 @@ Varm arm 0 PWL(0 0 500n 0 510n 3.3 600n 3.3 610n 0)
 Vrun run 0 PWL(0 0 700n 0 710n 3.3)
 Vwinding winding 0 0
 Xwinding winding pg pg arm run upstream_peer upstream winding_sense BENCH_PROTECT
-Xsense shunt_force logic ok_a LEG_CURRENT_OK VOS={circuit.offset_mv:g}m TCOMP={circuit.comparator_ns:g}n FILTER={circuit.filter_nf:g}n
+Xsense {sense_node} logic ok_a LEG_CURRENT_OK VOS={circuit.offset_mv:g}m TCOMP={circuit.comparator_ns:g}n FILTER={circuit.filter_nf:g}n
 Xlocal ok_a logic pg arm run upstream peer_ready ready en_candidate BRIDGE_LOCAL_SHUTDOWN TLOGIC={circuit.logic_ns:g}n
 Riso_out ready remote_peer 1k
 Ciso_out remote_peer 0 18p
 Xpeer logic logic pg arm run upstream_peer remote_peer ready_peer en_peer BRIDGE_LOCAL_SHUTDOWN
 Riso_in ready_peer peer_ready 1k
 Ciso_in peer_ready 0 18p
-Edriver en 0 {"en_candidate" if switch_enabled else "upstream"} 0 1
+Edriver en {"vss" if fast_inputs else "0"} {"en_candidate" if disable_at_en else "upstream"} 0 1
 """
+    if fast_inputs:
+        permit = "en_candidate" if switch_enabled else "upstream"
+        controls += f"""Bmask_hi hi_gate {mask_reference} V={{3.3*(v(hi)>1.65 && v({permit})>1.65)}}
+Bmask_li li_gate {mask_reference} V={{3.3*(v(li)>1.65 && v({permit})>1.65)}}
+Rmask_hi hi_gate hi_masked 1k
+Cmask_hi hi_masked {mask_reference} 5.92p
+Rmask_li li_gate li_masked 1k
+Cmask_li li_masked {mask_reference} 5.92p
+"""
+    return controls
 
 
-def fault_deck(extraction, transit, leg, failed, circuit, switch_enabled=True):
-    netlist = sensed_bridge(extraction, transit, leg, circuit) + shutdown_controls(circuit, switch_enabled)
+def fault_deck(extraction, transit, leg, failed, circuit, switch_enabled=True, *, fast_inputs=False,
+               mask_reference="vss"):
+    netlist = sensed_bridge(extraction, transit, leg, circuit, fast_inputs)
+    netlist += shutdown_controls(circuit, switch_enabled, fast_inputs, mask_reference)
     if failed == "low":
         failed_nodes = "mid sourcel"
         driven = "hi"
@@ -95,6 +131,23 @@ Vli li 0 PWL(0 0 800n 0 810n 3.3 1.2u 3.3 1.21u 0)
 """
         start, window_end, command_sample = "800n", "1.3u", "920n"
         stress = "heat_l"
+    fast_probe = ""
+    if fast_inputs:
+        # Leave the external PWM asserted throughout the observation window
+        # so it cannot be the cause of a passing fault clearance.
+        commands = (commands.replace("3.55u 3.3 3.56u 0", "3.94u 3.3 3.95u 0") if failed == "low"
+                    else commands.replace("1.2u 3.3 1.21u 0", "1.94u 3.3 1.95u 0"))
+        netlist += f"Binput_relative input_relative 0 V=v({driven}_masked,vss)\n"
+        netlist += "Ben_relative en_relative 0 V=v(en,vss)\n"
+        fast_probe = f""".meas tran driver_input_fall WHEN v(input_relative)=0.9 FALL=LAST TD={start}
+.meas tran masked_permit_after FIND v(en_candidate) at={window_end}
+.meas tran en_held_min MIN v(en_relative) from={start} to={window_end}
+.meas tran raw_command_after FIND v({driven}) at={window_end}
+.meas tran driver_input_min MIN v(input_relative) from={start} to={window_end}
+.meas tran driver_input_max MAX v(input_relative) from={start} to={window_end}
+.meas tran driver_vss_min MIN v(vss) from={start} to={window_end}
+.meas tran driver_vss_max MAX v(vss) from={start} to={window_end}
+"""
     return netlist + commands + f"""Rfailed {failed_nodes} 20m
 .tran 250p 4u 0 250p
 .meas tran peak_shunt MAX v(iabs) from={start} to={window_end}
@@ -115,26 +168,31 @@ Vli li 0 PWL(0 0 800n 0 810n 3.3 1.2u 3.3 1.21u 0)
 .meas tran peak_vds_low MAX v(dl_s) from={start} to={window_end}
 .meas tran comparator_input_min MIN v(xsense.sense) from={start} to={window_end}
 .meas tran comparator_input_max MAX v(xsense.sense) from={start} to={window_end}
-.end
+{fast_probe}.end
 """
 
 
-def normal_deck(extraction, transit, leg, active, circuit):
-    netlist = sensed_bridge(extraction, transit, leg, circuit) + shutdown_controls(circuit)
+def normal_deck(extraction, transit, leg, active, circuit, *, fast_inputs=False):
+    netlist = sensed_bridge(extraction, transit, leg, circuit, fast_inputs)
+    netlist += shutdown_controls(circuit, fast_inputs=fast_inputs)
+    permit = "en_candidate" if fast_inputs else "en"
     pulse = "3.3u 0 3.31u 3.3 3.85u 3.3 3.86u 0 4.25u 0 4.26u 3.3 4.8u 3.3 4.81u 0"
     high = f"PWL(0 0 {pulse})" if active == "high" else "0"
     prime = "0 0 800n 0 810n 3.3 2.3u 3.3 2.31u 0"
     low = f"PWL({prime} {pulse})" if active == "low" else f"PWL({prime})"
     a, b = ("bus", "mid") if active == "low" else ("mid", "0")
+    gate = "gl_s" if active == "low" else "gh_s"
+    pulse_probe = (f".meas tran first_gate FIND v({gate}) at=3.65u\n"
+                   f".meas tran second_gate FIND v({gate}) at=4.6u\n") if fast_inputs else ""
     return netlist + f"""Vhi hi 0 {high}
 Vli li 0 {low}
 Iload {a} {b} PWL(0 0 2.5u 0 3.1u 2.5 5.1u 2.5 5.2u 0)
 .tran 250p 5.5u 0 250p
-.meas tran permit_min MIN v(en) from=780n to=5.4u
+.meas tran permit_min MIN v({permit}) from=780n to=5.4u
 .meas tran peak_shunt MAX v(iabs) from=780n to=5.4u
 .meas tran comparator_min MIN v(xsense.sense) from=780n to=5.4u
 .meas tran comparator_max MAX v(xsense.sense) from=780n to=5.4u
-.end
+{pulse_probe}.end
 """
 
 
@@ -203,13 +261,8 @@ def run(args):
             for name, section, job in pending:
                 section[name] = job.result()
                 print(name, f"{section[name]['peak_shunt']:.2f} A peak", flush=True)
-    for name, m in faults.items():
-        if "current_rise_1a" in m and "current_fall_1a" in m and m["current_after"] < 1:
-            m["clearing_ns"] = (m["current_fall_1a"] - m["current_rise_1a"]) * 1e9
-        m["interrupted_with_request_high"] = (
-            m["command_asserted"] > 3 and m["gate_permit_at_command"] < 0.1 and m["permit_after"] < 0.1
-            and m["peer_after"] < 0.1 and m["winding_peak"] == 0 and "clearing_ns" in m
-            and m["current_fall_1a"] < m["command_fall"])
+    for m in faults.values():
+        classify_fault(m)
     for m in switching.values():
         m["stayed_enabled"] = m["permit_min"] > 3
     evidence = {
@@ -231,6 +284,15 @@ def run(args):
         raise ValueError("Nominal protection tripped during normal switching")
     if faults["sa_failed_low_bypassed"]["interrupted_with_request_high"]:
         raise ValueError("The bypass control should leave its local gate command enabled")
+
+
+def classify_fault(m):
+    if "current_rise_1a" in m and "current_fall_1a" in m and m["current_after"] < 1:
+        m["clearing_ns"] = (m["current_fall_1a"] - m["current_rise_1a"]) * 1e9
+    m["interrupted_with_request_high"] = (
+        m["command_asserted"] > 3 and m["gate_permit_at_command"] < 0.1 and m["permit_after"] < 0.1
+        and m["peer_after"] < 0.1 and m["winding_peak"] == 0 and "clearing_ns" in m
+        and m["current_fall_1a"] < m["command_fall"])
 
 
 if __name__ == "__main__":
