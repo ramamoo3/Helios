@@ -18,7 +18,7 @@ PROFILES = {
 
 
 def write_deck(path, case, values, direction, pwm, profile, fault=None, *,
-               fixture=None, max_step="1n", diagnostics=()):
+               fixture=None, max_step="1n", diagnostics=(), fault_start_us=12):
     if fixture is None:
         fixture = (ROOT / "vendor-dab-startup.cir").read_text(encoding="ascii")
     solver = f".options method=gear maxord=2 {PROFILES[profile]} itl4=500"
@@ -30,7 +30,9 @@ def write_deck(path, case, values, direction, pwm, profile, fault=None, *,
              "Vrun run 0 PWL(0 0 8u 0 8.01u 3.3)",
              "Vpc pre 0 PWL(0 0 9u 0 9.01u 3.3 16u 3.3 16.01u 0)"])
     for domain in ("pri_ok", "sec_ok"):
-        stimulus = "PWL(0 3.3 12u 3.3 12.01u 0 14u 0 14.01u 3.3)" if domain == fault else "3.3"
+        stimulus = (f"PWL(0 3.3 {fault_start_us:g}u 3.3 {fault_start_us + 0.01:g}u 0 "
+                    f"{fault_start_us + 2:g}u 0 {fault_start_us + 2.01:g}u 3.3)"
+                    if domain == fault else "3.3")
         lines.append(f"V{domain} {domain} 0 {stimulus}")
     lines.extend(pwm)
     lines.extend([".save v(bootmin) v(bootmax) v(highmax) v(lowmin) v(lowmax) v(ip)"
@@ -41,7 +43,7 @@ def write_deck(path, case, values, direction, pwm, profile, fault=None, *,
                   ".meas tran prime_low MIN v(lowmin) from=9.8u to=11.9u"])
     if fault:
         for signal in ("enp", "ens", "highmax", "lowmax"):
-            lines.append(f".meas tran after_{signal} MAX v({signal}) from=12.5u to=39u")
+            lines.append(f".meas tran after_{signal} MAX v({signal}) from={fault_start_us + 0.5:g}u to=39u")
     else:
         lines.extend([".meas tran charged MIN v(bootmin) from=15u to=16u",
                       ".meas tran blank_high MAX v(highmax) from=16.6u to=16.9u",
