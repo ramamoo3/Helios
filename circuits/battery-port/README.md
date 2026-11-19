@@ -1,6 +1,6 @@
 # Helios battery port · Rev A
 
-One base-unit channel connects one protected 16S LFP cabinet to the shared DC link. Each cabinet gets its own converter and sensing electronics. The low-voltage bench schematic covers the power path, analog telemetry, gate drive and protection. The bench PCB now contains the component placement, four local commutation loops and their driver reference traces. The independent SPICE netlists use ideal supplies for the single-channel operating points and a finite capacitor for the two-channel link. [Bench PCB placement and verification](BENCH-PCB.md)
+One base-unit channel connects one protected 16S LFP cabinet to the shared DC link. Each cabinet gets its own converter and sensing electronics. The low-voltage bench schematic covers the power path, analog telemetry, gate drive and protection. The bench PCB contains the routed power stage, gate circuits, driver bias feeds and shunt Kelvin traces. Control, protection and telemetry routing are in progress. The independent SPICE netlists use ideal supplies for the single-channel operating points and a finite capacitor for the two-channel link. [Bench PCB routing and verification](BENCH-PCB.md)
 
 Open the [12 V / 24 V bench project](battery-port-bench.kicad_pro) and its [top-level schematic](battery-port-bench.kicad_sch) to inspect the wired assembly. The bench power sheet uses a 1:2 transformer and the series current detector. The separate 700 V power study remains outside this assembly. [Bench component selection, updated model and startup limits](BENCH-PARTS.md)
 
