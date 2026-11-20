@@ -1,0 +1,426 @@
+{
+  "scope": "One 12 V or 24 V bench rail with an independent modeled trip and reverse-blocking series switch. Source impedance, on-resistance, timing and clamp parameters are assumptions.",
+  "inputs_sha256": {
+    "bench_disconnect_test.py": "8f96031896ce388825b069f46fa93431e96f6c177e2575968e83786ae840665a",
+    "bench_disconnect.lib": "2ccd4db113afbe2b73b5cfd850bb1a9d42c93b444b36e42c87be0bdea7c95712",
+    "local_shutdown.lib": "540d8b659afd194750f399db678c32f705c5f16c2b21e524536729e9ec7c2d8e"
+  },
+  "cases": {
+    "forward-short": {
+      "source_voltage_v": 24.0,
+      "bulk_uf": 2200,
+      "feeder_uh": 0.2,
+      "trip_delay_ns": 200,
+      "reverse": false,
+      "mode": "short",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "normal_v": 23.9009,
+            "normal_a": 1.98994,
+            "peak_a": 56.2213,
+            "peak_cut_voltage": 43.8225,
+            "fault_energy_j": 0.000239094,
+            "early_source_a": 9.69715e-06,
+            "early_fault_a": -2.84867e-06,
+            "early_enable": 9.0217e-30,
+            "late_request": 3.3,
+            "late_enable": 1.29136e-314,
+            "late_source_a": 1.52946e-06
+          },
+          "checks": {
+            "normal_load_energized": true,
+            "independent_trip_latched": true,
+            "source_cut": true,
+            "local_fault_current_cut": true,
+            "clamp_screen_below_60_v": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "normal_v": 23.9009,
+            "normal_a": 1.98994,
+            "peak_a": 56.2153,
+            "peak_cut_voltage": 43.7937,
+            "fault_energy_j": 0.000239068,
+            "early_source_a": 2.24053e-05,
+            "early_fault_a": 1.52184e-06,
+            "early_enable": 8.99211e-30,
+            "late_request": 3.3,
+            "late_enable": 1.34259e-314,
+            "late_source_a": 1.52886e-06
+          },
+          "checks": {
+            "normal_load_energized": true,
+            "independent_trip_latched": true,
+            "source_cut": true,
+            "local_fault_current_cut": true,
+            "clamp_screen_below_60_v": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        }
+      }
+    },
+    "reverse-short": {
+      "source_voltage_v": 24.0,
+      "bulk_uf": 2200,
+      "feeder_uh": 0.2,
+      "trip_delay_ns": 200,
+      "reverse": true,
+      "mode": "short",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "normal_v": 23.9009,
+            "normal_a": 1.98994,
+            "peak_a": 56.2213,
+            "peak_cut_voltage": 43.8225,
+            "fault_energy_j": 0.000239094,
+            "early_source_a": -9.37622e-06,
+            "early_fault_a": -2.87862e-06,
+            "early_enable": 9.0217e-30,
+            "late_request": 3.3,
+            "late_enable": 1.29136e-314,
+            "late_source_a": -1.52946e-06
+          },
+          "checks": {
+            "normal_load_energized": true,
+            "independent_trip_latched": true,
+            "source_cut": true,
+            "local_fault_current_cut": true,
+            "clamp_screen_below_60_v": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "normal_v": 23.9009,
+            "normal_a": 1.98994,
+            "peak_a": 56.2153,
+            "peak_cut_voltage": 43.7937,
+            "fault_energy_j": 0.000239068,
+            "early_source_a": -2.23373e-05,
+            "early_fault_a": 1.48247e-06,
+            "early_enable": 8.99211e-30,
+            "late_request": 3.3,
+            "late_enable": 1.34259e-314,
+            "late_source_a": -1.52886e-06
+          },
+          "checks": {
+            "normal_load_energized": true,
+            "independent_trip_latched": true,
+            "source_cut": true,
+            "local_fault_current_cut": true,
+            "clamp_screen_below_60_v": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        }
+      }
+    },
+    "primary-slow-trip": {
+      "source_voltage_v": 12.6,
+      "bulk_uf": 470,
+      "feeder_uh": 1.0,
+      "trip_delay_ns": 400,
+      "reverse": false,
+      "mode": "short",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "normal_v": 12.5292,
+            "normal_a": 1.04323,
+            "peak_a": 14.0016,
+            "peak_cut_voltage": 35.6639,
+            "fault_energy_j": 5.91278e-05,
+            "early_source_a": 0.00117894,
+            "early_fault_a": 0.00212018,
+            "early_enable": 6.23971e-29,
+            "late_request": 3.3,
+            "late_enable": 1.29136e-314,
+            "late_source_a": 7.38305e-07
+          },
+          "checks": {
+            "normal_load_energized": true,
+            "independent_trip_latched": true,
+            "source_cut": true,
+            "local_fault_current_cut": true,
+            "clamp_screen_below_60_v": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "normal_v": 12.5293,
+            "normal_a": 1.04324,
+            "peak_a": 14.0233,
+            "peak_cut_voltage": 35.6822,
+            "fault_energy_j": 5.91411e-05,
+            "early_source_a": -0.000790764,
+            "early_fault_a": 0.00214245,
+            "early_enable": 6.34026e-29,
+            "late_request": 3.3,
+            "late_enable": 1.34259e-314,
+            "late_source_a": 7.39673e-07
+          },
+          "checks": {
+            "normal_load_energized": true,
+            "independent_trip_latched": true,
+            "source_cut": true,
+            "local_fault_current_cut": true,
+            "clamp_screen_below_60_v": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        }
+      }
+    },
+    "secondary-slow-trip": {
+      "source_voltage_v": 25.2,
+      "bulk_uf": 2200,
+      "feeder_uh": 1.0,
+      "trip_delay_ns": 400,
+      "reverse": false,
+      "mode": "short",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "normal_v": 25.0959,
+            "normal_a": 2.08947,
+            "peak_a": 22.3526,
+            "peak_cut_voltage": 37.7851,
+            "fault_energy_j": 0.000236313,
+            "early_source_a": 0.00209005,
+            "early_fault_a": 0.000812258,
+            "early_enable": 2.29806e-29,
+            "late_request": 3.3,
+            "late_enable": 1.29136e-314,
+            "late_source_a": 1.67076e-06
+          },
+          "checks": {
+            "normal_load_energized": true,
+            "independent_trip_latched": true,
+            "source_cut": true,
+            "local_fault_current_cut": true,
+            "clamp_screen_below_60_v": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "normal_v": 25.0959,
+            "normal_a": 2.08948,
+            "peak_a": 22.3921,
+            "peak_cut_voltage": 37.7961,
+            "fault_energy_j": 0.000236374,
+            "early_source_a": 0.0021143,
+            "early_fault_a": 0.000365891,
+            "early_enable": 2.60305e-29,
+            "late_request": 3.3,
+            "late_enable": 1.34259e-314,
+            "late_source_a": 1.66954e-06
+          },
+          "checks": {
+            "normal_load_energized": true,
+            "independent_trip_latched": true,
+            "source_cut": true,
+            "local_fault_current_cut": true,
+            "clamp_screen_below_60_v": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        }
+      }
+    },
+    "bias-loss": {
+      "source_voltage_v": 24.0,
+      "bulk_uf": 2200,
+      "feeder_uh": 0.2,
+      "trip_delay_ns": 200,
+      "reverse": false,
+      "mode": "bias",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "normal_v": 23.9009,
+            "normal_a": 1.98994,
+            "peak_a": 1.9887,
+            "peak_cut_voltage": 23.9836,
+            "fault_energy_j": 2.58419e-12,
+            "early_source_a": 6.03669e-05,
+            "early_fault_a": 2.3018e-09,
+            "early_enable": 1.33984e-31,
+            "late_request": 3.3,
+            "late_enable": 1.29136e-314,
+            "late_source_a": 1.83237e-06
+          },
+          "checks": {
+            "normal_load_energized": true,
+            "independent_trip_latched": true,
+            "source_cut": true,
+            "local_fault_current_cut": true,
+            "clamp_screen_below_60_v": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "normal_v": 23.9009,
+            "normal_a": 1.98994,
+            "peak_a": 1.9887,
+            "peak_cut_voltage": 23.9836,
+            "fault_energy_j": 2.5841e-12,
+            "early_source_a": 6.03554e-05,
+            "early_fault_a": 2.30189e-09,
+            "early_enable": 2.04241e-30,
+            "late_request": 3.3,
+            "late_enable": 1.34259e-314,
+            "late_source_a": 1.83237e-06
+          },
+          "checks": {
+            "normal_load_energized": true,
+            "independent_trip_latched": true,
+            "source_cut": true,
+            "local_fault_current_cut": true,
+            "clamp_screen_below_60_v": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        }
+      }
+    },
+    "bulk-downstream": {
+      "source_voltage_v": 24.0,
+      "bulk_uf": 2200,
+      "feeder_uh": 0.2,
+      "trip_delay_ns": 200,
+      "reverse": false,
+      "mode": "bulk-downstream",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "normal_v": 23.9108,
+            "normal_a": 1.28607,
+            "peak_a": 27.7649,
+            "peak_cut_voltage": 37.0442,
+            "fault_energy_j": 0.336591,
+            "early_source_a": 1.60572e-05,
+            "early_fault_a": 368.015,
+            "early_enable": 2.47599e-30,
+            "late_request": 3.3,
+            "late_enable": 1.29136e-314,
+            "late_source_a": 1.52156e-06
+          },
+          "checks": {
+            "normal_load_energized": true,
+            "independent_trip_latched": true,
+            "source_cut": true,
+            "local_fault_current_cut": false,
+            "clamp_screen_below_60_v": true
+          },
+          "expected_failures": [
+            "local_fault_current_cut"
+          ],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "normal_v": 23.9108,
+            "normal_a": 1.28607,
+            "peak_a": 27.7501,
+            "peak_cut_voltage": 37.0411,
+            "fault_energy_j": 0.336591,
+            "early_source_a": 1.60764e-05,
+            "early_fault_a": 368.015,
+            "early_enable": 8.01765e-30,
+            "late_request": 3.3,
+            "late_enable": 1.34259e-314,
+            "late_source_a": 1.5378e-06
+          },
+          "checks": {
+            "normal_load_energized": true,
+            "independent_trip_latched": true,
+            "source_cut": true,
+            "local_fault_current_cut": false,
+            "clamp_screen_below_60_v": true
+          },
+          "expected_failures": [
+            "local_fault_current_cut"
+          ],
+          "matches_expectations": true
+        }
+      }
+    },
+    "failed-disconnect": {
+      "source_voltage_v": 24.0,
+      "bulk_uf": 2200,
+      "feeder_uh": 0.2,
+      "trip_delay_ns": 200,
+      "reverse": false,
+      "mode": "bypassed",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "normal_v": 23.909,
+            "normal_a": 1.99062,
+            "peak_a": 397.265,
+            "peak_cut_voltage": 3.97265,
+            "fault_energy_j": 0.716568,
+            "early_source_a": 394.281,
+            "early_fault_a": 393.32,
+            "early_enable": 2.15873e-31,
+            "late_request": 3.3,
+            "late_enable": 1.29136e-314,
+            "late_source_a": 1.73996
+          },
+          "checks": {
+            "normal_load_energized": true,
+            "independent_trip_latched": true,
+            "source_cut": false,
+            "local_fault_current_cut": false,
+            "clamp_screen_below_60_v": true
+          },
+          "expected_failures": [
+            "local_fault_current_cut",
+            "source_cut"
+          ],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "normal_v": 23.909,
+            "normal_a": 1.99062,
+            "peak_a": 397.261,
+            "peak_cut_voltage": 3.97261,
+            "fault_energy_j": 0.716565,
+            "early_source_a": 394.28,
+            "early_fault_a": 393.319,
+            "early_enable": 4.29428e-30,
+            "late_request": 3.3,
+            "late_enable": 1.34259e-314,
+            "late_source_a": 1.73996
+          },
+          "checks": {
+            "normal_load_energized": true,
+            "independent_trip_latched": true,
+            "source_cut": false,
+            "local_fault_current_cut": false,
+            "clamp_screen_below_60_v": true
+          },
+          "expected_failures": [
+            "local_fault_current_cut",
+            "source_cut"
+          ],
+          "matches_expectations": true
+        }
+      }
+    }
+  }
+}

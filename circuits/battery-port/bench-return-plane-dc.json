@@ -1,8 +1,8 @@
 {
   "scope": "DC copper screen with unit-current terminal excitations, ideal pad lands and prescribed copper temperatures",
   "inputs_sha256": {
-    "baseline PCB": "5cd05aa9062ec6da1a902fd3910d581091e5aa653d89a0bdbfaa5ac86bf6ec2d",
-    "filled trial PCB": "e3de67c4387e618348b35c7baa6f812b6ace913d2572bfebf2a9603e5777851e",
+    "baseline PCB": "fd5e495b4562df96a3c1aac953d4e3fd7573f12676ae80cf9734d391ebce764c",
+    "filled trial PCB": "70354c1e0046b4593e6057faf8618506237b6a8b9b6cf0eee2930c3ce9602cee",
     "solver": "751fdb21d92d09426937d5d29306bcfcc5416d6cf2f0a6d0ee845c8600b3bded",
     "layout parser": "4c6da893f6f8a1a328b0d718a28d82b9d62c8341acb56fb2c02fc22ffcd43926",
     "KiCad parser": "c757ad3989ee8ed5f11cc4f5f7212feb287180456364332258b73acd0f7d35b5"

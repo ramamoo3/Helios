@@ -53,6 +53,21 @@ def projected(matrix, weights):
                for b, value in zip(weights, row, strict=True))
 
 
+
+def coupled_ports(args, layout, ports, routes, loop_terms):
+    """Evaluate one coupled network and the independently routed snubber loops."""
+    matrices = solve(args, layout, ports, routes)
+    inductance = matrices["1e+07"]["inductance_h"]
+    loops = {name: 1e9 * projected(inductance, [terms.get(port, 0) for port in ports])
+             for name, terms in loop_terms.items()}
+    snubber_ports = ("drain", "between", "source")
+    for name, pins in SNUBBERS.items():
+        if name == "low_snubber_copper":
+            pins = (*pins[:2], (pins[2][0], ("Q6", "source_finger")))
+        snubber = solve(args, layout, snubber_ports, [layout.route(*pair) for pair in pins])
+        loops[name] = 1e9 * projected(snubber["1e+07"]["inductance_h"], (1, 1, 1))
+    return matrices, loops
+
 def run(args):
     check_bench_via_clearance(args.board)
     tree = read_schematic(args.board)

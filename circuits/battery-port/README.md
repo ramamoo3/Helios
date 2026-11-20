@@ -40,6 +40,8 @@ Positive link power means the battery supplies the base. Negative link power mea
 | 40 V / 700 V | +0.285 | +2.695 kW | Pack supplies 68.2 A average. Transfer inductor carries 79.0 A RMS and reaches 110.7 A peak |
 | 50 V / 700 V matched winding voltages | 0 | −11.7 W | Residual draw at the link with both bridges switching. Disabled-port standby requires a separate test |
 
+The standby deck measures both rails. With both bridges still switching at zero shift, the model draws 11.66 W from the DC link, returns 7.88 W to the pack and dissipates 3.78 W net. Disabling both bridges removes that circulation at the matched voltages and at the two voltage corners. The modeled off-state draw of 4–6 mW comes from assumed switch conductance. Actual standby depends on devices, the BMS, bias and housekeeping supplies, controls and inverter no-load consumption. [Standby simulation](dab-standby-test.cir)
+
 The open-loop tests average 20 switching cycles. The ideal single-phase-shift comparison is `P = Vpack × (Vlink / turns_ratio) × D × (1 − |D|) / (2 × fs × Ltransfer)`. The tests check sign and magnitude against this expression. Device capacitance, diodes, winding resistance and switching transitions are simplified. Device losses, saturation, insulation performance, cooling and delivered household AC power require further work. [Phase-shift control reference](https://imperix.com/doc/implementation/dab-converter-control)
 
 ## Two cabinets on the same link

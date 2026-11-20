@@ -307,5 +307,176 @@
       "completed": false,
       "error": "Timeout after 120 s"
     }
+  },
+  "audit_refinement": {
+    "reproduction": "Generate the same filled-copper mesh with write_deck. Set the frequency line to .freq fmin=1e7 fmax=1e7 ndec=1.",
+    "filled_board_sha256": "70354c1e0046b4593e6057faf8618506237b6a8b9b6cf0eee2930c3ce9602cee",
+    "generator_sha256": "a1e4b0d1dd6d5c53812661a0d48605fdb9403cbd3c415764fa8826c13d7f0f32",
+    "fast_henry_options": [
+      "-s",
+      "iterative",
+      "-m",
+      "multi",
+      "-p",
+      "diag",
+      "-t",
+      "1e-4",
+      "-b",
+      "1e-7",
+      "-c",
+      "160"
+    ],
+    "timeout_s_per_mesh": 90,
+    "trial 1.5 mm": {
+      "completed": true,
+      "deck_sha256": "733bbdbaa4951d038fcc11bd4ea72ad8c311dc0cb71d52c69b5d49e68df857e5",
+      "resistance_mohm_10mhz": 17.20739,
+      "inductance_nh_10mhz": 7.611102913892326,
+      "maximum_reciprocity_delta_ohm": 2.610132504299463e-05,
+      "warnings": [
+        "Internal Warning: realcos = -1.69826e-13,  cose = -1.89872e-13",
+        "Internal warning: distance d between filaments is negative and large",
+        "Warning: Filaments meeting at a point, case 3",
+        "Warning: Filaments meeting at a point, case 4"
+      ]
+    },
+    "trial 1 mm": {
+      "completed": false,
+      "error": "Timeout after 90 s",
+      "deck_sha256": "5916fb4f290f645893a52580260ed929f205f70a510f53c06451f6234c8af840",
+      "completed_repeat": {
+        "completed": true,
+        "frequency_hz": 10000000.0,
+        "fast_henry_options": [
+          "-s",
+          "iterative",
+          "-m",
+          "multi",
+          "-p",
+          "seg",
+          "-t",
+          "1e-4",
+          "-b",
+          "1e-7",
+          "-c",
+          "250"
+        ],
+        "gmres_iteration_counts": [
+          164,
+          158,
+          159
+        ],
+        "resistance_mohm": 17.225369999999998,
+        "inductance_nh": 7.60272818078683,
+        "maximum_reciprocity_delta_ohm": 5.434442758001983e-05,
+        "raw_matrix_sha256": "4fed91fbe9fe2374c50e0e7122f36a6452f191dacc16e4f41625e338927dcbd5",
+        "warnings": [
+          "Internal Warning: realcos = -1.69826e-13,  cose = -1.89872e-13",
+          "Internal warning: distance d between filaments is negative and large",
+          "Warning: Filaments meeting at a point, case 3",
+          "Warning: Filaments meeting at a point, case 4"
+        ],
+        "series_crosscheck": {
+          "resistance_mohm": 17.225399999999997,
+          "inductance_nh": 7.602736138533985,
+          "solver_options": [
+            "-s",
+            "iterative",
+            "-m",
+            "multi",
+            "-p",
+            "diag",
+            "-t",
+            "1e-4",
+            "-b",
+            "1e-7",
+            "-c",
+            "250"
+          ],
+          "deck_sha256": "9beefd94e655506dfb49d4593273328e41c9e52eb5d2ee577b8f67440cd8f954",
+          "raw_matrix_sha256": "ec990aa25b1b2c4c835de098edf871c2dcd01087c05a9b8cd647c830f9da2aca"
+        }
+      }
+    }
+  },
+  "series_10mhz_repeat": {
+    "scope": "Secondary-A loop diagnostic using resistive-mesh-derived filaments with ideal bridged pads",
+    "inputs_sha256": {
+      "baseline PCB": "fd5e495b4562df96a3c1aac953d4e3fd7573f12676ae80cf9734d391ebce764c",
+      "filled trial PCB": "70354c1e0046b4593e6057faf8618506237b6a8b9b6cf0eee2930c3ce9602cee",
+      "solver": "3efb9d308cd8534a06dfbc8b1de72264eec7eb37a70f2a6b53c94aeffaa037ec",
+      "copper mesh": "751fdb21d92d09426937d5d29306bcfcc5416d6cf2f0a6d0ee845c8600b3bded",
+      "layout parser": "4c6da893f6f8a1a328b0d718a28d82b9d62c8341acb56fb2c02fc22ffcd43926",
+      "KiCad parser": "c757ad3989ee8ed5f11cc4f5f7212feb287180456364332258b73acd0f7d35b5"
+    },
+    "solver_options": [
+      "-s",
+      "iterative",
+      "-m",
+      "multi",
+      "-p",
+      "diag",
+      "-t",
+      "1e-4",
+      "-b",
+      "1e-7",
+      "-c",
+      "250"
+    ],
+    "series_10mhz": true,
+    "relative_reciprocity_floor": 0.0003,
+    "cases": {
+      "baseline": {
+        "nodes": 254,
+        "conductors": 249,
+        "contact_connections": 2,
+        "warnings": [
+          "Internal Warning: realcos = -1.69826e-13,  cose = -1.89872e-13"
+        ],
+        "completed": true,
+        "loop": {
+          "1e+07": {
+            "resistance_mohm": 16.120800000000003,
+            "inductance_nh": 7.989132509372489
+          }
+        }
+      },
+      "trial 1.5 mm": {
+        "nodes": 3085,
+        "conductors": 5409,
+        "contact_connections": 53,
+        "warnings": [
+          "Internal Warning: realcos = -1.69826e-13,  cose = -1.89872e-13",
+          "Internal warning: distance d between filaments is negative and large",
+          "Warning: Filaments meeting at a point, case 3",
+          "Warning: Filaments meeting at a point, case 4"
+        ],
+        "completed": true,
+        "loop": {
+          "1e+07": {
+            "resistance_mohm": 17.2074,
+            "inductance_nh": 7.611123604034928
+          }
+        }
+      },
+      "trial 1 mm": {
+        "nodes": 6403,
+        "conductors": 11765,
+        "contact_connections": 80,
+        "warnings": [
+          "Internal Warning: realcos = -1.69826e-13,  cose = -1.89872e-13",
+          "Internal warning: distance d between filaments is negative and large",
+          "Warning: Filaments meeting at a point, case 3",
+          "Warning: Filaments meeting at a point, case 4"
+        ],
+        "completed": true,
+        "loop": {
+          "1e+07": {
+            "resistance_mohm": 17.225399999999997,
+            "inductance_nh": 7.602736138533985
+          }
+        }
+      }
+    }
   }
 }

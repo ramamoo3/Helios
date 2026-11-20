@@ -1,0 +1,685 @@
+{
+  "scope": "Secondary-A trace-only copper with TI power devices and the continuous screening driver",
+  "qualifications": "Fault shunt, driver and source impedances are fixture assumptions. Positive terminal energy includes reactive energy.",
+  "inputs_sha256": {
+    "bench-bootstrap-impedance.json": "0966e915591c6d65e1d16985a17fa1123098eb49a01bf14c58fefc705b9dfca5",
+    "battery-port-bench.kicad_pcb": "5cd05aa9062ec6da1a902fd3910d581091e5aa653d89a0bdbfaa5ac86bf6ec2d",
+    "slpm046b.zip": "7f45534328e9fb4dbd27028d78af3a30aafa6baf2058fd853a456c28f1480c9b",
+    "slpm100a.zip": "55f6aa1979fd3598a7360cd439891770985d171eeacbf40e520432c5eeef4cec",
+    "bench_mosfet_fault.py": "858118d1468aae2b13198bdc9754cc2bb4ae2325981e81ebe7b8fe0b738c3be2",
+    "bench_mosfet_margin.py": "d246a0a2d0d252656613a005041d73d9aaceae5e964236d70c869706c497640f",
+    "half_bridge_test.py": "82e146de965f152eadc2cc06a710da2add83f641d607d8f8f1602ff8cfe5d698",
+    "local_shutdown_test.py": "754574665c660a9b256ccf6b6cba396c4d78ecae3684f7e86b0b03289519e9d2",
+    "layout_switching_test.py": "f7278608869aaffe39a05d15267b4be47eff972964f0e1f1f5cca0c22bbdc849",
+    "protection.lib": "a4f70a24b51d60a593c0ebea5f5f950bdb52a443cadcb69473286e20b818f170",
+    "local_shutdown.lib": "540d8b659afd194750f399db678c32f705c5f16c2b21e524536729e9ec7c2d8e",
+    "vendor_test.py": "f125731ac8c12dde6cbf29639401777d138dcba7e71b0f5aa3d2b8d4eb4592bf",
+    "verify.py": "c757ad3989ee8ed5f11cc4f5f7212feb287180456364332258b73acd0f7d35b5"
+  },
+  "cases": {
+    "CSD18534KCS 25C inductive low 250p": {
+      "completed": true,
+      "temperature_c": 25,
+      "bias_v": 9.926,
+      "bootstrap_nf": 100,
+      "solver_profile": "gear-with-shunts",
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 3.10001e-06, timestep = 3.125e-22: trouble with node \"xhigh.10\""
+      },
+      "measurements": {
+        "permit_min": 3.29762,
+        "peak_shunt": 3.79036,
+        "comparator_min": 0.299841,
+        "comparator_max": 0.317229,
+        "first_gate": 9.85492,
+        "second_gate": 9.84578,
+        "bootstrap_min_v": 9.39649,
+        "gate_high_peak_v": 1.19606,
+        "gate_low_peak_v": 9.8668,
+        "gate_high_min_v": -0.787469,
+        "gate_low_min_v": -0.0174368,
+        "drain_high_peak_v": 38.7679,
+        "drain_low_peak_v": 31.5734,
+        "high_terminal_absorbed_j": 2.09204e-06,
+        "low_terminal_absorbed_j": 2.74974e-06
+      }
+    },
+    "CSD18534KCS 25C inductive low 125p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 3.34994e-06, timestep = 1.5625e-22: trouble with node \"xhigh.10\"",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 3.35793e-06, timestep = 1.5625e-22: trouble with node \"xhigh.xcgd.8\"",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 1.92812e-06, timestep = 1.5625e-22: trouble with node \"xhigh.12\""
+      }
+    },
+    "CSD18534KCS 25C short low 250p": {
+      "completed": true,
+      "temperature_c": 25,
+      "bias_v": 9.926,
+      "bootstrap_nf": 100,
+      "solver_profile": "nominal",
+      "solver_failures": {},
+      "measurements": {
+        "peak_shunt": 71.5804,
+        "current_after": 0.113653,
+        "gate_permit_at_command": 4.69815,
+        "command_asserted": 3.3,
+        "winding_peak": 0.0,
+        "peer_after": 5.71648e-26,
+        "permit_after": 3.30551,
+        "device_energy_j": 0.00012324,
+        "peak_vds_high": 39.505,
+        "peak_vds_low": 1.60353,
+        "comparator_input_min": 0.300077,
+        "comparator_input_max": 0.625365,
+        "masked_permit_after": 1.36801e-26,
+        "en_held_min": 3.3,
+        "raw_command_after": 3.3,
+        "driver_input_min": -8.67362e-19,
+        "driver_input_max": 3.29999,
+        "driver_vss_min": -1.85776,
+        "driver_vss_max": 2.47415,
+        "bootstrap_min_v": 8.28894,
+        "gate_high_peak_v": 4.89894,
+        "gate_low_peak_v": 1.30955,
+        "gate_high_min_v": -0.585877,
+        "gate_low_min_v": -1.549,
+        "drain_high_peak_v": 39.505,
+        "drain_low_peak_v": 1.60353,
+        "high_terminal_absorbed_j": 0.00012324,
+        "low_terminal_absorbed_j": 5.72636e-09
+      }
+    },
+    "CSD18534KCS 25C short low 125p": {
+      "completed": true,
+      "temperature_c": 25,
+      "bias_v": 9.926,
+      "bootstrap_nf": 100,
+      "solver_profile": "nominal",
+      "solver_failures": {},
+      "measurements": {
+        "peak_shunt": 71.7115,
+        "current_after": 0.113892,
+        "gate_permit_at_command": 4.70409,
+        "command_asserted": 3.3,
+        "winding_peak": 0.0,
+        "peer_after": 5.87461e-26,
+        "permit_after": 3.30552,
+        "device_energy_j": 0.000123553,
+        "peak_vds_high": 39.6297,
+        "peak_vds_low": 1.60634,
+        "comparator_input_min": 0.300077,
+        "comparator_input_max": 0.625962,
+        "masked_permit_after": 1.39614e-26,
+        "en_held_min": 3.3,
+        "raw_command_after": 3.3,
+        "driver_input_min": -3.46945e-18,
+        "driver_input_max": 3.29999,
+        "driver_vss_min": -1.85734,
+        "driver_vss_max": 2.4782,
+        "bootstrap_min_v": 8.28817,
+        "gate_high_peak_v": 4.90166,
+        "gate_low_peak_v": 1.35245,
+        "gate_high_min_v": -0.620096,
+        "gate_low_min_v": -1.55154,
+        "drain_high_peak_v": 39.6297,
+        "drain_low_peak_v": 1.60634,
+        "high_terminal_absorbed_j": 0.000123553,
+        "low_terminal_absorbed_j": 5.7832e-09
+      }
+    },
+    "CSD18534KCS 25C inductive high 250p": {
+      "completed": true,
+      "temperature_c": 25,
+      "bias_v": 9.926,
+      "bootstrap_nf": 100,
+      "solver_profile": "gear-with-shunts",
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 3.10001e-06, timestep = 3.125e-22: trouble with node \"xhigh.xcgd.g1_int1\""
+      },
+      "measurements": {
+        "permit_min": 3.29762,
+        "peak_shunt": 2.79777,
+        "comparator_min": 0.288663,
+        "comparator_max": 0.312717,
+        "first_gate": 8.51622,
+        "second_gate": 8.25141,
+        "bootstrap_min_v": 7.64317,
+        "gate_high_peak_v": 8.52027,
+        "gate_low_peak_v": 0.996872,
+        "gate_high_min_v": 0.00066391,
+        "gate_low_min_v": -0.552985,
+        "drain_high_peak_v": 25.0397,
+        "drain_low_peak_v": 49.5127,
+        "high_terminal_absorbed_j": 1.52039e-06,
+        "low_terminal_absorbed_j": 2.84653e-06
+      }
+    },
+    "CSD18534KCS 25C inductive high 125p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 3.1e-06, timestep = 1.5625e-22: trouble with node \"xhigh.11\"",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 3.10001e-06, timestep = 1.5625e-22: trouble with node \"xhigh.11\"",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 1.92812e-06, timestep = 1.5625e-22: trouble with node \"xhigh.12\""
+      }
+    },
+    "CSD18534KCS 25C short high 250p": {
+      "completed": true,
+      "temperature_c": 25,
+      "bias_v": 9.926,
+      "bootstrap_nf": 100,
+      "solver_profile": "nominal",
+      "solver_failures": {},
+      "measurements": {
+        "peak_shunt": 79.8772,
+        "current_after": 0.0607795,
+        "gate_permit_at_command": 5.41935,
+        "command_asserted": 3.3,
+        "winding_peak": 0.0,
+        "peer_after": 7.44579e-21,
+        "permit_after": 3.29989,
+        "device_energy_j": 0.000152252,
+        "peak_vds_high": 1.75274,
+        "peak_vds_low": 34.3827,
+        "comparator_input_min": 0.299902,
+        "comparator_input_max": 0.663078,
+        "masked_permit_after": 1.78185e-21,
+        "en_held_min": 3.28317,
+        "raw_command_after": 3.3,
+        "driver_input_min": -1.9082e-17,
+        "driver_input_max": 3.29999,
+        "driver_vss_min": -1.74397,
+        "driver_vss_max": 2.54711,
+        "bootstrap_min_v": -0.0081047,
+        "gate_high_peak_v": 0.815675,
+        "gate_low_peak_v": 4.90752,
+        "gate_high_min_v": -0.935434,
+        "gate_low_min_v": -0.367935,
+        "drain_high_peak_v": 1.75274,
+        "drain_low_peak_v": 34.3827,
+        "high_terminal_absorbed_j": 1.32632e-08,
+        "low_terminal_absorbed_j": 0.000152252
+      }
+    },
+    "CSD18534KCS 25C short high 125p": {
+      "completed": true,
+      "temperature_c": 25,
+      "bias_v": 9.926,
+      "bootstrap_nf": 100,
+      "solver_profile": "gear-with-shunts",
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 1.27165e-12, timestep = 1.5625e-22: trouble with node \"xhigh.11\""
+      },
+      "measurements": {
+        "peak_shunt": 79.9711,
+        "current_after": 0.179251,
+        "gate_permit_at_command": 5.42155,
+        "command_asserted": 3.3,
+        "winding_peak": 0.0,
+        "peer_after": 7.5843e-21,
+        "permit_after": 3.31227,
+        "device_energy_j": 0.000152628,
+        "peak_vds_high": 1.75468,
+        "peak_vds_low": 34.392,
+        "comparator_input_min": 0.299506,
+        "comparator_input_max": 0.663505,
+        "masked_permit_after": 1.80245e-21,
+        "en_held_min": 3.28319,
+        "raw_command_after": 3.3,
+        "driver_input_min": -1.1932e-07,
+        "driver_input_max": 3.29999,
+        "driver_vss_min": -1.74561,
+        "driver_vss_max": 2.54987,
+        "bootstrap_min_v": -0.00817776,
+        "gate_high_peak_v": 0.819316,
+        "gate_low_peak_v": 4.9093,
+        "gate_high_min_v": -0.93606,
+        "gate_low_min_v": -0.372596,
+        "drain_high_peak_v": 1.75468,
+        "drain_low_peak_v": 34.392,
+        "high_terminal_absorbed_j": 1.32886e-08,
+        "low_terminal_absorbed_j": 0.000152628
+      }
+    },
+    "CSD18534KCS 100C inductive low 250p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 3.34953e-06, timestep = 3.125e-22: trouble with node \"xhigh.10\"",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 5.10002e-06, timestep = 3.125e-22: cause unrecorded.",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 2.62016e-06, timestep = 3.125e-22: trouble with node \"xhigh.xcgd.g1_int1\""
+      }
+    },
+    "CSD18534KCS 100C inductive low 125p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 3.10001e-06, timestep = 1.5625e-22: trouble with node \"xhigh.10\"",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 5.10004e-06, timestep = 1.5625e-22: trouble with node \"xhigh.10\"",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 1.42323e-06, timestep = 1.5625e-22: trouble with node \"xhigh.xcgd.g1_int1\""
+      }
+    },
+    "CSD18534KCS 100C short low 250p": {
+      "completed": true,
+      "temperature_c": 100,
+      "bias_v": 9.3,
+      "bootstrap_nf": 60,
+      "solver_profile": "nominal",
+      "solver_failures": {},
+      "measurements": {
+        "peak_shunt": 77.8522,
+        "current_after": 0.121853,
+        "gate_permit_at_command": 5.37927,
+        "command_asserted": 3.3,
+        "winding_peak": 0.0,
+        "peer_after": 1.25356e-25,
+        "permit_after": 3.3059,
+        "device_energy_j": 0.000146008,
+        "peak_vds_high": 34.2143,
+        "peak_vds_low": 1.72657,
+        "comparator_input_min": 0.3001,
+        "comparator_input_max": 0.652771,
+        "masked_permit_after": 3.16541e-13,
+        "en_held_min": 3.3,
+        "raw_command_after": 3.3,
+        "driver_input_min": -8.67362e-19,
+        "driver_input_max": 3.3,
+        "driver_vss_min": -1.7889,
+        "driver_vss_max": 2.47641,
+        "bootstrap_min_v": 7.06405,
+        "gate_high_peak_v": 4.84027,
+        "gate_low_peak_v": 0.885681,
+        "gate_high_min_v": -0.579452,
+        "gate_low_min_v": -1.218,
+        "drain_high_peak_v": 34.2143,
+        "drain_low_peak_v": 1.72657,
+        "high_terminal_absorbed_j": 0.000146008,
+        "low_terminal_absorbed_j": 4.11756e-09
+      }
+    },
+    "CSD18534KCS 100C short low 125p": {
+      "completed": true,
+      "temperature_c": 100,
+      "bias_v": 9.3,
+      "bootstrap_nf": 60,
+      "solver_profile": "nominal",
+      "solver_failures": {},
+      "measurements": {
+        "peak_shunt": 77.807,
+        "current_after": 0.121802,
+        "gate_permit_at_command": 5.37716,
+        "command_asserted": 3.3,
+        "winding_peak": 0.0,
+        "peer_after": 1.28266e-25,
+        "permit_after": 3.3059,
+        "device_energy_j": 0.000145904,
+        "peak_vds_high": 34.2183,
+        "peak_vds_low": 1.72564,
+        "comparator_input_min": 0.300099,
+        "comparator_input_max": 0.652568,
+        "masked_permit_after": 3.17655e-13,
+        "en_held_min": 3.3,
+        "raw_command_after": 3.3,
+        "driver_input_min": -3.46945e-18,
+        "driver_input_max": 3.3,
+        "driver_vss_min": -1.78521,
+        "driver_vss_max": 2.47556,
+        "bootstrap_min_v": 7.06441,
+        "gate_high_peak_v": 4.83991,
+        "gate_low_peak_v": 0.885467,
+        "gate_high_min_v": -0.589603,
+        "gate_low_min_v": -1.21793,
+        "drain_high_peak_v": 34.2183,
+        "drain_low_peak_v": 1.72564,
+        "high_terminal_absorbed_j": 0.000145904,
+        "low_terminal_absorbed_j": 4.11697e-09
+      }
+    },
+    "CSD18534KCS 100C inductive high 250p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 3.10001e-06, timestep = 3.125e-22: trouble with node \"xhigh.xcgd.g1_int1\"",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 3.10002e-06, timestep = 3.125e-22: trouble with node \"xhigh.xcgd.g1_int1\"",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 3.05056e-06, timestep = 3.125e-22: trouble with node \"xlow.10\""
+      }
+    },
+    "CSD18534KCS 100C inductive high 125p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 3.1e-06, timestep = 1.5625e-22: trouble with node \"xhigh.11\"",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 3.10001e-06, timestep = 1.5625e-22: trouble with node \"xhigh.xcgd.g1_int1\"",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 1.42323e-06, timestep = 1.5625e-22: trouble with node \"xhigh.xcgd.g1_int1\""
+      }
+    },
+    "CSD18534KCS 100C short high 250p": {
+      "completed": true,
+      "temperature_c": 100,
+      "bias_v": 9.3,
+      "bootstrap_nf": 60,
+      "solver_profile": "nominal",
+      "solver_failures": {},
+      "measurements": {
+        "peak_shunt": 92.1194,
+        "current_after": 0.160463,
+        "gate_permit_at_command": 5.82078,
+        "command_asserted": 3.3,
+        "winding_peak": 0.0,
+        "peer_after": 1.46273e-20,
+        "permit_after": 3.30689,
+        "device_energy_j": 0.000189408,
+        "peak_vds_high": 2.01015,
+        "peak_vds_low": 34.0701,
+        "comparator_input_min": 0.299907,
+        "comparator_input_max": 0.717144,
+        "masked_permit_after": 1.07988e-10,
+        "en_held_min": 3.28317,
+        "raw_command_after": 3.3,
+        "driver_input_min": -1.56125e-17,
+        "driver_input_max": 3.3,
+        "driver_vss_min": -1.88109,
+        "driver_vss_max": 2.58151,
+        "bootstrap_min_v": -8.14628,
+        "gate_high_peak_v": 0.836552,
+        "gate_low_peak_v": 5.10555,
+        "gate_high_min_v": -0.698494,
+        "gate_low_min_v": -0.446693,
+        "drain_high_peak_v": 2.01015,
+        "drain_low_peak_v": 34.0701,
+        "high_terminal_absorbed_j": 1.50937e-08,
+        "low_terminal_absorbed_j": 0.000189408
+      }
+    },
+    "CSD18534KCS 100C short high 125p": {
+      "completed": true,
+      "temperature_c": 100,
+      "bias_v": 9.3,
+      "bootstrap_nf": 60,
+      "solver_profile": "nominal",
+      "solver_failures": {},
+      "measurements": {
+        "peak_shunt": 91.5717,
+        "current_after": 0.121574,
+        "gate_permit_at_command": 5.80762,
+        "command_asserted": 3.3,
+        "winding_peak": 0.0,
+        "peer_after": 1.46846e-20,
+        "permit_after": 3.30553,
+        "device_energy_j": 0.000188191,
+        "peak_vds_high": 1.99862,
+        "peak_vds_low": 34.0504,
+        "comparator_input_min": 0.299638,
+        "comparator_input_max": 0.714667,
+        "masked_permit_after": 1.07438e-10,
+        "en_held_min": 3.28316,
+        "raw_command_after": 3.3,
+        "driver_input_min": -3.05311e-16,
+        "driver_input_max": 3.3,
+        "driver_vss_min": -1.87206,
+        "driver_vss_max": 2.57085,
+        "bootstrap_min_v": -8.14628,
+        "gate_high_peak_v": 0.913539,
+        "gate_low_peak_v": 5.09478,
+        "gate_high_min_v": -0.696278,
+        "gate_low_min_v": -0.445173,
+        "drain_high_peak_v": 1.99862,
+        "drain_low_peak_v": 34.0504,
+        "high_terminal_absorbed_j": 1.59397e-08,
+        "low_terminal_absorbed_j": 0.000188191
+      }
+    },
+    "CSD19535KCS 25C inductive low 250p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 2.69775e-06, timestep = 3.125e-22: cause unrecorded.",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 3.10045e-06, timestep = 3.125e-22: cause unrecorded.",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 2.69847e-06, timestep = 3.125e-22: trouble with node \"xhigh.10\""
+      }
+    },
+    "CSD19535KCS 25C inductive low 125p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 2.69775e-06, timestep = 1.5625e-22: trouble with node \"xhigh.10\"",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 2.69851e-06, timestep = 1.5625e-22: trouble with node \"xhigh.10\"",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 2.6982e-06, timestep = 1.5625e-22: cause unrecorded."
+      }
+    },
+    "CSD19535KCS 25C short low 250p": {
+      "completed": true,
+      "temperature_c": 25,
+      "bias_v": 9.926,
+      "bootstrap_nf": 100,
+      "solver_profile": "gear-with-shunts",
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 3.38368e-06, timestep = 3.125e-22: trouble with node \"xhigh.xcgd.8\""
+      },
+      "measurements": {
+        "peak_shunt": 72.5247,
+        "current_after": 0.11802,
+        "gate_permit_at_command": 5.37519,
+        "command_asserted": 3.3,
+        "winding_peak": 0.0,
+        "peer_after": 4.20794e-24,
+        "permit_after": 3.30561,
+        "device_energy_j": 0.000115175,
+        "peak_vds_high": 34.2892,
+        "peak_vds_low": 1.64029,
+        "comparator_input_min": 0.300129,
+        "comparator_input_max": 0.629658,
+        "masked_permit_after": 1.007e-24,
+        "en_held_min": 3.3,
+        "raw_command_after": 3.3,
+        "driver_input_min": -5.70133e-12,
+        "driver_input_max": 3.3,
+        "driver_vss_min": -1.86837,
+        "driver_vss_max": 2.50542,
+        "bootstrap_min_v": 8.009,
+        "gate_high_peak_v": 5.73302,
+        "gate_low_peak_v": 0.942789,
+        "gate_high_min_v": 6.70494e-06,
+        "gate_low_min_v": -1.36615,
+        "drain_high_peak_v": 34.2892,
+        "drain_low_peak_v": 1.64029,
+        "high_terminal_absorbed_j": 0.000115175,
+        "low_terminal_absorbed_j": 1.83404e-08
+      }
+    },
+    "CSD19535KCS 25C short low 125p": {
+      "completed": true,
+      "temperature_c": 25,
+      "bias_v": 9.926,
+      "bootstrap_nf": 100,
+      "solver_profile": "gear-with-shunts",
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 3.38151e-06, timestep = 1.5625e-22: trouble with node \"xhigh.xcgd.8\""
+      },
+      "measurements": {
+        "peak_shunt": 72.4609,
+        "current_after": 0.117528,
+        "gate_permit_at_command": 5.37279,
+        "command_asserted": 3.3,
+        "winding_peak": 0.0,
+        "peer_after": 4.28913e-24,
+        "permit_after": 3.30561,
+        "device_energy_j": 0.000115044,
+        "peak_vds_high": 34.2855,
+        "peak_vds_low": 1.6389,
+        "comparator_input_min": 0.30013,
+        "comparator_input_max": 0.629368,
+        "masked_permit_after": 1.01934e-24,
+        "en_held_min": 3.3,
+        "raw_command_after": 3.3,
+        "driver_input_min": -5.69876e-12,
+        "driver_input_max": 3.3,
+        "driver_vss_min": -1.86722,
+        "driver_vss_max": 2.50394,
+        "bootstrap_min_v": 8.00921,
+        "gate_high_peak_v": 5.73308,
+        "gate_low_peak_v": 0.944111,
+        "gate_high_min_v": 6.70485e-06,
+        "gate_low_min_v": -1.37602,
+        "drain_high_peak_v": 34.2855,
+        "drain_low_peak_v": 1.6389,
+        "high_terminal_absorbed_j": 0.000115044,
+        "low_terminal_absorbed_j": 1.83167e-08
+      }
+    },
+    "CSD19535KCS 25C inductive high 250p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 3.10002e-06, timestep = 3.125e-22: trouble with node \"xlow.11\"",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 3.10002e-06, timestep = 3.125e-22: cause unrecorded.",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 2.56708e-06, timestep = 3.125e-22: trouble with node \"xhigh.5\""
+      }
+    },
+    "CSD19535KCS 25C inductive high 125p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 2.57676e-06, timestep = 1.5625e-22: trouble with node \"xhigh.5\"",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 2.58028e-06, timestep = 1.5625e-22: cause unrecorded.",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 2.55899e-06, timestep = 1.5625e-22: trouble with node \"xhigh.xcgd.8\""
+      }
+    },
+    "CSD19535KCS 25C short high 250p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 8.45029e-07, timestep = 3.125e-22: trouble with node \"xlow.12\"",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 9.62653e-07, timestep = 3.125e-22: trouble with node \"xhigh.xcgd.8\"",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 6.00908e-08, timestep = 3.125e-22: cause unrecorded."
+      }
+    },
+    "CSD19535KCS 25C short high 125p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 1.25457e-12, timestep = 1.5625e-22: trouble with node \"xhigh.xcgd.8\"",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 6.84327e-08, timestep = 1.5625e-22: trouble with node \"xhigh.xcgd.8\"",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 1.87847e-11, timestep = 1.5625e-22: cause unrecorded."
+      }
+    },
+    "CSD19535KCS 100C inductive low 250p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 2.6985e-06, timestep = 3.125e-22: trouble with node \"xhigh.xcgd.8\"",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 3.1002e-06, timestep = 3.125e-22: cause unrecorded.",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 2.69842e-06, timestep = 3.125e-22: cause unrecorded."
+      }
+    },
+    "CSD19535KCS 100C inductive low 125p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 2.69839e-06, timestep = 1.5625e-22: trouble with node \"xhigh.10\"",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 2.69938e-06, timestep = 1.5625e-22: cause unrecorded.",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 2.69821e-06, timestep = 1.5625e-22: trouble with node \"xhigh.xcgd.8\""
+      }
+    },
+    "CSD19535KCS 100C short low 250p": {
+      "completed": true,
+      "temperature_c": 100,
+      "bias_v": 9.3,
+      "bootstrap_nf": 60,
+      "solver_profile": "gear-with-shunts",
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 3.3815e-06, timestep = 3.125e-22: trouble with node \"xhigh.xcgd.8\""
+      },
+      "measurements": {
+        "peak_shunt": 74.2786,
+        "current_after": 0.120917,
+        "gate_permit_at_command": 4.85585,
+        "command_asserted": 3.3,
+        "winding_peak": 0.0,
+        "peer_after": 9.82077e-24,
+        "permit_after": 3.3059,
+        "device_energy_j": 0.000132688,
+        "peak_vds_high": 33.4298,
+        "peak_vds_low": 1.65685,
+        "comparator_input_min": 0.300145,
+        "comparator_input_max": 0.63654,
+        "masked_permit_after": 2.80088e-12,
+        "en_held_min": 3.3,
+        "raw_command_after": 3.3,
+        "driver_input_min": -5.99364e-12,
+        "driver_input_max": 3.3,
+        "driver_vss_min": -1.80897,
+        "driver_vss_max": 2.30538,
+        "bootstrap_min_v": 6.7688,
+        "gate_high_peak_v": 5.35388,
+        "gate_low_peak_v": 0.832327,
+        "gate_high_min_v": -0.000105948,
+        "gate_low_min_v": -0.932266,
+        "drain_high_peak_v": 33.4298,
+        "drain_low_peak_v": 1.65685,
+        "high_terminal_absorbed_j": 0.000132688,
+        "low_terminal_absorbed_j": 1.87596e-08
+      }
+    },
+    "CSD19535KCS 100C short low 125p": {
+      "completed": true,
+      "temperature_c": 100,
+      "bias_v": 9.3,
+      "bootstrap_nf": 60,
+      "solver_profile": "gear-with-shunts",
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 3.38148e-06, timestep = 1.5625e-22: trouble with node \"xhigh.xcgd.8\""
+      },
+      "measurements": {
+        "peak_shunt": 74.3386,
+        "current_after": 0.119344,
+        "gate_permit_at_command": 4.85394,
+        "command_asserted": 3.3,
+        "winding_peak": 0.0,
+        "peer_after": 1.01799e-23,
+        "permit_after": 3.30585,
+        "device_energy_j": 0.000132822,
+        "peak_vds_high": 33.4323,
+        "peak_vds_low": 1.65813,
+        "comparator_input_min": 0.300145,
+        "comparator_input_max": 0.636813,
+        "masked_permit_after": 2.82958e-12,
+        "en_held_min": 3.3,
+        "raw_command_after": 3.3,
+        "driver_input_min": -5.99688e-12,
+        "driver_input_max": 3.3,
+        "driver_vss_min": -1.81005,
+        "driver_vss_max": 2.30672,
+        "bootstrap_min_v": 6.76856,
+        "gate_high_peak_v": 5.35469,
+        "gate_low_peak_v": 0.833922,
+        "gate_high_min_v": -0.000160071,
+        "gate_low_min_v": -0.942573,
+        "drain_high_peak_v": 33.4323,
+        "drain_low_peak_v": 1.65813,
+        "high_terminal_absorbed_j": 0.000132822,
+        "low_terminal_absorbed_j": 1.88042e-08
+      }
+    },
+    "CSD19535KCS 100C inductive high 250p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 3.1e-06, timestep = 3.125e-22: trouble with node \"xhigh.xcgd.8\"",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 3.1e-06, timestep = 3.125e-22: trouble with node \"xhigh.10\"",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 2.55134e-06, timestep = 3.125e-22: trouble with node \"xhigh.5\""
+      }
+    },
+    "CSD19535KCS 100C inductive high 125p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 2.59031e-06, timestep = 1.5625e-22: trouble with node \"xlow.12\"",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 2.59036e-06, timestep = 1.5625e-22: cause unrecorded.",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 2.54337e-06, timestep = 1.5625e-22: trouble with node \"xhigh.5\""
+      }
+    },
+    "CSD19535KCS 100C short high 250p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 1.75107e-07, timestep = 3.125e-22: cause unrecorded.",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 2.22587e-07, timestep = 3.125e-22: trouble with node \"xhigh.xcgd.8\"",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 6.28621e-08, timestep = 3.125e-22: trouble with node \"xlow.5\""
+      }
+    },
+    "CSD19535KCS 100C short high 125p": {
+      "completed": false,
+      "solver_failures": {
+        "nominal": "doAnalyses: TRAN:  Timestep too small; time = 1.25001e-12, timestep = 1.5625e-22: cause unrecorded.",
+        "gear-with-shunts": "doAnalyses: TRAN:  Timestep too small; time = 8.0793e-08, timestep = 1.5625e-22: cause unrecorded.",
+        "trapezoidal": "doAnalyses: TRAN:  Timestep too small; time = 5.31465e-08, timestep = 1.5625e-22: trouble with node \"xhigh.xcgd.8\""
+      }
+    }
+  }
+}

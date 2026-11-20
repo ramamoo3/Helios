@@ -7,9 +7,8 @@ import math
 from pathlib import Path
 import shutil
 
-from compact_layout_extract import SNUBBERS, layout_ports, projected
+from compact_layout_extract import coupled_ports, layout_ports
 from extract_layout import Layout
-from secondary_layout_extract import solve
 from verify import ROOT, check_bench_via_clearance, children, first, read_schematic
 
 
@@ -73,16 +72,7 @@ def run(args):
     usage = Counter(edge for _, _, route in routes for edge in route)
     if any(count > 1 for count in usage.values()):
         raise ValueError("Split each shared copper branch at its physical tee before extracting it")
-    matrices = solve(args, layout, PORTS, routes)
-    inductance = matrices["1e+07"]["inductance_h"]
-    loops = {name: 1e9 * projected(inductance, [terms.get(port, 0) for port in PORTS])
-             for name, terms in LOOPS.items()}
-    for name, pins in SNUBBERS.items():
-        if name == "low_snubber_copper":
-            pins = (*pins[:2], (pins[2][0], ("Q6", "source_finger")))
-        order = ("drain", "between", "source")
-        data = solve(args, layout, order, [layout.route(*pair) for pair in pins])
-        loops[name] = 1e9 * projected(data["1e+07"]["inductance_h"], (1, 1, 1))
+    matrices, loops = coupled_ports(args, layout, PORTS, routes, LOOPS)
     result = {
         "board_sha256": hashlib.sha256(args.board.read_bytes()).hexdigest(),
         "via_wall_mm": args.via_wall_mm,

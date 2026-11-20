@@ -1,0 +1,719 @@
+{
+  "scope": "Routed rear-bypass coupon, 10 uH double-pulse switching, smoothed reduced drive model. The added clamp, snubber and diode loops are assumptions.",
+  "simulator": "ngspice 47 in PSpice compatibility mode",
+  "initial_runner_inputs_sha256": {
+    "bench_inductive_waveform.py": "7f892cb05866c391ebabe832d39e0904e151ee2d7fe00611ab99b3fbce453440",
+    "battery-port-secondary-isolated-dfn-rear-bypass.kicad_pcb": "9c5fab0dc94294fec3e8fd0623a83b3e9677683b2c8c7a11e13088c29c5a16b1",
+    "bench-secondary-isolated-dfn-rear-bypass-impedance.json": "97a3e9c2d7e6b5190db5fc9569309edee75b1810f364291b97f65a27df1d6230",
+    "isolated-bench-driver.lib": "a8336b6a715aa495fcad45724b83794d09f13ab8dac6183760be2b49f17180bb",
+    "bench-bootstrap-impedance.json": "0966e915591c6d65e1d16985a17fa1123098eb49a01bf14c58fefc705b9dfca5",
+    "bench-shunt-transfer.json": "a322a169b0d8a5f94d740a74fe7a24945a4dea02166abe48aa5db630f9f59cd9",
+    "bench-shunt-filter-results.json": "9513082e62009c395e2fb8d337d2af1ef4bc0b69967833290145c7f0fafc71fd",
+    "slum543.zip": "4f8f41c4fbe46585374a9dcefa9ad6b3eb738929e54b79469efa035cf69ed424",
+    "csd19531-ti.zip": "9d8c91380fba5b13173484b5775d5f2ef0bbd9d7ee9a49c66ea1c03bdf05cb13",
+    "isolated_rear_bypass.py": "dedbfb1a400b5c0b4d60911aa737b22d6d13f87d05a91c363ebed07cea6a26e3",
+    "leg_receiver.lib": "11e0d3b7ed0316c669590dafdd8ebe49f510ade747e18785886066a052d2fe28",
+    "local_shutdown.lib": "540d8b659afd194750f399db678c32f705c5f16c2b21e524536729e9ec7c2d8e",
+    "protection.lib": "a4f70a24b51d60a593c0ebea5f5f950bdb52a443cadcb69473286e20b818f170",
+    "commutation_clamp.lib": "00c724e5bcdb89806044b8cd2d8988a5a7a826b9080c851fe1c162aeb2c20124",
+    "isolated_layout_replay.py": "dbd9e25cbe2cbe50a90e67fd0ffe4fd6848ed5cf394da3d5cbca85ad9f34c0ad",
+    "isolated_dfn_test.py": "b21f2dfd2dc415dfc46cb4ea36c800cdd4cfa37287e985a19a996d9a82e7b4f3",
+    "isolated_driver_test.py": "814253eca632490855970597bfb9f253aae236a26007443525df2520ba1c36c2"
+  },
+  "deck_equivalence_runner_sha256": "d5b1075cf1840efb73e14d6878d739a455af10504ec03835ac000bef7429d706",
+  "staged_driver_sha256": "e02003bb490785d980e18f221576528f6064eb1922900ada058c8052aced07b9",
+  "baseline_clamps_gear_250ps_trace": {
+    "completed": true,
+    "sample_count": 24786,
+    "samples_around_low_side_peak": [
+      {
+        "time_ns": 4711.235785754803,
+        "v(dl_s)": 6.475552847102449,
+        "v(dh_s)": 3.173575611389264,
+        "v(gh_s)": 6.031584662464997,
+        "v(gl_s)": -0.20550702120604392,
+        "v(mid)": 14.603493599133799,
+        "v(sourcel)": 8.12794075203135,
+        "v(bus)": 23.79808461004072,
+        "v(drainh)": 21.624081222130805,
+        "v(hs_s)": 5.188727185607032,
+        "v(a_v)": 11.688139570302944,
+        "v(en_candidate)": 3.2999999966999867,
+        "i(lload)": 2.5255474691898034,
+        "i(vlocal_clamp)": 0.3646192281459193,
+        "v(xlocal_clamp.junction)": 7.4539832619320805
+      },
+      {
+        "time_ns": 4711.245421490306,
+        "v(dl_s)": 100.60454203594782,
+        "v(dh_s)": 2.632377251590732,
+        "v(gh_s)": 5.656547968681309,
+        "v(gl_s)": 1.2611597391402682,
+        "v(mid)": 66.13418167995405,
+        "v(sourcel)": -34.47036035599376,
+        "v(bus)": 23.801014267111285,
+        "v(drainh)": 36.70448685800837,
+        "v(hs_s)": 17.34934759710806,
+        "v(a_v)": 11.70227052814143,
+        "v(en_candidate)": 3.2999999966999867,
+        "i(lload)": 2.5255996735515454,
+        "i(vlocal_clamp)": 2.076143546132114,
+        "v(xlocal_clamp.junction)": -35.13618355860672
+      },
+      {
+        "time_ns": 4711.249395862417,
+        "v(dl_s)": -0.5309113256124363,
+        "v(dh_s)": 2.8576459027473717,
+        "v(gh_s)": 5.845304984250646,
+        "v(gl_s)": -1.1422391957249047,
+        "v(mid)": 39.86135822444328,
+        "v(sourcel)": 40.392269550055715,
+        "v(bus)": 23.802031707073976,
+        "v(drainh)": 30.50909687930575,
+        "v(hs_s)": 11.731822345069734,
+        "v(a_v)": 11.710113463440482,
+        "v(en_candidate)": 3.2999999966999867,
+        "i(lload)": 2.525616724259181,
+        "i(vlocal_clamp)": 2.236592489300454,
+        "v(xlocal_clamp.junction)": 39.73033232190937
+      }
+    ],
+    "peak_vds_v": 100.71977330239977,
+    "peak_absolute_vgs_v": 103.25848431567694,
+    "total_low_side_time_above_54_v_ns": 0.006638901439487628,
+    "samples_low_side_above_54_v": 41,
+    "drain_within_54_v": false,
+    "gate_within_16_v": false,
+    "deck_sha256": "e100c7bc062a14957f8f5c80469d5083d418dcefd1fdf3a042676373b50c2d44",
+    "trace_sha256": "312508e9e297ab493d35095028cc91225455c5bfac8b6ea03f61bc615cf8e45e"
+  },
+  "nominal_candidate_screen_gear_250ps": {
+    "rg-27-rc-2n2": {
+      "design_parameters": {
+        "rg_hi_ohm": 27,
+        "extra_rc_nf": 2.2,
+        "extra_rc_ohm": 1,
+        "steering_diode": false
+      },
+      "deck_sha256": "f5ac0d6fb800518f150bffb4c3abff7e06497c31fc39105e7046e23675264d5b",
+      "error": "ngspice exceeded 100 seconds"
+    },
+    "rc-1n0-1r0": {
+      "design_parameters": {
+        "rg_hi_ohm": 15,
+        "extra_rc_nf": 1,
+        "extra_rc_ohm": 1,
+        "steering_diode": false
+      },
+      "deck_sha256": "d61abc5b5c99c66d81c1dafcf9b671ee9b7d4b1cf910a224b8de4f0eb3217e5b",
+      "error": "ngspice exceeded 100 seconds"
+    },
+    "rg-27": {
+      "design_parameters": {
+        "rg_hi_ohm": 27,
+        "extra_rc_nf": 0,
+        "extra_rc_ohm": 0,
+        "steering_diode": false
+      },
+      "deck_sha256": "ab9f48a68d46e78dd4b095ff98112ab03bba6520a64f7df4e4003dc3a2468527",
+      "error": "ngspice exceeded 100 seconds"
+    },
+    "rg-39-rc-2n2": {
+      "design_parameters": {
+        "rg_hi_ohm": 39,
+        "extra_rc_nf": 2.2,
+        "extra_rc_ohm": 1,
+        "steering_diode": false
+      },
+      "deck_sha256": "2e74abb5ac18306a45f1034f3cfd2ec1b16940995e70a836e9dea0eedce4d0cc",
+      "error": "ngspice exceeded 100 seconds"
+    },
+    "rg-27-rc-2n2-steering": {
+      "design_parameters": {
+        "rg_hi_ohm": 27,
+        "extra_rc_nf": 2.2,
+        "extra_rc_ohm": 1,
+        "steering_diode": true
+      },
+      "deck_sha256": "80e63f676ce4f3cf302d136b19de48141d3c5004a6dd756e77c5b0207e95884d",
+      "permit_min": 3.29764,
+      "peak_shunt": 12.1536,
+      "comparator_min": 0.282313,
+      "comparator_max": 0.358439,
+      "first_gate": 11.3521,
+      "second_gate": 7.38183,
+      "min_vdd": 11.9148,
+      "max_vdd": 12.0488,
+      "min_hs": -1.02773,
+      "snubber_hi_j": 2.89513e-06,
+      "snubber_lo_j": 4.61636e-06,
+      "tvs_j": 1.05603e-09,
+      "vds_hi_scan": 25.5176,
+      "vds_lo_scan": 32.0704,
+      "max_vgs_high": 11.9599,
+      "max_vgs_low": 0.0223659,
+      "min_vgs_high": -0.0348866,
+      "min_vgs_low": -0.250717,
+      "precharge_off_gate": -0.034861,
+      "tvs_peak_terminal_a": 2.7671,
+      "high_bias_min": 11.3896,
+      "high_bias_max": 12.72,
+      "hi_pin_min": -0.034981,
+      "lo_pin_min": -0.444682,
+      "high_tvs_terminal_a": 5.27495,
+      "high_bulk_min": 11.9314,
+      "high_bulk_max": 12.0101,
+      "high_fast_min": 11.86,
+      "high_fast_max": 12.0644,
+      "high_return_min": -0.531806,
+      "high_return_max": 0.616977,
+      "high_rear_min": 11.8994,
+      "high_rear_max": 12.023,
+      "current_at_commutation": 2.63668,
+      "extra_clamp_peak_a": 2.07744,
+      "extra_clamp_j": 0.0,
+      "local_snubber_j": 6.1871e-07,
+      "checks": {
+        "functional": true,
+        "both_output_biases_in_range": true,
+        "gate_magnitude_at_most_16_v": true,
+        "drain_at_most_54_v": true
+      },
+      "passed": true,
+      "precharge_high_drain_terminal": 1.02643e-10,
+      "commanded_high_drain_terminal": 0.352335
+    }
+  },
+  "candidate_q6_only_gear_250ps_trace": {
+    "completed": true,
+    "sample_count": 22942,
+    "samples_around_low_side_peak": [
+      {
+        "time_ns": 4745.643479068566,
+        "v(dl_s)": 32.06953385754115,
+        "v(dh_s)": -0.4235580401537362,
+        "v(gh_s)": 5.629025059660783,
+        "v(gl_s)": -0.06581129629267668,
+        "v(mid)": 27.67661922605962,
+        "v(sourcel)": -4.3929146314815295,
+        "v(bus)": 23.953520914646838,
+        "v(drainh)": 24.880994635352753,
+        "v(hs_s)": 31.12891768083995,
+        "v(a_v)": 12.080596111181574,
+        "v(en_candidate)": 3.299999996699989,
+        "i(lload)": 2.68224588635549,
+        "i(vlocal_clamp)": 0.006763638371605651,
+        "v(xlocal_clamp.junction)": 27.704716115538034
+      },
+      {
+        "time_ns": 4745.754706421425,
+        "v(dl_s)": 32.07040901199921,
+        "v(dh_s)": -0.42332840610734834,
+        "v(gh_s)": 5.637353929829384,
+        "v(gl_s)": -0.06666820117239602,
+        "v(mid)": 27.690761051194627,
+        "v(sourcel)": -4.379647960804583,
+        "v(bus)": 23.954750015988072,
+        "v(drainh)": 24.895143960317608,
+        "v(hs_s)": 31.10776369632451,
+        "v(a_v)": 12.081352543756985,
+        "v(en_candidate)": 3.299999996699989,
+        "i(lload)": 2.682550826194933,
+        "i(vlocal_clamp)": -0.00017990889893759743,
+        "v(xlocal_clamp.junction)": 27.718919597077793
+      },
+      {
+        "time_ns": 4745.884205271648,
+        "v(dl_s)": 32.069124453460006,
+        "v(dh_s)": -0.42324312238472217,
+        "v(gh_s)": 5.646657355835341,
+        "v(gl_s)": -0.06765561568959022,
+        "v(mid)": 27.709660099743157,
+        "v(sourcel)": -4.3594643537168505,
+        "v(bus)": 23.956194084187075,
+        "v(drainh)": 24.913223080280545,
+        "v(hs_s)": 31.06964568761775,
+        "v(a_v)": 12.082376911496922,
+        "v(en_candidate)": 3.299999996699988,
+        "i(lload)": 2.682906073423209,
+        "i(vlocal_clamp)": -0.008245973834791087,
+        "v(xlocal_clamp.junction)": 27.737655291696925
+      }
+    ],
+    "peak_vds_v": 32.07040901199921,
+    "peak_absolute_vgs_v": 11.959860127481786,
+    "total_low_side_time_above_54_v_ns": 0.0,
+    "samples_low_side_above_54_v": 0,
+    "drain_within_54_v": true,
+    "gate_within_16_v": true,
+    "deck_sha256": "9f0e4dea378c4079b41ba392e77acfbae57ddd8eb86b2bfb679029635bb23e22",
+    "trace_sha256": "c5690f57f4d3e648028cd51ef90a72e668c28185e266f87945023fec32b6ae9a"
+  },
+  "candidate_q6_only_nominal_replay": {
+    "vds_hi_scan": 25.5176,
+    "vds_lo_scan": 32.0704,
+    "current_at_commutation": 2.63668,
+    "high_bias_min": 11.3896,
+    "high_bias_max": 12.72,
+    "min_vdd": 11.9148,
+    "max_vdd": 12.0488,
+    "max_vgs_high": 11.9599,
+    "min_vgs_high": -0.0348866,
+    "max_vgs_low": 0.0223659,
+    "min_vgs_low": -0.250717,
+    "local_snubber_j": 6.1871e-07,
+    "checks": {
+      "functional": true,
+      "both_output_biases_in_range": true,
+      "gate_magnitude_at_most_16_v": true,
+      "drain_at_most_54_v": true
+    },
+    "passed": true,
+    "deck_sha256": "80e63f676ce4f3cf302d136b19de48141d3c5004a6dd756e77c5b0207e95884d"
+  },
+  "q6_only_step_and_temperature_repeats": {
+    "hot_high_inductive-250p-q6": {
+      "deck_sha256": "8eb9646e2d0a4dfedf6f501960a4fd119e5bdbf9389dbfc6c3def8b6401e53e0",
+      "case": "hot_high_inductive",
+      "max_step": "250p",
+      "steering_both_switches": false,
+      "error": "ngspice exceeded 150 seconds"
+    },
+    "hot_high_inductive-500p-q6": {
+      "deck_sha256": "098790af1c31c19c3d2a4680ca48d00424bf02b4c08d5d89b80eeacc50ce3b40",
+      "case": "hot_high_inductive",
+      "max_step": "500p",
+      "steering_both_switches": false,
+      "error": "ngspice exceeded 150 seconds"
+    },
+    "nominal_high_inductive-125p-q6": {
+      "deck_sha256": "789d99109e6518c786a705c1c9b6cf0d0de36777f2fef0c1434a8de39ab63dc2",
+      "case": "nominal_high_inductive",
+      "max_step": "125p",
+      "steering_both_switches": false,
+      "error": "ngspice exceeded 150 seconds"
+    },
+    "nominal_high_inductive-500p-q6": {
+      "deck_sha256": "47c0e624c43f99cbd92367ff77381f07040e4cbc19c02996658221d0a0b2a941",
+      "case": "nominal_high_inductive",
+      "max_step": "500p",
+      "steering_both_switches": false,
+      "error": "ngspice exceeded 150 seconds"
+    }
+  },
+  "candidate_both_diodes_gear_step_sweep_ps": {
+    "nominal_high": {
+      "125": {
+        "vds_hi_scan": 25.5398,
+        "vds_lo_scan": 32.0716,
+        "current_at_commutation": 2.63729,
+        "high_bias_min": 11.3909,
+        "high_bias_max": 12.7295,
+        "min_vdd": 11.9145,
+        "max_vdd": 12.0489,
+        "max_vgs_high": 11.9598,
+        "min_vgs_high": -0.0348866,
+        "max_vgs_low": 0.0218102,
+        "min_vgs_low": -0.258221,
+        "local_snubber_j": 6.18838e-07,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true,
+        "deck_sha256": "e7496f7dfc3c2ee2cefcd3f49df6498fc064107b79218fb452a6b3959d853d0c"
+      },
+      "250": {
+        "vds_hi_scan": 25.5385,
+        "vds_lo_scan": 32.0701,
+        "current_at_commutation": 2.63751,
+        "high_bias_min": 11.3896,
+        "high_bias_max": 12.7074,
+        "min_vdd": 11.9145,
+        "max_vdd": 12.0489,
+        "max_vgs_high": 11.9598,
+        "min_vgs_high": -0.0348867,
+        "max_vgs_low": 0.021111,
+        "min_vgs_low": -0.258356,
+        "local_snubber_j": 6.18831e-07,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true,
+        "deck_sha256": "3421bea40c249b264edb0738fcb281c990f64ce94dfd5a89927a84f0bc6f0584"
+      },
+      "500": {
+        "vds_hi_scan": 25.5402,
+        "vds_lo_scan": 32.0703,
+        "current_at_commutation": 2.63761,
+        "high_bias_min": 11.3897,
+        "high_bias_max": 12.6749,
+        "min_vdd": 11.9144,
+        "max_vdd": 12.0489,
+        "max_vgs_high": 11.9598,
+        "min_vgs_high": -0.0348866,
+        "max_vgs_low": 0.0207474,
+        "min_vgs_low": -0.25805,
+        "local_snubber_j": 6.1891e-07,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true,
+        "deck_sha256": "d2a71eb6cfe27a0c31ad530f7db7c064a96d77e28360ccee29998a73dfaec3d4"
+      }
+    },
+    "nominal_low": {
+      "125": {
+        "vds_hi_scan": 31.9785,
+        "vds_lo_scan": 25.9572,
+        "current_at_commutation": 2.70861,
+        "high_bias_min": 11.8227,
+        "high_bias_max": 12.1539,
+        "min_vdd": 11.6744,
+        "max_vdd": 12.0878,
+        "max_vgs_high": 0.123349,
+        "min_vgs_high": -0.327177,
+        "max_vgs_low": 11.9316,
+        "min_vgs_low": -0.0348634,
+        "local_snubber_j": 3.90079e-07,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true,
+        "deck_sha256": "e9d2cd591041f4e8e6019830b5e16f462165625b7687c2c3d5fb52cfb67d9981"
+      },
+      "250": {
+        "vds_hi_scan": 31.8517,
+        "vds_lo_scan": 25.9576,
+        "current_at_commutation": 2.70878,
+        "high_bias_min": 11.829,
+        "high_bias_max": 12.1448,
+        "min_vdd": 11.6759,
+        "max_vdd": 12.0878,
+        "max_vgs_high": 0.0791968,
+        "min_vgs_high": -0.327705,
+        "max_vgs_low": 11.9316,
+        "min_vgs_low": -0.0348634,
+        "local_snubber_j": 3.90094e-07,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true,
+        "deck_sha256": "2c9730f825b25b950ad7bbf8ecf67d68d9d830e652bfacb0ebf45d7b3f88b41c"
+      },
+      "500": {
+        "vds_hi_scan": 31.8435,
+        "vds_lo_scan": 25.9591,
+        "current_at_commutation": 2.70878,
+        "high_bias_min": 11.8297,
+        "high_bias_max": 12.1443,
+        "min_vdd": 11.6743,
+        "max_vdd": 12.0876,
+        "max_vgs_high": 0.0766942,
+        "min_vgs_high": -0.328241,
+        "max_vgs_low": 11.9316,
+        "min_vgs_low": -0.0348634,
+        "local_snubber_j": 3.90038e-07,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true,
+        "deck_sha256": "96dbab9482c46418fda043ac1cbe521113cfabbd37acc7fda86a726664d68637"
+      }
+    },
+    "hot_high": {
+      "125": {
+        "vds_hi_scan": 25.436,
+        "vds_lo_scan": 32.2584,
+        "current_at_commutation": 2.63845,
+        "high_bias_min": 11.0863,
+        "high_bias_max": 12.3851,
+        "min_vdd": 11.6177,
+        "max_vdd": 11.7522,
+        "max_vgs_high": 11.6588,
+        "min_vgs_high": -0.00327837,
+        "max_vgs_low": 0.0583469,
+        "min_vgs_low": -0.137874,
+        "local_snubber_j": 6.12422e-07,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true,
+        "deck_sha256": "f09707a3b53e7df7034de06d5c09661e06b97a037df8537dec475448ace175c0"
+      },
+      "250": {
+        "vds_hi_scan": 25.4378,
+        "vds_lo_scan": 32.2574,
+        "current_at_commutation": 2.63865,
+        "high_bias_min": 11.0856,
+        "high_bias_max": 12.3763,
+        "min_vdd": 11.6177,
+        "max_vdd": 11.7523,
+        "max_vgs_high": 11.6588,
+        "min_vgs_high": -0.00327836,
+        "max_vgs_low": 0.0572115,
+        "min_vgs_low": -0.137133,
+        "local_snubber_j": 6.12236e-07,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true,
+        "deck_sha256": "ec7034f2fa01dbca904484917898f56a80a3a0558c55f05742b6b38a21a48546"
+      },
+      "500": {
+        "vds_hi_scan": 25.4382,
+        "vds_lo_scan": 32.2565,
+        "current_at_commutation": 2.63872,
+        "high_bias_min": 11.0844,
+        "high_bias_max": 12.386,
+        "min_vdd": 11.6178,
+        "max_vdd": 11.7523,
+        "max_vgs_high": 11.6588,
+        "min_vgs_high": -0.00327834,
+        "max_vgs_low": 0.0570296,
+        "min_vgs_low": -0.136929,
+        "local_snubber_j": 6.11784e-07,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true,
+        "deck_sha256": "3fb1090073630f5cc7d20fd95b8399c81ae953fe6284196cee7d67c731081329"
+      }
+    },
+    "hot_low": {
+      "125": {
+        "vds_hi_scan": 33.4441,
+        "vds_lo_scan": 25.9665,
+        "current_at_commutation": 2.7184,
+        "high_bias_min": 11.5453,
+        "high_bias_max": 11.8448,
+        "min_vdd": 11.3758,
+        "max_vdd": 11.7816,
+        "max_vgs_high": 0.213214,
+        "min_vgs_high": -0.244612,
+        "max_vgs_low": 11.6334,
+        "min_vgs_low": -0.00327335,
+        "local_snubber_j": 3.70686e-07,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true,
+        "deck_sha256": "1c6c7eba579fa55b83ff671b787e92083217f52c8b4ea0d063d3d22e23dd84c4"
+      },
+      "250": {
+        "vds_hi_scan": 33.0656,
+        "vds_lo_scan": 25.9675,
+        "current_at_commutation": 2.7186,
+        "high_bias_min": 11.5474,
+        "high_bias_max": 11.8301,
+        "min_vdd": 11.3764,
+        "max_vdd": 11.7816,
+        "max_vgs_high": 0.184043,
+        "min_vgs_high": -0.200446,
+        "max_vgs_low": 11.6334,
+        "min_vgs_low": -0.00327334,
+        "local_snubber_j": 3.70662e-07,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true,
+        "deck_sha256": "3cf0ef486e500c81b6eb108716a25508c8bad6f38470b0c3949d8e8f1251a8f3"
+      },
+      "500": {
+        "vds_hi_scan": 33.0525,
+        "vds_lo_scan": 25.9695,
+        "current_at_commutation": 2.7186,
+        "high_bias_min": 11.5469,
+        "high_bias_max": 11.8304,
+        "min_vdd": 11.3786,
+        "max_vdd": 11.7814,
+        "max_vgs_high": 0.185111,
+        "min_vgs_high": -0.205788,
+        "max_vgs_low": 11.6334,
+        "min_vgs_low": -0.00327333,
+        "local_snubber_j": 3.70648e-07,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true,
+        "deck_sha256": "26bd369f748077e86aaee492e384e3ac43f86abc047e90872af62e40a969d82e"
+      }
+    }
+  },
+  "stpst10h100sf_hot_high_0p45nh": {
+    "part": "STPST10H100SF",
+    "external_loop_nh_per_diode": 0.45,
+    "case": "hot_high",
+    "step_ps": 250,
+    "archive_sha256": "36169e895d25ae28c8b2cf6461de0a0da374c1f60d105dbfb8faee880ea76ca6",
+    "model_sha256": "497499718c330b001744639048d93559391216783fb1a2ba966f4c4b720607c7",
+    "deck_sha256": "7fd3246311d08eee541da2d29b844989363207f58139b503c0e2ce5b86c124e6",
+    "permit_min": 3.29764,
+    "peak_shunt": 12.5493,
+    "comparator_min": 0.282075,
+    "comparator_max": 0.360332,
+    "first_gate": 11.0567,
+    "second_gate": 7.17773,
+    "min_vdd": 11.6168,
+    "max_vdd": 11.7575,
+    "min_hs": -1.08459,
+    "snubber_hi_j": 2.48403e-06,
+    "snubber_lo_j": 4.31933e-06,
+    "tvs_j": 2.10946e-10,
+    "vds_hi_scan": 25.7119,
+    "vds_lo_scan": 33.1951,
+    "max_vgs_high": 11.6586,
+    "max_vgs_low": 0.0318278,
+    "min_vgs_high": -0.00327832,
+    "min_vgs_low": -0.163239,
+    "precharge_off_gate": -0.0032747,
+    "tvs_peak_terminal_a": 1.94327,
+    "high_bias_min": 11.0856,
+    "high_bias_max": 12.3743,
+    "hi_pin_min": -0.00328976,
+    "lo_pin_min": -0.242957,
+    "high_tvs_terminal_a": 3.65374,
+    "high_bulk_min": 11.637,
+    "high_bulk_max": 11.7017,
+    "high_fast_min": 11.5518,
+    "high_fast_max": 11.7832,
+    "high_return_min": -0.411897,
+    "high_return_max": 0.375201,
+    "high_rear_min": 11.5929,
+    "high_rear_max": 11.725,
+    "current_at_commutation": 2.64968,
+    "extra_clamp_peak_a": 1.96425,
+    "extra_clamp_j": 0.0,
+    "local_snubber_j": 6.5134e-07,
+    "checks": {
+      "functional": true,
+      "both_output_biases_in_range": true,
+      "gate_magnitude_at_most_16_v": true,
+      "drain_at_most_54_v": true
+    },
+    "passed": true,
+    "precharge_high_drain_terminal": 2.52868e-08,
+    "commanded_high_drain_terminal": 0.733278
+  },
+  "stpst10h100sf_hot_1nh_sensitivity": {
+    "hot_high": {
+      "scope": "Routed rear-bypass inductive switching diagnostic with a reduced gate-driver model",
+      "settings": {
+        "case": "hot_high",
+        "method": "gear",
+        "step_ps": 250,
+        "high_gate_ohm": 27,
+        "snubber_nf": 2.2,
+        "steering": "both",
+        "steering_loop_nh": 1.0,
+        "capture": "measurements",
+        "timeout": 100,
+        "steering_model": "STPST10H100SF"
+      },
+      "inputs_sha256": {
+        "bench_inductive_waveform.py": "d5b1075cf1840efb73e14d6878d739a455af10504ec03835ac000bef7429d706",
+        "battery-port-secondary-isolated-dfn-rear-bypass.kicad_pcb": "9c5fab0dc94294fec3e8fd0623a83b3e9677683b2c8c7a11e13088c29c5a16b1",
+        "bench-secondary-isolated-dfn-rear-bypass-impedance.json": "97a3e9c2d7e6b5190db5fc9569309edee75b1810f364291b97f65a27df1d6230",
+        "isolated-bench-driver.lib": "a8336b6a715aa495fcad45724b83794d09f13ab8dac6183760be2b49f17180bb",
+        "bench-bootstrap-impedance.json": "0966e915591c6d65e1d16985a17fa1123098eb49a01bf14c58fefc705b9dfca5",
+        "bench-shunt-transfer.json": "a322a169b0d8a5f94d740a74fe7a24945a4dea02166abe48aa5db630f9f59cd9",
+        "bench-shunt-filter-results.json": "9513082e62009c395e2fb8d337d2af1ef4bc0b69967833290145c7f0fafc71fd",
+        "slum543.zip": "4f8f41c4fbe46585374a9dcefa9ad6b3eb738929e54b79469efa035cf69ed424",
+        "csd19531-ti.zip": "9d8c91380fba5b13173484b5775d5f2ef0bbd9d7ee9a49c66ea1c03bdf05cb13",
+        "isolated_rear_bypass.py": "dedbfb1a400b5c0b4d60911aa737b22d6d13f87d05a91c363ebed07cea6a26e3",
+        "leg_receiver.lib": "11e0d3b7ed0316c669590dafdd8ebe49f510ade747e18785886066a052d2fe28",
+        "local_shutdown.lib": "540d8b659afd194750f399db678c32f705c5f16c2b21e524536729e9ec7c2d8e",
+        "protection.lib": "a4f70a24b51d60a593c0ebea5f5f950bdb52a443cadcb69473286e20b818f170",
+        "commutation_clamp.lib": "00c724e5bcdb89806044b8cd2d8988a5a7a826b9080c851fe1c162aeb2c20124",
+        "isolated_layout_replay.py": "dbd9e25cbe2cbe50a90e67fd0ffe4fd6848ed5cf394da3d5cbca85ad9f34c0ad",
+        "isolated_dfn_test.py": "b21f2dfd2dc415dfc46cb4ea36c800cdd4cfa37287e985a19a996d9a82e7b4f3",
+        "isolated_driver_test.py": "814253eca632490855970597bfb9f253aae236a26007443525df2520ba1c36c2",
+        "st-schottky-models.zip": "36169e895d25ae28c8b2cf6461de0a0da374c1f60d105dbfb8faee880ea76ca6"
+      },
+      "staged_driver_sha256": "e02003bb490785d980e18f221576528f6064eb1922900ada058c8052aced07b9",
+      "staged_steering_sha256": "497499718c330b001744639048d93559391216783fb1a2ba966f4c4b720607c7",
+      "result": {
+        "completed": false,
+        "error": "Solver exceeded 100 seconds",
+        "deck_sha256": "263c0c589cca28e5828ddab22b3acd7681df7402c8ff5c87bb566adf76d4ed15"
+      }
+    },
+    "hot_low": {
+      "scope": "Routed rear-bypass inductive switching diagnostic with a reduced gate-driver model",
+      "settings": {
+        "case": "hot_low",
+        "method": "gear",
+        "step_ps": 250,
+        "high_gate_ohm": 27,
+        "snubber_nf": 2.2,
+        "steering": "both",
+        "steering_loop_nh": 1.0,
+        "capture": "measurements",
+        "timeout": 100,
+        "steering_model": "STPST10H100SF"
+      },
+      "inputs_sha256": {
+        "bench_inductive_waveform.py": "d5b1075cf1840efb73e14d6878d739a455af10504ec03835ac000bef7429d706",
+        "battery-port-secondary-isolated-dfn-rear-bypass.kicad_pcb": "9c5fab0dc94294fec3e8fd0623a83b3e9677683b2c8c7a11e13088c29c5a16b1",
+        "bench-secondary-isolated-dfn-rear-bypass-impedance.json": "97a3e9c2d7e6b5190db5fc9569309edee75b1810f364291b97f65a27df1d6230",
+        "isolated-bench-driver.lib": "a8336b6a715aa495fcad45724b83794d09f13ab8dac6183760be2b49f17180bb",
+        "bench-bootstrap-impedance.json": "0966e915591c6d65e1d16985a17fa1123098eb49a01bf14c58fefc705b9dfca5",
+        "bench-shunt-transfer.json": "a322a169b0d8a5f94d740a74fe7a24945a4dea02166abe48aa5db630f9f59cd9",
+        "bench-shunt-filter-results.json": "9513082e62009c395e2fb8d337d2af1ef4bc0b69967833290145c7f0fafc71fd",
+        "slum543.zip": "4f8f41c4fbe46585374a9dcefa9ad6b3eb738929e54b79469efa035cf69ed424",
+        "csd19531-ti.zip": "9d8c91380fba5b13173484b5775d5f2ef0bbd9d7ee9a49c66ea1c03bdf05cb13",
+        "isolated_rear_bypass.py": "dedbfb1a400b5c0b4d60911aa737b22d6d13f87d05a91c363ebed07cea6a26e3",
+        "leg_receiver.lib": "11e0d3b7ed0316c669590dafdd8ebe49f510ade747e18785886066a052d2fe28",
+        "local_shutdown.lib": "540d8b659afd194750f399db678c32f705c5f16c2b21e524536729e9ec7c2d8e",
+        "protection.lib": "a4f70a24b51d60a593c0ebea5f5f950bdb52a443cadcb69473286e20b818f170",
+        "commutation_clamp.lib": "00c724e5bcdb89806044b8cd2d8988a5a7a826b9080c851fe1c162aeb2c20124",
+        "isolated_layout_replay.py": "dbd9e25cbe2cbe50a90e67fd0ffe4fd6848ed5cf394da3d5cbca85ad9f34c0ad",
+        "isolated_dfn_test.py": "b21f2dfd2dc415dfc46cb4ea36c800cdd4cfa37287e985a19a996d9a82e7b4f3",
+        "isolated_driver_test.py": "814253eca632490855970597bfb9f253aae236a26007443525df2520ba1c36c2",
+        "st-schottky-models.zip": "36169e895d25ae28c8b2cf6461de0a0da374c1f60d105dbfb8faee880ea76ca6"
+      },
+      "staged_driver_sha256": "e02003bb490785d980e18f221576528f6064eb1922900ada058c8052aced07b9",
+      "staged_steering_sha256": "497499718c330b001744639048d93559391216783fb1a2ba966f4c4b720607c7",
+      "result": {
+        "completed": false,
+        "error": "Solver exceeded 100 seconds",
+        "deck_sha256": "00ad440b31fb2759956a00adc0e8d159cbf65faa987306eb23d9c6d4b9b375e9"
+      }
+    }
+  }
+}

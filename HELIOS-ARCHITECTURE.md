@@ -4,7 +4,7 @@
 
 [Remaining builds, dependencies and acceptance tests](HELIOS-BUILD-CHECKLIST.md)
 
-The first battery-port revision includes editable power and sensing schematics, switching simulations and measured operating points. The circuit comparison records the open-hardware cabinet candidate and published power-converter benchmarks. [Battery-port circuits](circuits/battery-port/README.md) · [Reference designs](circuits/REFERENCE-DESIGNS.md)
+The first battery-port revision includes editable power and sensing schematics and simulated switching and operating points. The circuit comparison records the open-hardware cabinet candidate and published power-converter benchmarks. [Battery-port circuits](circuits/battery-port/README.md) · [Reference designs](circuits/REFERENCE-DESIGNS.md)
 
 **Product goal.** The home normally runs continuously from a battery-backed inverter. A lithium iron phosphate (LFP) bank buffers variations in sunlight and household demand. Solar is the preferred charging source. A one-way utility charger can run while the house is occupied, with its timing and power chosen to carry the home to the next period of useful solar and preserve an outage reserve. The installation should run locally and automatically after commissioning.
 
@@ -47,7 +47,7 @@ These are starting configurations. At 20 kWh/day, three full modules theoretical
 
 **Prototype checks at both ends of the range.** For the single-phase starter, deliver 2.2 kWh overnight with one module and verify the 20% reserve. Target at most 10 W of continuous no-load draw for the complete energized starter system (0.24 kWh/day, or 6% of the 4 kWh reference). Measure the three-phase small-bank configuration separately. Check morning tracker startup, part-load efficiency and outage behavior with one battery. Repeat the test after a battery addition and confirm that the controller updates runtime and power limits correctly. For a larger household, exercise three inverters with uneven loads, loss of synchronization, loss of a battery bay and safe recovery. Quote the cost of the starter hardware separately and validate the idle target before adopting a common 4 kVA inverter PCB for production.
 
-The battery-port simulation draws 11.7 W at zero commanded transfer while both bridges still switch. That operating mode alone exceeds the 10 W starter target. Budget disabled-port leakage and converter wake-up behavior, then measure the complete system with its controller, BMS and auxiliary supplies operating. [Battery-port simulation](circuits/battery-port/README.md#measured-in-simulation)
+In the zero-shift battery-port simulation, the switching bridge draws 11.66 W from the DC link and returns 7.88 W to the pack. The modeled net loss across both terminals is 3.78 W. Suspending switching in inactive ports removes that circulation in the model. Verify passive current paths, the power needed to keep protection and sensing available, and link recovery when a port restarts. During prototype qualification, measure the complete energized system with the inverter forming AC and the controller, BMS and auxiliary supplies operating. Include wake-ups and all active sources. The 10 W target remains provisional. [Battery-port standby deck](circuits/battery-port/dab-standby-test.cir)
 
 ### Upper configuration for three-phase homes with four room ACs
 

@@ -7,11 +7,10 @@ import math
 from pathlib import Path
 import shutil
 
-from compact_layout_extract import SNUBBERS, projected
+from compact_layout_extract import coupled_ports
 from driven_layout_extract import register
 from extract_layout import Layout
 from protected_layout_extract import PATHS as PROTECTED_PATHS
-from secondary_layout_extract import solve
 from verify import ROOT, check_bench_via_clearance, children, first, read_schematic
 
 
@@ -85,18 +84,7 @@ def extract(args, paths=PATHS, loop_terms=LOOPS):
     layout = Layout(board, args.via_wall_mm)
     ports = tuple(paths)
     routes = routed_ports(layout, board, paths)
-    matrices = solve(args, layout, ports, routes)
-    inductance = matrices["1e+07"]["inductance_h"]
-    loops = {
-        name: 1e9 * projected(inductance, [terms.get(port, 0) for port in ports])
-        for name, terms in loop_terms.items()
-    }
-    for name, pins in SNUBBERS.items():
-        if name == "low_snubber_copper":
-            pins = (*pins[:2], (pins[2][0], ("Q6", "source_finger")))
-        order = ("drain", "between", "source")
-        snubber = solve(args, layout, order, [layout.route(*pair) for pair in pins])
-        loops[name] = 1e9 * projected(snubber["1e+07"]["inductance_h"], (1, 1, 1))
+    matrices, loops = coupled_ports(args, layout, ports, routes, loop_terms)
     result = {
         "board_sha256": hashlib.sha256(args.board.read_bytes()).hexdigest(),
         "board_thickness_mm": float(first(first(board, "general"), "thickness")[1]),

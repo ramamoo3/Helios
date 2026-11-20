@@ -20,6 +20,8 @@ The fixture operates from prebiased 12 V and 24 V rails at 50 kHz. These selecti
 
 ## Gate drive and magnetics
 
+The KiCad schematic and PCB both carry the manufacturer, MPN and voltage rating for the 29 audited capacitor positions. KiCad's BOM export reports two 10 nF, 23 100 nF and four 2.2 µF capacitors with those fields. The bench switch BOM still uses the 60 V device while the routed 100 V stress study is open.
+
 At 24 nC maximum specified gate charge, four gates at 50 kHz draw about 4.8 mA per bridge from the drive supply before driver, logic and isolator current. One gate charge removes 0.24 V from an effective 100 nF bootstrap capacitor. Add the driver consumption, leakage, capacitor DC-bias derating and recharge-path drop, then measure the minimum high-side supply during the first pulse and steady operation. The nominal drive rail is 9.93 V. [TI gate-charge conditions](https://www.ti.com/lit/ds/symlink/csd18534kcs.pdf)
 
 ### 100 V TO-220 candidate
@@ -34,10 +36,18 @@ The CSD19535KCS uses the same TO-220 gate, drain and source lead order as the pa
 
 The measured simulated drain peaks were below 26 V in this startup fixture. The 100 V device remains a candidate for the parent until the routed switching and hot-fault measurements establish transient voltage, current and safe operating area. The isolated switching leg uses the separate 100 V CSD19531Q5A in SON. [Parent startup replay](bench_mosfet_margin.py) · [Routed SON leg results](BENCH-SECONDARY-PROTECTED.md)
 
+The routed stress repeat uses the trace-only secondary-A extraction, the candidate local current-sense and input-mask circuit, and a continuous gate-driver approximation. It compares both TI TO-220 device models at 25 °C and 100 °C, with two maximum time steps and three solver profiles. Four of sixteen CSD19535KCS cells completed, all with the low-side device shorted. Across those cells the surviving device reached up to 34.29 V across drain and source, local peak current reached 74.34 A and the hot bootstrap minimum was 6.77 V. At the end of the modeled short window, the input mask was low and current was below 1 A while the raw PWM request stayed asserted. The high-side-short and forced-current switching cells remained inconclusive. The model uses fixture source impedance and omits filled-plane high-frequency effects and an independent DC disconnect. These results leave switch selection and safe operating area open. [Routed stress runner](bench_mosfet_fault.py) · [Measurements and solver failures](bench-mosfet-fault-results.json)
+
 ```sh
 python bench_mosfet_margin.py --driver SLUM720.ZIP --baseline SLPM046B.ZIP \
   --candidate SLPM100A.ZIP --output bench-mosfet-margin-results.json
+python extract_layout.py --bootstrap --mesh 11 --output trace-ports.json
+python bench_mosfet_fault.py --board battery-port-bench.kicad_pcb \
+  --extraction trace-ports.json --baseline SLPM046B.ZIP --candidate SLPM100A.ZIP \
+  --output routed-stress-repeat.json
 ```
+
+The recorded routed run uses the trace-only parent from the previously pushed audit revision. Re-extracting the parent after the BOM field update reproduced the same matrices. [Exact reference revision](https://github.com/ramamoo3/Helios/commit/32094e5)
 
 ### Transformer and winding limits
 

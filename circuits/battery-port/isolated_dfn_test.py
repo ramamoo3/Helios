@@ -12,6 +12,8 @@ from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 from zipfile import ZipFile
 
+from compact_layout_extract import coupled_ports
+
 import isolated_bypass_test as bypass
 import isolated_clamp_test as clamp
 import isolated_layout_extract as copper
@@ -66,15 +68,7 @@ def extract(args):
         layout.pads["D1", f"k{number}"] = (point, net, 0)
     ports = tuple(PATHS)
     routes = copper.routed_ports(layout, board, PATHS)
-    matrices = copper.solve(args, layout, ports, routes)
-    matrix = matrices["1e+07"]["inductance_h"]
-    loops = {name: 1e9 * copper.projected(matrix, [terms.get(port, 0) for port in ports])
-             for name, terms in LOOPS.items()}
-    for name, pins in copper.SNUBBERS.items():
-        if name == "low_snubber_copper":
-            pins = (*pins[:2], (pins[2][0], ("Q6", "source_finger")))
-        fit = copper.solve(args, layout, ("drain", "between", "source"), [layout.route(*pair) for pair in pins])
-        loops[name] = 1e9 * copper.projected(fit["1e+07"]["inductance_h"], (1, 1, 1))
+    matrices, loops = coupled_ports(args, layout, ports, routes, LOOPS)
     data = {
         "board_sha256": replay.digest(args.board),
         "board_thickness_mm": float(first(first(board, "general"), "thickness")[1]),

@@ -9417,6 +9417,9 @@
 		(property "Sheetfile" "battery-port-detector.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C7"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -9610,6 +9613,9 @@
 		(property "Sheetfile" "battery-port-detector.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C8"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -11212,6 +11218,9 @@
 		(property "Sheetfile" "battery-port-sense.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "C2012C0G1H103J060AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C1"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -11405,6 +11414,9 @@
 		(property "Sheetfile" "battery-port-sense.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C2"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -11598,6 +11610,9 @@
 		(property "Sheetfile" "battery-port-sense.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "C2012C0G1H103J060AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C3"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -14085,6 +14100,9 @@
 		(property "Sheetfile" "battery-port-bias.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C19"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -16277,6 +16295,9 @@
 		(property "Sheetfile" "battery-port-bias.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C119"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -22952,6 +22973,9 @@
 		(property "Sheetfile" "battery-port-driver.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "C3216X7R1H225K160AB" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C4"
 		(at 0 -1.85 0)
 		(layer "F.Fab")
@@ -23145,6 +23169,9 @@
 		(property "Sheetfile" "battery-port-driver.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C5"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -23338,6 +23365,9 @@
 		(property "Sheetfile" "battery-port-driver.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C6"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -24883,6 +24913,9 @@
 		(property "Sheetfile" "battery-port-driver.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "C3216X7R1H225K160AB" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C104"
 		(at 0 -1.85 0)
 		(layer "F.Fab")
@@ -25076,6 +25109,9 @@
 		(property "Sheetfile" "battery-port-driver.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C105"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -25269,6 +25305,9 @@
 		(property "Sheetfile" "battery-port-driver.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C106"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -26814,6 +26853,9 @@
 		(property "Sheetfile" "battery-port-driver.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "C3216X7R1H225K160AB" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C204"
 		(at 0 -1.85 0)
 		(layer "F.Fab")
@@ -27007,6 +27049,9 @@
 		(property "Sheetfile" "battery-port-driver.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C205"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -27200,6 +27245,9 @@
 		(property "Sheetfile" "battery-port-driver.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C206"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -28745,6 +28793,9 @@
 		(property "Sheetfile" "battery-port-driver.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "C3216X7R1H225K160AB" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C304"
 		(at 0 -1.85 0)
 		(layer "F.Fab")
@@ -28938,6 +28989,9 @@
 		(property "Sheetfile" "battery-port-driver.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C305"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -29131,6 +29185,9 @@
 		(property "Sheetfile" "battery-port-driver.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C306"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -30676,6 +30733,9 @@
 		(property "Sheetfile" "battery-port-precharge.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C40"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -30869,6 +30929,9 @@
 		(property "Sheetfile" "battery-port-precharge.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C41"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -31062,6 +31125,9 @@
 		(property "Sheetfile" "battery-port-precharge.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C42"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -31255,6 +31321,9 @@
 		(property "Sheetfile" "battery-port-precharge.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C43"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -31448,6 +31517,9 @@
 		(property "Sheetfile" "battery-port-precharge.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C44"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -31641,6 +31713,9 @@
 		(property "Sheetfile" "battery-port-precharge.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C45"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -31834,6 +31909,9 @@
 		(property "Sheetfile" "battery-port-precharge.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C46"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -32027,6 +32105,9 @@
 		(property "Sheetfile" "battery-port-precharge.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C47"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -32220,6 +32301,9 @@
 		(property "Sheetfile" "battery-port-precharge.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C48"
 		(at 0 -1.68 0)
 		(layer "F.Fab")
@@ -32413,6 +32497,9 @@
 		(property "Sheetfile" "battery-port-precharge.kicad_sch" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1) (thickness 0.15))))
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "capacitor")
+		(property "Manufacturer" "TDK" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "MPN" "CGA4J2X8R1H104K125AA" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
+		(property "Voltage Rating" "50 V" (at 0 0 0) (layer "F.Fab") (hide yes) (effects (font (size 1 1))))
 		(property "Reference" "C49"
 		(at 0 -1.68 0)
 		(layer "F.Fab")

@@ -14,7 +14,7 @@ from zipfile import ZipFile
 from commutation_clamp_test import Build, MODELS, digest
 from compact_layout_replay import SANITY, run_case, run_switching
 from isolated_driver_test import driver_control, inductive_load, isolated_deck, replace_line, validate
-from isolated_layout_extract import BOARD, POWER, PORTS
+from isolated_layout_extract import BOARD, POWER
 from layout_switching_test import read_extraction
 from leg_receiver_test import with_receiver
 from local_shutdown_test import fault_deck, normal_deck
@@ -94,7 +94,7 @@ Bhigh_tvs tvs_hi_i 0 V=abs(i(Lpcb_tvs_high_cathode))
 
 
 def add_cases(pool, work, args, extraction, reference, circuit, *,
-              nodes=NODES, revise_bias=None, corners=BIAS_CORNERS):
+              nodes=NODES, revise_bias=None, corners=BIAS_CORNERS, short_profiles=False):
     copper = network(extraction, nodes)
     tasks = {}
     for label, temperature, bias, package in corners:
@@ -114,7 +114,7 @@ def add_cases(pool, work, args, extraction, reference, circuit, *,
                                     shunt_mohm=circuit.shunt_mohm * .99,
                                     offset_mv=-5, comparator_ns=7, logic_ns=12)
         for side in ("low", "high"):
-            for kind in ("short", "inductive", "resistive"):
+            for kind in ("short",) if short_profiles else ("short", "inductive", "resistive"):
                 fault = kind == "short"
                 builder = fault_deck if fault else normal_deck
                 source = builder(reference, 0, "sa", side, fault_circuit if fault else circuit, fast_inputs=True)
@@ -133,7 +133,16 @@ def add_cases(pool, work, args, extraction, reference, circuit, *,
                     source = resistive_load(source, side)
                 name = f"{label}_{side}_{kind}"
                 runner = run_case if fault else run_switching
-                tasks[pool.submit(runner, args.ngspice, work, name, source)] = (name, kind)
+                if short_profiles:
+                    for method, step in (("gear", "125p"), ("gear", "500p"), ("trap", "500p")):
+                        case = f"{name}_{method}_{step}"
+                        trial = source.replace(".tran 250p 4u 0 250p", f".tran {step} 4u 0 {step}")
+                        if trial == source:
+                            raise ValueError("Review the fault deck transient settings")
+                        trial = trial.replace("method=gear", f"method={method}")
+                        tasks[pool.submit(runner, args.ngspice, work, case, trial)] = (case, kind)
+                else:
+                    tasks[pool.submit(runner, args.ngspice, work, name, source)] = (name, kind)
     return tasks
 
 
@@ -168,9 +177,12 @@ def run(args, *, nodes=NODES, revise_bias=None, additional_sources=(), driver_re
             driver_file.write_bytes(driver_reference(driver_model))
             corners = BIAS_CORNERS[1:]
             driver_digest = digest(driver_file)
+        short_profiles = getattr(args, "short_profiles", False)
+        if short_profiles:
+            corners = BIAS_CORNERS[:1]
         cases = {}
         tasks = add_cases(pool, work, args, extraction, reference, circuit,
-                          nodes=nodes, revise_bias=revise_bias, corners=corners)
+                          nodes=nodes, revise_bias=revise_bias, corners=corners, short_profiles=short_profiles)
         for task in as_completed(tasks):
             name, kind = tasks[task]
             try:
@@ -211,5 +223,6 @@ if __name__ == "__main__":
     parser.add_argument("--mosfet-archive", type=Path, required=True, help="TI SLPM077C ZIP")
     parser.add_argument("--ngspice", default="ngspice")
     parser.add_argument("--jobs", type=int, default=6)
+    parser.add_argument("--short-profiles", action="store_true", help="compare nominal short-fault solver profiles")
     parser.add_argument("--output", type=Path, required=True)
     run(parser.parse_args())

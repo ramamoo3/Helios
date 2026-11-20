@@ -40,3 +40,27 @@ python local_shutdown_test.py --output bench-local-shutdown-results.json
 ```
 
 This command reproduces the historical model and the logic interlock checks. **Fabrication stays on hold** for layout integration, re-extraction, device stress verification and independent DC fault interruption. [SPICE circuit](local_shutdown.lib) · [Historical result data](bench-local-shutdown-results.json)
+
+## Independent DC cutoff fixture
+
+A separate current window and hardware latch control a modeled source-to-source MOSFET pair in the rail feed. The model includes its opposed body diodes and a bidirectional feeder clamp. Triggering the cutoff drops the gate permit even while the bridge request stays high. The two-terminal branch was exercised in both directions, with 12.6 V and 25.2 V source corners, slower sensing and loss of bias. The latch stayed open after the fault cleared with RUN held high. [Cutoff model](bench_disconnect.lib) · [Cases and limits](bench_disconnect_test.py)
+
+At 24 V with the 2,200 µF bulk capacitor on the source side and 0.7 µF on the bridge side, the forward short sent about 0.24 mJ into the fault branch during the test window. Source and fault currents were each below 20 mA at 20 µs. Moving the bulk capacitor downstream raised modeled fault-branch energy to 337 mJ and left about 368 A in the short at the same sample, even after source current had stopped. Bypassing the disconnect kept feeding the fault with its enable low. These controls establish the need to isolate the bulk reservoir, limit the source and provide protection for a failed disconnect. [Simulation results](bench-disconnect-results.json)
+
+Keep the precharge path outside normal operation and account for the energy in every capacitor that remains connected to the bridge after cutoff. The fixture precharges the rail before the test and models a single rail at a time. Both powered domains and the actual magnetics, cutoff switches, current sensor, gate drive, clamp, fuse, precharge and re-arm paths need integrated validation. [Bench layout and copper](BENCH-PCB.md)
+
+```sh
+python bench_disconnect_test.py --ngspice ngspice --output bench-disconnect-results.json
+```
+
+## Linked cutoff and PWM inhibit
+
+The 12 V and 24 V model now has a separate source cutoff and current latch on each rail. Each latch receives a default-low health signal from the other rail. Either lost permit opens both supply paths and masks both bridges' PWM. The precharge path includes a series guard with a separate time window and a RUN-low condition. The bulk capacitors are on the source side of the cutoff switches. [Linked circuit runner](bench_linked_cutoff_test.py) · [PWM permit model](dab-control.inc)
+
+Ten cases were repeated at 100 ns and 50 ns. In all four short cases, the model first transferred power in the requested direction. With both protections enabled, each source and fault current fell below 20 mA at the start of the 20–150 µs observation window and stayed below that limit. The cutoffs remained disabled after fault removal with RUN held high. Losing the secondary bias or the peer signal also inhibited both rails. With one precharge switch forced on, the guard still opened the precharge branch. [Result data and thresholds](bench-linked-cutoff-results.json)
+
+The controls exposed different failure paths. Bypassing only the PWM inhibit let stored energy reach the fault at up to 5.76 A during the observation window, even after both sources were cut. Bypassing the secondary cutoff let that supply continue to feed the short. Forcing both precharge switches on left about 120 mA through the precharge resistor. These controls check why the three protective functions are needed. The fixture uses idealized power switches and a shared simulation reference. Validate real isolation, device fault energy, fuse coordination, pulse timing and precharge re-arm before connecting a populated board. [Result data](bench-linked-cutoff-results.json)
+
+```sh
+python bench_linked_cutoff_test.py --ngspice ngspice --output bench-linked-cutoff-results.json
+```

@@ -6,6 +6,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+import re
 import shutil
 from subprocess import TimeoutExpired
 from tempfile import TemporaryDirectory
@@ -168,7 +169,15 @@ def read_extraction(path):
     extraction = json.loads(path.read_text(encoding="utf-8"))
     if tuple(extraction["ports"]) not in (PORTS, BOOTSTRAP_PORTS):
         raise ValueError("Unexpected extraction port order")
-    if extraction["board_sha256"] != hashlib.sha256(DEFAULT_BOARD.read_bytes()).hexdigest():
+    board = DEFAULT_BOARD.read_bytes()
+    # The original extraction predates these three hidden purchasing fields.
+    # Match the original full digest after removing only their exact CAD syntax.
+    pre_bom = re.sub(
+        rb'(?m)^\t\t\(property "(?:Manufacturer|MPN|Voltage Rating)" "[^"\r\n]+" '
+        rb'\(at 0 0 0\) \(layer "F\.Fab"\) \(hide yes\) \(effects \(font \(size 1 1\)\)\)\)\r?\n',
+        b"", board,
+    )
+    if extraction["board_sha256"] not in (hashlib.sha256(board).hexdigest(), hashlib.sha256(pre_bom).hexdigest()):
         raise ValueError("Extraction was generated from a different board revision")
     return extraction
 

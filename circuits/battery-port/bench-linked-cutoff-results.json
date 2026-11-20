@@ -1,0 +1,822 @@
+{
+  "scope": "Two independently powered bench rails with an ideal DAB transformer and switching stages. Logic gates and returns share a simulator reference. Physical isolation, timing and device limits are outside this fixture.",
+  "inputs_sha256": {
+    "bench_linked_cutoff_test.py": "46e5610dbe6b078b0a2c9d42f5aefc58f3c771af05369ec425faeb3432245362",
+    "verify.py": "c757ad3989ee8ed5f11cc4f5f7212feb287180456364332258b73acd0f7d35b5",
+    "bench_disconnect.lib": "2ccd4db113afbe2b73b5cfd850bb1a9d42c93b444b36e42c87be0bdea7c95712",
+    "local_shutdown.lib": "540d8b659afd194750f399db678c32f705c5f16c2b21e524536729e9ec7c2d8e",
+    "dab.lib": "dfa4377c7e238b1f19f3c795acc68d37fab665f88144bd91bb12e575d29bbb47",
+    "dab-control.inc": "b8101c3a434843e6e028a14a678df17d90fc2f9a35e43612052a7c0a49d95577",
+    "dab-power.inc": "a68c08e5a4b52b81ff8116ee579b9aca4a672a924710f77d3e8e22b596cd0881"
+  },
+  "cases": {
+    "discharge-primary-short": {
+      "phase_shift": 0.1,
+      "fault_rail": "p",
+      "control": "",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "before_p_a": 1.0649,
+            "before_p_v": 11.9297,
+            "peak_p_a": 30.7054,
+            "early_p_a": 2.20101e-05,
+            "peak_p_cut_v": 37.7487,
+            "early_p_en": 1.16992e-29,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 6.88719e-07,
+            "before_s_a": -0.52345,
+            "before_s_v": 24.0272,
+            "peak_s_a": 0.401044,
+            "early_s_a": 0.000156197,
+            "peak_s_cut_v": 1.12311,
+            "early_s_en": 1.48318e-29,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 3.57047e-07,
+            "held_request": 3.3,
+            "early_pwm_permit": 1.27909e-29,
+            "early_pwm_drive": 1.93801e-29,
+            "early_fault_a": 6.44238e-06,
+            "fault_energy_j": 6.26468e-05
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": true,
+            "fault_current_cut": true,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "before_p_a": 1.06259,
+            "before_p_v": 11.9285,
+            "peak_p_a": 30.5135,
+            "early_p_a": 2.17118e-05,
+            "peak_p_cut_v": 37.7102,
+            "early_p_en": 1.15465e-29,
+            "late_p_en": 2.29875e-314,
+            "late_p_a": 6.88596e-07,
+            "before_s_a": -0.522779,
+            "before_s_v": 24.0264,
+            "peak_s_a": 0.288201,
+            "early_s_a": 8.81306e-05,
+            "peak_s_cut_v": 0.941786,
+            "early_s_en": 1.45777e-29,
+            "late_s_en": 3.4393e-314,
+            "late_s_a": 3.57026e-07,
+            "held_request": 3.3,
+            "early_pwm_permit": 1.26239e-29,
+            "early_pwm_drive": 1.91271e-29,
+            "early_fault_a": 6.35556e-06,
+            "fault_energy_j": 6.13086e-05
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": true,
+            "fault_current_cut": true,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        }
+      }
+    },
+    "discharge-secondary-short": {
+      "phase_shift": 0.1,
+      "fault_rail": "s",
+      "control": "",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "before_p_a": 1.06492,
+            "before_p_v": 11.9297,
+            "peak_p_a": 1.23794,
+            "early_p_a": 0.000178457,
+            "peak_p_cut_v": 4.56618,
+            "early_p_en": 1.24141e-29,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 3.25395e-07,
+            "before_s_a": -0.52347,
+            "before_s_v": 24.0271,
+            "peak_s_a": 56.5672,
+            "early_s_a": 1.63037e-06,
+            "peak_s_cut_v": 43.9082,
+            "early_s_en": 9.79707e-30,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 1.46803e-06,
+            "held_request": 3.3,
+            "early_pwm_permit": 1.07112e-29,
+            "early_pwm_drive": 1.62291e-29,
+            "early_fault_a": 1.47915e-06,
+            "fault_energy_j": 0.000236435
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": true,
+            "fault_current_cut": true,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "before_p_a": 1.06259,
+            "before_p_v": 11.9285,
+            "peak_p_a": 1.00335,
+            "early_p_a": 8.68026e-05,
+            "peak_p_cut_v": 3.75978,
+            "early_p_en": 1.22314e-29,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 3.22817e-07,
+            "before_s_a": -0.522778,
+            "before_s_v": 24.0264,
+            "peak_s_a": 56.5392,
+            "early_s_a": 1.547e-06,
+            "peak_s_cut_v": 43.9023,
+            "early_s_en": 9.67204e-30,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 1.46845e-06,
+            "held_request": 3.3,
+            "early_pwm_permit": 1.05745e-29,
+            "early_pwm_drive": 1.6022e-29,
+            "early_fault_a": 1.45916e-06,
+            "fault_energy_j": 0.000237202
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": true,
+            "fault_current_cut": true,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        }
+      }
+    },
+    "charge-primary-short": {
+      "phase_shift": -0.1,
+      "fault_rail": "p",
+      "control": "",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "before_p_a": -1.03636,
+            "before_p_v": 12.0718,
+            "peak_p_a": 30.8849,
+            "early_p_a": 7.76381e-06,
+            "peak_p_cut_v": 37.7916,
+            "early_p_en": 1.19544e-29,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 6.8807e-07,
+            "before_s_a": 0.527564,
+            "before_s_v": 23.9744,
+            "peak_s_a": 0.683435,
+            "early_s_a": 0.000248492,
+            "peak_s_cut_v": 2.23481,
+            "early_s_en": 1.51403e-29,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 3.76464e-07,
+            "held_request": 3.3,
+            "early_pwm_permit": 1.30699e-29,
+            "early_pwm_drive": 1.98029e-29,
+            "early_fault_a": 2.50023e-06,
+            "fault_energy_j": 5.53653e-05
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": true,
+            "fault_current_cut": true,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "before_p_a": -1.03881,
+            "before_p_v": 12.0706,
+            "peak_p_a": 30.9528,
+            "early_p_a": 7.14611e-06,
+            "peak_p_cut_v": 37.8064,
+            "early_p_en": 1.18977e-29,
+            "late_p_en": 3.4393e-314,
+            "late_p_a": 6.88294e-07,
+            "before_s_a": 0.52807,
+            "before_s_v": 23.9737,
+            "peak_s_a": 0.55363,
+            "early_s_a": 0.000159325,
+            "peak_s_cut_v": 1.86188,
+            "early_s_en": 1.50939e-29,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 3.75436e-07,
+            "held_request": 3.3,
+            "early_pwm_permit": 1.30078e-29,
+            "early_pwm_drive": 1.97088e-29,
+            "early_fault_a": 2.33156e-06,
+            "fault_energy_j": 5.62688e-05
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": true,
+            "fault_current_cut": true,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        }
+      }
+    },
+    "charge-secondary-short": {
+      "phase_shift": -0.1,
+      "fault_rail": "s",
+      "control": "",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "before_p_a": -1.03633,
+            "before_p_v": 12.0718,
+            "peak_p_a": 0.662963,
+            "early_p_a": 4.30101e-05,
+            "peak_p_cut_v": 1.97256,
+            "early_p_en": 1.22433e-29,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 2.82826e-07,
+            "before_s_a": 0.527573,
+            "before_s_v": 23.9744,
+            "peak_s_a": 56.5223,
+            "early_s_a": 5.69952e-06,
+            "peak_s_cut_v": 43.8954,
+            "early_s_en": 9.72898e-30,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 1.47106e-06,
+            "held_request": 3.3,
+            "early_pwm_permit": 1.06368e-29,
+            "early_pwm_drive": 1.61163e-29,
+            "early_fault_a": 2.52216e-06,
+            "fault_energy_j": 0.000244805
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": true,
+            "fault_current_cut": true,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "before_p_a": -1.03881,
+            "before_p_v": 12.0706,
+            "peak_p_a": 0.490068,
+            "early_p_a": 1.12905e-05,
+            "peak_p_cut_v": 1.90392,
+            "early_p_en": 1.2368e-29,
+            "late_p_en": 4.57986e-314,
+            "late_p_a": 2.80237e-07,
+            "before_s_a": 0.528066,
+            "before_s_v": 23.9737,
+            "peak_s_a": 56.5764,
+            "early_s_a": 5.58982e-06,
+            "peak_s_cut_v": 43.9007,
+            "early_s_en": 9.7614e-30,
+            "late_s_en": 2.29875e-314,
+            "late_s_a": 1.47192e-06,
+            "held_request": 3.3,
+            "early_pwm_permit": 1.06722e-29,
+            "early_pwm_drive": 1.617e-29,
+            "early_fault_a": 2.47417e-06,
+            "fault_energy_j": 0.000243594
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": true,
+            "fault_current_cut": true,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        }
+      }
+    },
+    "secondary-bias-loss": {
+      "phase_shift": 0.1,
+      "fault_rail": "",
+      "control": "bias-loss",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "before_p_a": 1.06492,
+            "before_p_v": 11.9297,
+            "peak_p_a": 0.802211,
+            "early_p_a": 1.54503e-06,
+            "peak_p_cut_v": 3.44287,
+            "early_p_en": 4.78201e-30,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 3.39744e-07,
+            "before_s_a": -0.52347,
+            "before_s_v": 24.0271,
+            "peak_s_a": 0.399236,
+            "early_s_a": 1.4142e-06,
+            "peak_s_cut_v": 0.80339,
+            "early_s_en": 3.77489e-30,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 8.28507e-08,
+            "held_request": 3.3,
+            "early_pwm_permit": 4.12712e-30,
+            "early_pwm_drive": 6.25321e-30,
+            "early_fault_a": 2.47811e-08,
+            "fault_energy_j": 1.52967e-10
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": true,
+            "fault_current_cut": true,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "before_p_a": 1.06259,
+            "before_p_v": 11.9285,
+            "peak_p_a": 0.605594,
+            "early_p_a": 1.54386e-06,
+            "peak_p_cut_v": 3.03367,
+            "early_p_en": 4.61841e-30,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 3.40136e-07,
+            "before_s_a": -0.522778,
+            "before_s_v": 24.0264,
+            "peak_s_a": 0.288194,
+            "early_s_a": 1.39439e-06,
+            "peak_s_cut_v": 0.856946,
+            "early_s_en": 3.64558e-30,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 7.82125e-08,
+            "held_request": 3.3,
+            "early_pwm_permit": 3.98574e-30,
+            "early_pwm_drive": 6.039e-30,
+            "early_fault_a": 2.48393e-08,
+            "fault_energy_j": 1.53687e-10
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": true,
+            "fault_current_cut": true,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        }
+      }
+    },
+    "peer-link-loss": {
+      "phase_shift": 0.1,
+      "fault_rail": "",
+      "control": "peer-loss",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "before_p_a": 1.06492,
+            "before_p_v": 11.9297,
+            "peak_p_a": 0.801433,
+            "early_p_a": 1.53561e-06,
+            "peak_p_cut_v": 3.42948,
+            "early_p_en": 4.85757e-30,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 3.4514e-07,
+            "before_s_a": -0.52347,
+            "before_s_v": 24.0271,
+            "peak_s_a": 0.399236,
+            "early_s_a": 1.43563e-06,
+            "peak_s_cut_v": 1.05647,
+            "early_s_en": 6.33999e-30,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 7.65199e-08,
+            "held_request": 3.3,
+            "early_pwm_permit": 5.31081e-30,
+            "early_pwm_drive": 8.04668e-30,
+            "early_fault_a": 2.48607e-08,
+            "fault_energy_j": 1.53945e-10
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": true,
+            "fault_current_cut": true,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "before_p_a": 1.06259,
+            "before_p_v": 11.9285,
+            "peak_p_a": 0.605313,
+            "early_p_a": 1.53527e-06,
+            "peak_p_cut_v": 3.12931,
+            "early_p_en": 4.83815e-30,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 3.45437e-07,
+            "before_s_a": -0.522778,
+            "before_s_v": 24.0264,
+            "peak_s_a": 0.288194,
+            "early_s_a": 1.37457e-06,
+            "peak_s_cut_v": 0.940889,
+            "early_s_en": 6.30476e-30,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 7.22584e-08,
+            "held_request": 3.3,
+            "early_pwm_permit": 5.28958e-30,
+            "early_pwm_drive": 8.01452e-30,
+            "early_fault_a": 2.49145e-08,
+            "fault_energy_j": 1.54613e-10
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": true,
+            "fault_current_cut": true,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        }
+      }
+    },
+    "pwm-inhibit-bypassed": {
+      "phase_shift": 0.1,
+      "fault_rail": "p",
+      "control": "pwm-stuck",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "before_p_a": 1.06504,
+            "before_p_v": 11.9296,
+            "peak_p_a": 30.701,
+            "early_p_a": 0.00379946,
+            "peak_p_cut_v": 37.748,
+            "early_p_en": 1.00274e-29,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 6.88834e-07,
+            "before_s_a": -0.523477,
+            "before_s_v": 24.0272,
+            "peak_s_a": 0.400094,
+            "early_s_a": 0.00208367,
+            "peak_s_cut_v": 24.7781,
+            "early_s_en": 1.26875e-29,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 5.07277e-07,
+            "held_request": 3.3,
+            "early_pwm_permit": 3.3,
+            "early_pwm_drive": 5.0,
+            "early_fault_a": 5.75444,
+            "fault_energy_j": 0.000114731
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": false,
+            "primary_source_cut": true,
+            "secondary_source_cut": true,
+            "fault_current_cut": false,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [
+            "fault_current_cut",
+            "pwm_inhibited"
+          ],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "before_p_a": 1.06259,
+            "before_p_v": 11.9285,
+            "peak_p_a": 30.5127,
+            "early_p_a": 0.00380494,
+            "peak_p_cut_v": 37.7122,
+            "early_p_en": 1.10233e-29,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 6.88791e-07,
+            "before_s_a": -0.522779,
+            "before_s_v": 24.0264,
+            "peak_s_a": 0.28798,
+            "early_s_a": 0.00208618,
+            "peak_s_cut_v": 24.7782,
+            "early_s_en": 1.3981e-29,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 5.05519e-07,
+            "held_request": 3.3,
+            "early_pwm_permit": 3.3,
+            "early_pwm_drive": 5.0,
+            "early_fault_a": 5.76443,
+            "fault_energy_j": 0.000113596
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": false,
+            "primary_source_cut": true,
+            "secondary_source_cut": true,
+            "fault_current_cut": false,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [
+            "fault_current_cut",
+            "pwm_inhibited"
+          ],
+          "matches_expectations": true
+        }
+      }
+    },
+    "secondary-cutoff-bypassed": {
+      "phase_shift": 0.1,
+      "fault_rail": "s",
+      "control": "bypassed",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "before_p_a": 1.06484,
+            "before_p_v": 11.9296,
+            "peak_p_a": 1.23296,
+            "early_p_a": 1.58877e-06,
+            "peak_p_cut_v": 4.51197,
+            "early_p_en": 1.10587e-29,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 3.41684e-07,
+            "before_s_a": -0.523625,
+            "before_s_v": 24.025,
+            "peak_s_a": 397.968,
+            "early_s_a": 394.946,
+            "peak_s_cut_v": 3.97968,
+            "early_s_en": 8.74416e-30,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 0.0119165,
+            "held_request": 3.3,
+            "early_pwm_permit": 9.56005e-30,
+            "early_pwm_drive": 1.44849e-29,
+            "early_fault_a": 394.968,
+            "fault_energy_j": 0.721303
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": false,
+            "fault_current_cut": false,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [
+            "fault_current_cut",
+            "secondary_source_cut"
+          ],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "before_p_a": 1.06258,
+            "before_p_v": 11.9285,
+            "peak_p_a": 0.999849,
+            "early_p_a": 1.59787e-06,
+            "peak_p_cut_v": 3.73982,
+            "early_p_en": 1.04545e-29,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 3.38531e-07,
+            "before_s_a": -0.522918,
+            "before_s_v": 24.0242,
+            "peak_s_a": 397.969,
+            "early_s_a": 394.944,
+            "peak_s_cut_v": 3.97969,
+            "early_s_en": 8.28289e-30,
+            "late_s_en": 2.29875e-314,
+            "late_s_a": 0.0119314,
+            "held_request": 3.3,
+            "early_pwm_permit": 9.05575e-30,
+            "early_pwm_drive": 1.37208e-29,
+            "early_fault_a": 394.966,
+            "fault_energy_j": 0.721307
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": false,
+            "fault_current_cut": false,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [
+            "fault_current_cut",
+            "secondary_source_cut"
+          ],
+          "matches_expectations": true
+        }
+      }
+    },
+    "secondary-precharge-stuck-on": {
+      "phase_shift": 0.1,
+      "fault_rail": "s",
+      "control": "precharge-stuck",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "before_p_a": 1.06487,
+            "before_p_v": 11.9297,
+            "peak_p_a": 1.23881,
+            "early_p_a": 0.000178945,
+            "peak_p_cut_v": 4.56792,
+            "early_p_en": 1.23672e-29,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 3.25421e-07,
+            "before_s_a": -0.523455,
+            "before_s_v": 24.0271,
+            "peak_s_a": 56.5689,
+            "early_s_a": 1.64008e-06,
+            "peak_s_cut_v": 43.9085,
+            "early_s_en": 9.76004e-30,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 1.48038e-06,
+            "held_request": 3.3,
+            "early_pwm_permit": 1.06707e-29,
+            "early_pwm_drive": 1.61678e-29,
+            "early_fault_a": 1.49133e-06,
+            "fault_energy_j": 0.000236484
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": true,
+            "fault_current_cut": true,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "before_p_a": 1.0626,
+            "before_p_v": 11.9285,
+            "peak_p_a": 1.00287,
+            "early_p_a": 8.65017e-05,
+            "peak_p_cut_v": 3.75803,
+            "early_p_en": 1.22798e-29,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 3.22816e-07,
+            "before_s_a": -0.522782,
+            "before_s_v": 24.0264,
+            "peak_s_a": 56.5397,
+            "early_s_a": 1.55823e-06,
+            "peak_s_cut_v": 43.9024,
+            "early_s_en": 9.71028e-30,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 1.48004e-06,
+            "held_request": 3.3,
+            "early_pwm_permit": 1.06163e-29,
+            "early_pwm_drive": 1.60853e-29,
+            "early_fault_a": 1.47158e-06,
+            "fault_energy_j": 0.000237203
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": true,
+            "fault_current_cut": true,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [],
+          "matches_expectations": true
+        }
+      }
+    },
+    "secondary-both-precharge-switches-stuck": {
+      "phase_shift": 0.1,
+      "fault_rail": "s",
+      "control": "both-precharge-stuck",
+      "runs": {
+        "100n": {
+          "measurements": {
+            "before_p_a": 1.06511,
+            "before_p_v": 11.9296,
+            "peak_p_a": 1.23768,
+            "early_p_a": 9.68382e-07,
+            "peak_p_cut_v": 4.56436,
+            "early_p_en": 1.16207e-29,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 3.25395e-07,
+            "before_s_a": -0.523509,
+            "before_s_v": 24.0272,
+            "peak_s_a": 56.5709,
+            "early_s_a": 0.119989,
+            "peak_s_cut_v": 43.8627,
+            "early_s_en": 9.17089e-30,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 0.028858,
+            "held_request": 3.3,
+            "early_pwm_permit": 1.00266e-29,
+            "early_pwm_drive": 1.51918e-29,
+            "early_fault_a": 0.119989,
+            "fault_energy_j": 0.000236632
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": false,
+            "fault_current_cut": false,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [
+            "fault_current_cut",
+            "secondary_source_cut"
+          ],
+          "matches_expectations": true
+        },
+        "50n": {
+          "measurements": {
+            "before_p_a": 1.06252,
+            "before_p_v": 11.9285,
+            "peak_p_a": 1.00315,
+            "early_p_a": 1.00677e-06,
+            "peak_p_cut_v": 3.76386,
+            "early_p_en": 1.12501e-29,
+            "late_p_en": 1.14055e-314,
+            "late_p_a": 3.22826e-07,
+            "before_s_a": -0.522759,
+            "before_s_v": 24.0263,
+            "peak_s_a": 56.5405,
+            "early_s_a": 0.11999,
+            "peak_s_cut_v": 43.8563,
+            "early_s_en": 8.8961e-30,
+            "late_s_en": 1.14055e-314,
+            "late_s_a": 0.028858,
+            "held_request": 3.3,
+            "early_pwm_permit": 9.72617e-30,
+            "early_pwm_drive": 1.47366e-29,
+            "early_fault_a": 0.119989,
+            "fault_energy_j": 0.000237317
+          },
+          "checks": {
+            "normal_transfer": true,
+            "both_cutoffs_latched_open": true,
+            "pwm_inhibited": true,
+            "primary_source_cut": true,
+            "secondary_source_cut": false,
+            "fault_current_cut": false,
+            "stack_voltage_below_screen": true
+          },
+          "expected_failures": [
+            "fault_current_cut",
+            "secondary_source_cut"
+          ],
+          "matches_expectations": true
+        }
+      }
+    }
+  }
+}

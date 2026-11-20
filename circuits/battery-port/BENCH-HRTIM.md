@@ -37,6 +37,8 @@ Load one image with the Nucleo's ST-LINK over SWD. For a raw BIN, use flash addr
 
 An unexpected exception or fatal clock setup failure enters the fault handler. It disables enabled HRTIM outputs, drops RUN, ARM and PRE_REQ when GPIOB is active, and lights LD2 while halted until reset. Reset uses explicit stores to initialize RAM. The freestanding image supplies the Arm `__aeabi_memclr4` routine used to clear compiler-generated structures. [Startup code](firmware/startup.S) · [Arm run-time ABI](https://github.com/ARM-software/abi-aa/blob/main/rtabi32/rtabi32.rst)
 
+The emulator checks the STM32G474 compare-event selection, software preload update and output-enable state in both images. A test write using the wrong compare-event bit was rejected. A physical capture is still needed for HRTIM output timing and fault response. [Register fixture](firmware/emulate.py)
+
 ## Emulate the compiled image
 
 Run the register-model tests against the two ELF/BIN pairs from the build directory. The script executes the Thumb instructions from each reset vector, with BSS initially set to nonzero bytes. It supplies simulated clocks, independent precharge acknowledgements and HRTIM status events. It checks precharge timing, missing and stuck acknowledgement, permit loss, the ramp, missed preload events, latched faults and output disable with LD2 indication on entry to the HardFault handler.

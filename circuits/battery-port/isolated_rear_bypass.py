@@ -2,6 +2,7 @@
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from functools import partial
 import json
 import math
 from pathlib import Path
@@ -12,6 +13,7 @@ from tempfile import TemporaryDirectory
 
 import isolated_dfn_test as dfn
 from isolated_driver_test import replace_line
+from compact_layout_extract import coupled_ports
 from verify import ROOT, check_bench_via_clearance, children, first, read_schematic
 
 
@@ -70,15 +72,8 @@ def extract(args):
         layout.pads[key] = ((*point[:2], "B.Cu"), net, size)
     ports = tuple(PATHS)
     traces = dfn.copper.routed_ports(layout, board, PATHS)
-    models = dfn.copper.solve(args, layout, ports, traces)
+    models, loops = coupled_ports(args, layout, ports, traces, LOOPS)
     matrix = models["1e+07"]["inductance_h"]
-    loops = {name: 1e9 * dfn.copper.projected(matrix, [weights.get(port, 0) for port in ports])
-             for name, weights in LOOPS.items()}
-    for name, pins in dfn.copper.SNUBBERS.items():
-        if name == "low_snubber_copper":
-            pins = (*pins[:2], (pins[2][0], ("Q6", "source_finger")))
-        fit = dfn.copper.solve(args, layout, ("drain", "between", "source"), [layout.route(*pair) for pair in pins])
-        loops[name] = 1e9 * dfn.copper.projected(fit["1e+07"]["inductance_h"], (1, 1, 1))
     hf = LOOPS["high_fast_bypass"]
     mutual = 1e9 * sum(matrix[i][j] * hf.get(a, 0) * REAR_LOOP.get(b, 0)
                        for i, a in enumerate(ports) for j, b in enumerate(ports))
@@ -103,9 +98,9 @@ def extract(args):
     print(json.dumps({**loops, "fast_parallel_estimate_with_package_nh": equivalent}, indent=2), flush=True)
 
 
-def bias_deck(source, voltage, hot):
+def bias_deck(source, voltage, hot, rear_cap_nf=None):
     source = dfn.bypass.revise_bias(source, voltage, hot)
-    capacitance = "55n" if hot else "75n"
+    capacitance = f"{rear_cap_nf:g}n" if rear_cap_nf is not None else ("55n" if hot else "75n")
     return source.removesuffix(".end\n") + f"""Lpkg_high_rear rear_cap_p rear_f_r .35n
 Rpkg_high_rear rear_f_r rear_f_c .03
 Cpin_high_rear rear_f_c rear_cap_n {capacitance}
@@ -123,10 +118,14 @@ def compare_driver(source):
 
 
 class Capture(dfn.Capture):
+    def __init__(self, low_gate_ohm=27):
+        super().__init__()
+        self.low_gate_ohm = low_gate_ohm
+
     def submit(self, runner, executable, work, name, source):
         super().submit(runner, executable, work, name, source)
         _, deck = self.decks[name]
-        self.decks[name] = (runner, replace_line(deck, "Rglo", "Rglo lri lro 27"))
+        self.decks[name] = (runner, replace_line(deck, "Rglo", f"Rglo lri lro {self.low_gate_ohm:g}"))
         return name
 
 
@@ -157,23 +156,32 @@ def run(args):
         work = Path(folder)
         dfn.stage_models(args, work)
         shutil.copyfile(COMPARE, work / COMPARE.name)
-        capture = Capture()
+        capture = Capture(args.low_gate_ohm)
         corners = dfn.replay.BIAS_CORNERS[:1] if args.nominal else dfn.replay.BIAS_CORNERS
+        revise_bias = partial(bias_deck, rear_cap_nf=args.rear_cap_nf)
         dfn.replay.add_cases(capture, work, args, extraction, dfn.replay.read_extraction(base), circuit,
-                             nodes=NODES, revise_bias=bias_deck, corners=corners)
+                             nodes=NODES, revise_bias=revise_bias, corners=corners)
+        if args.case and set(args.case) - capture.decks.keys():
+            raise ValueError("One or more requested cases are unavailable")
         tasks = {}
         for label, (_, deck) in capture.decks.items():
             kind = label.rsplit("_", 1)[1]
+            if args.case and label not in args.case:
+                continue
             if args.quick and (kind == "inductive" or label.endswith("_low_resistive")):
                 continue
             if args.mode == "compare":
                 deck = compare_driver(deck)
+            if args.pin_bypass_nh is not None:
+                deck = dfn.add_pin_bypass(deck, args.pin_bypass_nh)
             adjust = f".tran {args.step_ps}p"
             deck, count = re.subn(r"^\.tran 250p (\S+) 0 250p$", rf"{adjust} \1 0 {args.step_ps}p",
                                   deck, count=1, flags=re.M)
             if count != 1:
                 raise ValueError("Review the original transient integration settings")
             tasks[pool.submit(dfn.replay.run_case, args.ngspice, work, label, deck)] = (label, kind)
+        if not tasks:
+            raise ValueError("No selected cases remain after the filters")
         for task in as_completed(tasks):
             label, kind = tasks[task]
             try:
@@ -187,7 +195,10 @@ def run(args):
             print(f"{label}: {'passed' if results[label]['passed'] else 'open'}", flush=True)
     result = {
         "driver_model": args.mode, "step_ps": args.step_ps,
-        "additional_rear_capacitance_nf": {"nominal": 75, "hot": 55},
+        "low_side_gate_resistor_ohm": args.low_gate_ohm,
+        "additional_rear_capacitance_nf": {"nominal": args.rear_cap_nf or 75, "hot": args.rear_cap_nf or 55},
+        "direct_pin_bypass": ({"effective_nf": 100, "esr_ohm": 0.10, "total_loop_nh": args.pin_bypass_nh}
+                              if args.pin_bypass_nh is not None else None),
         "inputs_sha256": {path.name: dfn.replay.digest(path) for path in archived_inputs},
         "cases": dict(sorted(results.items())),
     }
@@ -212,6 +223,10 @@ def main():
     sim.add_argument("--jobs", type=int, default=6)
     sim.add_argument("--mode", choices=("vendor", "compare"), default="vendor")
     sim.add_argument("--step-ps", type=int, choices=(125, 250, 500), default=250)
+    sim.add_argument("--low-gate-ohm", type=float, default=27, help="screen a low-side gate resistor on the existing copper")
+    sim.add_argument("--rear-cap-nf", type=float, help="screen a specified effective rear bypass capacitance")
+    sim.add_argument("--pin-bypass-nh", type=float, help="add a direct driver-pin bypass with this total loop inductance")
+    sim.add_argument("--case", action="append", help="run only the named case, repeat to select multiple")
     sim.add_argument("--nominal", action="store_true", help="skip the 100 C cases")
     sim.add_argument("--quick", action="store_true", help="run the shorts and high-side resistive case")
     for command in (ex, sim):
@@ -227,6 +242,15 @@ def main():
     else:
         if args.jobs < 1:
             parser.error("Select at least one simulation worker")
+        if not math.isfinite(args.low_gate_ohm) or args.low_gate_ohm <= 0:
+            parser.error("The low-side gate resistance must be positive and finite")
+        if args.rear_cap_nf is not None and (not math.isfinite(args.rear_cap_nf) or args.rear_cap_nf <= 0):
+            parser.error("The effective rear capacitance must be positive and finite")
+        if args.pin_bypass_nh is not None and (not math.isfinite(args.pin_bypass_nh) or args.pin_bypass_nh <= 0):
+            parser.error("The pin-bypass inductance must be positive and finite")
+        if args.output is None and (args.case or args.low_gate_ohm != 27 or args.rear_cap_nf is not None
+                                    or args.pin_bypass_nh is not None):
+            parser.error("Provide --output for a selected-case or component-variant run")
         if args.output is None:
             suffix = f"{args.mode}-{args.step_ps}ps"
             if args.nominal:

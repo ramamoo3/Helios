@@ -26,6 +26,11 @@ ACK_SECONDARY = 1 << 12
 CYCLES_PER_MS = 160_000
 COMPARE_OFFSETS = (0x1C, 0x24, 0x28, 0x2C)
 TIMERS = (HRTIM + 0x80, HRTIM + 0x100)
+BRIDGE_OUTPUTS = 0xF
+# STM32G474 timer events: compare 1/3 set the outputs and compare 2/4 reset them.
+# The reset writes at startup also request a software reset of each output.
+OUTPUT_EVENT_REGISTERS = ((0x3C, 1 << 3), (0x40, (1 << 4) | 1),
+                          (0x44, 1 << 5), (0x48, (1 << 6) | 1))
 
 
 def require(valid, message):
@@ -75,6 +80,7 @@ class BenchRegisters:
         self.precharge_ack_at = None
         self.arming_edges = 0
         self.disable_writes = 0
+        self.enabled_outputs = 0
         self.initial_compares = []
         self.preload_writes = 0
 
@@ -146,20 +152,26 @@ class BenchRegisters:
             self.gpio_b = state
         elif address == COMMON + 0x0C and value & 1:
             self.latched_fault = False
-        elif address == COMMON + 0x14 and value & 15:
+        elif address == COMMON + 0x14 and value & BRIDGE_OUTPUTS:
             require(self.allow_permit and self.gpio_b & RUN, "Timer enabled without permit")
             require(not self.gpio_b & PRE and self.precharge_ack_at is not None and
                     self.precharge_fall - self.precharge_ack_at >= 7 * 160 and
                     self.cycles - self.precharge_fall >= 160, "Timer enabled before precharge and blanking completed")
-            require(value & 15 == 15, "Expected all four timer outputs enabled together")
+            require(value == BRIDGE_OUTPUTS, "Expected all four timer outputs enabled together")
             require(self.read(COMMON + 0x50) == 1, "FLT1 must use a raw, active-low GPIO input")
+            require(self.read(COMMON + 4) & 6 == 6, "Both initial preload values need a software update")
             for timer in TIMERS:
                 require(self.read(timer + 0x68) & 1, "Bridge timer must listen to FLT1")
                 require(self.read(timer + 0x64) & 0x00300030 == 0x00200020,
                         "Both bridge outputs must be inactive on FLT1")
+                for offset, events in OUTPUT_EVENT_REGISTERS:
+                    require(self.read(timer + offset) == events, "A bridge output uses the wrong compare event")
             self.initial_compares.append(tuple(self.read(t + off) for t in TIMERS for off in COMPARE_OFFSETS))
-        elif address == COMMON + 0x18 and value & 15 == 15:
-            self.disable_writes += 1
+            self.enabled_outputs |= value
+        elif address == COMMON + 0x18:
+            self.enabled_outputs &= ~value
+            if value & BRIDGE_OUTPUTS == BRIDGE_OUTPUTS:
+                self.disable_writes += 1
         elif address == HRTIM:
             if not value & COUNTER_ENABLE:
                 self.started = None
@@ -187,7 +199,8 @@ def check(binary, charging):
     board.request = True
     board.run(22)
     require(len(board.initial_compares) == 1 and board.arming_edges == 1, "Fresh request did not start")
-    require(board.started is not None and board.preload_writes > 70 * 8, "Ramp was not serviced")
+    require(board.started is not None and board.enabled_outputs == BRIDGE_OUTPUTS and board.preload_writes > 70 * 8,
+            "Ramp was not serviced")
     first = board.initial_compares[0]
     expected_delay = -768 if charging else 768
     require(first[4] - first[0] == expected_delay, "Wrong startup phase or direction")
@@ -197,7 +210,7 @@ def check(binary, charging):
     board.allow_permit = False
     previous_disables = board.disable_writes
     board.run(1)
-    require(board.started is None and not board.gpio_b & RUN and
+    require(board.started is None and board.enabled_outputs == 0 and not board.gpio_b & RUN and
             board.disable_writes == previous_disables + 1, "Permit loss did not disable the controller")
     board.allow_permit = True
     board.run(25)
@@ -233,7 +246,8 @@ def check(binary, charging):
     require(not board.read(GPIO_A + 0x18) & LED, "Fault LED was on during normal operation")
     prior_disables = board.disable_writes
     board.cpu.emu_start(board.hard_fault, 0, count=128)
-    require(board.disable_writes == prior_disables + 1 and not board.gpio_b & (RUN | ARM | PRE),
+    require(board.disable_writes == prior_disables + 1 and board.enabled_outputs == 0 and
+            not board.gpio_b & (RUN | ARM | PRE),
             "Fault handler did not disable PWM and requests")
     require(board.read(GPIO_A + 0x18) == LED, "Fault handler did not indicate the fault on LD2")
 

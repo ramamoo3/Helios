@@ -13,6 +13,10 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y ngspice=42+ds-3build1
       - name: Check circuit connections and simulations
         run: python3 circuits/battery-port/verify.py --ngspice ngspice
+      - name: Check the independent bench DC cutoff model
+        run: python3 circuits/battery-port/bench_disconnect_test.py --ngspice ngspice --output "$RUNNER_TEMP/helios-dc-cutoff.json"
+      - name: Check linked cutoff and PWM inhibit
+        run: python3 circuits/battery-port/bench_linked_cutoff_test.py --ngspice ngspice --output "$RUNNER_TEMP/helios-linked-cutoff.json"
       - name: Check local Markdown link targets
         run: |
           python3 - <<'PY'

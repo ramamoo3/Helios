@@ -33,7 +33,7 @@ The KiCad project assigns the secondary domain and power nets explicitly. The 1.
 
 Centreline tracing found 1.35–1.60 mm copper in the R30-to-primary-drain feeds. The main Q3-to-T1 and both secondary switch-to-T1 paths use 1.20 mm on `In2.Cu`. The 0.24–0.28 mm sections on those switch nets route to the gate-driver or bootstrap connections. Each local commutation loop still has 0.90 mm feed and return branches on the front copper. A 20 °C copper-only screen put the inner winding runs at 13.9–20.1 mΩ on the baseline and 10.8–15.4 mΩ in the trial, a 22–25% reduction per run. That estimate covers the selected traces. [Power path extraction](extract_layout.py)
 
-The filled trial has four 2.8 mm non-plated holes for M2.5 hardware with 6.4 mm all-layer copper keepouts, and three 1 mm top copper fiducials with 2 mm mask openings. Hole coordinates in KiCad millimetres are (52, 47), (147, 62), (52, 132) and (152, 140). Use those coordinates for the bench fixture and check actual head, standoff, connector and enclosure fit before fabrication. [Mounting footprint](Helios_Bench.pretty/Bench_mount_M2_5.kicad_mod) · [Fiducial footprint](Helios_Bench.pretty/Bench_fiducial_1mm.kicad_mod)
+The filled trial has four 2.8 mm non-plated holes for M2.5 hardware with 6.4 mm all-layer copper keepouts, and three 1 mm top copper fiducials with 2 mm mask openings. Hole coordinates in KiCad millimetres are (52, 47), (147, 62), (52, 132) and (152, 140). Each mounting keepout has at least 1.8 mm clearance to the outline, and each fiducial mask opening has at least 0.5 mm. Actual head, standoff, connector and enclosure fit still require a fixture review. [Mounting footprint](Helios_Bench.pretty/Bench_mount_M2_5.kicad_mod) · [Fiducial footprint](Helios_Bench.pretty/Bench_fiducial_1mm.kicad_mod)
 
 Generate a candidate in a scratch copy of the KiCad project directory, with the local symbol and footprint libraries available. Copy the parent `.kicad_pro` and `.kicad_dru` to the trial board's stem before running KiCad.
 
@@ -48,12 +48,14 @@ The DC solver reads the filled polygons, keeps their cutouts, unions same-layer 
 
 At 20 µm plating, the worst baseline secondary return, C25.2 to Q8.3, dropped from 59.08 mΩ to 3.98 mΩ at 20 °C. Its modeled copper loss fell from 0.554 W to 0.037 W at 2.67 A and 100 °C copper. The worst baseline primary return, C24.2 to Q4.3, dropped from 32.28 mΩ to 2.13 mΩ. The two finest meshes agreed within 3.6% on the selected return paths. Local capacitor-to-switch returns stayed at 3.38–3.67 mΩ. Four widened winding paths dropped 19–21% in the full path model. Inspect its per-path trace and barrel current distribution when selecting plating and planning thermal measurements. [DC results](bench-return-plane-dc.json)
 
-The original FastHenry extractor supports trace-only boards. A separate FastHenry check approximates the filled mesh with filaments and extracts the secondary-A feed, switch and return ports. At 10 MHz the baseline returned 7.99 nH and the 2 mm mesh returned 7.64 nH with filament geometry warnings. The 1.5 mm and 1 mm meshes both timed out. The trial result is an order-of-magnitude screen. A converged comparison, capacitive coupling, enclosure effects, the other three bridge loops and the routed hot switching transient remain open. [AC model](bench_plane_ac.py) · [AC results](bench-return-plane-ac.json) · [FastHenry user guide](https://www.fastfieldsolvers.com/Download/FastHenry_User_Guide.pdf)
+The filled-copper FastHenry model approximates the secondary-A feed, switch and return with filaments. At 10 MHz the trace baseline returned 7.99 nH. The 2, 1.5 and 1 mm filled meshes returned 7.64, 7.61 and 7.60 nH respectively. The 1 mm three-port repeat completed within its iteration limit. A separate 1 mm run joined the paths in series at ideal switch terminals and reproduced the three-port sum. The runs have filament geometry warnings. This measures numerical consistency for one loop in the filament model. Capacitive coupling, enclosure effects and the other three bridge loops remain open. [AC model](bench_plane_ac.py) · [AC results and solver options](bench-return-plane-ac.json) · [FastHenry user guide](https://www.fastfieldsolvers.com/Download/FastHenry_User_Guide.pdf)
+
+The BOM update adds hidden purchasing fields to the trace-only parent. The stored 12-port trace extraction reproduced with the same matrices after that update. Replays can use the original extraction only when removing those hidden fields reproduces its exact PCB hash. [Trace extraction](bench-bootstrap-impedance.json) · [Replay input check](layout_switching_test.py)
 
 ```sh
 python -m pip install -r requirements-copper.txt
 python bench_plane_dc.py path/to/filled-trial.kicad_pcb --pitch-mm .4 .2 .1 --output bench-return-plane-dc.json
-python bench_plane_ac.py path/to/filled-trial.kicad_pcb --pitch-mm 2 1.5 1 --timeout 120 --output bench-return-plane-ac.json
+python bench_plane_ac.py path/to/filled-trial.kicad_pcb --series-10mhz --pitch-mm 1.5 1 --timeout 260 --output series-repeat.json
 ```
 
 | L1 pad and net | Old via centre (mm) | New via centre (mm) | Nominal gap from hole edge to land (mm) |

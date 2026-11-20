@@ -1,0 +1,29 @@
+Helios inactive battery-port conduction check
+.include dab.lib
+.options method=gear reltol=0.0005 abstol=1n
+
+* The first converter switches at zero phase shift, then stops both bridges.
+Vpack pack 0 50
+Vlink link 0 700
+Xidle pack 0 link 0 DAB D=0 STOP=3m
+
+* Off from startup at opposite ends of the study voltage envelope.
+Vpack_low pack_low 0 40
+Vlink_high link_high 0 735
+Xlow pack_low 0 link_high 0 DAB D=0 STOP=0
+Vpack_high pack_high 0 60
+Vlink_low link_low 0 665
+Xhigh pack_high 0 link_low 0 DAB D=0 STOP=0
+
+.tran 100n 4.4m 0 100n
+.meas tran active_pack_a AVG i(Vpack) from=2.6m to=3m
+.meas tran active_link_a AVG i(Vlink) from=2.6m to=3m
+.meas tran disabled_pack_a AVG i(Vpack) from=4m to=4.4m
+.meas tran disabled_link_a AVG i(Vlink) from=4m to=4.4m
+.meas tran low_pack_a AVG i(Vpack_low) from=4m to=4.4m
+.meas tran high_link_a AVG i(Vlink_high) from=4m to=4.4m
+.meas tran high_pack_a AVG i(Vpack_high) from=4m to=4.4m
+.meas tran low_link_a AVG i(Vlink_low) from=4m to=4.4m
+.meas tran residual_winding_peak_a MAX i(l.xidle.ltransfer) from=4m to=4.4m
+.meas tran residual_winding_min_a MIN i(l.xidle.ltransfer) from=4m to=4.4m
+.end

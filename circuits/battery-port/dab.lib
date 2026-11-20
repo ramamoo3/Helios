@@ -1,21 +1,14 @@
 * Single battery port. P, N are the battery rail. H, L are the DC-link rail.
 * D is signed phase shift as a fraction of HALF a switching period.
 * Positive D = discharge into the link. Stiff external DC rails are required.
-.subckt DAB P N H L params: D=0.16 FSW=50k NSEC=14 LK=1.5u LM=180u RP=3m RLO=1m RHI=35m DT=120n STOP=1e9 IMAG0=0
-.param TPER={1/FSW} EDGE=25n
-.param TPRI={max(-D,0)*TPER/2} TSEC={max(D,0)*TPER/2}
-
-* Isolated ideal gate commands, with both diagonals off during dead time.
-VPA rawpa N PULSE(0 5 {TPRI+DT/2} {EDGE} {EDGE} {TPER/2-DT-EDGE} {TPER})
-VPB rawpb N PULSE(0 5 {TPRI+TPER/2+DT/2} {EDGE} {EDGE} {TPER/2-DT-EDGE} {TPER})
-VSA rawsa L PULSE(0 5 {TSEC+DT/2} {EDGE} {EDGE} {TPER/2-DT-EDGE} {TPER})
-VSB rawsb L PULSE(0 5 {TSEC+TPER/2+DT/2} {EDGE} {EDGE} {TPER/2-DT-EDGE} {TPER})
-* Command inhibition only. Body diodes remain present when both bridges stop.
-Ben en N V={max(0,min(1,(STOP-time)/EDGE))}
-Bpa cpa N V={v(rawpa,N)*v(en,N)}
-Bpb cpb N V={v(rawpb,N)*v(en,N)}
-Bsa csa L V={v(rawsa,L)*v(en,N)}
-Bsb csb L V={v(rawsb,L)*v(en,N)}
-
+.subckt DAB P N H L params: D=0.16 FSW=50k NSEC=14 LK=1.5u LM=180u RP=3m RLO=1m RHI=35m DT=120n START=0 STOP=1e9 IMAG0=0
+Vpermit PWM_PERMIT N 3.3
+.include dab-control.inc
 .include dab-power.inc
 .ends DAB
+
+* The permit is supplied by external protection and referenced to N.
+.subckt DAB_PERMITTED P N H L PWM_PERMIT params: D=0.16 FSW=50k NSEC=14 LK=1.5u LM=180u RP=3m RLO=1m RHI=35m DT=120n START=0 STOP=1e9 IMAG0=0
+.include dab-control.inc
+.include dab-power.inc
+.ends DAB_PERMITTED

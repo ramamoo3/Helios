@@ -20,9 +20,10 @@ from verify import children, read_schematic
 PORTS = ("feed", "switch", "return")
 DOMAIN, LAYER = "/S0", "In2.Cu"
 OPTIONS = ("-s", "iterative", "-m", "multi", "-p", "seg", "-t", "1e-5", "-b", "1e-7", "-c", "250")
+SERIES_OPTIONS = ("-s", "iterative", "-m", "multi", "-p", "diag", "-t", "1e-4", "-b", "1e-7", "-c", "250")
 
 
-def write_deck(path, board, pitch):
+def write_deck(path, board, pitch, series_10mhz=False):
     layout = Layout(board, .020)
     net = {n[2]: n[1] for n in children(board, "net")}.get(DOMAIN, DOMAIN)
     routes = leg_routes(layout, LEGS["sa"])[:3]
@@ -64,20 +65,42 @@ def write_deck(path, board, pitch):
             stem = node(layout.xyz(key))
             contacts.extend(f".equiv {node(centres[index])} {stem}" for index in attach if node(centres[index]) != stem)
 
-    external = [f".external {node(layout.xyz(a))} {node(layout.xyz(b))} {name}"
-                for name, (a, b, _) in zip(PORTS, routes, strict=True)]
+    ports = [(node(layout.xyz(a)), node(layout.xyz(b))) for a, b, _ in routes]
+    frequencies = ".freq fmin=1e5 fmax=1e7 ndec=1"
+    if series_10mhz:
+        (cap_positive, drain_high), (source_high, drain_low), (source_low, cap_negative) = ports
+        # Series current is the same in feed, switch and return. The two
+        # equivalent nodes model ideal semiconductor connections, as in 1' Z 1.
+        contacts += [f".equiv {drain_high} {source_high}", f".equiv {drain_low} {source_low}"]
+        external = [f".external {cap_positive} {cap_negative} loop"]
+        frequencies = ".freq fmin=1e7 fmax=1e7 ndec=1"
+    else:
+        external = [f".external {a} {b} {name}" for name, (a, b) in zip(PORTS, ports, strict=True)]
     definitions = [f"{key} x={x:.9g} y={y:.9g} z={z:.9g}" for (x, y, z), key in nodes.items()]
     source = ["Helios secondary-A commutation loop", ".units mm", ".default sigma=58000",
-              *definitions, *branches, *contacts, *external, ".freq fmin=1e5 fmax=1e7 ndec=1", ".end", ""]
+              *definitions, *branches, *contacts, *external, frequencies, ".end", ""]
     path.write_text("\n".join(source), encoding="ascii", newline="\n")
     return {"nodes": len(nodes), "conductors": len(branches), "contact_connections": len(contacts)}
 
 
+def read_series_loop(path):
+    lines = path.read_text(encoding="ascii").splitlines()
+    if (len(lines) != 3 or not lines[0].endswith("port name: loop")
+            or lines[1] != "Impedance matrix for frequency = 1e+07 1 x 1"):
+        raise ValueError("Expected a single 10 MHz series impedance")
+    real, imaginary = lines[2].split()
+    value = complex(real+imaginary)
+    if not (math.isfinite(value.real) and math.isfinite(value.imag) and value.real > 0 and value.imag > 0):
+        raise ValueError("Nonpositive or nonfinite 10 MHz loop impedance")
+    return {"1e+07": {"resistance_mohm": value.real*1e3, "inductance_nh": value.imag*1e9/(math.tau*1e7)}}
+
+
 def run_one(args, scratch, board, pitch):
     deck = scratch / "loop.inp"
-    record = write_deck(deck, board, pitch)
+    record = write_deck(deck, board, pitch, args.series_10mhz)
+    options = SERIES_OPTIONS if args.series_10mhz else OPTIONS
     try:
-        process = subprocess.run([args.fasthenry, str(deck), *OPTIONS], cwd=scratch,
+        process = subprocess.run([args.fasthenry, str(deck), *options], cwd=scratch,
                                  capture_output=True, text=True, errors="replace", timeout=args.timeout)
     except subprocess.TimeoutExpired:
         return {**record, "completed": False, "error": f"Timeout after {args.timeout} s"}
@@ -86,6 +109,8 @@ def run_one(args, scratch, board, pitch):
     if process.returncode:
         return {**record, "completed": False, "error": f"FastHenry exit {process.returncode}", "log_tail": evidence[-700:]}
     try:
+        if args.series_10mhz:
+            return {**record, "completed": True, "loop": read_series_loop(scratch / "Zc.mat")}
         response = read_matrices(scratch / "Zc.mat", PORTS, relative_reciprocity=3e-4)
     except (ValueError, FileNotFoundError) as error:
         return {**record, "completed": False, "error": str(error).replace(str(scratch), "simulation")}
@@ -108,7 +133,8 @@ def run(args):
     return {"scope": "Secondary-A loop diagnostic using resistive-mesh-derived filaments with ideal bridged pads",
             "inputs_sha256": {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in zip(
                 ("baseline PCB", "filled trial PCB", "solver", "copper mesh", "layout parser", "KiCad parser"), files)},
-            "solver_options": OPTIONS, "relative_reciprocity_floor": 3e-4, "cases": cases}
+            "solver_options": SERIES_OPTIONS if args.series_10mhz else OPTIONS,
+            "series_10mhz": args.series_10mhz, "relative_reciprocity_floor": 3e-4, "cases": cases}
 
 
 if __name__ == "__main__":
@@ -118,6 +144,7 @@ if __name__ == "__main__":
     parser.add_argument("--fasthenry", default="fasthenry")
     parser.add_argument("--pitch-mm", nargs="+", type=float, default=[2, 1])
     parser.add_argument("--timeout", type=int, default=180)
+    parser.add_argument("--series-10mhz", action="store_true", help="join the three path ports for a single 10 MHz solve")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if not shutil.which(args.fasthenry) or args.timeout < 1 or any(not math.isfinite(p) or p <= 0 for p in args.pitch_mm):

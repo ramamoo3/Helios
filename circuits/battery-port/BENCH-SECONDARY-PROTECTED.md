@@ -84,6 +84,8 @@ The SPICE fixture uses the extracted power and driver paths and the TI models fo
 
 The first isolated routed replay and sensitivity JSON preserve their original script fingerprints. The replay helpers have changed since those files were generated. Use these records to trace that iteration and the latest rear-bypass replay for current evidence. [Latest revision](#routed-rear-driver-bypass)
 
+The local audit repeat ran the original coupon through the current replay helpers. It completed four of twelve nominal and hot cases. The nominal short peaks reproduced at 74.58 V and 94.54 V. In the nominal short sensitivity repeat, four Gear runs completed and both trapezoidal runs stopped. All four completed short-profile runs exceeded the 54 V screen. The low-side-short high-side bias minimum varied from 4.91 to 8.34 V across the two Gear time steps. [Repeat report with fingerprints](bench-secondary-isolated-routed-audit.json)
+
 - Both 25 °C short cases interrupted current about 209 ns after crossing 1 A with the external PWM request held high. Q6 reached 74.6 V when Q5 was shorted, compared with 101.2 V in the earlier isolated-driver proxy. The new TVS, gate resistors and extracted copper changed together. Q5 reached 94.5 V when Q6 was shorted. Both exceed the 54 V design screen. Peak terminal current in D1 was 51.4 A, including displacement current.
 - Both nominal resistive switching cases completed. Only low-side switching passed. The high-side resistive case reached a 6.65 V bias minimum against the 9.2 V screen. Both nominal inductive cases stopped with timestep errors. All six 100 °C cases with the original vendor libraries stopped before transient analysis.
 - Gear retries at 125 ps and 500 ps kept the peak Q5 and Q6 fault voltages within 0.5 V and 0.6 V of the 250 ps runs. The high-side bias extrema during the Q6 short varied substantially with step size. Both trapezoidal retries failed. The narrow spread in drain peaks describes the completed Gear runs. The driver bias waveform and inductive cases still need convergence. [Solver sensitivity](bench-secondary-isolated-routed-sensitivity.json)
@@ -99,6 +101,8 @@ kicad-cli pcb drc --schematic-parity --exit-code-violations battery-port-seconda
 python isolated_layout_extract.py --output bench-secondary-isolated-routed-impedance.json
 python isolated_layout_replay.py --driver-archive SLUM543.ZIP \
   --mosfet-archive SLPM077C.ZIP --output bench-secondary-isolated-routed-replay.json
+python isolated_layout_replay.py --driver-archive SLUM543.ZIP \
+  --mosfet-archive SLPM077C.ZIP --short-profiles --output routed-short-profile-repeat.json
 ```
 
 ## Local high-side clamp revision
@@ -193,7 +197,7 @@ python isolated_bypass_test.py replay --driver-archive SLUM543.ZIP --mosfet-arch
 
 The combined clamp candidate is now a schematic and routed PCB. R206 and R207 are 15 Ω and 22 Ω. D2 is a 5.0SMDJ28A. D1 uses a Vishay 3KDFN33A and a footprint drawn from the manufacturer's DFN6546A land pattern. The two small cathode lands each connect to the switch node. The 4.70 × 3.88 mm exposed anode land connects to the Q6 source net. The footprint represents both cathode lands as pad 1, with a separate paste aperture for each land. The initial stencil sizes are engineering selections for assembly review. [DFN footprint](Helios_Bench.pretty/Diode_TVS_Vishay_DFN6546A.kicad_mod) · [Vishay polarity and electrical data](https://www.vishay.com/docs/98814/3kdfn12athru3kdfn100a.pdf) · [Vishay land and stencil drawing](https://www.vishay.com/docs/98535/solderingrecommendations_powerdfn_packages.pdf)
 
-Both DFN layouts passed KiCad ERC, DRC and schematic parity with zero unconnected items. The independent checks cleared all 33 vias on each layout. The 31-port extraction separates the two rear cathode routes and ties them at the modeled package terminal. The loop estimates use a 10 MHz copper model and equal current division for reporting. The transient replay solves the split through both coupled branches and assumes 1 nH package inductance per TVS nominally and 2 nH hot. [First PCB](battery-port-secondary-isolated-dfn.kicad_pcb) · [Shorter clamp PCB](battery-port-secondary-isolated-dfn-local.kicad_pcb)
+Both DFN layouts passed KiCad ERC, DRC and schematic parity with zero unconnected items. The independent checks cleared all 33 vias on each layout. The 31-port extraction separates the two rear cathode routes and ties them at the modeled package terminal. The loop estimates use a 10 MHz copper model and equal current division for reporting. The transient replay solves the split through both coupled branches and assumes 1 nH package inductance per TVS nominally and 2 nH hot. [First PCB](battery-port-secondary-isolated-dfn.kicad_pcb) · [First schematic](battery-port-secondary-isolated-dfn.kicad_sch) · [Shorter clamp PCB](battery-port-secondary-isolated-dfn-local.kicad_pcb) · [Shorter clamp schematic](battery-port-secondary-isolated-dfn-local.kicad_sch)
 
 | Extracted copper loop | SMB bypass PCB | First DFN layout | Shorter DFN layout |
 | --- | ---: | ---: | ---: |
@@ -263,12 +267,52 @@ The 500 ps trapezoidal runs put the nominal fault peaks within 0.07 V of the cor
 
 All six 100 °C vendor cases failed before transient analysis. The reduced driver completed both hot resistive and both hot short cases. The Q5-short case reached 54.22 V at Q6 and required 263 ns to interrupt. Both nominal inductive cases and both hot inductive cases remained inconclusive with the reduced model. [Reduced-model results](bench-secondary-isolated-dfn-rear-bypass-compare-250ps.json)
 
+### Gate resistance and pin-bypass trial
+
+The model keeps the rear-bypass copper and screens a 39 Ω low-side gate resistor. All eight nominal and hot resistive and short cases passed in the reduced driver at both 250 and 500 ps. With hot Q5 shorted, Q6 peaked at 51.35 V and cleared in about 283 ns at 500 ps. The opposite hot short reached about 53.08 V at the finer step. The candidate trades lower overshoot for a longer current-clearing interval. Verify paired device voltage and current against the safe operating area. [Trial results](bench-secondary-isolated-dfn-rear-drive-trial.json)
+
+In the vendor-driver variant, the nominal Q6 short reached 7.02 V at the high-side bias pins. Larger effective rear capacitance left a similar dip. Adding a separate 100 nF branch directly across the driver pins with 0.6 nH assumed total loop inductance passed at 500 ps, dropped to 6.41 V at 125 ps and stalled at 250 ps. With 0.2 nH assumed, the 125 ps minimum was still 8.57 V. The 9.2 V minimum and the inductive cases remain open. The gate resistor and direct pin bypass are still simulation candidates. [Vendor and reduced-driver results](bench-secondary-isolated-dfn-rear-drive-trial.json)
+
+The inductive diagnostic smoothed the reduced driver's current-limit transitions. The nominal high-side case completed at 2.52 A at commutation and reached 101.04 V across Q6. A gate-source clamp trial kept gate stress within ±16 V in the completed hot case, while Q6 still reached 101.10 V. Adding a modeled direct drain clamp in the nominal case reduced the peak to 80.07 V, above the 54 V screen. The corresponding hot run stalled. All six symmetrized resistance and inductance matrices were positive definite at their extraction frequencies. That check covers the extracted matrices. It gives no time-domain convergence or stress credit. [Inductive diagnostics](bench-secondary-isolated-dfn-rear-drive-trial.json)
+
+### Inductive commutation stress
+
+Saving the nominal direct-clamp waveform moved the reported Q6 peak from 80.07 V to 100.60 V at 4.711 µs. At that sample, the switch node reached 66.13 V and the source fell to −34.47 V with 2.53 A still flowing in the load. The modeled clamp junction was 0.67 V below the source and carried no reverse avalanche at that sample. Linear interpolation gives 6.64 ps total above 54 V across the saved run. The peak depends on how ngspice records the transient, so its magnitude and duration remain uncorrelated. The node voltages are consistent with a transient across the modeled clamp path inductance. [Waveforms and measurements](bench-inductive-waveform-results.json) · [TI ringing guidance](https://www.ti.com/lit/an/slpa010/slpa010.pdf)
+
+The combined diagnostic candidate keeps the original clamps and 39 Ω low-side gate resistor, increases the high-side gate resistor from 15 Ω to 27 Ω, and adds a 1 Ω / 2.2 nF RC branch across Q6 with 0.50 nH assumed loop inductance. A generic diode steers source-to-drain current with a 0.45 nH series loop. The diode parameters and loop inductances are screening assumptions. Four nominal alternatives without the steering diode hit the simulation time limit.
+
+| Reduced-driver case, generic steering diodes on Q5 and Q6 | Peak VDS at 125 ps | At 250 ps | At 500 ps |
+| --- | ---: | ---: | ---: |
+| 25 °C high-side switching | 32.07 V | 32.07 V | 32.07 V |
+| 25 °C low-side switching | 31.98 V | 31.85 V | 31.84 V |
+| 100 °C high-side switching | 32.26 V | 32.26 V | 32.26 V |
+| 100 °C low-side switching | 33.44 V | 33.07 V | 33.05 V |
+
+All 12 runs passed the 54 V drain limit, ±16 V gate limit and 9.2–16 V driver-rail limits. Commutation current stayed between 2.64 and 2.72 A. The nominal Q6-only variant reached 32.07 V at 2.64 A with the 250 ps step. Its saved waveform agreed and had no samples over 54 V. Its 125 and 500 ps repeats timed out, as did its 100 °C high-side runs at 250 and 500 ps. [Results and source hashes](bench-inductive-waveform-results.json)
+
+The manufacturer’s STPST10H100SF PSpice model passed the 100 °C high-side case at 250 ps with a 33.20 V peak and 2.65 A at commutation. The test assumed a 0.45 nH external loop per diode. Both hot directions timed out at 1.0 nH, so the acceptable layout inductance range remains open. Use the published model in the next layout trial and extract the actual loops. Recheck fault interruption, repetitive switching losses and device safe operating area. The vendor-driver rail verification remains open. [ST part and PSpice model archive](https://www.st.com/en/diodes-and-rectifiers/stpst10h100.html) · [Results](bench-inductive-waveform-results.json)
+
+From this directory, reproduce the nominal saved waveform and candidate measurement with ngspice and the two TI archives. Use `--capture trace` on the candidate to save and inspect its key waveform extrema. Run the hot high-side case with `--case hot_high --steering both` to exercise both modeled diodes.
+
+```sh
+python bench_inductive_waveform.py --driver-archive SLUM543.ZIP --mosfet-archive SLPM077C.ZIP \
+  --output original-waveform.json
+python bench_inductive_waveform.py --driver-archive SLUM543.ZIP --mosfet-archive SLPM077C.ZIP \
+  --high-gate-ohm 27 --snubber-nf 2.2 --steering q6 --capture measurements --output candidate.json
+python bench_inductive_waveform.py --driver-archive SLUM543.ZIP --mosfet-archive SLPM077C.ZIP \
+  --high-gate-ohm 27 --snubber-nf 2.2 --steering both --capture measurements --case hot_high \
+  --schottky-archive st-schottky-models.zip --output st-hot-trial.json
+```
+
 Reproduce the extracted cases with the two TI model archives and ngspice. Use the PCB and schematic with the same stem for native ERC and DRC.
 
 ```sh
 python isolated_rear_bypass.py extract
 python isolated_rear_bypass.py replay --driver-archive SLUM543.ZIP --mosfet-archive SLPM077C.ZIP
 python isolated_rear_bypass.py replay --driver-archive SLUM543.ZIP --mosfet-archive SLPM077C.ZIP --mode compare
+python isolated_rear_bypass.py replay --driver-archive SLUM543.ZIP --mosfet-archive SLPM077C.ZIP \
+  --low-gate-ohm 39 --pin-bypass-nh 0.6 --step-ps 125 --nominal --case nominal_low_short \
+  --output pin-bypass-repeat.json
 python isolated_rear_bypass.py replay --driver-archive SLUM543.ZIP --mosfet-archive SLPM077C.ZIP \
   --nominal --quick --step-ps 500
 ```
