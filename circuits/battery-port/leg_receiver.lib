@@ -1,0 +1,44 @@
+* Helios bench receiver timing model. Voltages on the receiving side are
+* measured from VSS. This is an application model of the isolated interface.
+
+* A matched line models transport delay independently of the output edge rate.
+.subckt RX_DELAY in out ref params: TD=18.5n
+Tdelay in ref out ref Z0=1k TD={TD}
+Rterm out ref 1k
+.ends RX_DELAY
+
+* One ISO7741F data channel. Source-power loss defaults low. Destination-power
+* loss and deasserted output enable leave the passive pull-down in control.
+.subckt RX_CHANNEL data input_power vcc rx_ref enable out params: TD=18.5n TLOSS=300n TOFF=31n CLOAD=15p
+Bdata req 0 V={v(data)>1.65}
+Bsrc source_ok 0 V={v(input_power)>1.7}
+Xdata req delayed 0 RX_DELAY TD={TD}
+Xsource source_ok source_delayed 0 RX_DELAY TD={TLOSS}
+Ben oe 0 V={v(enable,rx_ref)>2.31}
+Xenable oe oe_delayed 0 RX_DELAY TD={TOFF}
+Bdrive drive rx_ref V={v(vcc,rx_ref)*v(delayed)*v(source_delayed)}
+Bon active 0 V={v(vcc,rx_ref)>2.25 && v(oe_delayed)>0.5}
+Rout drive series 75
+Soutput series out active 0 RX_OUTPUT
+Rpd out rx_ref 10k
+Cpin out rx_ref {CLOAD}
+.model RX_OUTPUT SW(Ron=1 Roff=1g Vt=0.5 Vh=0.02)
+.ends RX_CHANNEL
+
+* Source-side LVC AND gates gate PWM. EN and return bias-good occupy the
+* remaining forward and reverse channels. RXGOOD is the wired-AND of the
+* two local rail supervisors, already through their reset delay.
+.subckt LEG_RECEIVER hi_raw li_raw permit en_req source_3v3 src_ref vss vcc2 rxgood hi li en bias_good
+Bsrc source_power 0 V={v(source_3v3,src_ref)}
+Brx rx_power 0 V={v(vcc2,vss)}
+Bhi hi_request 0 V={3.3*(v(hi_raw,src_ref)>2 && v(permit,src_ref)>2 && v(source_power)>2.7)}
+Blo lo_request 0 V={3.3*(v(li_raw,src_ref)>2 && v(permit,src_ref)>2 && v(source_power)>2.7)}
+Xhi_delay hi_request hi_gated 0 RX_DELAY TD=4.7n
+Xlo_delay lo_request lo_gated 0 RX_DELAY TD=4.7n
+Ben en_gated 0 V={v(en_req,src_ref)}
+Bpg pg_gated 0 V={v(rxgood,vss)}
+Xhi hi_gated source_power vcc2 vss rxgood hi RX_CHANNEL
+Xlo lo_gated source_power vcc2 vss rxgood li RX_CHANNEL
+Xen en_gated source_power vcc2 vss rxgood en RX_CHANNEL
+Xpg pg_gated rx_power source_3v3 src_ref source_3v3 bias_good RX_CHANNEL
+.ends LEG_RECEIVER

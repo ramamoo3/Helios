@@ -34,6 +34,8 @@ The UCC27282 EN disable time is 1.5 µs typical. The fast path uses HI and LI, w
 
 The slow fault corners reach about **58.9 V** on the 60 V MOSFET in a screening model that includes avalanche. Peak current in those corners is 78.6–91.8 A and the highest device energy proxy is 263 µJ. Those results leave clamp margin and allowable repetitive fault energy open. The next bench revision needs the component-level VSS-referenced interface, revised shunt routing, installed-board extraction, and a switching and fault rerun with the clamp and independent DC interruption modeled. [MOSFET datasheet](https://www.ti.com/lit/ds/symlink/csd18534kcs.pdf)
 
+The subsequent receiver study adds isolator timing and a VSS-referenced driver supply. It exposes secondary fault cutoff and voltage stress failures that now govern bench integration. [Receiver circuit and fault results](BENCH-LEG-RECEIVER.md)
+
 ## Reproduce
 
 Run from the battery-port directory with FastHenry and ngspice on PATH.

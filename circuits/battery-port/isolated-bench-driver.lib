@@ -1,0 +1,38 @@
+* Independent UCC21520 comparison model. Typical 8-V UVLO, 12-V bias.
+* Supply current is drawn from the physical rail. This reduced model has
+* no isolation-barrier dynamics, UVLO hysteresis/recovery delay or CMTI model.
+.subckt HELIOS_ISOLATED_COMPARE DIS GND INA INB OUTA OUTB VCCI VDDA VDDB VSSA VSSB PARAMS: RPULL=3
+.func edge(x,t) {0.5*(1+tanh((x-t)/0.055))}
+Rinput VCCI GND 2.36k
+Breqa reqa GND V={edge(v(INA,GND),1.65)*(1-edge(v(INB,GND),1.65))}
+Breqb reqb GND V={edge(v(INB,GND),1.65)*(1-edge(v(INA,GND),1.65))}
+Rdelay_a reqa delay_a 47.6k
+Rdelay_b reqb delay_b 47.6k
+Cdelay_a delay_a GND 1p
+Cdelay_b delay_b GND 1p
+Bdisable disable_raw GND V={edge(v(DIS,GND),1.65)}
+Rdisable_delay disable_raw disable_delayed 28.85k
+Cdisable_delay disable_delayed GND 1p
+Bpermit permit GND V={(1-edge(v(disable_delayed,GND),0.5))*edge(v(VCCI,GND),2.6)}
+* The other output's filtered command holds this output off during handover.
+* Approximate the 10 kΩ dead-time fixture with a delayed release path.
+Rblank_a reqa blank_a 145k
+Rblank_b reqb blank_b 145k
+Cblank_a blank_a GND 1p
+Cblank_b blank_b GND 1p
+Bdrive_a drive_a GND V={v(permit,GND)*edge(v(delay_a,GND),0.5)*(1-edge(v(blank_b,GND),0.5))}
+Bdrive_b drive_b GND V={v(permit,GND)*edge(v(delay_b,GND),0.5)*(1-edge(v(blank_a,GND),0.5))}
+Xa VDDA VSSA OUTA drive_a GND HELIOS_BENCH_OUTPUT RPULL={RPULL}
+Xb VDDB VSSB OUTB drive_b GND HELIOS_BENCH_OUTPUT RPULL={RPULL}
+.ends HELIOS_ISOLATED_COMPARE
+
+.subckt HELIOS_BENCH_OUTPUT SUP RET OUT CMD GND PARAMS: RPULL=3
+Buv cmd_live RET V={v(CMD,GND)*0.5*(1+tanh((v(SUP,RET)-8.2)/0.22))}
+Bpull_up SUP OUT I={v(cmd_live,RET)*min(4,max(0,v(SUP,OUT)/RPULL))}
+Bpull_dn OUT RET I={(1-v(cmd_live,RET))*min(6,max(0,v(OUT,RET)/0.55))}
+Rquiescent SUP RET 12k
+Ridle OUT RET 100k
+Dupper OUT SUP LIMIT_D
+Dlower RET OUT LIMIT_D
+.model LIMIT_D D(IS=20n N=1.2 RS=.12 CJO=30p)
+.ends HELIOS_BENCH_OUTPUT

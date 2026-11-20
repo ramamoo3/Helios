@@ -1,0 +1,189 @@
+{
+  "inputs_sha256": {
+    "battery-port-secondary-isolated-clamp.kicad_pcb": "ea4366364c1d41f37b6ad7fc2f73dfe79a828921741f9be42e319427de2f87a8",
+    "bench-secondary-isolated-clamp-impedance.json": "15bc5722020132add7598fd4a7608315b2f7b0cd44287aa6aaa4d278534ba629",
+    "bench-bootstrap-impedance.json": "0966e915591c6d65e1d16985a17fa1123098eb49a01bf14c58fefc705b9dfca5",
+    "bench-shunt-transfer.json": "a322a169b0d8a5f94d740a74fe7a24945a4dea02166abe48aa5db630f9f59cd9",
+    "bench-shunt-filter-results.json": "9513082e62009c395e2fb8d337d2af1ef4bc0b69967833290145c7f0fafc71fd",
+    "slum543.zip": "4f8f41c4fbe46585374a9dcefa9ad6b3eb738929e54b79469efa035cf69ed424",
+    "csd19531-ti.zip": "9d8c91380fba5b13173484b5775d5f2ef0bbd9d7ee9a49c66ea1c03bdf05cb13",
+    "isolated_layout_replay.py": "1ba304ffc06a41e0516fb5e82654e349b4c37fd5f3dbbc8d23b6e7110ee61356",
+    "isolated_clamp_test.py": "8f479acb54b22e5e910bf363f649685f96bae3f811b56a6e23a53286a8583f8e",
+    "leg_receiver.lib": "11e0d3b7ed0316c669590dafdd8ebe49f510ade747e18785886066a052d2fe28",
+    "local_shutdown.lib": "540d8b659afd194750f399db678c32f705c5f16c2b21e524536729e9ec7c2d8e",
+    "protection.lib": "a4f70a24b51d60a593c0ebea5f5f950bdb52a443cadcb69473286e20b818f170",
+    "commutation_clamp.lib": "00c724e5bcdb89806044b8cd2d8988a5a7a826b9080c851fe1c162aeb2c20124",
+    "verify.py": "779094a9eaaeacb02a6413da0598ebd1c58fb78440b1a68a0135f3d6a97c179c",
+    "isolated_layout_extract.py": "c4ea15babda44242549e8cd3aa6560f460b184f00971efb5f2e5880e0dab0a87",
+    "isolated_driver_test.py": "814253eca632490855970597bfb9f253aae236a26007443525df2520ba1c36c2",
+    "protected_layout_extract.py": "1fcfa4bc38c8b404e403f720ee0db6a91f35e2b0e4bc05060ad8034e135a2a2d",
+    "protected_layout_replay.py": "67e3b4810bd1bc670c4367c3f7c2cf3bab0f44fb0f40052bbb139b68fb243027",
+    "driven_layout_replay.py": "8819e0852738be8627e06f988ffd9519477f3dd27fef639ae4ba7dba4035a5c8",
+    "compact_layout_replay.py": "de323e924f2abf01cb5c96efc9adf8878531e047bd13e47ee0de4b0ac7afe5d4",
+    "secondary_layout_replay.py": "a96de9ba1397cd4bdaf32bf18878ec711725a604d7e40e8b1507c799cc6e61df",
+    "commutation_clamp_test.py": "aa4ac9ddc8fbbd652371a82afd57ece75fd6acb88f93824fca61a450144c95db",
+    "local_shutdown_test.py": "754574665c660a9b256ccf6b6cba396c4d78ecae3684f7e86b0b03289519e9d2",
+    "leg_receiver_test.py": "ab6bcd699226799b4241861212d1436887e351b7cf29ae74ad25817819b4e1e6",
+    "half_bridge_test.py": "82e146de965f152eadc2cc06a710da2add83f641d607d8f8f1602ff8cfe5d698",
+    "shunt_filter_test.py": "8c9ee3d04e56719b30451782528fe72d291d18b8976d1dd593b55e978027687f"
+  },
+  "short_profiles": {
+    "description": "Change the nominal 4 us short deck to 125 or 500 ps initial and maximum steps and select Gear or trapezoidal integration.",
+    "cases": {
+      "nominal_high_short_gear_500p": {
+        "vds_hi_scan": 2.54276,
+        "vds_lo_scan": 71.7049,
+        "high_bias_min": 11.8265,
+        "high_bias_max": 12.301,
+        "min_vdd": 11.8207,
+        "max_vdd": 12.2697,
+        "clearing_ns": 210.86100000000005,
+        "current_after": 0.0198749,
+        "tvs_peak_terminal_a": 51.5356,
+        "high_tvs_terminal_a": 0.686509,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "nominal_low_short_gear_500p": {
+        "vds_hi_scan": 86.4059,
+        "vds_lo_scan": 2.59792,
+        "high_bias_min": 6.70737,
+        "high_bias_max": 13.334,
+        "min_vdd": 11.8793,
+        "max_vdd": 12.2986,
+        "clearing_ns": 215.35999999999984,
+        "current_after": 0.0187694,
+        "tvs_peak_terminal_a": 1.36774,
+        "high_tvs_terminal_a": 58.6628,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "nominal_high_short_trap_500p": {
+        "error": "doAnalyses: TRAN:  Timestep too small; time = 1.00826e-06, timestep = 6.25e-22: trouble with xisolated.x_u35:dd-instance d.xisolated.x_u35.d1"
+      },
+      "nominal_low_short_trap_500p": {
+        "error": "doAnalyses: TRAN:  Timestep too small; time = 3.55338e-06, timestep = 6.25e-22: trouble with xisolated.x_u35:dd-instance d.xisolated.x_u35.d1"
+      },
+      "nominal_low_short_gear_125p": {
+        "vds_hi_scan": 85.7786,
+        "vds_lo_scan": 2.59186,
+        "high_bias_min": 3.38724,
+        "high_bias_max": 21.3256,
+        "min_vdd": 11.8793,
+        "max_vdd": 12.313,
+        "clearing_ns": 214.71999999999994,
+        "current_after": 0.0137241,
+        "tvs_peak_terminal_a": 1.36425,
+        "high_tvs_terminal_a": 58.4733,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "nominal_high_short_gear_125p": {
+        "vds_hi_scan": 2.54582,
+        "vds_lo_scan": 71.2259,
+        "high_bias_min": 11.8291,
+        "high_bias_max": 12.3016,
+        "min_vdd": 11.8222,
+        "max_vdd": 12.2735,
+        "clearing_ns": 210.67999999999992,
+        "current_after": 0.0199388,
+        "tvs_peak_terminal_a": 51.5583,
+        "high_tvs_terminal_a": 0.702853,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      }
+    }
+  },
+  "bias_probes": {
+    "description": "Gear nominal decks with 250 ps initial and maximum step. Compare effective high-side bulk capacitance 2.2 and 6 uF.",
+    "measured_node_pairs": {
+      "high_bias": [
+        "hb",
+        "hs"
+      ],
+      "high_bulk": [
+        "hi_bulk_p",
+        "hi_bulk_n"
+      ],
+      "high_fast": [
+        "hb_cap",
+        "hs_cap"
+      ],
+      "high_return": [
+        "hs",
+        "hs_takeoff"
+      ]
+    },
+    "units": "volts",
+    "cases": {
+      "nominal_low_short_6u": {
+        "high_bias_min": 4.95512,
+        "high_bias_max": 16.0153,
+        "high_bulk_min": 10.4796,
+        "high_bulk_max": 12.9499,
+        "high_fast_min": 10.9817,
+        "high_fast_max": 12.7945,
+        "high_return_min": -7.85975,
+        "high_return_max": 12.364,
+        "vds_hi_scan": 85.9003,
+        "vds_lo_scan": 2.58353
+      },
+      "nominal_low_short_2p2u": {
+        "high_bias_min": 4.9556,
+        "high_bias_max": 15.9379,
+        "high_bulk_min": 10.4787,
+        "high_bulk_max": 12.9208,
+        "high_fast_min": 10.9823,
+        "high_fast_max": 12.7727,
+        "high_return_min": -7.8048,
+        "high_return_max": 12.3811,
+        "vds_hi_scan": 85.7795,
+        "vds_lo_scan": 2.58353
+      },
+      "nominal_high_resistive_2p2u": {
+        "high_bias_min": 4.91674,
+        "high_bias_max": 12.1193,
+        "high_bulk_min": 10.4678,
+        "high_bulk_max": 12.0434,
+        "high_fast_min": 10.9711,
+        "high_fast_max": 12.0606,
+        "high_return_min": -2.7157,
+        "high_return_max": 2.00347,
+        "vds_hi_scan": 27.8119,
+        "vds_lo_scan": 32.559
+      },
+      "nominal_high_resistive_6u": {
+        "high_bias_min": 4.88979,
+        "high_bias_max": 12.123,
+        "high_bulk_min": 10.4626,
+        "high_bulk_max": 12.0438,
+        "high_fast_min": 10.9685,
+        "high_fast_max": 12.0602,
+        "high_return_min": -2.70995,
+        "high_return_max": 2.01508,
+        "vds_hi_scan": 27.812,
+        "vds_lo_scan": 32.5532
+      }
+    }
+  }
+}

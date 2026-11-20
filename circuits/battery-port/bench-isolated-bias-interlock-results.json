@@ -1,0 +1,19 @@
+{
+  "inputs_sha256": {
+    "battery-port-leg-isolated-driver.kicad_sch": "a7b040c6e6ffc6c5057313b077a8f245c9d597c75c477556c63dbed31c26041f",
+    "isolated-bias-interlock.cir": "ce352bfe097951ec226e0208f8feb475d27c7056a08fadb92c6f4e5f6afcf73d",
+    "local_shutdown.lib": "540d8b659afd194750f399db678c32f705c5f16c2b21e524536729e9ec7c2d8e"
+  },
+  "measurements_v": {
+    "dis_at_powerup": 3.22889,
+    "dis_first_run": 0.0179002,
+    "dis_high_supply_loss": 3.22889,
+    "dis_high_supply_return": 3.22889,
+    "dis_high_fresh_arm": 0.0179002,
+    "dis_low_supply_loss": 3.22889,
+    "dis_low_supply_return": 3.22889,
+    "dis_low_fresh_arm": 0.0179002
+  },
+  "passed": true,
+  "nets_verified": 116
+}

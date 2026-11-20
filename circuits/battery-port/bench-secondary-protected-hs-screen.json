@@ -1,0 +1,81 @@
+{
+  "inputs_sha256": {
+    "bench-secondary-protected-impedance.json": "e6fa398196329e0180cde0d52cb20e9514885629fae3a6dbefe247a567448409",
+    "protected_layout_replay.py": "67e3b4810bd1bc670c4367c3f7c2cf3bab0f44fb0f40052bbb139b68fb243027"
+  },
+  "driver": "TI UCC27282 SLUM720",
+  "mosfet": "TI CSD19531Q5A SLPM077C",
+  "variants": {
+    "driver_pin_schottky_total_nh": 0.85,
+    "optional_hs_series_ohm": 2,
+    "routed": false
+  },
+  "cases": {
+    "hot_low_direct_plus_2ohm": {
+      "error": "e :  8.50429e-07\n Reference value :  8.50432e-07\n Reference value :  8.50432e-07\n Reference value :  8.50432e-07\n\nNo. of Data Rows : 3744\n\nTotal analysis time (seconds) = 11.8612\n\nTotal elapsed time (seconds) = 11.911 \n\nTotal DRAM available = 32669.977 MB.\nDRAM currently available = 10070.586 MB.\nMaximum ngspice program size =   17.887 MB.\nCurrent ngspice program size =   17.887 MB.\n\n\nNote: Starting dynamic gmin stepping\nNote: Dynamic gmin stepping completed\ndoAnalyses: TRAN:  Timestep too small; time = 8.50432e-07, timestep = 3.125e-22: trouble with node \"bus_tee\"\n\n\nrun simulation(s) aborted\n"
+    },
+    "nominal_high_direct_plus_2ohm": {
+      "min_boot": -0.72856,
+      "max_boot": 4.94704,
+      "min_hs": 6.05729,
+      "vds_hi_scan": 0.785896,
+      "vds_lo_scan": 57.787,
+      "boot_diode_a": 1.09168,
+      "current_after": 0.0119053
+    },
+    "nominal_high_direct": {
+      "min_boot": -1.00826,
+      "max_boot": 7.08654,
+      "min_hs": 3.89134,
+      "vds_hi_scan": 0.781896,
+      "vds_lo_scan": 57.5166,
+      "boot_diode_a": 1.7678,
+      "current_after": 0.00791054
+    },
+    "nominal_low_direct_plus_2ohm": {
+      "min_boot": 9.92535,
+      "max_boot": 13.1734,
+      "min_hs": -1.17068,
+      "vds_hi_scan": 49.8561,
+      "vds_lo_scan": 0.775091,
+      "boot_diode_a": 0.188592,
+      "current_after": 0.00110777
+    },
+    "hot_low_direct": {
+      "min_boot": 9.91628,
+      "max_boot": 13.37,
+      "min_hs": -1.80853,
+      "vds_hi_scan": 46.8758,
+      "vds_lo_scan": 0.635721,
+      "boot_diode_a": 0.266248,
+      "current_after": 3.50997e-05
+    },
+    "hot_high_direct": {
+      "min_boot": -0.817243,
+      "max_boot": 5.33188,
+      "min_hs": 5.9546,
+      "vds_hi_scan": 0.748049,
+      "vds_lo_scan": 60.6173,
+      "boot_diode_a": 2.14132,
+      "current_after": 0.017843
+    },
+    "hot_high_direct_plus_2ohm": {
+      "min_boot": -0.475153,
+      "max_boot": 4.00454,
+      "min_hs": 7.39911,
+      "vds_hi_scan": 0.739644,
+      "vds_lo_scan": 60.2838,
+      "boot_diode_a": 1.08211,
+      "current_after": 0.00714608
+    },
+    "nominal_low_direct": {
+      "min_boot": 9.58691,
+      "max_boot": 13.2489,
+      "min_hs": -2.14133,
+      "vds_hi_scan": 39.4816,
+      "vds_lo_scan": 0.64946,
+      "boot_diode_a": 0.321286,
+      "current_after": 0.00260406
+    }
+  }
+}

@@ -1,0 +1,233 @@
+{
+  "inputs_sha256": {
+    "battery-port-secondary-isolated-dfn-rear-bypass.kicad_pcb": "9c5fab0dc94294fec3e8fd0623a83b3e9677683b2c8c7a11e13088c29c5a16b1",
+    "bench-secondary-isolated-dfn-rear-bypass-impedance.json": "97a3e9c2d7e6b5190db5fc9569309edee75b1810f364291b97f65a27df1d6230",
+    "slum543.zip": "4f8f41c4fbe46585374a9dcefa9ad6b3eb738929e54b79469efa035cf69ed424",
+    "csd19531-ti.zip": "9d8c91380fba5b13173484b5775d5f2ef0bbd9d7ee9a49c66ea1c03bdf05cb13",
+    "bench-bootstrap-impedance.json": "0966e915591c6d65e1d16985a17fa1123098eb49a01bf14c58fefc705b9dfca5",
+    "bench-shunt-transfer.json": "a322a169b0d8a5f94d740a74fe7a24945a4dea02166abe48aa5db630f9f59cd9",
+    "bench-shunt-filter-results.json": "9513082e62009c395e2fb8d337d2af1ef4bc0b69967833290145c7f0fafc71fd",
+    "isolated-bench-driver.lib": "a8336b6a715aa495fcad45724b83794d09f13ab8dac6183760be2b49f17180bb",
+    "isolated_rear_bypass.py": "e7c0a0b3b2f01a48b61af83cf995ee336f8c0c9dc2d9ec4955318a1d987d167e",
+    "isolated_dfn_test.py": "1e7c403cda6e8418319acdfa77399b5621914056d1d1a66993756ae96ab96a61",
+    "isolated_bypass_test.py": "6c3115ac6c623ee80812af47d526373b085f572b1f6aa9a5be17218e14d84eb0",
+    "leg_receiver.lib": "11e0d3b7ed0316c669590dafdd8ebe49f510ade747e18785886066a052d2fe28",
+    "local_shutdown.lib": "540d8b659afd194750f399db678c32f705c5f16c2b21e524536729e9ec7c2d8e",
+    "protection.lib": "a4f70a24b51d60a593c0ebea5f5f950bdb52a443cadcb69473286e20b818f170",
+    "commutation_clamp.lib": "00c724e5bcdb89806044b8cd2d8988a5a7a826b9080c851fe1c162aeb2c20124",
+    "verify.py": "779094a9eaaeacb02a6413da0598ebd1c58fb78440b1a68a0135f3d6a97c179c",
+    "isolated_layout_replay.py": "1ba304ffc06a41e0516fb5e82654e349b4c37fd5f3dbbc8d23b6e7110ee61356",
+    "isolated_layout_extract.py": "c4ea15babda44242549e8cd3aa6560f460b184f00971efb5f2e5880e0dab0a87",
+    "isolated_driver_test.py": "814253eca632490855970597bfb9f253aae236a26007443525df2520ba1c36c2",
+    "isolated_clamp_test.py": "8f479acb54b22e5e910bf363f649685f96bae3f811b56a6e23a53286a8583f8e",
+    "driven_layout_replay.py": "8819e0852738be8627e06f988ffd9519477f3dd27fef639ae4ba7dba4035a5c8",
+    "compact_layout_replay.py": "de323e924f2abf01cb5c96efc9adf8878531e047bd13e47ee0de4b0ac7afe5d4",
+    "half_bridge_test.py": "82e146de965f152eadc2cc06a710da2add83f641d607d8f8f1602ff8cfe5d698",
+    "secondary_layout_replay.py": "a96de9ba1397cd4bdaf32bf18878ec711725a604d7e40e8b1507c799cc6e61df",
+    "local_shutdown_test.py": "754574665c660a9b256ccf6b6cba396c4d78ecae3684f7e86b0b03289519e9d2",
+    "leg_receiver_test.py": "ab6bcd699226799b4241861212d1436887e351b7cf29ae74ad25817819b4e1e6",
+    "shunt_filter_test.py": "8c9ee3d04e56719b30451782528fe72d291d18b8976d1dd593b55e978027687f"
+  },
+  "comparison_model_control": {
+    "disabled_start": 3.89415e-08,
+    "first_high": 11.9952,
+    "low_on": 11.9996,
+    "high_off": 2.25771e-06,
+    "low_rise": 2.31456e-06,
+    "did_disable": 0.000196327,
+    "before_bias_loss": 11.9975,
+    "gate_during_inhibit": -0.0249691,
+    "high_released": 3.89415e-08,
+    "rearmed_high": 11.9994,
+    "output_dead_time_ns": 56.85000000000014,
+    "checks": {
+      "operating_output_v_at_least_10": true,
+      "disabled_and_below_uvlo_at_most_0p1_v": true,
+      "transitions_do_not_overlap": true
+    },
+    "limitations": [
+      "No delayed restart after UVLO recovery is implemented.",
+      "No internal common-mode or isolation dynamics are modeled."
+    ],
+    "passed": true
+  },
+  "populated_unpopulated_and_model_screen": {
+    "temperature_c": 25,
+    "gear_initial_and_max_timestep_ps": 500,
+    "scope": "Same extracted copper. The unpopulated C207 case leaves its PCB paths and uses a 10 Gohm stand-in for an open capacitor.",
+    "dip_width_method": "Longest contiguous time below 9.2 V from accepted transient points with linear threshold interpolation.",
+    "cases": {
+      "nominal_low_short_populated_vendor": {
+        "vds_hi_scan": 47.3771,
+        "vds_lo_scan": 2.76111,
+        "high_bias_min": 7.02136,
+        "high_bias_max": 14.5177,
+        "clearing_ns": 243.46999999999989,
+        "passed": false,
+        "time_of_bias_min_ns": 3349.62273865,
+        "fast_cap_volts_at_bias_min": {
+          "front": 11.10522684673,
+          "rear": 11.41202180444
+        },
+        "bulk_volts_at_bias_min": 11.79969477845,
+        "longest_bias_dip_below_9p2v_ns": 0.10146217799757336
+      },
+      "nominal_low_short_open_vendor": {
+        "vds_hi_scan": 47.3819,
+        "vds_lo_scan": 2.76532,
+        "high_bias_min": 6.49895,
+        "high_bias_max": 15.1856,
+        "clearing_ns": 243.81999999999982,
+        "passed": false,
+        "time_of_bias_min_ns": 3349.621022188,
+        "fast_cap_volts_at_bias_min": {
+          "front": 11.04005452032,
+          "rear": 9.356288212317
+        },
+        "bulk_volts_at_bias_min": 11.23554781782,
+        "longest_bias_dip_below_9p2v_ns": 0.12346512478811253
+      },
+      "nominal_high_resistive_populated_compare": {
+        "vds_hi_scan": 27.5885,
+        "vds_lo_scan": 31.6744,
+        "high_bias_min": 11.3934,
+        "high_bias_max": 12.5868,
+        "passed": true,
+        "time_of_bias_min_ns": 4859.773039367,
+        "fast_cap_volts_at_bias_min": {
+          "front": 11.85886545454,
+          "rear": 11.89780750714
+        },
+        "bulk_volts_at_bias_min": 11.95359054527,
+        "longest_bias_dip_below_9p2v_ns": 0.0
+      },
+      "nominal_high_resistive_populated_vendor": {
+        "vds_hi_scan": 27.5849,
+        "vds_lo_scan": 31.8499,
+        "high_bias_min": 6.96953,
+        "high_bias_max": 12.081,
+        "passed": false,
+        "time_of_bias_min_ns": 4299.627274224999,
+        "fast_cap_volts_at_bias_min": {
+          "front": 11.09583035688,
+          "rear": 11.40446036383
+        },
+        "bulk_volts_at_bias_min": 11.79514930416,
+        "longest_bias_dip_below_9p2v_ns": 0.10176639231684723
+      },
+      "nominal_high_resistive_open_vendor": {
+        "vds_hi_scan": 27.5848,
+        "vds_lo_scan": 31.8208,
+        "high_bias_min": 6.42401,
+        "high_bias_max": 12.09,
+        "passed": false,
+        "time_of_bias_min_ns": 4299.618500177,
+        "fast_cap_volts_at_bias_min": {
+          "front": 11.02733723766,
+          "rear": 9.322704661511
+        },
+        "bulk_volts_at_bias_min": 11.22354935189,
+        "longest_bias_dip_below_9p2v_ns": 0.12676253112808336
+      },
+      "nominal_low_short_populated_compare": {
+        "vds_hi_scan": 47.5714,
+        "vds_lo_scan": 2.85065,
+        "high_bias_min": 11.425,
+        "high_bias_max": 12.596,
+        "clearing_ns": 250.58999999999992,
+        "passed": true,
+        "time_of_bias_min_ns": 3461.854269194,
+        "fast_cap_volts_at_bias_min": {
+          "front": 12.12718864966,
+          "rear": 11.98516363176
+        },
+        "bulk_volts_at_bias_min": 11.93464370045,
+        "longest_bias_dip_below_9p2v_ns": 0.0
+      }
+    }
+  },
+  "trapezoidal_500ps": {
+    "temperature_c": 25,
+    "initial_and_max_timestep_ps": 500,
+    "cases": {
+      "nominal_high_resistive_compare": {
+        "high_bias_min": 11.3961,
+        "high_bias_max": 12.6339,
+        "high_rear_min": 11.8463,
+        "vds_hi_scan": 38.3077,
+        "vds_lo_scan": 31.6801,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true
+      },
+      "nominal_high_resistive_vendor": {
+        "passed": false,
+        "error": "doAnalyses: TRAN:  Timestep too small; time = 4.01919e-06, timestep = 6.25e-22: trouble with xlow.xvendor:dbd-instance d.xlow.xvendor.dbd"
+      },
+      "nominal_high_short_compare": {
+        "high_bias_min": 11.7541,
+        "high_bias_max": 12.303,
+        "high_rear_min": 11.8611,
+        "vds_hi_scan": 2.97854,
+        "vds_lo_scan": 52.7166,
+        "clearing_ns": 250.33400000000006,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true
+      },
+      "nominal_high_short_vendor": {
+        "high_bias_min": 11.7494,
+        "high_bias_max": 12.3053,
+        "high_rear_min": 11.9035,
+        "vds_hi_scan": 2.86234,
+        "vds_lo_scan": 52.6989,
+        "clearing_ns": 241.45899999999997,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true
+      },
+      "nominal_low_short_compare": {
+        "high_bias_min": 11.4252,
+        "high_bias_max": 12.7104,
+        "high_rear_min": 11.8045,
+        "vds_hi_scan": 47.5912,
+        "vds_lo_scan": 2.84169,
+        "clearing_ns": 249.81999999999985,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true
+      },
+      "nominal_low_short_vendor": {
+        "high_bias_min": 8.24475,
+        "high_bias_max": 12.4696,
+        "high_rear_min": 11.5569,
+        "vds_hi_scan": 47.4415,
+        "vds_lo_scan": 2.76421,
+        "clearing_ns": 243.78999999999982,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": false
+      }
+    }
+  }
+}

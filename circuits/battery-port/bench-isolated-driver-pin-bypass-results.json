@@ -1,0 +1,172 @@
+{
+  "inputs_sha256": {
+    "bench-secondary-protected-impedance.json": "e6fa398196329e0180cde0d52cb20e9514885629fae3a6dbefe247a567448409",
+    "isolated_driver_test.py": "814253eca632490855970597bfb9f253aae236a26007443525df2520ba1c36c2",
+    "bench-isolated-driver-results.json": "34a72d36f9dada0fb2530538886af8759f4ef469b9282105e4f265228562f36f"
+  },
+  "model_archives_sha256": {
+    "slum543.zip": "4f8f41c4fbe46585374a9dcefa9ad6b3eb738929e54b79469efa035cf69ed424",
+    "csd19531-ti.zip": "9d8c91380fba5b13173484b5775d5f2ef0bbd9d7ee9a49c66ea1c03bdf05cb13"
+  },
+  "assumptions": {
+    "old_board_power_and_gate_branches": true,
+    "local_a_and_b_bypass": true,
+    "capacitors": [
+      {
+        "f": 2.2e-06,
+        "esl_h": 5.5e-10,
+        "esr_ohm": 0.03
+      },
+      {
+        "f": 1e-07,
+        "esl_h": 3.5e-10,
+        "esr_ohm": 0.03
+      }
+    ],
+    "symmetric_gate_resistors_ohm": [
+      4.7,
+      8.2
+    ],
+    "temperature_c": 25
+  },
+  "cases": {
+    "high_inductive_4p7ohm": {
+      "high_bias_min": 8.35476,
+      "high_bias_max": 12.6409,
+      "min_vdd": 11.9997,
+      "max_vdd": 11.9997,
+      "vds_hi_scan": 100.812,
+      "vds_lo_scan": 101.079,
+      "current_at_commutation": 2.48443,
+      "checks": {
+        "functional": true,
+        "both_output_biases_in_range": false,
+        "gate_magnitude_at_most_16_v": false,
+        "drain_at_most_54_v": false
+      },
+      "passed": false
+    },
+    "high_inductive_8p2ohm": {
+      "high_bias_min": 9.73495,
+      "high_bias_max": 12.3437,
+      "min_vdd": 11.9997,
+      "max_vdd": 11.9997,
+      "vds_hi_scan": 25.6288,
+      "vds_lo_scan": 100.928,
+      "current_at_commutation": 2.50835,
+      "checks": {
+        "functional": true,
+        "both_output_biases_in_range": true,
+        "gate_magnitude_at_most_16_v": true,
+        "drain_at_most_54_v": false
+      },
+      "passed": false
+    },
+    "high_resistive_4p7ohm": {
+      "high_bias_min": 9.70304,
+      "high_bias_max": 12.0249,
+      "min_vdd": 11.8684,
+      "max_vdd": 12.0013,
+      "vds_hi_scan": 28.4625,
+      "vds_lo_scan": 34.0827,
+      "checks": {
+        "functional": true,
+        "both_output_biases_in_range": true,
+        "gate_magnitude_at_most_16_v": true,
+        "drain_at_most_54_v": true
+      },
+      "passed": true
+    },
+    "high_resistive_8p2ohm": {
+      "high_bias_min": 9.71502,
+      "high_bias_max": 12.02,
+      "min_vdd": 11.8695,
+      "max_vdd": 12.0009,
+      "vds_hi_scan": 28.403,
+      "vds_lo_scan": 34.1405,
+      "checks": {
+        "functional": true,
+        "both_output_biases_in_range": true,
+        "gate_magnitude_at_most_16_v": true,
+        "drain_at_most_54_v": true
+      },
+      "passed": true
+    },
+    "high_short_4p7ohm": {
+      "high_bias_min": 10.1188,
+      "high_bias_max": 13.1571,
+      "min_vdd": 11.8684,
+      "max_vdd": 12.014,
+      "vds_hi_scan": 2.49057,
+      "vds_lo_scan": 101.241,
+      "current_after": 0.0378967,
+      "clearing_ns": 206.77999999999994,
+      "checks": {
+        "functional": true,
+        "both_output_biases_in_range": true,
+        "gate_magnitude_at_most_16_v": true,
+        "drain_at_most_54_v": false
+      },
+      "passed": false
+    },
+    "high_short_8p2ohm": {
+      "high_bias_min": 11.9277,
+      "high_bias_max": 12.12,
+      "min_vdd": 11.8695,
+      "max_vdd": 12.0069,
+      "vds_hi_scan": 2.57724,
+      "vds_lo_scan": 101.187,
+      "current_after": 0.0201494,
+      "clearing_ns": 215.6659999999999,
+      "checks": {
+        "functional": true,
+        "both_output_biases_in_range": true,
+        "gate_magnitude_at_most_16_v": true,
+        "drain_at_most_54_v": false
+      },
+      "passed": false
+    },
+    "low_inductive_4p7ohm": {
+      "error": "All normal-switching numerical profiles failed: {'gear_250ps': 'doAnalyses: TRAN:  Timestep too small; time = 3.35597e-06, timestep = 3.125e-22: trouble with node \"bus_tee\"', 'gear_125ps': 'doAnalyses: TRAN:  Timestep too small; time = 4.68771e-06, timestep = 1.5625e-22: trouble with node \"bus_tee\"', 'trapezoid_500ps': 'doAnalyses: TRAN:  Timestep too small; time = 3.35114e-06, timestep = 6.25e-22: trouble with node \"xisolated.n17110038\"'}"
+    },
+    "low_inductive_8p2ohm": {
+      "error": "All normal-switching numerical profiles failed: {'gear_250ps': 'doAnalyses: TRAN:  Timestep too small; time = 4.69387e-06, timestep = 3.125e-22: trouble with node \"xisolated.n17110038\"', 'gear_125ps': 'doAnalyses: TRAN:  Timestep too small; time = 4.69109e-06, timestep = 1.5625e-22: trouble with node \"bus_tee\"', 'trapezoid_500ps': 'doAnalyses: TRAN:  Timestep too small; time = 3.35092e-06, timestep = 6.25e-22: trouble with node \"bus_tee\"'}"
+    },
+    "low_resistive_4p7ohm": {
+      "high_bias_min": 11.9414,
+      "high_bias_max": 12.0248,
+      "min_vdd": 11.8649,
+      "max_vdd": 12.0018,
+      "vds_hi_scan": 31.8569,
+      "vds_lo_scan": 24.3827,
+      "checks": {
+        "functional": true,
+        "both_output_biases_in_range": true,
+        "gate_magnitude_at_most_16_v": true,
+        "drain_at_most_54_v": true
+      },
+      "passed": true
+    },
+    "low_resistive_8p2ohm": {
+      "high_bias_min": 11.9501,
+      "high_bias_max": 12.0205,
+      "min_vdd": 11.866,
+      "max_vdd": 12.0009,
+      "vds_hi_scan": 31.8669,
+      "vds_lo_scan": 24.3324,
+      "checks": {
+        "functional": true,
+        "both_output_biases_in_range": true,
+        "gate_magnitude_at_most_16_v": true,
+        "drain_at_most_54_v": true
+      },
+      "passed": true
+    },
+    "low_short_4p7ohm": {
+      "error": "program size =   18.410 MB.\nCurrent ngspice program size =   18.410 MB.\n\n\nWarning: Model issue on line 268 :\n  .model xisolated.x_m15:_mod nmos kp=2e-009 w=2.4 l=1e-008 vto=0 n=2.5 rg ...\nunrecognized parameter (n) - ignored\nunrecognized parameter (rg) - ignored\n\nWarning: Model issue on line 280 :\n  .model xisolated.x_m12:_mod nmos kp=2e-009 w=0.285 l=1e-008 vto=0 n=2.5 ...\nunrecognized parameter (n) - ignored\n\nWarning: Model issue on line 268 :\n  .model xisolated.x_m13:_mod nmos kp=2e-009 w=2.4 l=1e-008 vto=0 n=2.5 rg ...\nunrecognized parameter (n) - ignored\nunrecognized parameter (rg) - ignored\n\nWarning: Model issue on line 280 :\n  .model xisolated.x_m14:_mod nmos kp=2e-009 w=0.285 l=1e-008 vto=0 n=2.5 ...\nunrecognized parameter (n) - ignored\n\nNote: Starting dynamic gmin stepping\nNote: Dynamic gmin stepping completed\ndoAnalyses: TRAN:  Timestep too small; time = 3.34896e-06, timestep = 3.125e-22: trouble with xhigh.xvendor:dbd-instance d.xhigh.xvendor.dbd\n\n\nrun simulation(s) aborted\n"
+    },
+    "low_short_8p2ohm": {
+      "error": "ogram size =   18.359 MB.\nCurrent ngspice program size =   18.359 MB.\n\n\nWarning: Model issue on line 268 :\n  .model xisolated.x_m15:_mod nmos kp=2e-009 w=2.4 l=1e-008 vto=0 n=2.5 rg ...\nunrecognized parameter (n) - ignored\nunrecognized parameter (rg) - ignored\n\nWarning: Model issue on line 280 :\n  .model xisolated.x_m12:_mod nmos kp=2e-009 w=0.285 l=1e-008 vto=0 n=2.5 ...\nunrecognized parameter (n) - ignored\n\nWarning: Model issue on line 268 :\n  .model xisolated.x_m13:_mod nmos kp=2e-009 w=2.4 l=1e-008 vto=0 n=2.5 rg ...\nunrecognized parameter (n) - ignored\nunrecognized parameter (rg) - ignored\n\nWarning: Model issue on line 280 :\n  .model xisolated.x_m14:_mod nmos kp=2e-009 w=0.285 l=1e-008 vto=0 n=2.5 ...\nunrecognized parameter (n) - ignored\n\nNote: Starting dynamic gmin stepping\nNote: Dynamic gmin stepping completed\ndoAnalyses: TRAN:  Timestep too small; time = 3.34897e-06, timestep = 3.125e-22: trouble with xisolated.x_u33:dd-instance d.xisolated.x_u33.d1\n\n\nrun simulation(s) aborted\n"
+    }
+  }
+}

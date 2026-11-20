@@ -1,0 +1,492 @@
+{
+  "inputs_sha256": {
+    "battery-port-secondary-isolated-bypass.kicad_pcb": "67ab8c6310ad8213bbbdf0152ab22b2c5119c6823ff6635ead0603f107323fdd",
+    "bench-secondary-isolated-bypass-impedance.json": "2c6df1f62ffb426a1d60a54d635fae85b2678799fbd7d3b4ccc9ca054db478f2",
+    "bench-bootstrap-impedance.json": "0966e915591c6d65e1d16985a17fa1123098eb49a01bf14c58fefc705b9dfca5",
+    "bench-shunt-transfer.json": "a322a169b0d8a5f94d740a74fe7a24945a4dea02166abe48aa5db630f9f59cd9",
+    "bench-shunt-filter-results.json": "9513082e62009c395e2fb8d337d2af1ef4bc0b69967833290145c7f0fafc71fd",
+    "slum543.zip": "4f8f41c4fbe46585374a9dcefa9ad6b3eb738929e54b79469efa035cf69ed424",
+    "csd19531-ti.zip": "9d8c91380fba5b13173484b5775d5f2ef0bbd9d7ee9a49c66ea1c03bdf05cb13",
+    "isolated_layout_replay.py": "1ba304ffc06a41e0516fb5e82654e349b4c37fd5f3dbbc8d23b6e7110ee61356",
+    "isolated_bypass_test.py": "6c3115ac6c623ee80812af47d526373b085f572b1f6aa9a5be17218e14d84eb0",
+    "isolated_clamp_test.py": "8f479acb54b22e5e910bf363f649685f96bae3f811b56a6e23a53286a8583f8e",
+    "leg_receiver.lib": "11e0d3b7ed0316c669590dafdd8ebe49f510ade747e18785886066a052d2fe28",
+    "local_shutdown.lib": "540d8b659afd194750f399db678c32f705c5f16c2b21e524536729e9ec7c2d8e",
+    "protection.lib": "a4f70a24b51d60a593c0ebea5f5f950bdb52a443cadcb69473286e20b818f170",
+    "commutation_clamp.lib": "00c724e5bcdb89806044b8cd2d8988a5a7a826b9080c851fe1c162aeb2c20124",
+    "verify.py": "779094a9eaaeacb02a6413da0598ebd1c58fb78440b1a68a0135f3d6a97c179c",
+    "isolated_layout_extract.py": "c4ea15babda44242549e8cd3aa6560f460b184f00971efb5f2e5880e0dab0a87",
+    "isolated_driver_test.py": "814253eca632490855970597bfb9f253aae236a26007443525df2520ba1c36c2",
+    "protected_layout_extract.py": "1fcfa4bc38c8b404e403f720ee0db6a91f35e2b0e4bc05060ad8034e135a2a2d",
+    "protected_layout_replay.py": "67e3b4810bd1bc670c4367c3f7c2cf3bab0f44fb0f40052bbb139b68fb243027",
+    "driven_layout_replay.py": "8819e0852738be8627e06f988ffd9519477f3dd27fef639ae4ba7dba4035a5c8",
+    "compact_layout_replay.py": "de323e924f2abf01cb5c96efc9adf8878531e047bd13e47ee0de4b0ac7afe5d4",
+    "secondary_layout_replay.py": "a96de9ba1397cd4bdaf32bf18878ec711725a604d7e40e8b1507c799cc6e61df",
+    "commutation_clamp_test.py": "aa4ac9ddc8fbbd652371a82afd57ece75fd6acb88f93824fca61a450144c95db",
+    "local_shutdown_test.py": "754574665c660a9b256ccf6b6cba396c4d78ecae3684f7e86b0b03289519e9d2",
+    "leg_receiver_test.py": "ab6bcd699226799b4241861212d1436887e351b7cf29ae74ad25817819b4e1e6",
+    "half_bridge_test.py": "82e146de965f152eadc2cc06a710da2add83f641d607d8f8f1602ff8cfe5d698",
+    "shunt_filter_test.py": "8c9ee3d04e56719b30451782528fe72d291d18b8976d1dd593b55e978027687f"
+  },
+  "temperature_c": 25,
+  "gate_and_solver_sweeps": {
+    "gate_values_ohm": [
+      4.7,
+      15,
+      22
+    ],
+    "gate_sweep_description": "Replace only the commanded device gate resistor for each short. Keep the complementary gate resistor at 8.2 ohm. Use Gear with 250 ps initial and maximum time steps.",
+    "inductive_profiles": {
+      "tight_error": "Gear, 500 ps initial and maximum step, gmin=1e-10, itl4=150, trtol=2",
+      "gear1_diagnostic": "Gear order 1, 100 ps initial and maximum step, gmin=1e-10, itl4=150"
+    },
+    "cases": {
+      "nominal_high_short_rg_15": {
+        "vds_hi_scan": 2.7006,
+        "vds_lo_scan": 63.695,
+        "high_bias_min": 11.7343,
+        "high_bias_max": 12.3515,
+        "high_bulk_min": 11.9399,
+        "high_fast_min": 11.5742,
+        "high_return_min": -1.03732,
+        "high_return_max": 0.892624,
+        "clearing_ns": 226.9690000000001,
+        "peak_shunt": 134.971,
+        "current_after": 0.0250765,
+        "max_vgs_high": 0.511028,
+        "max_vgs_low": 9.84209,
+        "min_vgs_high": -0.696261,
+        "min_vgs_low": -0.459576,
+        "snubber_hi_j": 9.82702e-09,
+        "snubber_lo_j": 8.23723e-06,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "nominal_high_short_rg_22": {
+        "vds_hi_scan": 2.78664,
+        "vds_lo_scan": 59.7395,
+        "high_bias_min": 11.7548,
+        "high_bias_max": 12.2862,
+        "high_bulk_min": 11.9463,
+        "high_fast_min": 11.5996,
+        "high_return_min": -0.840215,
+        "high_return_max": 0.835211,
+        "clearing_ns": 239.8609999999999,
+        "peak_shunt": 139.194,
+        "current_after": 0.0291688,
+        "max_vgs_high": 0.524002,
+        "max_vgs_low": 8.91143,
+        "min_vgs_high": -0.711672,
+        "min_vgs_low": -3.40258e-05,
+        "snubber_hi_j": 9.91549e-09,
+        "snubber_lo_j": 6.74392e-06,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "nominal_high_short_rg_4p7": {
+        "vds_hi_scan": 2.42728,
+        "vds_lo_scan": 87.2034,
+        "high_bias_min": 11.6747,
+        "high_bias_max": 12.6064,
+        "high_bulk_min": 11.8998,
+        "high_fast_min": 11.5255,
+        "high_return_min": -3.78146,
+        "high_return_max": 3.28286,
+        "clearing_ns": 199.38799999999992,
+        "peak_shunt": 121.467,
+        "current_after": 0.0156045,
+        "max_vgs_high": 0.527308,
+        "max_vgs_low": 11.814,
+        "min_vgs_high": -1.05626,
+        "min_vgs_low": -5.11089,
+        "snubber_hi_j": 8.63005e-09,
+        "snubber_lo_j": 1.10007e-05,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "nominal_low_short_rg_15": {
+        "vds_hi_scan": 50.4331,
+        "vds_lo_scan": 2.76718,
+        "high_bias_min": 5.29691,
+        "high_bias_max": 23.6392,
+        "high_bulk_min": 10.5327,
+        "high_fast_min": 10.8088,
+        "high_return_min": -3.24127,
+        "high_return_max": 2.57166,
+        "clearing_ns": 232.14999999999998,
+        "peak_shunt": 138.179,
+        "current_after": 0.020246,
+        "max_vgs_high": 10.1901,
+        "max_vgs_low": 0.241424,
+        "min_vgs_high": -0.090192,
+        "min_vgs_low": -0.340206,
+        "snubber_hi_j": 5.8473e-06,
+        "snubber_lo_j": 8.20363e-09,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": false
+      },
+      "nominal_low_short_rg_22": {
+        "vds_hi_scan": 51.3919,
+        "vds_lo_scan": 2.84832,
+        "high_bias_min": 5.3138,
+        "high_bias_max": 21.0041,
+        "high_bulk_min": 10.5398,
+        "high_fast_min": 10.8154,
+        "high_return_min": -2.61555,
+        "high_return_max": 2.84045,
+        "clearing_ns": 243.8800000000002,
+        "peak_shunt": 142.266,
+        "current_after": 0.0201177,
+        "max_vgs_high": 9.22107,
+        "max_vgs_low": 0.182888,
+        "min_vgs_high": -0.069389,
+        "min_vgs_low": -0.332881,
+        "snubber_hi_j": 4.95091e-06,
+        "snubber_lo_j": 8.39985e-09,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": false
+      },
+      "nominal_low_short_rg_4p7": {
+        "vds_hi_scan": 100.241,
+        "vds_lo_scan": 2.45974,
+        "high_bias_min": 5.30954,
+        "high_bias_max": 14.0492,
+        "high_bulk_min": 10.5299,
+        "high_fast_min": 10.8045,
+        "high_return_min": -7.45871,
+        "high_return_max": 13.7509,
+        "clearing_ns": 204.0699999999999,
+        "peak_shunt": 123.216,
+        "current_after": 0.0175446,
+        "max_vgs_high": 12.1274,
+        "max_vgs_low": 1.96067,
+        "min_vgs_high": -4.41403,
+        "min_vgs_low": -1.34961,
+        "snubber_hi_j": 7.42997e-06,
+        "snubber_lo_j": 7.10625e-09,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "nominal_high_inductive_tight_error": {
+        "passed": false,
+        "error": "doAnalyses: TRAN:  Timestep too small; time = 4.68891e-06, timestep = 6.25e-22: trouble with node \"xisolated.n16672776\""
+      },
+      "nominal_low_inductive_gear1_diagnostic": {
+        "passed": false,
+        "error": "ngspice exceeded 180 seconds"
+      },
+      "nominal_low_inductive_tight_error": {
+        "passed": false,
+        "error": "ngspice exceeded 180 seconds"
+      },
+      "nominal_high_inductive_gear1_diagnostic": {
+        "passed": false,
+        "error": "doAnalyses: TRAN:  Timestep too small; time = 4.68664e-06, timestep = 1.25e-22: trouble with node \"xisolated.n16672776\""
+      }
+    }
+  },
+  "clamp_screen": {
+    "fit_parameter_order": [
+      "D1 knee V",
+      "D1 slope ohms",
+      "D2 knee V",
+      "D2 slope ohms",
+      "each TVS package nH"
+    ],
+    "moderate_standoff_parts": {
+      "D1": "3KDFN33A",
+      "D2": "5.0SMDJ28A"
+    },
+    "minimum_standoff_parts": {
+      "D1": "3KDFN30A",
+      "D2": "5.0SMDJ26A"
+    },
+    "description": "Replace the TVS junction fits on the same extracted PCB. Retain the prior assumed capacitances of 2.2 and 4.7 nF for D1 and D2. Use Gear with 250 ps initial and maximum time steps. Candidate footprints and package parasitics are provisional.",
+    "fit_parameters": {
+      "moderate_standoff": [
+        34.7,
+        0.1676829268292683,
+        34.4,
+        0.1,
+        1
+      ],
+      "minimum_standoff": [
+        31.5,
+        0.136551724137931,
+        31.9,
+        0.08571428571428574,
+        1
+      ],
+      "minimum_standoff_low_package_l": [
+        31.5,
+        0.136551724137931,
+        31.9,
+        0.08571428571428574,
+        0.5
+      ]
+    },
+    "cases": {
+      "high_short_minimum_standoff_low_package_l": {
+        "vds_hi_scan": 2.53837,
+        "vds_lo_scan": 59.9026,
+        "high_bias_min": 11.7439,
+        "high_bias_max": 12.367,
+        "clearing_ns": 218.358,
+        "peak_shunt": 127.322,
+        "current_after": 0.02391,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "high_short_moderate_standoff": {
+        "vds_hi_scan": 2.53946,
+        "vds_lo_scan": 66.7757,
+        "high_bias_min": 11.7439,
+        "high_bias_max": 12.4098,
+        "clearing_ns": 206.39699999999996,
+        "peak_shunt": 127.223,
+        "current_after": 0.0221644,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "high_short_minimum_standoff": {
+        "vds_hi_scan": 2.53946,
+        "vds_lo_scan": 65.6681,
+        "high_bias_min": 11.7439,
+        "high_bias_max": 12.3874,
+        "clearing_ns": 219.1970000000001,
+        "peak_shunt": 127.223,
+        "current_after": 0.0236729,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "low_short_minimum_standoff": {
+        "vds_hi_scan": 68.617,
+        "vds_lo_scan": 2.58715,
+        "high_bias_min": 5.34017,
+        "high_bias_max": 16.2456,
+        "clearing_ns": 244.12000000000003,
+        "peak_shunt": 128.874,
+        "current_after": 0.0151747,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "low_short_minimum_standoff_low_package_l": {
+        "vds_hi_scan": 72.071,
+        "vds_lo_scan": 2.57493,
+        "high_bias_min": 5.28212,
+        "high_bias_max": 20.6941,
+        "clearing_ns": 242.51000000000008,
+        "peak_shunt": 128.878,
+        "current_after": 0.0227995,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "low_short_moderate_standoff": {
+        "vds_hi_scan": 76.2233,
+        "vds_lo_scan": 2.58715,
+        "high_bias_min": 5.34017,
+        "high_bias_max": 16.2456,
+        "clearing_ns": 226.06,
+        "peak_shunt": 128.874,
+        "current_after": 0.00963345,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      }
+    }
+  },
+  "combined_screen": {
+    "high_side_gate_ohms": 15,
+    "low_side_gate_ohms": 22,
+    "description": "Repeat the same clamp variants with both gate resistors changed.",
+    "fit_parameters": {
+      "moderate_standoff": [
+        34.7,
+        0.1676829268292683,
+        34.4,
+        0.1,
+        1
+      ],
+      "minimum_standoff": [
+        31.5,
+        0.136551724137931,
+        31.9,
+        0.08571428571428574,
+        1
+      ],
+      "minimum_standoff_low_package_l": [
+        31.5,
+        0.136551724137931,
+        31.9,
+        0.08571428571428574,
+        0.5
+      ]
+    },
+    "cases": {
+      "high_short_moderate_standoff": {
+        "vds_hi_scan": 2.78905,
+        "vds_lo_scan": 50.4741,
+        "high_bias_min": 11.759,
+        "high_bias_max": 12.2356,
+        "clearing_ns": 235.13000000000008,
+        "peak_shunt": 139.312,
+        "current_after": 0.0309313,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true,
+        "device_energy_j": 0.000137613,
+        "snubber_hi_j": 8.27866e-09,
+        "snubber_lo_j": 4.92757e-06,
+        "tvs_j": 0.000101955
+      },
+      "high_short_minimum_standoff_low_package_l": {
+        "vds_hi_scan": 2.79062,
+        "vds_lo_scan": 46.1378,
+        "high_bias_min": 11.758,
+        "high_bias_max": 12.1843,
+        "clearing_ns": 248.1009999999999,
+        "peak_shunt": 139.573,
+        "current_after": 0.0328952,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true
+      },
+      "high_short_minimum_standoff": {
+        "vds_hi_scan": 2.78905,
+        "vds_lo_scan": 46.7896,
+        "high_bias_min": 11.759,
+        "high_bias_max": 12.2039,
+        "clearing_ns": 248.9400000000001,
+        "peak_shunt": 139.312,
+        "current_after": 0.0337152,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true
+      },
+      "low_short_minimum_standoff": {
+        "vds_hi_scan": 44.5337,
+        "vds_lo_scan": 2.76819,
+        "high_bias_min": 5.29677,
+        "high_bias_max": 23.8964,
+        "clearing_ns": 262.47,
+        "peak_shunt": 138.201,
+        "current_after": 0.0230413,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": false
+      },
+      "low_short_moderate_standoff": {
+        "vds_hi_scan": 47.5393,
+        "vds_lo_scan": 2.76819,
+        "high_bias_min": 5.29677,
+        "high_bias_max": 23.8964,
+        "clearing_ns": 244.15000000000003,
+        "peak_shunt": 138.201,
+        "current_after": 0.025242,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": false,
+        "device_energy_j": 0.00012384,
+        "snubber_hi_j": 5.33679e-06,
+        "snubber_lo_j": 7.72203e-09,
+        "tvs_j": 0.0
+      },
+      "low_short_minimum_standoff_low_package_l": {
+        "vds_hi_scan": 43.662,
+        "vds_lo_scan": 2.74987,
+        "high_bias_min": 5.29273,
+        "high_bias_max": 25.8658,
+        "clearing_ns": 260.63999999999993,
+        "peak_shunt": 137.583,
+        "current_after": 0.0231047,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": false
+      }
+    },
+    "device_energy_j_definition": "Integral of max(0, terminal VDS times terminal drain current) for the commanded MOSFET over the existing fault observation window."
+  }
+}

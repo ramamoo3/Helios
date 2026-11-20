@@ -1,0 +1,29 @@
+Helios isolated driver rail feedback and re-arm contract
+.include local_shutdown.lib
+Vcc vcci 0 3.3
+Vgood good 0 3.3
+* These inputs represent supervisor outputs after their threshold and delay.
+Va a_ok 0 PWL(0 0 200n 0 210n 3.3 1.4u 3.3 1.41u 0 1.75u 0 1.76u 3.3)
+Vb b_ok 0 PWL(0 3.3 3.6u 3.3 3.61u 0 3.9u 0 3.91u 3.3)
+Varm arm 0 PWL(0 0 500n 0 510n 3.3 600n 3.3 610n 0
++ 2.30u 0 2.31u 3.3 2.40u 3.3 2.41u 0
++ 4.30u 0 4.31u 3.3 4.40u 3.3 4.41u 0)
+Vrun run 0 PWL(0 0 800n 0 810n 3.3 2.05u 3.3 2.06u 0
++ 2.65u 0 2.66u 3.3 4.10u 3.3 4.11u 0 4.70u 0 4.71u 3.3)
+Brails rails_ok 0 V={v(vcci)*(v(a_ok)>2 && v(b_ok)>2)}
+Xlatch good good rails_ok arm run good good ready run_permit BRIDGE_LOCAL_SHUTDOWN
+Benable driver_ready 0 V={v(vcci)*(v(rails_ok)>2 && v(run_permit)>2)}
+Rdis vcci dis 2.2k
+Rinput dis 0 100k
+Sdisable dis 0 driver_ready 0 OPENDRAIN
+.model OPENDRAIN SW(Ron=12 Roff=100meg Vt=1.65 Vh=0.15)
+.tran 250p 5.2u 0 250p
+.meas tran dis_at_powerup FIND v(dis) at=100n
+.meas tran dis_first_run FIND v(dis) at=1.2u
+.meas tran dis_high_supply_loss FIND v(dis) at=1.55u
+.meas tran dis_high_supply_return FIND v(dis) at=1.95u
+.meas tran dis_high_fresh_arm FIND v(dis) at=3u
+.meas tran dis_low_supply_loss FIND v(dis) at=3.75u
+.meas tran dis_low_supply_return FIND v(dis) at=4.02u
+.meas tran dis_low_fresh_arm FIND v(dis) at=5u
+.end

@@ -1,0 +1,147 @@
+{
+  "inputs_sha256": {
+    "battery-port-secondary-isolated-routed.kicad_pcb": "840c72e45c27e580da0e56822a97e1a0ac1b97f089509df60f319e5e7bdd671f",
+    "bench-secondary-isolated-routed-impedance.json": "0527d6cd4c82f954232dd919d42cc1255ad4d7c1e52feaaf2301be31b5fb09ad",
+    "bench-secondary-isolated-routed-replay.json": "f9b6decf103b1766f9ea01c4114301939360488bcedd608b46a0f3dd924f08b7",
+    "isolated_layout_replay.py": "b7d20cfb67e6ae27c27cf7363754337d35892d7603c1e5c1d33ca26e95ee8740"
+  },
+  "driver_copy_sha256": "33eec0bdc5360be3d3b7d421e2051a15b6aca7f3915167ee0664ceb2cd68dd48",
+  "nominal_short_solver_profiles": {
+    "nominal_high_short_gear_500p": {
+      "vds_hi_scan": 2.54874,
+      "vds_lo_scan": 74.0621,
+      "high_bias_min": 11.8387,
+      "high_bias_max": 12.2759,
+      "min_vdd": 11.8209,
+      "max_vdd": 12.2896,
+      "clearing_ns": 210.30399999999992,
+      "current_after": 0.0192763,
+      "tvs_peak_terminal_a": 51.5148,
+      "high_tvs_terminal_a": 8.12091,
+      "checks": {
+        "functional": true,
+        "both_output_biases_in_range": true,
+        "gate_magnitude_at_most_16_v": true,
+        "drain_at_most_54_v": false
+      },
+      "passed": false
+    },
+    "nominal_low_short_gear_500p": {
+      "vds_hi_scan": 94.512,
+      "vds_lo_scan": 2.6056,
+      "high_bias_min": 8.33971,
+      "high_bias_max": 14.0,
+      "min_vdd": 11.8728,
+      "max_vdd": 12.2587,
+      "clearing_ns": 208.95999999999978,
+      "current_after": 0.0176074,
+      "tvs_peak_terminal_a": 1.50722,
+      "high_tvs_terminal_a": 55.6081,
+      "checks": {
+        "functional": true,
+        "both_output_biases_in_range": false,
+        "gate_magnitude_at_most_16_v": true,
+        "drain_at_most_54_v": false
+      },
+      "passed": false
+    },
+    "nominal_low_short_trap_500p": {
+      "error": "doAnalyses: TRAN:  Timestep too small; time = 3.54817e-06, timestep = 6.25e-22: trouble with xisolated.x_u35:dd-instance d.xisolated.x_u35.d1"
+    },
+    "nominal_low_short_gear_125p": {
+      "vds_hi_scan": 94.9757,
+      "vds_lo_scan": 2.61174,
+      "high_bias_min": 4.91109,
+      "high_bias_max": 30.3155,
+      "min_vdd": 11.8717,
+      "max_vdd": 12.2652,
+      "clearing_ns": 209.00000000000003,
+      "current_after": 0.00769351,
+      "tvs_peak_terminal_a": 1.49675,
+      "high_tvs_terminal_a": 55.7885,
+      "checks": {
+        "functional": true,
+        "both_output_biases_in_range": false,
+        "gate_magnitude_at_most_16_v": true,
+        "drain_at_most_54_v": false
+      },
+      "passed": false
+    },
+    "nominal_high_short_gear_125p": {
+      "vds_hi_scan": 2.54633,
+      "vds_lo_scan": 74.2035,
+      "high_bias_min": 11.8355,
+      "high_bias_max": 12.3209,
+      "min_vdd": 11.8207,
+      "max_vdd": 12.2836,
+      "clearing_ns": 209.72500000000002,
+      "current_after": 0.0227819,
+      "tvs_peak_terminal_a": 51.6527,
+      "high_tvs_terminal_a": 8.179,
+      "checks": {
+        "functional": true,
+        "both_output_biases_in_range": true,
+        "gate_magnitude_at_most_16_v": true,
+        "drain_at_most_54_v": false
+      },
+      "passed": false
+    },
+    "nominal_high_short_trap_500p": {
+      "error": "doAnalyses: TRAN:  Timestep too small; time = 1.00177e-06, timestep = 1.39877e-21: trouble with xisolated.x_u35:dd-instance d.xisolated.x_u35.d1"
+    }
+  },
+  "hot_stimulus_with_driver_macro_device_temperature_fixed_at_25_c": {
+    "hot_low_short": {
+      "vds_hi_scan": 84.6665,
+      "vds_lo_scan": 2.74884,
+      "high_bias_min": 6.51545,
+      "high_bias_max": 17.7163,
+      "min_vdd": 11.5778,
+      "max_vdd": 11.9266,
+      "clearing_ns": 236.35999999999973,
+      "current_after": 0.0198429,
+      "checks": {
+        "functional": true,
+        "both_output_biases_in_range": false,
+        "gate_magnitude_at_most_16_v": true,
+        "drain_at_most_54_v": false
+      },
+      "passed": false
+    },
+    "hot_high_short": {
+      "vds_hi_scan": 2.72005,
+      "vds_lo_scan": 71.1146,
+      "high_bias_min": 11.5212,
+      "high_bias_max": 11.949,
+      "min_vdd": 11.5265,
+      "max_vdd": 11.9245,
+      "clearing_ns": 217.42400000000006,
+      "current_after": 0.0379373,
+      "checks": {
+        "functional": true,
+        "both_output_biases_in_range": true,
+        "gate_magnitude_at_most_16_v": true,
+        "drain_at_most_54_v": false
+      },
+      "passed": false
+    },
+    "hot_high_resistive": {
+      "vds_hi_scan": 28.0402,
+      "vds_lo_scan": 32.2929,
+      "high_bias_min": 6.45586,
+      "high_bias_max": 11.8146,
+      "min_vdd": 11.5268,
+      "max_vdd": 11.7362,
+      "checks": {
+        "functional": true,
+        "both_output_biases_in_range": false,
+        "gate_magnitude_at_most_16_v": true,
+        "drain_at_most_54_v": true
+      },
+      "passed": false
+    },
+    "hot_low_resistive": {
+      "error": "doAnalyses: TRAN:  Timestep too small; time = 3.3549e-06, timestep = 3.125e-22: trouble with xlow.xvendor:dbd-instance d.xlow.xvendor.dbd"
+    }
+  }
+}

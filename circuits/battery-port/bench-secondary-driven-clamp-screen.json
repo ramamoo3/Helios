@@ -1,0 +1,104 @@
+{
+  "inputs_sha256": {
+    "battery-port-secondary-driven.kicad_pcb": "75f269e0bc7fa19f538682d31035f4dd957cfa318ec2d77f4c8e2edc1ff7901f",
+    "bench-secondary-driven-impedance.json": "ab2c800493bc1bae547828bd702c6bb2ca5a25cb044fdb310a302f659f91eab8",
+    "bench-secondary-driven-replay.json": "80891af8ee9b5b38c01582532afc0b44ffc3ab9542b1018a8e4d78c83c08d789"
+  },
+  "driver": "TI UCC27282 SLUM720",
+  "mosfet": "TI CSD19531Q5A SLPM077C",
+  "added_high_tvs": {
+    "model": "BENCH_TVS",
+    "nodes": [
+      "drainh",
+      "sourceh"
+    ],
+    "total_loop_inductance_nh": [
+      2.5,
+      4.0
+    ],
+    "same_clamp_parameters_as_low_side": true,
+    "routed": false
+  },
+  "cases": {
+    "nominal_low_clamp_2p5n": {
+      "vds_hi_scan": 38.2521,
+      "vds_lo_scan": 0.631056,
+      "min_hs": -1.34427,
+      "min_boot": 9.59917,
+      "max_boot": 14.3186,
+      "clearing_ns": 83.39000000000006,
+      "interrupted_with_request_high": true,
+      "tvs_high_j": 1.06393e-05
+    },
+    "nominal_low_clamp_4p0n": {
+      "vds_hi_scan": 36.2017,
+      "vds_lo_scan": 0.594432,
+      "min_hs": -1.52751,
+      "min_boot": 9.61958,
+      "max_boot": 14.3112,
+      "clearing_ns": 81.84999999999991,
+      "interrupted_with_request_high": true,
+      "tvs_high_j": 8.75488e-06
+    },
+    "nominal_high_clamp_2p5n": {
+      "vds_hi_scan": 0.783009,
+      "vds_lo_scan": 59.6778,
+      "min_hs": 6.56185,
+      "min_boot": -1.43803,
+      "max_boot": 4.44883,
+      "clearing_ns": 177.891,
+      "interrupted_with_request_high": true,
+      "tvs_high_j": 0.0
+    },
+    "nominal_high_clamp_4p0n": {
+      "vds_hi_scan": 0.774301,
+      "vds_lo_scan": 60.0628,
+      "min_hs": 6.60658,
+      "min_boot": -1.45154,
+      "max_boot": 4.42037,
+      "clearing_ns": 177.86999999999995,
+      "interrupted_with_request_high": true,
+      "tvs_high_j": 0.0
+    },
+    "hot_low_clamp_2p5n": {
+      "vds_hi_scan": 47.9042,
+      "vds_lo_scan": 0.633419,
+      "min_hs": -3.07031,
+      "min_boot": 7.7237,
+      "max_boot": 14.7278,
+      "clearing_ns": 199.3900000000003,
+      "interrupted_with_request_high": true,
+      "tvs_high_j": 1.37113e-05
+    },
+    "hot_low_clamp_4p0n": {
+      "vds_hi_scan": 42.0268,
+      "vds_lo_scan": 0.59047,
+      "min_hs": -3.25509,
+      "min_boot": 8.61803,
+      "max_boot": 14.7158,
+      "clearing_ns": 202.4200000000001,
+      "interrupted_with_request_high": true,
+      "tvs_high_j": 1.57278e-05
+    },
+    "hot_high_clamp_2p5n": {
+      "vds_hi_scan": 0.76769,
+      "vds_lo_scan": 57.4531,
+      "min_hs": 7.793,
+      "min_boot": -1.49787,
+      "max_boot": 3.63834,
+      "clearing_ns": 170.52899999999994,
+      "interrupted_with_request_high": true,
+      "tvs_high_j": 0.0
+    },
+    "hot_high_clamp_4p0n": {
+      "vds_hi_scan": 0.793384,
+      "vds_lo_scan": 58.5816,
+      "min_hs": 7.61516,
+      "min_boot": -1.49727,
+      "max_boot": 3.72866,
+      "clearing_ns": 159.35099999999994,
+      "interrupted_with_request_high": true,
+      "tvs_high_j": 0.0
+    }
+  }
+}

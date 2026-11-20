@@ -1,0 +1,395 @@
+{
+  "scope": "Open-loop cross-check with recorded input pin voltages. Protection logic is evaluated only in the ngspice capture.",
+  "pwl_voltage_tolerance_v": 0.005,
+  "maximum_step_ps": 500,
+  "xyce_timeout_per_deck_s": 60,
+  "scheduler_command_gap_ns": 200,
+  "xyce_version": "XyceNF Release 7.10.0",
+  "inputs_sha256": {
+    "battery-port-secondary-isolated-dfn-rear-bypass.kicad_pcb": "9c5fab0dc94294fec3e8fd0623a83b3e9677683b2c8c7a11e13088c29c5a16b1",
+    "bench-secondary-isolated-dfn-rear-bypass-impedance.json": "97a3e9c2d7e6b5190db5fc9569309edee75b1810f364291b97f65a27df1d6230",
+    "isolated_xyce_replay.py": "0be83b9b320b283db735b00adec97961887f39f2d426439ea61914ef60305c76",
+    "isolated_rear_bypass.py": "e7c0a0b3b2f01a48b61af83cf995ee336f8c0c9dc2d9ec4955318a1d987d167e",
+    "slum543.zip": "4f8f41c4fbe46585374a9dcefa9ad6b3eb738929e54b79469efa035cf69ed424",
+    "csd19531-ti.zip": "9d8c91380fba5b13173484b5775d5f2ef0bbd9d7ee9a49c66ea1c03bdf05cb13",
+    "leg_receiver.lib": "11e0d3b7ed0316c669590dafdd8ebe49f510ade747e18785886066a052d2fe28",
+    "local_shutdown.lib": "540d8b659afd194750f399db678c32f705c5f16c2b21e524536729e9ec7c2d8e",
+    "protection.lib": "a4f70a24b51d60a593c0ebea5f5f950bdb52a443cadcb69473286e20b818f170",
+    "commutation_clamp.lib": "00c724e5bcdb89806044b8cd2d8988a5a7a826b9080c851fe1c162aeb2c20124",
+    "bench-bootstrap-impedance.json": "0966e915591c6d65e1d16985a17fa1123098eb49a01bf14c58fefc705b9dfca5",
+    "bench-shunt-transfer.json": "a322a169b0d8a5f94d740a74fe7a24945a4dea02166abe48aa5db630f9f59cd9",
+    "bench-shunt-filter-results.json": "9513082e62009c395e2fb8d337d2af1ef4bc0b69967833290145c7f0fafc71fd",
+    "isolated_dfn_test.py": "1e7c403cda6e8418319acdfa77399b5621914056d1d1a66993756ae96ab96a61",
+    "isolated_bypass_test.py": "6c3115ac6c623ee80812af47d526373b085f572b1f6aa9a5be17218e14d84eb0",
+    "isolated_driver_test.py": "814253eca632490855970597bfb9f253aae236a26007443525df2520ba1c36c2",
+    "isolated_layout_replay.py": "1ba304ffc06a41e0516fb5e82654e349b4c37fd5f3dbbc8d23b6e7110ee61356",
+    "bench-startup.h": "665c885ec02e84396031ee2bf3caa948b6059a708a1dd112c2aaf05d325a517c"
+  },
+  "controls": {
+    "ngspice_driver": {
+      "completed": true,
+      "measures": {
+        "disabled_start": 1.32507e-11,
+        "first_high": 11.9965,
+        "low_on": 12.0,
+        "high_off": 2.24946e-06,
+        "low_rise": 2.33136e-06,
+        "did_disable": 0.000374118,
+        "before_bias_loss": 11.9983,
+        "gate_during_inhibit": 6.55598e-12,
+        "high_released": 1.32232e-11,
+        "rearmed_high": 11.9997
+      },
+      "threshold_non_overlap_ns": 81.9
+    },
+    "ngspice_driver_scheduler_gap": {
+      "completed": true,
+      "measures": {
+        "disabled_start": 1.32507e-11,
+        "first_high": 11.9965,
+        "low_on": 12.0,
+        "high_off": 2.24964e-06,
+        "low_rise": 2.42718e-06,
+        "low_off": 3.14964e-06,
+        "high_rise": 3.32718e-06
+      },
+      "threshold_non_overlap_ns": 177.54000000000025,
+      "reverse_threshold_non_overlap_ns": 177.53999999999982
+    },
+    "ngspice_mosfet": {
+      "completed": true,
+      "measures": {
+        "on_drop": 0.0129767,
+        "off_voltage": 24.0
+      }
+    },
+    "xyce_mosfet_default": {
+      "completed": false,
+      "measures": {
+        "on_drop": 0.01346211,
+        "off_voltage": 24.0
+      },
+      "last_printed_time_s": 1.12208787e-06,
+      "error": "Time step too small near step number: 253  Exiting transient loop.",
+      "failed_measures": [],
+      "ignored_vendor_parameters": []
+    },
+    "xyce_mosfet_gear": {
+      "completed": true,
+      "measures": {
+        "on_drop": 0.01297673,
+        "off_voltage": 24.0
+      },
+      "ignored_vendor_parameters": [],
+      "static_control_matches_ngspice": true
+    },
+    "gear_lte_scheduler_gap": {
+      "completed": false,
+      "measures": {
+        "disabled_start": 1.581879e-11
+      },
+      "last_printed_time_s": 1.32807154e-06,
+      "error": "Time step too small near step number: 749  Exiting transient loop.",
+      "failed_measures": [
+        "first_high",
+        "low_on",
+        "high_off",
+        "low_rise",
+        "low_off",
+        "high_rise"
+      ],
+      "ignored_vendor_parameters": [
+        "N",
+        "RG"
+      ]
+    },
+    "gear_lte": {
+      "completed": false,
+      "measures": {
+        "disabled_start": 1.581879e-11
+      },
+      "last_printed_time_s": 1.32807154e-06,
+      "error": "Time step too small near step number: 749  Exiting transient loop.",
+      "failed_measures": [
+        "first_high",
+        "low_on",
+        "high_off",
+        "low_rise",
+        "did_disable",
+        "before_bias_loss",
+        "gate_during_inhibit",
+        "high_released",
+        "rearmed_high"
+      ],
+      "ignored_vendor_parameters": [
+        "N",
+        "RG"
+      ]
+    },
+    "gear_nonlinear_scheduler_gap": {
+      "completed": true,
+      "measures": {
+        "disabled_start": 1.581663e-11,
+        "first_high": 11.99647,
+        "low_on": 12.0,
+        "high_off": 2.251213e-06,
+        "low_rise": 2.427803e-06,
+        "low_off": 3.151215e-06,
+        "high_rise": 3.327804e-06
+      },
+      "ignored_vendor_parameters": [
+        "N",
+        "RG"
+      ],
+      "threshold_non_overlap_ns": 176.5900000000003,
+      "reverse_threshold_non_overlap_ns": 176.58899999999963
+    },
+    "trap_nonlinear_scheduler_gap": {
+      "completed": true,
+      "measures": {
+        "disabled_start": 1.581786e-11,
+        "first_high": 11.99645,
+        "low_on": 12.0,
+        "high_off": 2.251074e-06,
+        "low_rise": 2.427817e-06,
+        "low_off": 3.151039e-06,
+        "high_rise": 3.327817e-06
+      },
+      "ignored_vendor_parameters": [
+        "N",
+        "RG"
+      ],
+      "threshold_non_overlap_ns": 176.74300000000005,
+      "reverse_threshold_non_overlap_ns": 176.77799999999996
+    },
+    "trap_nonlinear": {
+      "completed": true,
+      "measures": {
+        "disabled_start": 1.581786e-11,
+        "first_high": 11.99645,
+        "low_on": 12.0,
+        "high_off": 2.250655e-06,
+        "low_rise": 2.247168e-06,
+        "did_disable": 0.000413818,
+        "before_bias_loss": 11.99823,
+        "gate_during_inhibit": 7.844415e-12,
+        "high_released": 1.594664e-11,
+        "rearmed_high": 11.9997
+      },
+      "ignored_vendor_parameters": [
+        "N",
+        "RG"
+      ],
+      "threshold_non_overlap_ns": -3.487000000000328
+    },
+    "gear_nonlinear": {
+      "completed": true,
+      "measures": {
+        "disabled_start": 1.581663e-11,
+        "first_high": 11.99647,
+        "low_on": 12.0,
+        "high_off": 2.250693e-06,
+        "low_rise": 2.247136e-06,
+        "did_disable": 0.0004316826,
+        "before_bias_loss": 11.99824,
+        "gate_during_inhibit": 7.84945e-12,
+        "high_released": 1.58109e-11,
+        "rearmed_high": 11.9997
+      },
+      "ignored_vendor_parameters": [
+        "N",
+        "RG"
+      ],
+      "threshold_non_overlap_ns": -3.556999999999719
+    }
+  },
+  "cases": {
+    "nominal_high_resistive": {
+      "capture_completed": true,
+      "input_rows": 12326,
+      "pwl_points_dis_hi_lo": [
+        4,
+        75,
+        40
+      ],
+      "closed_loop_ngspice_500ps": {
+        "high_bias_min": 6.96953,
+        "high_bias_max": 12.081,
+        "high_rear_min": 11.4045,
+        "min_vdd": 11.8427,
+        "max_vdd": 12.0297,
+        "vds_hi_scan": 27.5849,
+        "vds_lo_scan": 31.8499,
+        "max_vgs_high": 11.9845,
+        "max_vgs_low": 11.9685,
+        "min_vgs_high": -0.102803,
+        "min_vgs_low": -0.063894,
+        "peak_shunt": 6.5856
+      },
+      "xyce": {
+        "gear_lte": {
+          "completed": false,
+          "measures": {},
+          "last_printed_time_s": 4.11604475e-08,
+          "error": "Xyce exceeded 60 seconds",
+          "failed_measures": [],
+          "ignored_vendor_parameters": [
+            "N",
+            "RG"
+          ]
+        },
+        "gear_nonlinear": {
+          "completed": false,
+          "measures": {},
+          "last_printed_time_s": 4.72116699e-08,
+          "error": "Xyce exceeded 60 seconds",
+          "failed_measures": [],
+          "ignored_vendor_parameters": [
+            "N",
+            "RG"
+          ]
+        }
+      },
+      "ngspice_replay": {
+        "completed": true,
+        "high_bias_min": 6.18378,
+        "high_bias_max": 12.1571,
+        "high_rear_min": 11.3183,
+        "min_vdd": 11.8435,
+        "max_vdd": 12.0297,
+        "vds_hi_scan": 27.5869,
+        "vds_lo_scan": 31.8277,
+        "max_vgs_high": 11.9845,
+        "max_vgs_low": 11.9629,
+        "min_vgs_high": -0.16887,
+        "min_vgs_low": -0.0649215,
+        "peak_shunt": 6.58141
+      }
+    },
+    "nominal_high_short": {
+      "capture_completed": true,
+      "input_rows": 8405,
+      "pwl_points_dis_hi_lo": [
+        4,
+        2,
+        40
+      ],
+      "closed_loop_ngspice_500ps": {
+        "high_bias_min": 11.7524,
+        "high_bias_max": 12.2986,
+        "high_rear_min": 11.9038,
+        "min_vdd": 11.8423,
+        "max_vdd": 12.1176,
+        "vds_hi_scan": 2.85589,
+        "vds_lo_scan": 52.6821,
+        "max_vgs_high": 0.416323,
+        "max_vgs_low": 8.60175,
+        "min_vgs_high": -0.403539,
+        "min_vgs_low": -8.96229e-08,
+        "peak_shunt": 142.763,
+        "device_energy_j": 0.000147863,
+        "current_rise_1a": 8.8048e-07,
+        "current_fall_1a": 1.12089e-06,
+        "current_after": 0.0343447
+      },
+      "xyce": {
+        "gear_lte": {
+          "completed": false,
+          "measures": {},
+          "last_printed_time_s": 4.14379631e-08,
+          "error": "Xyce exceeded 60 seconds",
+          "failed_measures": [],
+          "ignored_vendor_parameters": [
+            "N",
+            "RG"
+          ]
+        },
+        "gear_nonlinear": {
+          "completed": false,
+          "measures": {},
+          "last_printed_time_s": 4.76726074e-08,
+          "error": "Xyce exceeded 60 seconds",
+          "failed_measures": [],
+          "ignored_vendor_parameters": [
+            "N",
+            "RG"
+          ]
+        }
+      },
+      "ngspice_replay": {
+        "completed": false,
+        "error": "doAnalyses: TRAN:  Timestep too small; time = 8.49575e-07, timestep = 6.25e-22: trouble with node \"xisolated.g_abm2i1_int1\""
+      }
+    },
+    "nominal_low_short": {
+      "capture_completed": true,
+      "input_rows": 8530,
+      "pwl_points_dis_hi_lo": [
+        4,
+        39,
+        2
+      ],
+      "closed_loop_ngspice_500ps": {
+        "high_bias_min": 7.02136,
+        "high_bias_max": 14.5177,
+        "high_rear_min": 11.412,
+        "min_vdd": 11.8877,
+        "max_vdd": 12.1245,
+        "vds_hi_scan": 47.3771,
+        "vds_lo_scan": 2.76111,
+        "max_vgs_high": 10.224,
+        "max_vgs_low": 0.277341,
+        "min_vgs_high": -0.160521,
+        "min_vgs_low": -0.235802,
+        "peak_shunt": 138.048,
+        "device_energy_j": 0.000124007,
+        "current_rise_1a": 3.36984e-06,
+        "current_fall_1a": 3.61331e-06,
+        "current_after": 0.0200515
+      },
+      "xyce": {
+        "gear_lte": {
+          "completed": false,
+          "measures": {},
+          "last_printed_time_s": 4.31521108e-08,
+          "error": "Xyce exceeded 60 seconds",
+          "failed_measures": [],
+          "ignored_vendor_parameters": [
+            "N",
+            "RG"
+          ]
+        },
+        "gear_nonlinear": {
+          "completed": false,
+          "measures": {},
+          "last_printed_time_s": 4.97878418e-08,
+          "error": "Xyce exceeded 60 seconds",
+          "failed_measures": [],
+          "ignored_vendor_parameters": [
+            "N",
+            "RG"
+          ]
+        }
+      },
+      "ngspice_replay": {
+        "completed": true,
+        "high_bias_min": 6.2249,
+        "high_bias_max": 14.5156,
+        "high_rear_min": 11.3241,
+        "min_vdd": 11.8876,
+        "max_vdd": 12.1244,
+        "vds_hi_scan": 47.3791,
+        "vds_lo_scan": 2.75983,
+        "max_vgs_high": 10.2075,
+        "max_vgs_low": 0.27736,
+        "min_vgs_high": -0.160222,
+        "min_vgs_low": -0.235911,
+        "peak_shunt": 137.991,
+        "device_energy_j": 0.0001239,
+        "current_rise_1a": 3.37014e-06,
+        "current_fall_1a": 3.61352e-06,
+        "current_after": 0.020168
+      }
+    }
+  }
+}

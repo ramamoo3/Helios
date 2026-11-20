@@ -1,0 +1,16 @@
+* Low-voltage bench candidate. LLOOP includes pads and component connection.
+.subckt BENCH_SNUBBER drain source diss params: LLOOP=0.8n R=2.2 C=4.7n
+Lloop drain pad {LLOOP}
+Rsnub pad cap {R}
+Csnub cap source {C}
+Bheat diss 0 V={v(pad,cap)*v(pad,cap)/R}
+.ends BENCH_SNUBBER
+
+* Approximate single-die 5.0SMDJ30A. The reverse fit uses the published
+* breakdown and clamping points. Pulse response and capacitance are estimates.
+.subckt BENCH_TVS drain source diss params: LLOOP=2n VBR=36.8 RD=0.11262 C0=4.7n
+Lloop drain junction {LLOOP}
+Btvs junction source I={max((v(junction,source)-VBR)/RD,0)+min((v(junction,source)+0.9)/0.026,0)}
+Ctvs junction source Q='2*C0*(sqrt(1+max(v(junction,source),0))-1)+C0*min(v(junction,source),0)'
+Bheat diss 0 V={v(junction,source)*(max((v(junction,source)-VBR)/RD,0)+min((v(junction,source)+0.9)/0.026,0))}
+.ends BENCH_TVS

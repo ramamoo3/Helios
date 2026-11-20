@@ -1,0 +1,620 @@
+{
+  "inputs_sha256": {
+    "battery-port-secondary-isolated-dfn.kicad_pcb": "2f37664cf685baf70b377a76fd32c0ddf65434480e33ac2932bb06de0204548e",
+    "bench-secondary-isolated-dfn-impedance.json": "41058e9268f8e992f2ae03973691cd3cb6365e7d6d06a4e7ae1b5de70a6ccff8",
+    "isolated_dfn_test.py": "1e7c403cda6e8418319acdfa77399b5621914056d1d1a66993756ae96ab96a61",
+    "battery-port-secondary-isolated-bypass.kicad_pcb": "67ab8c6310ad8213bbbdf0152ab22b2c5119c6823ff6635ead0603f107323fdd",
+    "bench-secondary-isolated-bypass-impedance.json": "2c6df1f62ffb426a1d60a54d635fae85b2678799fbd7d3b4ccc9ca054db478f2",
+    "isolated_bypass_test.py": "6c3115ac6c623ee80812af47d526373b085f572b1f6aa9a5be17218e14d84eb0",
+    "battery-port-secondary-isolated-dfn-local.kicad_pcb": "447ebf4c7683af04b4943f85ea74e8f86daca79d028a3d59c3fe7de827f777ae",
+    "bench-secondary-isolated-dfn-local-impedance.json": "5b750f28b290d0f12f1c56221eccf3947d11aec8f9c69f51c3d44fd973d20b39"
+  },
+  "initial_bias_screen": {
+    "fixture": "Previous 8.2-ohm gate resistor bypass PCB, 25 C, Gear 250 ps.",
+    "pin_branches": {
+      "pin100n_0p2n": [
+        100,
+        0.2,
+        0.1
+      ],
+      "pin100n_0p6n": [
+        100,
+        0.6,
+        0.1
+      ],
+      "pin100n_1p0n": [
+        100,
+        1,
+        0.1
+      ],
+      "pin10n_0p6n": [
+        10,
+        0.6,
+        0.3
+      ]
+    },
+    "pin_branch_units": [
+      "nF",
+      "nH",
+      "ohms"
+    ],
+    "source_reference_added_resistor_ohms": [
+      0.47,
+      1
+    ],
+    "cases": {
+      "nominal_low_short_as_routed": {
+        "high_bias_min": 5.34017,
+        "high_bias_max": 16.2456,
+        "high_bulk_min": 10.5381,
+        "high_fast_min": 10.8115,
+        "high_return_min": -7.8088,
+        "high_return_max": 11.5722,
+        "vds_hi_scan": 84.093,
+        "vds_lo_scan": 2.58715,
+        "peak_shunt": 128.874,
+        "clearing_ns": 214.28999999999994,
+        "device_energy_j": 9.35989e-05,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "nominal_high_resistive_pin10n_0p6n": {
+        "high_bias_min": 8.11423,
+        "high_bias_max": 12.0524,
+        "high_bulk_min": 11.1039,
+        "high_fast_min": 11.2598,
+        "high_return_min": -2.51892,
+        "high_return_max": 1.04745,
+        "vds_hi_scan": 27.8249,
+        "vds_lo_scan": 32.5599,
+        "peak_shunt": 6.78534,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": false
+      },
+      "nominal_high_resistive_pin100n_0p6n": {
+        "high_bias_min": 8.08825,
+        "high_bias_max": 12.0509,
+        "high_bulk_min": 11.0982,
+        "high_fast_min": 11.2574,
+        "high_return_min": -2.50931,
+        "high_return_max": 1.02454,
+        "vds_hi_scan": 27.8245,
+        "vds_lo_scan": 32.5506,
+        "peak_shunt": 6.78269,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": false
+      },
+      "nominal_high_resistive_pin100n_1p0n": {
+        "high_bias_min": 7.35221,
+        "high_bias_max": 12.0615,
+        "high_bulk_min": 10.9476,
+        "high_fast_min": 11.1379,
+        "high_return_min": -2.50403,
+        "high_return_max": 1.02893,
+        "vds_hi_scan": 27.8247,
+        "vds_lo_scan": 32.5453,
+        "peak_shunt": 6.78229,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": false
+      },
+      "nominal_high_resistive_ref_damping_1": {
+        "high_bias_min": 5.26228,
+        "high_bias_max": 12.1037,
+        "high_bulk_min": 10.5198,
+        "high_fast_min": 10.7972,
+        "high_return_min": -2.72862,
+        "high_return_max": 1.57409,
+        "vds_hi_scan": 27.7954,
+        "vds_lo_scan": 32.4424,
+        "peak_shunt": 6.76709,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": false
+      },
+      "nominal_high_resistive_as_routed": {
+        "high_bias_min": 5.29198,
+        "high_bias_max": 12.1179,
+        "high_bulk_min": 10.525,
+        "high_fast_min": 10.7999,
+        "high_return_min": -2.47894,
+        "high_return_max": 1.05179,
+        "vds_hi_scan": 27.8253,
+        "vds_lo_scan": 32.5451,
+        "peak_shunt": 6.7838,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": false
+      },
+      "nominal_high_resistive_ref_damping_0p47": {
+        "high_bias_min": 5.23307,
+        "high_bias_max": 12.1095,
+        "high_bulk_min": 10.5127,
+        "high_fast_min": 10.7908,
+        "high_return_min": -2.59244,
+        "high_return_max": 1.30338,
+        "vds_hi_scan": 27.8084,
+        "vds_lo_scan": 32.4937,
+        "peak_shunt": 6.77728,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": false
+      },
+      "nominal_high_resistive_pin100n_0p2n": {
+        "high_bias_min": 9.86419,
+        "high_bias_max": 12.0328,
+        "high_bulk_min": 11.4627,
+        "high_fast_min": 11.5468,
+        "high_return_min": -2.51902,
+        "high_return_max": 1.02509,
+        "vds_hi_scan": 27.8242,
+        "vds_lo_scan": 32.5479,
+        "peak_shunt": 6.78366,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true
+      },
+      "nominal_low_short_pin100n_0p2n": {
+        "high_bias_min": 9.90422,
+        "high_bias_max": 12.557,
+        "high_bulk_min": 11.4716,
+        "high_fast_min": 11.5372,
+        "high_return_min": -7.75182,
+        "high_return_max": 11.5976,
+        "vds_hi_scan": 83.5313,
+        "vds_lo_scan": 2.58851,
+        "peak_shunt": 128.93,
+        "clearing_ns": 214.3800000000003,
+        "device_energy_j": 9.39629e-05,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "nominal_low_short_ref_damping_1": {
+        "error": "doAnalyses: TRAN:  Timestep too small; time = 3.34896e-06, timestep = 3.125e-22: trouble with xisolated.x_m15:_mod-instance m.xisolated.x_m15.m1"
+      },
+      "nominal_low_short_pin100n_0p6n": {
+        "high_bias_min": 8.16834,
+        "high_bias_max": 13.3076,
+        "high_bulk_min": 11.1159,
+        "high_fast_min": 11.2737,
+        "high_return_min": -7.7069,
+        "high_return_max": 11.5807,
+        "vds_hi_scan": 83.5191,
+        "vds_lo_scan": 2.58356,
+        "peak_shunt": 128.71,
+        "clearing_ns": 214.05999999999995,
+        "device_energy_j": 9.36912e-05,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "nominal_low_short_pin10n_0p6n": {
+        "high_bias_min": 8.15544,
+        "high_bias_max": 13.4968,
+        "high_bulk_min": 11.1133,
+        "high_fast_min": 11.2713,
+        "high_return_min": -7.49959,
+        "high_return_max": 11.665,
+        "vds_hi_scan": 83.6007,
+        "vds_lo_scan": 2.58939,
+        "peak_shunt": 128.97,
+        "clearing_ns": 214.42000000000013,
+        "device_energy_j": 9.37976e-05,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "nominal_low_short_pin100n_1p0n": {
+        "high_bias_min": 7.39274,
+        "high_bias_max": 13.7918,
+        "high_bulk_min": 10.9569,
+        "high_fast_min": 11.1476,
+        "high_return_min": -7.79496,
+        "high_return_max": 11.5952,
+        "vds_hi_scan": 83.6799,
+        "vds_lo_scan": 2.58698,
+        "peak_shunt": 128.864,
+        "clearing_ns": 214.27000000000024,
+        "device_energy_j": 9.39015e-05,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "nominal_low_short_ref_damping_0p47": {
+        "high_bias_min": 5.29962,
+        "high_bias_max": 16.9742,
+        "high_bulk_min": 10.5295,
+        "high_fast_min": 10.8055,
+        "high_return_min": -5.62106,
+        "high_return_max": 9.8166,
+        "vds_hi_scan": 80.6143,
+        "vds_lo_scan": 2.60575,
+        "peak_shunt": 129.709,
+        "clearing_ns": 215.80999999999997,
+        "device_energy_j": 9.70539e-05,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      }
+    }
+  },
+  "first_dfn_terminal_stress": {
+    "fixture": "Nominal routed DFN PCB, Gear 250 ps. ngspice saved accepted voltage, current and bias points.",
+    "cases": {
+      "nominal_low_short": {
+        "peak_vds": {
+          "time_ns": 3506.7871386049997,
+          "vds_v": 47.4578846126,
+          "drain_a": 39.01319504575,
+          "terminal_w": 1851.4837088500615,
+          "high_bias_v": 12.15419999356
+        },
+        "peak_drain_current": {
+          "time_ns": 3473.0719415490003,
+          "vds_v": 3.018350757496,
+          "drain_a": 135.3706508024,
+          "terminal_w": 408.59610639215055,
+          "high_bias_v": 12.00283333907
+        },
+        "peak_positive_terminal_power": {
+          "time_ns": 3487.625184612,
+          "vds_v": 39.73204991565,
+          "drain_a": 115.7586294752,
+          "terminal_w": 4599.327644475879,
+          "high_bias_v": 12.23191424703
+        },
+        "commanded_device": "Q5",
+        "maximum_contiguous_high_bias_below_9p2v_ns": 0.09080979397002374,
+        "reported_device_energy_j": 0.000123824
+      },
+      "nominal_high_short": {
+        "peak_vds": {
+          "time_ns": 1011.913206489,
+          "vds_v": 62.04071879886,
+          "drain_a": 55.30278929206,
+          "terminal_w": 3431.0247992613004,
+          "high_bias_v": 12.27858565017
+        },
+        "peak_drain_current": {
+          "time_ns": 981.9702605041999,
+          "vds_v": 3.930331043779,
+          "drain_a": 138.2032175957,
+          "terminal_w": 543.1843964665239,
+          "high_bias_v": 11.94716600164
+        },
+        "peak_positive_terminal_power": {
+          "time_ns": 1006.413206489,
+          "vds_v": 51.26603275779,
+          "drain_a": 100.4852025233,
+          "terminal_w": 5151.47768423266,
+          "high_bias_v": 12.23243213969
+        },
+        "commanded_device": "Q6",
+        "maximum_contiguous_high_bias_below_9p2v_ns": 0.0,
+        "reported_device_energy_j": 0.000124049
+      }
+    }
+  },
+  "shorter_layout_solver_and_gate_screen": {
+    "setup": {
+      "gate_sweep_ohms": [
+        27,
+        33
+      ],
+      "gate_sweep_fixture": "Q5 shorted, Gear 250 ps, additional pin-cap branch absent.",
+      "solver_steps_ps": [
+        125,
+        500
+      ],
+      "solver_case_gate_ohms": [
+        15,
+        22
+      ]
+    },
+    "cases": {
+      "nominal_high_short_gear_125ps": {
+        "passed": false,
+        "error": "ngspice exceeded 180 seconds"
+      },
+      "nominal_high_short_gear_500ps": {
+        "vds_hi_scan": 2.8243,
+        "vds_lo_scan": 54.3823,
+        "high_bias_min": 11.7769,
+        "high_bias_max": 12.2564,
+        "device_energy_j": 0.000130504,
+        "clearing_ns": 233.96600000000012,
+        "peak_shunt": 141.125,
+        "current_after": 0.0321023,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": false
+        },
+        "passed": false
+      },
+      "nominal_high_short_rg_27": {
+        "vds_hi_scan": 2.84804,
+        "vds_lo_scan": 52.6612,
+        "high_bias_min": 11.7848,
+        "high_bias_max": 12.2371,
+        "device_energy_j": 0.000147264,
+        "clearing_ns": 240.51399999999992,
+        "peak_shunt": 142.364,
+        "current_after": 0.03282,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true
+      },
+      "nominal_high_short_rg_33": {
+        "vds_hi_scan": 2.86961,
+        "vds_lo_scan": 50.859,
+        "high_bias_min": 11.793,
+        "high_bias_max": 12.2093,
+        "device_energy_j": 0.000164755,
+        "clearing_ns": 247.24200000000005,
+        "peak_shunt": 143.495,
+        "current_after": 0.0358074,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true
+      },
+      "nominal_high_short_trap_500ps": {
+        "passed": false,
+        "error": "ngspice exceeded 180 seconds"
+      },
+      "nominal_low_short_gear_125ps": {
+        "passed": false,
+        "error": "ngspice exceeded 180 seconds"
+      },
+      "nominal_low_short_gear_500ps": {
+        "vds_hi_scan": 47.4144,
+        "vds_lo_scan": 2.758,
+        "high_bias_min": 7.05553,
+        "high_bias_max": 14.6597,
+        "device_energy_j": 0.000123664,
+        "clearing_ns": 243.20999999999992,
+        "peak_shunt": 137.885,
+        "current_after": 0.0198953,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": false
+      },
+      "nominal_low_short_trap_500ps": {
+        "vds_hi_scan": 47.4535,
+        "vds_lo_scan": 2.75645,
+        "high_bias_min": 8.03671,
+        "high_bias_max": 12.4347,
+        "device_energy_j": 0.000123616,
+        "clearing_ns": 243.1400000000001,
+        "peak_shunt": 137.878,
+        "current_after": 0.0199258,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": false
+      }
+    }
+  },
+  "shorter_layout_combined_trial": {
+    "setup": {
+      "gate_ohms": [
+        15,
+        27
+      ],
+      "pin_branch_cap_nf": 100,
+      "pin_branch_esr_ohms": 0.1,
+      "pin_branch_total_nh": 0.2,
+      "method": "Gear",
+      "initial_and_max_steps_ps": [
+        125,
+        250,
+        500
+      ]
+    },
+    "cases": {
+      "nominal_high_resistive_gear_125p": {
+        "vds_hi_scan": 27.5975,
+        "vds_lo_scan": 31.8385,
+        "high_bias_min": 8.50953,
+        "high_bias_max": 12.0323,
+        "peak_shunt": 6.60382,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": false,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": false
+      },
+      "nominal_high_resistive_gear_250p": {
+        "vds_hi_scan": 27.5905,
+        "vds_lo_scan": 31.8517,
+        "high_bias_min": 9.88153,
+        "high_bias_max": 12.0325,
+        "peak_shunt": 6.59765,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true
+      },
+      "nominal_high_resistive_gear_500p": {
+        "vds_hi_scan": 27.5853,
+        "vds_lo_scan": 31.8244,
+        "high_bias_min": 10.7693,
+        "high_bias_max": 12.0326,
+        "peak_shunt": 6.58539,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true
+      },
+      "nominal_high_short_gear_125p": {
+        "vds_hi_scan": 2.85451,
+        "vds_lo_scan": 52.6764,
+        "high_bias_min": 11.8293,
+        "high_bias_max": 12.2176,
+        "device_energy_j": 0.000147872,
+        "clearing_ns": 242.78699999999998,
+        "peak_shunt": 142.704,
+        "current_after": 0.0330901,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true
+      },
+      "nominal_high_short_gear_250p": {
+        "vds_hi_scan": 2.84761,
+        "vds_lo_scan": 52.6552,
+        "high_bias_min": 11.8291,
+        "high_bias_max": 12.217,
+        "device_energy_j": 0.000147225,
+        "clearing_ns": 240.55399999999997,
+        "peak_shunt": 142.342,
+        "current_after": 0.032831,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true
+      },
+      "nominal_high_short_gear_500p": {
+        "vds_hi_scan": 2.85363,
+        "vds_lo_scan": 52.6737,
+        "high_bias_min": 11.8287,
+        "high_bias_max": 12.2175,
+        "device_energy_j": 0.000147668,
+        "clearing_ns": 240.264,
+        "peak_shunt": 142.644,
+        "current_after": 0.0339811,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true
+      },
+      "nominal_low_short_gear_125p": {
+        "passed": false,
+        "error": "doAnalyses: TRAN:  Timestep too small; time = 3.34919e-06, timestep = 1.5625e-22: trouble with node \"xisolated.n16672776\""
+      },
+      "nominal_low_short_gear_250p": {
+        "vds_hi_scan": 47.6245,
+        "vds_lo_scan": 2.7593,
+        "high_bias_min": 9.90814,
+        "high_bias_max": 13.7085,
+        "device_energy_j": 0.000124004,
+        "clearing_ns": 243.37999999999994,
+        "peak_shunt": 138.02,
+        "current_after": 0.0197842,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true
+      },
+      "nominal_low_short_gear_500p": {
+        "vds_hi_scan": 47.5801,
+        "vds_lo_scan": 2.76458,
+        "high_bias_min": 10.7833,
+        "high_bias_max": 12.2473,
+        "device_energy_j": 0.000124404,
+        "clearing_ns": 243.77000000000012,
+        "peak_shunt": 138.235,
+        "current_after": 0.0204345,
+        "checks": {
+          "functional": true,
+          "both_output_biases_in_range": true,
+          "gate_magnitude_at_most_16_v": true,
+          "drain_at_most_54_v": true
+        },
+        "passed": true
+      }
+    }
+  }
+}
