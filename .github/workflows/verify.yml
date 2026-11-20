@@ -10,6 +10,99 @@ jobs:
         with:
           persist-credentials: false
       - name: Install ngspice
-        run: sudo apt-get update && sudo apt-get install -y ngspice
+        run: sudo apt-get update && sudo apt-get install -y ngspice=42+ds-3build1
       - name: Check circuit connections and simulations
         run: python3 circuits/battery-port/verify.py --ngspice ngspice
+      - name: Check local Markdown link targets
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          import subprocess
+          from urllib.parse import unquote, urlsplit
+
+          docs = subprocess.check_output(["git", "ls-files", "-z", "*.md"]).decode().split("\0")
+          missing = []
+          for name in filter(None, docs):
+              doc = Path(name)
+              for link in re.findall(r"\[[^\]\n]+\]\(([^)\s]+)\)", doc.read_text(encoding="utf-8")):
+                  target = urlsplit(link)
+                  if not target.scheme and not target.netloc and target.path:
+                      if not (doc.parent / unquote(target.path)).exists():
+                          missing.append(f"{doc}: {link}")
+          if missing:
+              raise SystemExit("\n".join(missing))
+          PY
+  kicad:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Install KiCad 10 and its component libraries
+        run: |
+          sudo add-apt-repository --yes ppa:kicad/kicad-10.0-releases
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends kicad kicad-footprints kicad-symbols
+          kicad-cli version
+      - name: Check bench and rear-bypass projects
+        working-directory: circuits/battery-port
+        run: |
+          work="$RUNNER_TEMP/helios-kicad"
+          mkdir -p "$work"
+          cp *.kicad_sch Helios.kicad_sym sym-lib-table fp-lib-table "$work/"
+          cp -r Helios_Bench.pretty "$work/"
+          cp battery-port-bench.kicad_{pcb,pro,dru} "$work/"
+          leg=battery-port-secondary-isolated-dfn-rear-bypass
+          cp "$leg.kicad_pcb" "$work/"
+          printf '{}\n' > "$work/$leg.kicad_pro"
+          cd "$work"
+          for board in battery-port-bench "$leg"; do
+            kicad-cli sch erc --exit-code-violations --severity-error "$board.kicad_sch"
+            kicad-cli pcb drc --exit-code-violations --severity-error --schematic-parity "$board.kicad_pcb"
+          done
+      - name: Refill and verify the bench copper trial
+        working-directory: circuits/battery-port
+        run: |
+          trial="$RUNNER_TEMP/helios-copper-trial"
+          mkdir -p "$trial"
+          cp *.kicad_sch battery-port-bench.kicad_{pro,dru} Helios.kicad_sym sym-lib-table fp-lib-table "$trial/"
+          cp -r Helios_Bench.pretty "$trial/"
+          board="$trial/battery-port-bench.kicad_pcb"
+          python3 bench_return_plane_trial.py "$board"
+          kicad-cli pcb drc --refill-zones --save-board --schematic-parity --severity-error --exit-code-violations "$board"
+          python3 -m venv "$RUNNER_TEMP/helios-copper-python"
+          python="$RUNNER_TEMP/helios-copper-python/bin/python"
+          "$python" -m pip install -r requirements-copper.txt
+          "$python" bench_plane_dc.py "$board" --pitch-mm .4 --plating-mm .02 --output "$trial/copper-dc.json"
+  firmware:
+    runs-on: ubuntu-24.04
+    env:
+      ZIG_VERSION: 0.17.1
+      ZIG_SHA256: 3581863e3cbcfd0fce0efc682ce7e9e93da96668a977791d356a26d2a7e9b17a
+      ST_CMSIS: 25664ddc3a7624ae9627ae8c4c672073dc5b2539
+      ARM_CMSIS: 2b7495b8535bdcb306dac29b9ded4cfb679d7e5c
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Fetch pinned compiler and CMSIS headers
+        working-directory: ${{ runner.temp }}
+        run: |
+          zig="zig-x86_64-linux-$ZIG_VERSION.tar.xz"
+          curl -fsSLO "https://ziglang.org/download/$ZIG_VERSION/$zig"
+          printf '%s  %s\n' "$ZIG_SHA256" "$zig" | sha256sum -c -
+          tar -xf "$zig"
+          curl -fsSL "https://codeload.github.com/STMicroelectronics/cmsis-device-g4/tar.gz/$ST_CMSIS" | tar -xz
+          curl -fsSL "https://codeload.github.com/ARM-software/CMSIS_5/tar.gz/$ARM_CMSIS" | tar -xz
+      - name: Build and emulate charge and discharge firmware
+        working-directory: circuits/battery-port
+        run: |
+          python3 -m venv "$RUNNER_TEMP/helios-emulator"
+          python="$RUNNER_TEMP/helios-emulator/bin/python"
+          "$python" -m pip install unicorn==2.1.4 pyelftools==0.32
+          "$python" firmware/build.py \
+            --zig "$RUNNER_TEMP/zig-x86_64-linux-$ZIG_VERSION/zig" \
+            --device-include "$RUNNER_TEMP/cmsis-device-g4-$ST_CMSIS/Include" \
+            --core-include "$RUNNER_TEMP/CMSIS_5-$ARM_CMSIS/CMSIS/Core/Include"
+          "$python" firmware/emulate.py

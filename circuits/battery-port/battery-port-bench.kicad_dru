@@ -1,0 +1,14 @@
+(version 1)
+
+# Drawing limits for the 12 V / 24 V bench PCB. Power copper needs its own
+# current and temperature checks, including narrow escapes and via paths.
+(rule "Bench routing width floor"
+  (constraint track_width (min 0.20mm)))
+
+# Secondary domain, including isolated PWM outputs and the secondary ACK
+# before it crosses the isolator. S_POS_IN and S_NEG_IN are primary-side
+# PWM inputs and SEC_OK_P is a primary-side output.
+# 0.60 mm is the bench review target for cross-domain copper.
+(rule "Bench primary-to-secondary copper"
+  (constraint clearance (min 0.60mm))
+  (condition "A.hasNetclass('Bench secondary') && B.NetName != '' && !B.hasNetclass('Bench secondary')"))

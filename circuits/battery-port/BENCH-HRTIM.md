@@ -17,7 +17,7 @@ The bench controller target is the NUCLEO-G474RE. It uses timer A for the primar
 | 12 | Primary precharge acknowledgement | PB2, CN10.22 |
 | 13 | Secondary precharge acknowledgement | PB12, CN10.16 |
 
-The firmware moved ARM from the earlier PB4 assignment to PB5. PB4 has a reset-time debug pull-up. The hold-to-run input is separate from J5. Use a momentary switch from the Nucleo 3.3 V rail to PA6 (CN10.13) and leave the internal pull-down enabled. LD2 is on while the firmware runs the timer. [STM32G474 datasheet, GPIO reset states](https://www.st.com/resource/en/datasheet/stm32g474re.pdf)
+The firmware moved ARM from the earlier PB4 assignment to PB5. PB4 has a reset-time debug pull-up. The hold-to-run input is separate from J5. Use a momentary switch from the Nucleo 3.3 V rail to PA6 (CN10.13) and leave the internal pull-down enabled. LD2 indicates a processor fault. The RUN signal is on J5.5. [STM32G474 datasheet, GPIO reset states](https://www.st.com/resource/en/datasheet/stm32g474re.pdf)
 
 ## Timer configuration
 
@@ -27,7 +27,7 @@ The compare adapter converts the scheduler's 10 ns ticks to the timer counts and
 
 ## Build and load
 
-Run the build program with Python 3, Zig 0.13 and the pinned ST and Arm CMSIS include directories. It cross-compiles both directions, validates the Cortex-M4 reset address and writes the ELF and raw flash image into the ignored `firmware/out` directory.
+Run the build program with Python 3 and Zig 0.17.1. Use the `Include` directory from ST CMSIS Device G4 v1.2.6 (`25664ddc3a7624ae9627ae8c4c672073dc5b2539`) and `CMSIS/Core/Include` from Arm CMSIS 5.9.0 (`2b7495b8535bdcb306dac29b9ded4cfb679d7e5c`). CI uses those revisions. The build cross-compiles both directions, validates the Cortex-M4 reset address and writes the ELF and raw flash image into the ignored `firmware/out` directory. Both images also passed with Zig 0.13.0. [Zig release](https://ziglang.org/download/) · [ST CMSIS Device G4](https://github.com/STMicroelectronics/cmsis-device-g4/tree/25664ddc3a7624ae9627ae8c4c672073dc5b2539) · [Arm CMSIS](https://github.com/ARM-software/CMSIS_5/tree/2b7495b8535bdcb306dac29b9ded4cfb679d7e5c)
 
 ```sh
 python firmware/build.py --device-include /path/to/cmsis-device-g4/Include --core-include /path/to/CMSIS_5/CMSIS/Core/Include
@@ -35,9 +35,11 @@ python firmware/build.py --device-include /path/to/cmsis-device-g4/Include --cor
 
 Load one image with the Nucleo's ST-LINK over SWD. For a raw BIN, use flash address `0x08000000`. Hold-to-run begins only after a release, a new press, an ARM pulse with RUN low and a subsequent high permit. Both precharge readbacks must assert, stay asserted for 7 µs and clear before the 1 µs blanking interval. The firmware stops on release, a failed permit or acknowledgement, or a missed compare preload deadline. A separate watchdog resets the MCU if the control loop stalls. [Firmware source](firmware/stm32g474.c) · [ST STM32CubeProgrammer](https://www.st.com/en/development-tools/stm32cubeprog.html)
 
+An unexpected exception or fatal clock setup failure enters the fault handler. It disables enabled HRTIM outputs, drops RUN, ARM and PRE_REQ when GPIOB is active, and lights LD2 while halted until reset. Reset uses explicit stores to initialize RAM. The freestanding image supplies the Arm `__aeabi_memclr4` routine used to clear compiler-generated structures. [Startup code](firmware/startup.S) · [Arm run-time ABI](https://github.com/ARM-software/abi-aa/blob/main/rtabi32/rtabi32.rst)
+
 ## Emulate the compiled image
 
-Run the register-model tests against the two ELF/BIN pairs from the build directory. The script executes the actual Thumb instructions starting at each binary's reset vector. It supplies simulated clocks, independent precharge acknowledgement levels and HRTIM status events. It checks precharge timing, missing acknowledgement, a secondary acknowledgement stuck high after the primary clears, loss of permit during precharge, the ramp in both directions, a missing preload event and latched fault behavior.
+Run the register-model tests against the two ELF/BIN pairs from the build directory. The script executes the Thumb instructions from each reset vector, with BSS initially set to nonzero bytes. It supplies simulated clocks, independent precharge acknowledgements and HRTIM status events. It checks precharge timing, missing and stuck acknowledgement, permit loss, the ramp, missed preload events, latched faults and output disable with LD2 indication on entry to the HardFault handler.
 
 ```sh
 python -m pip install unicorn==2.1.4 pyelftools==0.32

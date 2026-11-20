@@ -55,16 +55,21 @@ static void stop_timer(void)
     MASTER.MCR &= ~COUNTERS;
     COMMON.CR1 &= ~MASK_UPDATES;
     disable_requests();
-    GPIOA->BSRR = 1u << (LED_PIN + 16);
     bench_hrtim_abort(&adapter);
 }
 
 void Fault_Handler(void)
 {
+    __disable_irq();
     if (RCC->APB2ENR & RCC_APB2ENR_HRTIM1EN)
         COMMON.ODISR = DISABLE_OUTPUTS;
     if (RCC->AHB2ENR & RCC_AHB2ENR_GPIOBEN)
         disable_requests();
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+    (void)RCC->AHB2ENR;
+    GPIOA->BSRR = 1u << LED_PIN;
+    gpio_mode(GPIOA, LED_PIN, 1, 0);
+    __DSB();
     for (;;) __NOP();
 }
 
@@ -215,7 +220,6 @@ static bool start_timer(void)
     COMMON.OENR = OUTPUTS;
     MASTER.MCR |= COUNTERS;
     last_midpoint = DWT->CYCCNT - 10u * CYCLES_PER_US;
-    GPIOA->BSRR = 1u << LED_PIN;
     return true;
 }
 
@@ -324,9 +328,11 @@ extern uint32_t __data_load, __data_start, __data_end, __bss_start, __bss_end;
 
 void Reset_Handler(void)
 {
-    for (uint32_t *src = &__data_load, *dest = &__data_start; dest < &__data_end;)
+    /* Explicit stores keep reset independent of compiler runtime routines. */
+    const uint32_t *src = &__data_load;
+    for (volatile uint32_t *dest = &__data_start; dest < &__data_end;)
         *dest++ = *src++;
-    for (uint32_t *dest = &__bss_start; dest < &__bss_end;)
+    for (volatile uint32_t *dest = &__bss_start; dest < &__bss_end;)
         *dest++ = 0;
     SCB->VTOR = 0x08000000u;
     __DSB();

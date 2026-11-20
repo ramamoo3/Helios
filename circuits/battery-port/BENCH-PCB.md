@@ -25,6 +25,37 @@ The rest of the routing covers both bias regulators, the current transformer’s
 
 KiCad 10.99 reported zero schematic electrical-rule violations, zero board design-rule violations, zero open connections and zero schematic-to-board mismatches. The board has 1,850 trace segments and 256 vias. The L1 repair moved three through vias and their six attached segments. The routes retain 1.20 mm top copper, 1.25 mm bottom copper and parallel 0.40 mm drills on each end of L1. The circuit regression checks all 256 via holes against the SMD lands. It reproduced the three failures on the pre-repair board and passed on the revised board.
 
+### Return-plane trial and design rules
+
+The routed parent board carries `/P0` and `/S0` on traces. Its only zone is the primary-to-secondary keepout. The trial adds `/P0` on `In1.Cu` and `/S0` on `In2.Cu`, within separate geometries that stop short of the existing keepout. Existing through connections join the fills to routed copper. The trial widens 20 inner winding segments from 1.20–1.25 mm to 1.60 mm and shifts the `/SEC_B` diagonal to clear an adjacent unnumbered transformer land. After refill, KiCad reported zero ERC and DRC violations, zero open connections and zero schematic parity issues. The solder-land check also passed all 256 vias after native save. [Trial generator](bench_return_plane_trial.py)
+
+The KiCad project assigns the secondary domain and power nets explicitly. The 1.2 mm power-class width is the router's starting width. The custom DRC checks a 0.20 mm routing floor and 0.60 mm of same-layer clearance between named nets in different domains, including pad-to-track and pad-to-pad clearance. The bench passed both rules with zero schematic parity errors. Raising the interdomain threshold to 4 mm in a scratch check produced violations, with a minimum reported gap of 3.00 mm on the routed baseline. Unnumbered transformer holes lack net assignments and need a separate mechanical and insulation review. The 0.60 mm value is a bench design target. [KiCad project](battery-port-bench.kicad_pro) · [Custom design rules](battery-port-bench.kicad_dru) · [KiCad design rules documentation](https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html#custom-design-rules)
+
+Centreline tracing found 1.35–1.60 mm copper in the R30-to-primary-drain feeds. The main Q3-to-T1 and both secondary switch-to-T1 paths use 1.20 mm on `In2.Cu`. The 0.24–0.28 mm sections on those switch nets route to the gate-driver or bootstrap connections. Each local commutation loop still has 0.90 mm feed and return branches on the front copper. A 20 °C copper-only screen put the inner winding runs at 13.9–20.1 mΩ on the baseline and 10.8–15.4 mΩ in the trial, a 22–25% reduction per run. That estimate covers the selected traces. [Power path extraction](extract_layout.py)
+
+The filled trial has four 2.8 mm non-plated holes for M2.5 hardware with 6.4 mm all-layer copper keepouts, and three 1 mm top copper fiducials with 2 mm mask openings. Hole coordinates in KiCad millimetres are (52, 47), (147, 62), (52, 132) and (152, 140). Use those coordinates for the bench fixture and check actual head, standoff, connector and enclosure fit before fabrication. [Mounting footprint](Helios_Bench.pretty/Bench_mount_M2_5.kicad_mod) · [Fiducial footprint](Helios_Bench.pretty/Bench_fiducial_1mm.kicad_mod)
+
+Generate a candidate in a scratch copy of the KiCad project directory, with the local symbol and footprint libraries available. Copy the parent `.kicad_pro` and `.kicad_dru` to the trial board's stem before running KiCad.
+
+```sh
+python bench_return_plane_trial.py path/to/scratch/return-trial.kicad_pcb
+kicad-cli pcb drc --refill-zones --save-board --exit-code-violations path/to/scratch/return-trial.kicad_pcb
+```
+
+### Electrical extraction of the filled trial
+
+The DC solver reads the filled polygons, keeps their cutouts, unions same-layer traces and lands, and connects each plane through the actual plated holes. The comparison covers 20 and 25 µm barrel plating and meshes down to 0.10 mm. Each test injects a specified current between two terminals. The reported losses use the modeled winding-current scale and prescribed copper temperature. The 1 µs adiabatic screen applies to traces and barrels. Steady-state temperature rise needs the assembled fixture's heat sources and cooling conditions. [DC model](bench_plane_dc.py) · [DC results](bench-return-plane-dc.json)
+
+At 20 µm plating, the worst baseline secondary return, C25.2 to Q8.3, dropped from 59.08 mΩ to 3.98 mΩ at 20 °C. Its modeled copper loss fell from 0.554 W to 0.037 W at 2.67 A and 100 °C copper. The worst baseline primary return, C24.2 to Q4.3, dropped from 32.28 mΩ to 2.13 mΩ. The two finest meshes agreed within 3.6% on the selected return paths. Local capacitor-to-switch returns stayed at 3.38–3.67 mΩ. Four widened winding paths dropped 19–21% in the full path model. Inspect its per-path trace and barrel current distribution when selecting plating and planning thermal measurements. [DC results](bench-return-plane-dc.json)
+
+The original FastHenry extractor supports trace-only boards. A separate FastHenry check approximates the filled mesh with filaments and extracts the secondary-A feed, switch and return ports. At 10 MHz the baseline returned 7.99 nH and the 2 mm mesh returned 7.64 nH with filament geometry warnings. The 1.5 mm and 1 mm meshes both timed out. The trial result is an order-of-magnitude screen. A converged comparison, capacitive coupling, enclosure effects, the other three bridge loops and the routed hot switching transient remain open. [AC model](bench_plane_ac.py) · [AC results](bench-return-plane-ac.json) · [FastHenry user guide](https://www.fastfieldsolvers.com/Download/FastHenry_User_Guide.pdf)
+
+```sh
+python -m pip install -r requirements-copper.txt
+python bench_plane_dc.py path/to/filled-trial.kicad_pcb --pitch-mm .4 .2 .1 --output bench-return-plane-dc.json
+python bench_plane_ac.py path/to/filled-trial.kicad_pcb --pitch-mm 2 1.5 1 --timeout 120 --output bench-return-plane-ac.json
+```
+
 | L1 pad and net | Old via centre (mm) | New via centre (mm) | Nominal gap from hole edge to land (mm) |
 | --- | --- | --- | ---: |
 | 1, PRI_A | (65.300, 93.500) | (64.300, 93.500) | 0.518 |
@@ -35,7 +66,7 @@ KiCad 10.99 reported zero schematic electrical-rule violations, zero board desig
 
 KiCad models the nominal 1.6 mm JLC04161H-7628 four-layer construction. The stack uses 35 µm finished outer copper and 15.2 µm inner copper. From top to bottom, the copper layers are separated by 0.2104 mm prepreg, 1.065 mm core and 0.2104 mm prepreg. Use relative permittivities 4.4 for the prepreg and 4.6 for the core. The board models a uniform 15.24 µm solder mask on each side, based on the published over-trace value, with relative permittivity 3.8. The copper and dielectric thicknesses sum to 1.5862 mm beneath the mask. [Fabricator stack-up and dielectric data](https://jlcpcb.com/impedance)
 
-Use the actual copper on each layer to model return paths. The inner layers carry traces. Model the via barrel separately and sweep plating thickness until the selected process supplies an assured value. Verify the final stack, finished drills, via covering and stencil against the assembler's process at the fabrication review.
+Use the actual traces and filled zones on each layer to model return paths. Model the via barrel separately and sweep plating thickness until the selected process supplies an assured value. Verify the final stack, finished drills, via covering and stencil against the assembler's process at the fabrication review.
 
 ### Component drawing review
 

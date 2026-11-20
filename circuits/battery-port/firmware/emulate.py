@@ -20,6 +20,7 @@ COUNTER_ENABLE = 0x70000
 ARM = 1 << 5
 RUN = 1 << 10
 PRE = 1 << 1
+LED = 1 << 5
 ACK_PRIMARY = 1 << 2
 ACK_SECONDARY = 1 << 12
 CYCLES_PER_MS = 160_000
@@ -36,9 +37,13 @@ class BenchRegisters:
     def __init__(self, binary):
         image = binary.read_bytes()
         stack, reset = unpack("<II", image[:8])
+        self.hard_fault, = unpack("<I", image[12:16])
         with binary.with_suffix(".elf").open("rb") as source:
-            symbols = ELFFile(source).get_section_by_name(".symtab")
+            elf = ELFFile(source)
+            symbols = elf.get_section_by_name(".symtab")
             self.millis = symbols.get_symbol_by_name("millis")[0]["st_value"]
+            bss = elf.get_section_by_name(".bss")
+            bss_start, bss_size = bss["sh_addr"], bss["sh_size"]
 
         self.cpu = Uc(UC_ARCH_ARM, UC_MODE_THUMB | UC_MODE_MCLASS)
         self.cpu.ctl_set_cpu_model(UC_CPU_ARM_CORTEX_M4)
@@ -48,6 +53,7 @@ class BenchRegisters:
                               (0xE0001000, 0x1000), (0xE000E000, 0x1000)]:
             self.cpu.mmio_map(address, size, self.on_read, address, self.on_write, address)
         self.cpu.mem_write(FLASH, image)
+        self.cpu.mem_write(bss_start, b"\xa5" * bss_size)
         self.cpu.reg_write(UC_ARM_REG_SP, stack)
         self.cpu.reg_write(UC_ARM_REG_PC, reset & ~1)
 
@@ -219,6 +225,18 @@ def check(binary, charging):
     board.run(1)
     require(board.started is None and not board.gpio_b & RUN, "Latched flag was ignored after permit recovery")
 
+    board.request = False
+    board.run(25)
+    board.request = True
+    board.run(21)
+    require(board.started is not None and board.gpio_b & RUN, "Fault fixture failed to start")
+    require(not board.read(GPIO_A + 0x18) & LED, "Fault LED was on during normal operation")
+    prior_disables = board.disable_writes
+    board.cpu.emu_start(board.hard_fault, 0, count=128)
+    require(board.disable_writes == prior_disables + 1 and not board.gpio_b & (RUN | ARM | PRE),
+            "Fault handler did not disable PWM and requests")
+    require(board.read(GPIO_A + 0x18) == LED, "Fault handler did not indicate the fault on LD2")
+
     for condition in ("missing ack", "stuck ack", "permit lost during precharge"):
         faulty = BenchRegisters(binary)
         faulty.request = False
@@ -238,7 +256,7 @@ def check(binary, charging):
         faulty.run(25)
         require(not faulty.initial_compares, f"Held request restarted after {condition}")
     print(f"{binary.name}: precharge timing, missing/stuck ACK, permit loss, "
-          "ramp, re-arm and latched faults passed")
+          "ramp, re-arm, latched faults and fault handler passed")
 
 
 if __name__ == "__main__":

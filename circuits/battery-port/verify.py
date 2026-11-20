@@ -271,6 +271,18 @@ def coord(tree):
     return tuple(round(float(v) * 1000) for v in tree[1:3])
 
 
+def footprint_pose(footprint):
+    at = children(footprint, "at")
+    if at:
+        x, y, *rotation = map(float, at[0][1:])
+        return x, y, rotation[0] if rotation else 0.0
+    transform = first(footprint, "transform")
+    if tuple(map(float, first(transform, "scale")[1:])) != (1.0, 1.0):
+        raise ValueError("Scaled or mirrored footprint transforms need a separate coordinate check")
+    x, y = map(float, first(transform, "translate")[1:])
+    return x, y, float(first(transform, "rotate")[1])
+
+
 def check_bench_via_clearance(path):
     """Detect via holes in SMD solder lands, including vias on the pad's net."""
     board = read_schematic(path)
@@ -283,8 +295,8 @@ def check_bench_via_clearance(path):
     for footprint in children(board, "footprint"):
         ref = next(prop[2] for prop in children(footprint, "property") if prop[1] == "Reference")
         layer = first(footprint, "layer")[1]
-        fx, fy, *rotation = map(float, first(footprint, "at")[1:])
-        angle = math.radians(rotation[0]) if rotation else 0
+        fx, fy, rotation = footprint_pose(footprint)
+        angle = math.radians(rotation)
         cosine, sine = math.cos(angle), math.sin(angle)
         for pad in children(footprint, "pad"):
             if pad[2] != "smd" or layer not in first(pad, "layers")[1:]:

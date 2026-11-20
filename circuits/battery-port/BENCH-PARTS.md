@@ -9,6 +9,9 @@ The fixture operates from prebiased 12 V and 24 V rails at 50 kHz. These selecti
 | T1 | Custom ETD29, two TDK B66358G0000X187 ungapped N87 halves and B66359W1013T001 former | 22 primary turns and 44 secondary turns. The custom footprint uses the two end pads in the seven-pin row for the primary and the two end pads in the six-pin row for the secondary. Pads 1 and 3 mark dot ends. The remaining nine plated holes are unconnected. Verify physical fit and winding polarity before the PCB release. [TDK core and former drawings](https://www.tdk-electronics.tdk.com/inf/80/db/fer/etd_29_16_10.pdf) · [Editable footprint](Helios_Bench.pretty/Transformer_TDK_B66359W1013T001_Helios.kicad_mod) |
 | C24 | Panasonic EEUFR1E471 | 470 µF / 25 V, 10 mm diameter, 5 mm lead pitch. Ripple rating is 1.29 Arms at 100 kHz. Check ripple at the actual spectrum and enclosure temperature. Positive is pad 1. [Manufacturer specifications](https://industrial.panasonic.com/ww/products/pt/aluminum-cap-lead/models/EEUFR1E471) |
 | C25 | Panasonic EEUFC1H222 | 2,200 µF / 50 V, 18 mm diameter, 7.5 mm lead pitch and 35.5 mm body height. Ripple rating is 3.10 Arms at 100 kHz. Positive is pad 1. [Manufacturer specifications](https://industrial.panasonic.com/ww/products/pt/aluminum-cap-lead/models/EEUFC1H222) |
+| C1, C3 | TDK C2012C0G1H103J060AA | 10 nF, 50 V, ±5%, C0G in 0805. Use for the bench RC filters. [TDK specifications](https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=C2012C0G1H103J060AA) |
+| Unrated 100 nF positions on the parent PCB, including C6, C106, C206 and C306 | TDK CGA4J2X7R1H104K125AA | 100 nF, 50 V, ±10%, X7R in 0805. The bootstrap tests cover 60–150 nF effective. Check the selected part's effective capacitance at gate bias and temperature against that window. [TDK specifications](https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=CGA4J2X7R1H104K125AA) |
+| C4, C104, C204, C304 | TDK C3216X7R1H225K160AB | 2.2 µF, 50 V, ±10%, X7R in 1206. TDK's typical curve shows about 8% loss by 10 V. Use a separate low-capacitance corner for the gate supply model. [TDK DC-bias characterization](https://product.tdk.com/en/system/files/dam/doc/product/capacitor/ceramic/mlcc/charasheet/c3216x7r1h225k160ab.pdf) |
 | J1, J2 | Samtec TSW-104-07-G-S or mating-compatible 1 × 4 header | Vertical 2.54 mm through-hole header for local sense and ADC signals. Pin 1 is marked on the board. [Manufacturer drawing and footprint](https://www.samtec.com/products/tsw-104-07-g-s) |
 | J3, J4 | Phoenix Contact MKDS 1,5/2-5,08, 1715721 | 5.08 mm horizontal through-hole terminal. Pin 1 is positive and pin 2 the local return on both ports. [Manufacturer drawing and drilling plan](https://www.phoenixcontact.com/en-pc/products/pcb-terminal-block-mkds-15-2-508-1715721) |
 | R30 | Bourns CSS4J-4026R-L500F | 0.5 mΩ ±1%, four separate PCB lands. Force pads 1 and 4 carry the rail current. Sense pads 2 and 3 pair with 1 and 4, respectively. Route sense separately to the INA240. [Bourns land pattern](https://www.bourns.com/docs/Product-Datasheets/css4j-4026.pdf) |
@@ -18,6 +21,25 @@ The fixture operates from prebiased 12 V and 24 V rails at 50 kHz. These selecti
 ## Gate drive and magnetics
 
 At 24 nC maximum specified gate charge, four gates at 50 kHz draw about 4.8 mA per bridge from the drive supply before driver, logic and isolator current. One gate charge removes 0.24 V from an effective 100 nF bootstrap capacitor. Add the driver consumption, leakage, capacitor DC-bias derating and recharge-path drop, then measure the minimum high-side supply during the first pulse and steady operation. The nominal drive rail is 9.93 V. [TI gate-charge conditions](https://www.ti.com/lit/ds/symlink/csd18534kcs.pdf)
+
+### 100 V TO-220 candidate
+
+The CSD19535KCS uses the same TO-220 gate, drain and source lead order as the parent device. Its 100 V rating comes with 78 nC typical gate charge at the data-sheet test point, so it needs its own gate-drive and bootstrap checks. An unencrypted TI SPICE comparison at 9.3 V bias exercised both converter directions and 60, 100 and 150 nF effective bootstrap capacitance. All twelve cases met the startup fixture's limits. The nominal solver stalled in the 100 V device's 60 nF charge case, and the alternate profile completed it. [TI device and model](https://www.ti.com/product/CSD19535KCS) · [Comparison measurements](bench-mosfet-margin-results.json)
+
+| Effective bootstrap capacitance | 60 V part minimum first high gate | 100 V part minimum first high gate |
+| --- | ---: | ---: |
+| 60 nF | 8.77 V | 8.20 V |
+| 100 nF | 8.83 V | 8.47 V |
+| 150 nF | 8.77 V | 8.55 V |
+
+The measured simulated drain peaks were below 26 V in this startup fixture. The 100 V device remains a candidate for the parent until the routed switching and hot-fault measurements establish transient voltage, current and safe operating area. The isolated switching leg uses the separate 100 V CSD19531Q5A in SON. [Parent startup replay](bench_mosfet_margin.py) · [Routed SON leg results](BENCH-SECONDARY-PROTECTED.md)
+
+```sh
+python bench_mosfet_margin.py --driver SLUM720.ZIP --baseline SLPM046B.ZIP \
+  --candidate SLPM100A.ZIP --output bench-mosfet-margin-results.json
+```
+
+### Transformer and winding limits
 
 With a nominal core factor of 2,200 nH/turn², the primary magnetizing inductance target is 1.065 mH, or approximately 0.852–1.384 mH with the published core tolerance. At 12.6 V across the primary, 50 kHz, equal positive and negative volt-seconds and 76 mm² effective area, peak flux density is about 38 mT. Flux offset on startup or unequal pulse widths requires separate measurement. The winding targets at room temperature are at most 120 mΩ primary DCR and 320 mΩ secondary DCR. Choose conductor bundle, layer insulation and terminal mapping against the actual window, current and temperature rise. Measure turns ratio and polarity, open-secondary inductance, and primary leakage with the secondary shorted before fitting T1. The nominal transfer simulation assumes 1 µH leakage. [TDK core data](https://www.tdk-electronics.tdk.com/inf/80/db/fer/etd_29_16_10.pdf)
 

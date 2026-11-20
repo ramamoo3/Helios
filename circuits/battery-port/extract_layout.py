@@ -12,7 +12,7 @@ import shutil
 import subprocess
 from tempfile import TemporaryDirectory
 
-from verify import ROOT, children, first, read_schematic
+from verify import ROOT, children, first, footprint_pose, read_schematic
 
 
 LEGS = {
@@ -39,6 +39,16 @@ class Copper:
         x, y, _ = self.start
         ex, ey, _ = self.end
         return math.hypot(ex - x, ey - y)
+
+
+@dataclass(frozen=True)
+class Barrel:
+    net: str
+    xy: tuple
+    layers: tuple
+    drill: float
+    land: float
+    via: bool
 
 
 def point(record, key):
@@ -82,11 +92,11 @@ class Layout:
                 depth += value
         self.pads = {}
         self.land_diameter = {}
-        barrels = []
+        self.barrels = []
         for footprint in children(board, "footprint"):
             ref = next(p[2] for p in children(footprint, "property") if p[1] == "Reference")
-            x, y, *rotation = map(float, first(footprint, "at")[1:])
-            angle = math.radians(rotation[0]) if rotation else 0
+            x, y, rotation = footprint_pose(footprint)
+            angle = math.radians(rotation)
             cosine, sine = math.cos(angle), math.sin(angle)
             for pad in children(footprint, "pad"):
                 if not children(pad, "net"):
@@ -103,7 +113,8 @@ class Layout:
                     self.pads[key] = (centre, net, size)
                     self.land_diameter[key] = min(dimensions)
                 if pad[2] == "thru_hole":
-                    barrels.append((net, centre[:2], list(self.z), float(first(pad, "drill")[1])))
+                    drill = float(first(pad, "drill")[1])
+                    self.barrels.append(Barrel(net, centre[:2], tuple(self.z), drill, min(dimensions), False))
         self.graphs = defaultdict(lambda: defaultdict(list))
         traces = defaultdict(list)
         for segment in children(board, "segment"):
@@ -117,14 +128,15 @@ class Layout:
             layers = list(self.z)
             top, bottom = first(via, "layers")[1:]
             route_layers = layers[layers.index(top):layers.index(bottom) + 1]
-            barrels.append((net, point(via, "at"), route_layers, float(first(via, "drill")[1])))
-        for net, xy, route_layers, diameter in barrels:
-            nodes = [(*xy, layer) for layer in route_layers]
-            via_nodes[net].update(nodes)
+            self.barrels.append(Barrel(net, point(via, "at"), tuple(route_layers),
+                                       float(first(via, "drill")[1]), float(first(via, "size")[1]), True))
+        for barrel in self.barrels:
+            nodes = [(*barrel.xy, layer) for layer in barrel.layers]
+            via_nodes[barrel.net].update(nodes)
             # Equal copper cross-section for the nominal cylindrical drill wall.
-            shell_width = math.pi * (diameter + plating)
+            shell_width = math.pi * (barrel.drill + plating)
             for a, b in zip(nodes, nodes[1:]):
-                self.add_edge(net, Copper(a, b, shell_width, plating))
+                self.add_edge(barrel.net, Copper(a, b, shell_width, plating))
         for net, segments in traces.items():
             candidates = {p for trace in segments for p in (trace.start, trace.end)} | via_nodes[net]
             for trace in segments:
@@ -270,7 +282,7 @@ def write_geometry(path, layout, routes, mesh, ports=PORTS):
     path.write_text("\n".join(text) + "\n", encoding="ascii")
 
 
-def read_matrices(path, ports=PORTS):
+def read_matrices(path, ports=PORTS, *, relative_reciprocity=0):
     text = path.read_text(encoding="ascii")
     labels = re.findall(r"Row (\d+).+port name: (\S+)", text)
     names = [name for _, name in sorted(labels, key=lambda label: int(label[0]))]
@@ -286,11 +298,12 @@ def read_matrices(path, ports=PORTS):
         if len(z) != len(ports) or any(len(row) != len(ports) for row in z):
             raise ValueError(f"Incomplete impedance matrix at {freq} Hz")
         z = [[z[i][j] for j in order] for i in order]
+        tolerance = 2e-7 + relative_reciprocity * max(abs(z[i][i]) for i in range(len(z)))
         for i, row in enumerate(z):
             if row[i].real <= 0 or row[i].imag <= 0:
                 raise ValueError(f"Nonpositive diagonal at {freq} Hz")
             for j, value in enumerate(row):
-                if not math.isclose(abs(value - z[j][i]), 0.0, abs_tol=2e-7):
+                if not math.isclose(abs(value - z[j][i]), 0.0, abs_tol=tolerance):
                     raise ValueError(f"Impedance matrix is not reciprocal at {freq} Hz")
         matrices[f"{frequency:g}"] = {
             "resistance_ohm": [[v.real for v in row] for row in z],
@@ -302,7 +315,10 @@ def read_matrices(path, ports=PORTS):
 
 
 def extract(board_path, executable, plating, mesh, bootstrap=False):
-    layout = Layout(read_schematic(board_path), plating)
+    board = read_schematic(board_path)
+    if any(not children(zone, "keepout") for zone in children(board, "zone")):
+        raise ValueError("This trace-and-via extractor cannot model copper pours")
+    layout = Layout(board, plating)
     ports = BOOTSTRAP_PORTS if bootstrap else PORTS
     result = {
         "board_sha256": hashlib.sha256(board_path.read_bytes()).hexdigest(),

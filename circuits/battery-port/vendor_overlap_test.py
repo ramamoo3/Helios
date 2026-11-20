@@ -9,7 +9,7 @@ from subprocess import TimeoutExpired
 import tempfile
 
 from startup_test import command_sources, compile_trace
-from vendor_startup_test import PROFILES, ROOT, write_deck
+from vendor_startup_test import ROOT, write_deck
 from vendor_test import PSPICE_OPTIONS, stage_vendor_models
 from verify import run_spice
 
