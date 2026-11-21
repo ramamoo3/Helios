@@ -41,8 +41,9 @@ The routed stress repeat uses the trace-only secondary-A extraction, the candida
 ```sh
 python bench_mosfet_margin.py --driver SLUM720.ZIP --baseline SLPM046B.ZIP \
   --candidate SLPM100A.ZIP --output bench-mosfet-margin-results.json
-python extract_layout.py --bootstrap --mesh 11 --output trace-ports.json
-python bench_mosfet_fault.py --board battery-port-bench.kicad_pcb \
+git show 32094e5:circuits/battery-port/battery-port-bench.kicad_pcb > trace-reference.kicad_pcb
+python extract_layout.py --board trace-reference.kicad_pcb --bootstrap --mesh 11 --output trace-ports.json
+python bench_mosfet_fault.py --board trace-reference.kicad_pcb \
   --extraction trace-ports.json --baseline SLPM046B.ZIP --candidate SLPM100A.ZIP \
   --output routed-stress-repeat.json
 ```

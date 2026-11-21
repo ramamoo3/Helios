@@ -39,9 +39,10 @@ Four bias-good fault cases completed with the reduced models. Each primary or se
 The extraction ran on FastHenry source revision `363e43e` with a local build for Windows. Its changes accommodate the compiler and the host and memory reporting functions. The field equations are upstream. Python scripts need the local FastHenry executable, ngspice, a C compiler, and the TI SLUM720 and SLPM046B files. The reported simulations used ngspice 47. [FastHenry source revision](https://github.com/ediloren/FastHenry2/tree/363e43ed57ad3b9affa11cba5a86624fad0edaa9)
 
 ```sh
-python extract_layout.py --fasthenry fasthenry --mesh 11 --output bench-impedance.json
-python layout_switching_test.py --extraction bench-impedance.json --output vendor-results.json --driver /path/to/UCC27282.lib --mosfet /path/to/CSD18534KCS.lib
-python layout_switching_test.py --extraction bench-impedance.json --output screening-results.json --driver /path/to/UCC27282.lib --mosfet /path/to/CSD18534KCS.lib --screening-driver --screening-devices
+git show 28c60eb:circuits/battery-port/battery-port-bench.kicad_pcb > trace-reference.kicad_pcb
+python extract_layout.py --board trace-reference.kicad_pcb --fasthenry fasthenry --mesh 11 --output trace-ports.json
+python layout_switching_test.py --board trace-reference.kicad_pcb --extraction trace-ports.json --output vendor-results.json --driver /path/to/UCC27282.lib --mosfet /path/to/CSD18534KCS.lib
+python layout_switching_test.py --board trace-reference.kicad_pcb --extraction trace-ports.json --output screening-results.json --driver /path/to/UCC27282.lib --mosfet /path/to/CSD18534KCS.lib --screening-driver --screening-devices
 ```
 
 Run from the battery-port directory. The runners write measured values or solver failures to JSON and return a failing exit status when a run stops early or a fault case fails the inhibit check. Each completed case also reports the precharge off-gate criterion. The screening run preserves the extracted topology and substitutes the driver and MOSFET models.
@@ -65,10 +66,12 @@ An independent Q5/Q6 model uses Level 1 MOSFET channels, a charge-formulated gat
 Run from the battery-port directory. The new half-bridge check uses native ngspice and the independently fitted device.
 
 ```sh
-python extract_layout.py --fasthenry fasthenry --bootstrap --mesh 11 --output bench-bootstrap-impedance.json
-python half_bridge_test.py --output bench-half-bridge-results.json
+python extract_layout.py --board trace-reference.kicad_pcb --fasthenry fasthenry --bootstrap --mesh 11 --output trace-bootstrap-repeat.json
+python half_bridge_test.py --output half-bridge-repeat.json
 ```
 
 The checked-in measurements identify the exact board and extraction by SHA-256. The runner verifies that the simulated local short leaves the winding permit asserted and that the injected winding-current control trips it. Its completion indicates that these scenarios produced usable screening results. [Numerical results](bench-half-bridge-results.json)
+
+The trace extraction command regenerates the historical matrix for comparison. The half-bridge runner uses the archived bootstrap dataset by default. Current filled-board commutation-loop evidence is recorded separately. [Main board extraction](BENCH-PCB.md#electrical-extraction-of-the-filled-trial)
 
 The subsequent shunt-trip model clears simulated faults confined to the bridge and shows how transfer inductance can cause nuisance trips. **Fabrication remains on hold** pending integration and final stress verification. [Bridge-local shutdown design and simulation](BENCH-LOCAL-SHUTDOWN.md)

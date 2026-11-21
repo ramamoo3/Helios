@@ -1,0 +1,4547 @@
+{
+  "scope": "Datasheet-based SPICE sensitivity models for the bench rails. Load, timing capacitor, bootstrap charge, active sink retention and source fault current are model inputs.",
+  "sha256": {
+    "bench_rail_analog_test.py": "98ab8648816568fa634372b0fa6d40fb1f5ee003cf4c46ae4554ea91707c3c4e",
+    "firmware/stm32g474.c": "9d8eecda6a6bbb3f9535ac0701009a8211c652aaca461eb07d8100fb83f4c8e4",
+    "battery-port-rail-protection.kicad_sch": "6f812a0cfb532032920178f1438c6862e99a6c55ca126ba8da7e32f8388988b6",
+    "battery-port-rail-interlocks.kicad_sch": "a7253470c12026d8708707f8e9c8466be7fea36794c5418284472bbdf9453712",
+    "battery-port-protected-io.kicad_sch": "14fa660faed5fba643c5d34664391cbae1cfa33a5bdb63d95dc05f3dcd0a5036",
+    "battery-port-bias.kicad_sch": "8ba8b2d74ca1a024654af20df30bcc04c61725111b6f6cc03eb2ed265d09af37",
+    "local_shutdown.lib": "540d8b659afd194750f399db678c32f705c5f16c2b21e524536729e9ec7c2d8e"
+  },
+  "firmware_timing_us": {
+    "DC_REQUEST_US": 3000,
+    "DC_RELEASE_SETTLE_US": 50
+  },
+  "reference_fuse": {
+    "datasheet": "https://www.littelfuse.com/assetdocs/littelfuse-datasheet-297-mini32v?assetguid=42c9dd21-a88e-4328-8e67-2f832444faf1",
+    "rating_a": 5,
+    "voltage_vdc": 32,
+    "typical_melt_i2t_a2s": 37,
+    "opening_time_s_at_multiple": {
+      "1.1": [
+        360000,
+        null
+      ],
+      "1.35": [
+        0.75,
+        600
+      ],
+      "2": [
+        0.15,
+        5
+      ],
+      "6": [
+        0.03,
+        0.1
+      ]
+    }
+  },
+  "precharge": {
+    "primary-firmware-0ua-1uf-3200us": {
+      "inputs": [
+        10.8,
+        0,
+        1,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.793,
+          "pulse_end_v": 10.7944,
+          "arm_margin_v": 0.00747185,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.9158e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.793,
+          "pulse_end_v": 10.7944,
+          "arm_margin_v": 0.00747185,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.91678e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-0ua-1uf-5100us": {
+      "inputs": [
+        10.8,
+        0,
+        1,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.793,
+          "pulse_end_v": 10.7944,
+          "arm_margin_v": 0.00747185,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.9158e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.793,
+          "pulse_end_v": 10.7944,
+          "arm_margin_v": 0.00747185,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.91678e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-0ua-1uf-6800us": {
+      "inputs": [
+        10.8,
+        0,
+        1,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.793,
+          "pulse_end_v": 10.7944,
+          "arm_margin_v": 0.00747185,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.9158e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.793,
+          "pulse_end_v": 10.7944,
+          "arm_margin_v": 0.00747185,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.91678e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-0ua-2.2uf-3200us": {
+      "inputs": [
+        10.8,
+        0,
+        2.2,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.7771,
+          "pulse_end_v": 10.7777,
+          "arm_margin_v": 0.00707725,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.41699e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.7771,
+          "pulse_end_v": 10.7777,
+          "arm_margin_v": 0.0070772,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.41745e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-0ua-2.2uf-5100us": {
+      "inputs": [
+        10.8,
+        0,
+        2.2,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.7771,
+          "pulse_end_v": 10.7777,
+          "arm_margin_v": 0.00707725,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.41699e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.7771,
+          "pulse_end_v": 10.7777,
+          "arm_margin_v": 0.0070772,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.41745e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-0ua-2.2uf-6800us": {
+      "inputs": [
+        10.8,
+        0,
+        2.2,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.7771,
+          "pulse_end_v": 10.7777,
+          "arm_margin_v": 0.00707725,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.41699e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.7771,
+          "pulse_end_v": 10.7777,
+          "arm_margin_v": 0.0070772,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.41745e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-100ua-1uf-3200us": {
+      "inputs": [
+        10.8,
+        100,
+        1,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.7671,
+          "pulse_end_v": 10.7734,
+          "arm_margin_v": 0.00683031,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.92747e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.7671,
+          "pulse_end_v": 10.7734,
+          "arm_margin_v": 0.00683031,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.92845e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-100ua-1uf-5100us": {
+      "inputs": [
+        10.8,
+        100,
+        1,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.7671,
+          "pulse_end_v": 10.7734,
+          "arm_margin_v": 0.00683031,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.92747e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.7671,
+          "pulse_end_v": 10.7734,
+          "arm_margin_v": 0.00683031,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.92845e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-100ua-1uf-6800us": {
+      "inputs": [
+        10.8,
+        100,
+        1,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.7671,
+          "pulse_end_v": 10.7734,
+          "arm_margin_v": 0.00683031,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.92747e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.7671,
+          "pulse_end_v": 10.7734,
+          "arm_margin_v": 0.00683031,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.92845e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-100ua-2.2uf-3200us": {
+      "inputs": [
+        10.8,
+        100,
+        2.2,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.7539,
+          "pulse_end_v": 10.7567,
+          "arm_margin_v": 0.00650218,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.44201e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.7539,
+          "pulse_end_v": 10.7567,
+          "arm_margin_v": 0.00650213,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.44243e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-100ua-2.2uf-5100us": {
+      "inputs": [
+        10.8,
+        100,
+        2.2,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.7539,
+          "pulse_end_v": 10.7567,
+          "arm_margin_v": 0.00650218,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.44201e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.7539,
+          "pulse_end_v": 10.7567,
+          "arm_margin_v": 0.00650213,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.44243e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-100ua-2.2uf-6800us": {
+      "inputs": [
+        10.8,
+        100,
+        2.2,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.7539,
+          "pulse_end_v": 10.7567,
+          "arm_margin_v": 0.00650218,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.44201e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.7539,
+          "pulse_end_v": 10.7567,
+          "arm_margin_v": 0.00650213,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.44243e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-500ua-1uf-3200us": {
+      "inputs": [
+        10.8,
+        500,
+        1,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.6633,
+          "pulse_end_v": 10.6894,
+          "arm_margin_v": 0.00426418,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.97975e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.6633,
+          "pulse_end_v": 10.6894,
+          "arm_margin_v": 0.00426418,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.98072e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-500ua-1uf-5100us": {
+      "inputs": [
+        10.8,
+        500,
+        1,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.6633,
+          "pulse_end_v": 10.6894,
+          "arm_margin_v": 0.00426418,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.97975e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.6633,
+          "pulse_end_v": 10.6894,
+          "arm_margin_v": 0.00426418,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.98072e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-500ua-1uf-6800us": {
+      "inputs": [
+        10.8,
+        500,
+        1,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.6633,
+          "pulse_end_v": 10.6894,
+          "arm_margin_v": 0.00426418,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.97975e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.6633,
+          "pulse_end_v": 10.6894,
+          "arm_margin_v": 0.00426418,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.98072e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-500ua-2.2uf-3200us": {
+      "inputs": [
+        10.8,
+        500,
+        2.2,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.6611,
+          "pulse_end_v": 10.6729,
+          "arm_margin_v": 0.00420188,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.54659e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.6611,
+          "pulse_end_v": 10.6729,
+          "arm_margin_v": 0.00420183,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.54717e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-500ua-2.2uf-5100us": {
+      "inputs": [
+        10.8,
+        500,
+        2.2,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.6611,
+          "pulse_end_v": 10.6729,
+          "arm_margin_v": 0.00420188,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.54659e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.6611,
+          "pulse_end_v": 10.6729,
+          "arm_margin_v": 0.00420183,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.54717e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-500ua-2.2uf-6800us": {
+      "inputs": [
+        10.8,
+        500,
+        2.2,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.6611,
+          "pulse_end_v": 10.6729,
+          "arm_margin_v": 0.00420188,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.54659e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.6611,
+          "pulse_end_v": 10.6729,
+          "arm_margin_v": 0.00420183,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.54717e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-1000ua-1uf-3200us": {
+      "inputs": [
+        10.8,
+        1000,
+        1,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.5337,
+          "pulse_end_v": 10.5844,
+          "arm_margin_v": 0.00105651,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.05746e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.5337,
+          "pulse_end_v": 10.5844,
+          "arm_margin_v": 0.00105651,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.05846e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-1000ua-1uf-5100us": {
+      "inputs": [
+        10.8,
+        1000,
+        1,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.5337,
+          "pulse_end_v": 10.5844,
+          "arm_margin_v": 0.00105651,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.05746e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.5337,
+          "pulse_end_v": 10.5844,
+          "arm_margin_v": 0.00105651,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.05846e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-1000ua-1uf-6800us": {
+      "inputs": [
+        10.8,
+        1000,
+        1,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.5337,
+          "pulse_end_v": 10.5844,
+          "arm_margin_v": 0.00105651,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.05746e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.5337,
+          "pulse_end_v": 10.5844,
+          "arm_margin_v": 0.00105651,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.05846e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-1000ua-2.2uf-3200us": {
+      "inputs": [
+        10.8,
+        1000,
+        2.2,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.5451,
+          "pulse_end_v": 10.5681,
+          "arm_margin_v": 0.00132652,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.68821e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.5451,
+          "pulse_end_v": 10.5681,
+          "arm_margin_v": 0.00132646,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.68892e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-1000ua-2.2uf-5100us": {
+      "inputs": [
+        10.8,
+        1000,
+        2.2,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.5451,
+          "pulse_end_v": 10.5681,
+          "arm_margin_v": 0.00132652,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.68821e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.5451,
+          "pulse_end_v": 10.5681,
+          "arm_margin_v": 0.00132646,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.68892e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-1000ua-2.2uf-6800us": {
+      "inputs": [
+        10.8,
+        1000,
+        2.2,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.5451,
+          "pulse_end_v": 10.5681,
+          "arm_margin_v": 0.00132652,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.68821e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.5451,
+          "pulse_end_v": 10.5681,
+          "arm_margin_v": 0.00132646,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.68892e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-firmware-2000ua-1uf-3200us": {
+      "inputs": [
+        10.8,
+        2000,
+        1,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.2743,
+          "pulse_end_v": 10.3745,
+          "arm_margin_v": -0.00535882,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.2552e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 10.2743,
+          "pulse_end_v": 10.3745,
+          "arm_margin_v": -0.00535882,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.25622e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-firmware-2000ua-1uf-5100us": {
+      "inputs": [
+        10.8,
+        2000,
+        1,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.2743,
+          "pulse_end_v": 10.3745,
+          "arm_margin_v": -0.00535882,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.2552e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 10.2743,
+          "pulse_end_v": 10.3745,
+          "arm_margin_v": -0.00535882,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.25622e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-firmware-2000ua-1uf-6800us": {
+      "inputs": [
+        10.8,
+        2000,
+        1,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.2743,
+          "pulse_end_v": 10.3745,
+          "arm_margin_v": -0.00535882,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.2552e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 10.2743,
+          "pulse_end_v": 10.3745,
+          "arm_margin_v": -0.00535882,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.25622e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-firmware-2000ua-2.2uf-3200us": {
+      "inputs": [
+        10.8,
+        2000,
+        2.2,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.313,
+          "pulse_end_v": 10.3585,
+          "arm_margin_v": -0.00442422,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 7.00753e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 10.313,
+          "pulse_end_v": 10.3585,
+          "arm_margin_v": -0.00442428,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 7.00849e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-firmware-2000ua-2.2uf-5100us": {
+      "inputs": [
+        10.8,
+        2000,
+        2.2,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.313,
+          "pulse_end_v": 10.3585,
+          "arm_margin_v": -0.00442422,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 7.00753e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 10.313,
+          "pulse_end_v": 10.3585,
+          "arm_margin_v": -0.00442428,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 7.00849e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-firmware-2000ua-2.2uf-6800us": {
+      "inputs": [
+        10.8,
+        2000,
+        2.2,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.313,
+          "pulse_end_v": 10.3585,
+          "arm_margin_v": -0.00442422,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 7.00753e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 10.313,
+          "pulse_end_v": 10.3585,
+          "arm_margin_v": -0.00442428,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 7.00849e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-0ua-1uf-3200us": {
+      "inputs": [
+        10.8,
+        0,
+        1,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.5606,
+          "pulse_end_v": 10.7944,
+          "arm_margin_v": 0.00170249,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.9158e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.5606,
+          "pulse_end_v": 10.7944,
+          "arm_margin_v": 0.00170249,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.91679e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-original-long-coast-0ua-1uf-5100us": {
+      "inputs": [
+        10.8,
+        0,
+        1,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.6107,
+          "pulse_end_v": 10.7944,
+          "arm_margin_v": 0.0029447,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.91581e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.6107,
+          "pulse_end_v": 10.7944,
+          "arm_margin_v": 0.0029447,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.9168e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-original-long-coast-0ua-1uf-6800us": {
+      "inputs": [
+        10.8,
+        0,
+        1,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.6556,
+          "pulse_end_v": 10.7944,
+          "arm_margin_v": 0.00406108,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.91582e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.6556,
+          "pulse_end_v": 10.7944,
+          "arm_margin_v": 0.00406108,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.91681e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-original-long-coast-0ua-2.2uf-3200us": {
+      "inputs": [
+        10.8,
+        0,
+        2.2,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.6768,
+          "pulse_end_v": 10.7836,
+          "arm_margin_v": 0.00458661,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.417e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.6768,
+          "pulse_end_v": 10.7836,
+          "arm_margin_v": 0.00458658,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.41747e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-original-long-coast-0ua-2.2uf-5100us": {
+      "inputs": [
+        10.8,
+        0,
+        2.2,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.7103,
+          "pulse_end_v": 10.7942,
+          "arm_margin_v": 0.00541775,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.41704e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.7103,
+          "pulse_end_v": 10.7942,
+          "arm_margin_v": 0.00541775,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.4175e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-original-long-coast-0ua-2.2uf-6800us": {
+      "inputs": [
+        10.8,
+        0,
+        2.2,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.7311,
+          "pulse_end_v": 10.7944,
+          "arm_margin_v": 0.0059336,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.41705e-05,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 10.7311,
+          "pulse_end_v": 10.7944,
+          "arm_margin_v": 0.0059336,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.41752e-05,
+          "voltage_match": true
+        }
+      }
+    },
+    "primary-original-long-coast-100ua-1uf-3200us": {
+      "inputs": [
+        10.8,
+        100,
+        1,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 9.66972,
+          "pulse_end_v": 10.7734,
+          "arm_margin_v": -0.0204143,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.9275e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 9.66972,
+          "pulse_end_v": 10.7734,
+          "arm_margin_v": -0.0204143,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.92848e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-100ua-1uf-5100us": {
+      "inputs": [
+        10.8,
+        100,
+        1,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 9.90598,
+          "pulse_end_v": 10.7734,
+          "arm_margin_v": -0.0145485,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.92782e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 9.90598,
+          "pulse_end_v": 10.7734,
+          "arm_margin_v": -0.0145485,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.9288e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-100ua-1uf-6800us": {
+      "inputs": [
+        10.8,
+        100,
+        1,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.1183,
+          "pulse_end_v": 10.7734,
+          "arm_margin_v": -0.00927671,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.92811e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 10.1183,
+          "pulse_end_v": 10.7734,
+          "arm_margin_v": -0.00927671,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.92909e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-100ua-2.2uf-3200us": {
+      "inputs": [
+        10.8,
+        100,
+        2.2,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.2581,
+          "pulse_end_v": 10.7626,
+          "arm_margin_v": -0.00580883,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.44208e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 10.2581,
+          "pulse_end_v": 10.7626,
+          "arm_margin_v": -0.00580887,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.44251e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-100ua-2.2uf-5100us": {
+      "inputs": [
+        10.8,
+        100,
+        2.2,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.3771,
+          "pulse_end_v": 10.7732,
+          "arm_margin_v": -0.0028541,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.44247e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 10.3771,
+          "pulse_end_v": 10.7732,
+          "arm_margin_v": -0.0028541,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.4429e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-100ua-2.2uf-6800us": {
+      "inputs": [
+        10.8,
+        100,
+        2.2,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.4746,
+          "pulse_end_v": 10.7734,
+          "arm_margin_v": -0.000433859,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.44276e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 10.4746,
+          "pulse_end_v": 10.7734,
+          "arm_margin_v": -0.000433859,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.44319e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-500ua-1uf-3200us": {
+      "inputs": [
+        10.8,
+        500,
+        1,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 6.10602,
+          "pulse_end_v": 10.6894,
+          "arm_margin_v": -0.108881,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.98033e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 6.10602,
+          "pulse_end_v": 10.6894,
+          "arm_margin_v": -0.108881,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.9813e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-500ua-1uf-5100us": {
+      "inputs": [
+        10.8,
+        500,
+        1,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 7.0872,
+          "pulse_end_v": 10.6894,
+          "arm_margin_v": -0.0845214,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.98587e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 7.0872,
+          "pulse_end_v": 10.6894,
+          "arm_margin_v": -0.0845214,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.98683e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-500ua-1uf-6800us": {
+      "inputs": [
+        10.8,
+        500,
+        1,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 7.96903,
+          "pulse_end_v": 10.6894,
+          "arm_margin_v": -0.0626279,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.99082e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 7.96903,
+          "pulse_end_v": 10.6894,
+          "arm_margin_v": -0.0626279,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 2.99178e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-500ua-2.2uf-3200us": {
+      "inputs": [
+        10.8,
+        500,
+        2.2,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 8.58304,
+          "pulse_end_v": 10.6787,
+          "arm_margin_v": -0.0473906,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.54732e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 8.58304,
+          "pulse_end_v": 10.6787,
+          "arm_margin_v": -0.0473906,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.54791e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-500ua-2.2uf-5100us": {
+      "inputs": [
+        10.8,
+        500,
+        2.2,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 9.0442,
+          "pulse_end_v": 10.6892,
+          "arm_margin_v": -0.0359415,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.55312e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 9.0442,
+          "pulse_end_v": 10.6892,
+          "arm_margin_v": -0.0359415,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.5537e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-500ua-2.2uf-6800us": {
+      "inputs": [
+        10.8,
+        500,
+        2.2,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 9.4485,
+          "pulse_end_v": 10.6894,
+          "arm_margin_v": -0.0259037,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.55807e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 9.4485,
+          "pulse_end_v": 10.6894,
+          "arm_margin_v": -0.0259037,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.55865e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-1000ua-1uf-3200us": {
+      "inputs": [
+        10.8,
+        1000,
+        1,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 1.65139,
+          "pulse_end_v": 10.5844,
+          "arm_margin_v": -0.219465,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.05968e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 1.65139,
+          "pulse_end_v": 10.5844,
+          "arm_margin_v": -0.219465,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.06068e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-1000ua-1uf-5100us": {
+      "inputs": [
+        10.8,
+        1000,
+        1,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 3.56372,
+          "pulse_end_v": 10.5844,
+          "arm_margin_v": -0.171987,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.08069e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 3.56372,
+          "pulse_end_v": 10.5844,
+          "arm_margin_v": -0.171987,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.08169e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-1000ua-1uf-6800us": {
+      "inputs": [
+        10.8,
+        1000,
+        1,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 5.28242,
+          "pulse_end_v": 10.5844,
+          "arm_margin_v": -0.129317,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.09949e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 5.28242,
+          "pulse_end_v": 10.5844,
+          "arm_margin_v": -0.129317,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.10049e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-1000ua-2.2uf-3200us": {
+      "inputs": [
+        10.8,
+        1000,
+        2.2,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 6.48926,
+          "pulse_end_v": 10.5738,
+          "arm_margin_v": -0.0993678,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.6907e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 6.48926,
+          "pulse_end_v": 10.5738,
+          "arm_margin_v": -0.0993679,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.69141e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-1000ua-2.2uf-5100us": {
+      "inputs": [
+        10.8,
+        1000,
+        2.2,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 7.37809,
+          "pulse_end_v": 10.5843,
+          "arm_margin_v": -0.0773007,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.71222e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 7.37809,
+          "pulse_end_v": 10.5843,
+          "arm_margin_v": -0.0773007,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.71293e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-1000ua-2.2uf-6800us": {
+      "inputs": [
+        10.8,
+        1000,
+        2.2,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 8.16592,
+          "pulse_end_v": 10.5844,
+          "arm_margin_v": -0.057741,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.73103e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 8.16592,
+          "pulse_end_v": 10.5844,
+          "arm_margin_v": -0.057741,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 6.73174e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-2000ua-1uf-3200us": {
+      "inputs": [
+        10.8,
+        2000,
+        1,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 1.07973e-09,
+          "pulse_end_v": 10.3745,
+          "arm_margin_v": -0.260489,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.26382e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 1.07973e-09,
+          "pulse_end_v": 10.3745,
+          "arm_margin_v": -0.260489,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.26484e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-2000ua-1uf-5100us": {
+      "inputs": [
+        10.8,
+        2000,
+        1,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 2.98748e-09,
+          "pulse_end_v": 10.3745,
+          "arm_margin_v": -0.260489,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.3457e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 3.00077e-09,
+          "pulse_end_v": 10.3745,
+          "arm_margin_v": -0.260489,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.34671e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-2000ua-1uf-6800us": {
+      "inputs": [
+        10.8,
+        2000,
+        1,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 0.0467122,
+          "pulse_end_v": 10.3745,
+          "arm_margin_v": -0.259318,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.41895e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 0.0467067,
+          "pulse_end_v": 10.3745,
+          "arm_margin_v": -0.259318,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277634,
+          "resistor_energy_j": 3.41997e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-2000ua-2.2uf-3200us": {
+      "inputs": [
+        10.8,
+        2000,
+        2.2,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 2.3017,
+          "pulse_end_v": 10.3641,
+          "arm_margin_v": -0.203322,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 7.01668e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 2.30169,
+          "pulse_end_v": 10.3641,
+          "arm_margin_v": -0.203322,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 7.01764e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-2000ua-2.2uf-5100us": {
+      "inputs": [
+        10.8,
+        2000,
+        2.2,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 4.04588,
+          "pulse_end_v": 10.3744,
+          "arm_margin_v": -0.160019,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 7.09951e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 4.04588,
+          "pulse_end_v": 10.3744,
+          "arm_margin_v": -0.160019,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 7.10047e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-original-long-coast-2000ua-2.2uf-6800us": {
+      "inputs": [
+        10.8,
+        2000,
+        2.2,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 5.60077,
+          "pulse_end_v": 10.3745,
+          "arm_margin_v": -0.121416,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 7.17278e-05,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 5.60077,
+          "pulse_end_v": 10.3745,
+          "arm_margin_v": -0.121416,
+          "peak_pre_a": 0.0514212,
+          "resistor_peak_w": 0.277635,
+          "resistor_energy_j": 7.17374e-05,
+          "voltage_match": false
+        }
+      }
+    },
+    "primary-short-guard": {
+      "inputs": [
+        12.6,
+        0,
+        2.2,
+        210,
+        1000,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 11.0947,
+          "pulse_end_v": 11.1156,
+          "arm_margin_v": -0.0267867,
+          "peak_pre_a": 0.0599914,
+          "resistor_peak_w": 0.377892,
+          "resistor_energy_j": 8.61288e-05
+        },
+        "2u": {
+          "arm_v": 11.0947,
+          "pulse_end_v": 11.1155,
+          "arm_margin_v": -0.0267881,
+          "peak_pre_a": 0.0599914,
+          "resistor_peak_w": 0.377892,
+          "resistor_energy_j": 8.6135e-05
+        }
+      }
+    },
+    "primary-shorted-bus-load": {
+      "inputs": [
+        12.6,
+        200000,
+        1,
+        190,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 1.25842e-11,
+          "pulse_end_v": 0.0659581,
+          "arm_margin_v": -0.302237,
+          "peak_pre_a": 0.0663052,
+          "resistor_peak_w": 0.417656,
+          "resistor_energy_j": 0.00123617
+        },
+        "2u": {
+          "arm_v": 1.26001e-11,
+          "pulse_end_v": 0.0659581,
+          "arm_margin_v": -0.302237,
+          "peak_pre_a": 0.0663052,
+          "resistor_peak_w": 0.417656,
+          "resistor_energy_j": 0.00123617
+        }
+      }
+    },
+    "secondary-firmware-0ua-1uf-3200us": {
+      "inputs": [
+        21.6,
+        0,
+        1,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.586,
+          "pulse_end_v": 21.5887,
+          "arm_margin_v": 0.0249437,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116632,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.586,
+          "pulse_end_v": 21.5887,
+          "arm_margin_v": 0.0249437,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116671,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-0ua-1uf-5100us": {
+      "inputs": [
+        21.6,
+        0,
+        1,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.586,
+          "pulse_end_v": 21.5887,
+          "arm_margin_v": 0.0249437,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116632,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.586,
+          "pulse_end_v": 21.5887,
+          "arm_margin_v": 0.0249437,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116671,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-0ua-1uf-6800us": {
+      "inputs": [
+        21.6,
+        0,
+        1,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.586,
+          "pulse_end_v": 21.5887,
+          "arm_margin_v": 0.0249437,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116632,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.586,
+          "pulse_end_v": 21.5887,
+          "arm_margin_v": 0.0249437,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116671,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-0ua-2.2uf-3200us": {
+      "inputs": [
+        21.6,
+        0,
+        2.2,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.5543,
+          "pulse_end_v": 21.5554,
+          "arm_margin_v": 0.0241545,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000256679,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.5543,
+          "pulse_end_v": 21.5554,
+          "arm_margin_v": 0.0241544,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000256698,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-0ua-2.2uf-5100us": {
+      "inputs": [
+        21.6,
+        0,
+        2.2,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.5543,
+          "pulse_end_v": 21.5554,
+          "arm_margin_v": 0.0241545,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000256679,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.5543,
+          "pulse_end_v": 21.5554,
+          "arm_margin_v": 0.0241544,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000256698,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-0ua-2.2uf-6800us": {
+      "inputs": [
+        21.6,
+        0,
+        2.2,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.5543,
+          "pulse_end_v": 21.5554,
+          "arm_margin_v": 0.0241545,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000256679,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.5543,
+          "pulse_end_v": 21.5554,
+          "arm_margin_v": 0.0241544,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000256698,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-100ua-1uf-3200us": {
+      "inputs": [
+        21.6,
+        100,
+        1,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.5601,
+          "pulse_end_v": 21.5677,
+          "arm_margin_v": 0.0243022,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116864,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.5601,
+          "pulse_end_v": 21.5677,
+          "arm_margin_v": 0.0243022,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116903,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-100ua-1uf-5100us": {
+      "inputs": [
+        21.6,
+        100,
+        1,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.5601,
+          "pulse_end_v": 21.5677,
+          "arm_margin_v": 0.0243022,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116864,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.5601,
+          "pulse_end_v": 21.5677,
+          "arm_margin_v": 0.0243022,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116903,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-100ua-1uf-6800us": {
+      "inputs": [
+        21.6,
+        100,
+        1,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.5601,
+          "pulse_end_v": 21.5677,
+          "arm_margin_v": 0.0243022,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116864,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.5601,
+          "pulse_end_v": 21.5677,
+          "arm_margin_v": 0.0243022,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116903,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-100ua-2.2uf-3200us": {
+      "inputs": [
+        21.6,
+        100,
+        2.2,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.5311,
+          "pulse_end_v": 21.5344,
+          "arm_margin_v": 0.0235794,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000257179,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.5311,
+          "pulse_end_v": 21.5344,
+          "arm_margin_v": 0.0235793,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000257198,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-100ua-2.2uf-5100us": {
+      "inputs": [
+        21.6,
+        100,
+        2.2,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.5311,
+          "pulse_end_v": 21.5344,
+          "arm_margin_v": 0.0235794,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000257179,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.5311,
+          "pulse_end_v": 21.5344,
+          "arm_margin_v": 0.0235793,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000257198,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-100ua-2.2uf-6800us": {
+      "inputs": [
+        21.6,
+        100,
+        2.2,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.5311,
+          "pulse_end_v": 21.5344,
+          "arm_margin_v": 0.0235794,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000257179,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.5311,
+          "pulse_end_v": 21.5344,
+          "arm_margin_v": 0.0235793,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000257198,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-500ua-1uf-3200us": {
+      "inputs": [
+        21.6,
+        500,
+        1,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.4564,
+          "pulse_end_v": 21.4837,
+          "arm_margin_v": 0.021736,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000117846,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.4564,
+          "pulse_end_v": 21.4837,
+          "arm_margin_v": 0.021736,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000117885,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-500ua-1uf-5100us": {
+      "inputs": [
+        21.6,
+        500,
+        1,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.4564,
+          "pulse_end_v": 21.4837,
+          "arm_margin_v": 0.021736,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000117846,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.4564,
+          "pulse_end_v": 21.4837,
+          "arm_margin_v": 0.021736,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000117885,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-500ua-1uf-6800us": {
+      "inputs": [
+        21.6,
+        500,
+        1,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.4564,
+          "pulse_end_v": 21.4837,
+          "arm_margin_v": 0.021736,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000117846,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.4564,
+          "pulse_end_v": 21.4837,
+          "arm_margin_v": 0.021736,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000117885,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-500ua-2.2uf-3200us": {
+      "inputs": [
+        21.6,
+        500,
+        2.2,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.4383,
+          "pulse_end_v": 21.4506,
+          "arm_margin_v": 0.0212791,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000259226,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.4382,
+          "pulse_end_v": 21.4506,
+          "arm_margin_v": 0.021279,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000259245,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-500ua-2.2uf-5100us": {
+      "inputs": [
+        21.6,
+        500,
+        2.2,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.4383,
+          "pulse_end_v": 21.4506,
+          "arm_margin_v": 0.0212791,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000259226,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.4382,
+          "pulse_end_v": 21.4506,
+          "arm_margin_v": 0.021279,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000259245,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-500ua-2.2uf-6800us": {
+      "inputs": [
+        21.6,
+        500,
+        2.2,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.4383,
+          "pulse_end_v": 21.4506,
+          "arm_margin_v": 0.0212791,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000259226,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.4382,
+          "pulse_end_v": 21.4506,
+          "arm_margin_v": 0.021279,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000259245,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-1000ua-1uf-3200us": {
+      "inputs": [
+        21.6,
+        1000,
+        1,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.3267,
+          "pulse_end_v": 21.3788,
+          "arm_margin_v": 0.0185284,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000119199,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.3267,
+          "pulse_end_v": 21.3788,
+          "arm_margin_v": 0.0185284,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000119238,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-1000ua-1uf-5100us": {
+      "inputs": [
+        21.6,
+        1000,
+        1,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.3267,
+          "pulse_end_v": 21.3788,
+          "arm_margin_v": 0.0185284,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000119199,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.3267,
+          "pulse_end_v": 21.3788,
+          "arm_margin_v": 0.0185284,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000119238,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-1000ua-1uf-6800us": {
+      "inputs": [
+        21.6,
+        1000,
+        1,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.3267,
+          "pulse_end_v": 21.3788,
+          "arm_margin_v": 0.0185284,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000119199,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.3267,
+          "pulse_end_v": 21.3788,
+          "arm_margin_v": 0.0185284,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000119238,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-1000ua-2.2uf-3200us": {
+      "inputs": [
+        21.6,
+        1000,
+        2.2,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.3222,
+          "pulse_end_v": 21.3458,
+          "arm_margin_v": 0.0184037,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000261893,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.3222,
+          "pulse_end_v": 21.3458,
+          "arm_margin_v": 0.0184036,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000261912,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-1000ua-2.2uf-5100us": {
+      "inputs": [
+        21.6,
+        1000,
+        2.2,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.3222,
+          "pulse_end_v": 21.3458,
+          "arm_margin_v": 0.0184037,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000261893,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.3222,
+          "pulse_end_v": 21.3458,
+          "arm_margin_v": 0.0184036,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000261912,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-1000ua-2.2uf-6800us": {
+      "inputs": [
+        21.6,
+        1000,
+        2.2,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.3222,
+          "pulse_end_v": 21.3458,
+          "arm_margin_v": 0.0184037,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000261893,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.3222,
+          "pulse_end_v": 21.3458,
+          "arm_margin_v": 0.0184036,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000261912,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-2000ua-1uf-3200us": {
+      "inputs": [
+        21.6,
+        2000,
+        1,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.0673,
+          "pulse_end_v": 21.1689,
+          "arm_margin_v": 0.012113,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000122323,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.0673,
+          "pulse_end_v": 21.1689,
+          "arm_margin_v": 0.012113,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000122362,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-2000ua-1uf-5100us": {
+      "inputs": [
+        21.6,
+        2000,
+        1,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.0673,
+          "pulse_end_v": 21.1689,
+          "arm_margin_v": 0.012113,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000122323,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.0673,
+          "pulse_end_v": 21.1689,
+          "arm_margin_v": 0.012113,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000122362,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-2000ua-1uf-6800us": {
+      "inputs": [
+        21.6,
+        2000,
+        1,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.0673,
+          "pulse_end_v": 21.1689,
+          "arm_margin_v": 0.012113,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000122323,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.0673,
+          "pulse_end_v": 21.1689,
+          "arm_margin_v": 0.012113,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000122362,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-2000ua-2.2uf-3200us": {
+      "inputs": [
+        21.6,
+        2000,
+        2.2,
+        210,
+        3200,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.0901,
+          "pulse_end_v": 21.1362,
+          "arm_margin_v": 0.0126529,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000267581,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.0901,
+          "pulse_end_v": 21.1362,
+          "arm_margin_v": 0.0126528,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000267601,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-2000ua-2.2uf-5100us": {
+      "inputs": [
+        21.6,
+        2000,
+        2.2,
+        210,
+        5100,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.0901,
+          "pulse_end_v": 21.1362,
+          "arm_margin_v": 0.0126529,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000267581,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.0901,
+          "pulse_end_v": 21.1362,
+          "arm_margin_v": 0.0126528,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000267601,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-firmware-2000ua-2.2uf-6800us": {
+      "inputs": [
+        21.6,
+        2000,
+        2.2,
+        210,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.0901,
+          "pulse_end_v": 21.1362,
+          "arm_margin_v": 0.0126529,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000267581,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.0901,
+          "pulse_end_v": 21.1362,
+          "arm_margin_v": 0.0126528,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000267601,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-original-long-coast-0ua-1uf-3200us": {
+      "inputs": [
+        21.6,
+        0,
+        1,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.1213,
+          "pulse_end_v": 21.5887,
+          "arm_margin_v": 0.013405,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116632,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.1213,
+          "pulse_end_v": 21.5887,
+          "arm_margin_v": 0.013405,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116671,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-original-long-coast-0ua-1uf-5100us": {
+      "inputs": [
+        21.6,
+        0,
+        1,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.2214,
+          "pulse_end_v": 21.5887,
+          "arm_margin_v": 0.0158894,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116633,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.2214,
+          "pulse_end_v": 21.5887,
+          "arm_margin_v": 0.0158894,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116672,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-original-long-coast-0ua-1uf-6800us": {
+      "inputs": [
+        21.6,
+        0,
+        1,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.3113,
+          "pulse_end_v": 21.5887,
+          "arm_margin_v": 0.0181222,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116634,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.3113,
+          "pulse_end_v": 21.5887,
+          "arm_margin_v": 0.0181222,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116673,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-original-long-coast-0ua-2.2uf-3200us": {
+      "inputs": [
+        21.6,
+        0,
+        2.2,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.3537,
+          "pulse_end_v": 21.5671,
+          "arm_margin_v": 0.0191732,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.00025668,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.3536,
+          "pulse_end_v": 21.5671,
+          "arm_margin_v": 0.0191732,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000256699,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-original-long-coast-0ua-2.2uf-5100us": {
+      "inputs": [
+        21.6,
+        0,
+        2.2,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.4206,
+          "pulse_end_v": 21.5884,
+          "arm_margin_v": 0.0208355,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000256682,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.4206,
+          "pulse_end_v": 21.5884,
+          "arm_margin_v": 0.0208355,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.0002567,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-original-long-coast-0ua-2.2uf-6800us": {
+      "inputs": [
+        21.6,
+        0,
+        2.2,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.4622,
+          "pulse_end_v": 21.5887,
+          "arm_margin_v": 0.0218672,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000256682,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.4622,
+          "pulse_end_v": 21.5887,
+          "arm_margin_v": 0.0218672,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000256701,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-original-long-coast-100ua-1uf-3200us": {
+      "inputs": [
+        21.6,
+        100,
+        1,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 20.2304,
+          "pulse_end_v": 21.5677,
+          "arm_margin_v": -0.00871178,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116864,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 20.2304,
+          "pulse_end_v": 21.5677,
+          "arm_margin_v": -0.00871178,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116903,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-100ua-1uf-5100us": {
+      "inputs": [
+        21.6,
+        100,
+        1,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 20.5167,
+          "pulse_end_v": 21.5677,
+          "arm_margin_v": -0.00160381,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116869,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 20.5167,
+          "pulse_end_v": 21.5677,
+          "arm_margin_v": -0.00160381,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116908,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-100ua-1uf-6800us": {
+      "inputs": [
+        21.6,
+        100,
+        1,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 20.774,
+          "pulse_end_v": 21.5677,
+          "arm_margin_v": 0.00478437,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116873,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 20.774,
+          "pulse_end_v": 21.5677,
+          "arm_margin_v": 0.00478437,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000116912,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-original-long-coast-100ua-2.2uf-3200us": {
+      "inputs": [
+        21.6,
+        100,
+        2.2,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 20.9349,
+          "pulse_end_v": 21.5461,
+          "arm_margin_v": 0.00877777,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000257181,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 20.9349,
+          "pulse_end_v": 21.5461,
+          "arm_margin_v": 0.00877771,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000257199,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-original-long-coast-100ua-2.2uf-5100us": {
+      "inputs": [
+        21.6,
+        100,
+        2.2,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.0874,
+          "pulse_end_v": 21.5674,
+          "arm_margin_v": 0.0125637,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000257187,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.0874,
+          "pulse_end_v": 21.5674,
+          "arm_margin_v": 0.0125637,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000257206,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-original-long-coast-100ua-2.2uf-6800us": {
+      "inputs": [
+        21.6,
+        100,
+        2.2,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 21.2056,
+          "pulse_end_v": 21.5677,
+          "arm_margin_v": 0.0154997,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000257192,
+          "voltage_match": true
+        },
+        "2u": {
+          "arm_v": 21.2056,
+          "pulse_end_v": 21.5677,
+          "arm_margin_v": 0.0154997,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.00025721,
+          "voltage_match": true
+        }
+      }
+    },
+    "secondary-original-long-coast-500ua-1uf-3200us": {
+      "inputs": [
+        21.6,
+        500,
+        1,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 16.6667,
+          "pulse_end_v": 21.4838,
+          "arm_margin_v": -0.0971788,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000117852,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 16.6667,
+          "pulse_end_v": 21.4838,
+          "arm_margin_v": -0.0971788,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000117891,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-500ua-1uf-5100us": {
+      "inputs": [
+        21.6,
+        500,
+        1,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 17.6979,
+          "pulse_end_v": 21.4838,
+          "arm_margin_v": -0.0715767,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000117914,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 17.6979,
+          "pulse_end_v": 21.4838,
+          "arm_margin_v": -0.0715767,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000117952,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-500ua-1uf-6800us": {
+      "inputs": [
+        21.6,
+        500,
+        1,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 18.6247,
+          "pulse_end_v": 21.4838,
+          "arm_margin_v": -0.0485668,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000117968,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 18.6247,
+          "pulse_end_v": 21.4838,
+          "arm_margin_v": -0.0485668,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000118007,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-500ua-2.2uf-3200us": {
+      "inputs": [
+        21.6,
+        500,
+        2.2,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 19.2599,
+          "pulse_end_v": 21.4622,
+          "arm_margin_v": -0.032804,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000259236,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 19.2599,
+          "pulse_end_v": 21.4622,
+          "arm_margin_v": -0.0328041,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000259254,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-500ua-2.2uf-5100us": {
+      "inputs": [
+        21.6,
+        500,
+        2.2,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 19.7545,
+          "pulse_end_v": 21.4834,
+          "arm_margin_v": -0.0205237,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000259303,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 19.7545,
+          "pulse_end_v": 21.4834,
+          "arm_margin_v": -0.0205237,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000259321,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-500ua-2.2uf-6800us": {
+      "inputs": [
+        21.6,
+        500,
+        2.2,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 20.1796,
+          "pulse_end_v": 21.4838,
+          "arm_margin_v": -0.0099701,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000259357,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 20.1796,
+          "pulse_end_v": 21.4838,
+          "arm_margin_v": -0.0099701,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000259376,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-1000ua-1uf-3200us": {
+      "inputs": [
+        21.6,
+        1000,
+        1,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 12.212,
+          "pulse_end_v": 21.3788,
+          "arm_margin_v": -0.207763,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000119223,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 12.212,
+          "pulse_end_v": 21.3788,
+          "arm_margin_v": -0.207763,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000119262,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-1000ua-1uf-5100us": {
+      "inputs": [
+        21.6,
+        1000,
+        1,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 14.1744,
+          "pulse_end_v": 21.3788,
+          "arm_margin_v": -0.159043,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000119444,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 14.1744,
+          "pulse_end_v": 21.3788,
+          "arm_margin_v": -0.159043,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000119483,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-1000ua-1uf-6800us": {
+      "inputs": [
+        21.6,
+        1000,
+        1,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 15.9381,
+          "pulse_end_v": 21.3788,
+          "arm_margin_v": -0.115256,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000119642,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 15.9381,
+          "pulse_end_v": 21.3788,
+          "arm_margin_v": -0.115256,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000119681,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-1000ua-2.2uf-3200us": {
+      "inputs": [
+        21.6,
+        1000,
+        2.2,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 17.1661,
+          "pulse_end_v": 21.3574,
+          "arm_margin_v": -0.0847812,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000261923,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 17.1661,
+          "pulse_end_v": 21.3574,
+          "arm_margin_v": -0.0847813,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000261941,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-1000ua-2.2uf-5100us": {
+      "inputs": [
+        21.6,
+        1000,
+        2.2,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 18.0884,
+          "pulse_end_v": 21.3785,
+          "arm_margin_v": -0.061883,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000262154,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 18.0884,
+          "pulse_end_v": 21.3785,
+          "arm_margin_v": -0.061883,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000262173,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-1000ua-2.2uf-6800us": {
+      "inputs": [
+        21.6,
+        1000,
+        2.2,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 18.897,
+          "pulse_end_v": 21.3788,
+          "arm_margin_v": -0.0418074,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000262352,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 18.897,
+          "pulse_end_v": 21.3788,
+          "arm_margin_v": -0.0418074,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000262371,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-2000ua-1uf-3200us": {
+      "inputs": [
+        21.6,
+        2000,
+        1,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 3.30279,
+          "pulse_end_v": 21.1689,
+          "arm_margin_v": -0.42893,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000122411,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 3.30279,
+          "pulse_end_v": 21.1689,
+          "arm_margin_v": -0.42893,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.00012245,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-2000ua-1uf-5100us": {
+      "inputs": [
+        21.6,
+        2000,
+        1,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 7.12744,
+          "pulse_end_v": 21.1689,
+          "arm_margin_v": -0.333975,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000123252,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 7.12744,
+          "pulse_end_v": 21.1689,
+          "arm_margin_v": -0.333975,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000123291,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-2000ua-1uf-6800us": {
+      "inputs": [
+        21.6,
+        2000,
+        1,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 10.5648,
+          "pulse_end_v": 21.1689,
+          "arm_margin_v": -0.248634,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000124004,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 10.5648,
+          "pulse_end_v": 21.1689,
+          "arm_margin_v": -0.248634,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000124043,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-2000ua-2.2uf-3200us": {
+      "inputs": [
+        21.6,
+        2000,
+        2.2,
+        210,
+        3200,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 12.9785,
+          "pulse_end_v": 21.1477,
+          "arm_margin_v": -0.188736,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000267681,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 12.9785,
+          "pulse_end_v": 21.1477,
+          "arm_margin_v": -0.188736,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000267701,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-2000ua-2.2uf-5100us": {
+      "inputs": [
+        21.6,
+        2000,
+        2.2,
+        210,
+        5100,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 14.7562,
+          "pulse_end_v": 21.1685,
+          "arm_margin_v": -0.144601,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000268541,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 14.7562,
+          "pulse_end_v": 21.1685,
+          "arm_margin_v": -0.144601,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000268561,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-original-long-coast-2000ua-2.2uf-6800us": {
+      "inputs": [
+        21.6,
+        2000,
+        2.2,
+        210,
+        6800,
+        10000,
+        2000
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 16.3318,
+          "pulse_end_v": 21.1689,
+          "arm_margin_v": -0.105482,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000269294,
+          "voltage_match": false
+        },
+        "2u": {
+          "arm_v": 16.3318,
+          "pulse_end_v": 21.1689,
+          "arm_margin_v": -0.105482,
+          "peak_pre_a": 0.102842,
+          "resistor_peak_w": 1.11054,
+          "resistor_energy_j": 0.000269314,
+          "voltage_match": false
+        }
+      }
+    },
+    "secondary-short-guard": {
+      "inputs": [
+        25.2,
+        0,
+        2.2,
+        210,
+        1000,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 22.1894,
+          "pulse_end_v": 22.2312,
+          "arm_margin_v": -0.0435733,
+          "peak_pre_a": 0.119983,
+          "resistor_peak_w": 1.51157,
+          "resistor_energy_j": 0.000344515
+        },
+        "2u": {
+          "arm_v": 22.1893,
+          "pulse_end_v": 22.2311,
+          "arm_margin_v": -0.0435763,
+          "peak_pre_a": 0.119983,
+          "resistor_peak_w": 1.51157,
+          "resistor_energy_j": 0.00034454
+        }
+      }
+    },
+    "secondary-shorted-bus-load": {
+      "inputs": [
+        25.2,
+        200000,
+        1,
+        190,
+        6800,
+        3000,
+        50
+      ],
+      "steps": {
+        "4u": {
+          "arm_v": 2.51834e-11,
+          "pulse_end_v": 0.131916,
+          "arm_margin_v": -0.594474,
+          "peak_pre_a": 0.13261,
+          "resistor_peak_w": 1.67062,
+          "resistor_energy_j": 0.00494466
+        },
+        "2u": {
+          "arm_v": 2.52001e-11,
+          "pulse_end_v": 0.131916,
+          "arm_margin_v": -0.594474,
+          "peak_pre_a": 0.13261,
+          "resistor_peak_w": 1.67062,
+          "resistor_energy_j": 0.00494466
+        }
+      }
+    }
+  },
+  "cold_start": {
+    "15ua-empty": {
+      "inputs": [
+        15,
+        false,
+        3000,
+        50
+      ],
+      "steps": {
+        "40u": {
+          "bst_at_request_v": 0.629868,
+          "bst_at_arm_v": 0.677097,
+          "precharge_permit_v": 0.0,
+          "logical_ready_v": 0.0,
+          "gate_permit_v": 0.0,
+          "bst_uvlo_s": 0.206881,
+          "bst_full_s": 0.736035
+        },
+        "20u": {
+          "bst_at_request_v": 0.629868,
+          "bst_at_arm_v": 0.677097,
+          "precharge_permit_v": 0.0,
+          "logical_ready_v": 0.0,
+          "gate_permit_v": 0.0,
+          "bst_uvlo_s": 0.206881,
+          "bst_full_s": 0.736035
+        }
+      }
+    },
+    "15ua-prebiased": {
+      "inputs": [
+        15,
+        true,
+        3000,
+        50
+      ],
+      "steps": {
+        "40u": {
+          "bst_at_request_v": 0.629868,
+          "bst_at_arm_v": 0.677097,
+          "precharge_permit_v": 0.0,
+          "logical_ready_v": 3.3,
+          "gate_permit_v": 0.0,
+          "bst_uvlo_s": 0.206881,
+          "bst_full_s": 0.736035
+        },
+        "20u": {
+          "bst_at_request_v": 0.629868,
+          "bst_at_arm_v": 0.677097,
+          "precharge_permit_v": 0.0,
+          "logical_ready_v": 3.3,
+          "gate_permit_v": 0.0,
+          "bst_uvlo_s": 0.206881,
+          "bst_full_s": 0.736035
+        }
+      }
+    },
+    "30ua-empty": {
+      "inputs": [
+        30,
+        false,
+        3000,
+        50
+      ],
+      "steps": {
+        "40u": {
+          "bst_at_request_v": 1.25974,
+          "bst_at_arm_v": 1.35419,
+          "precharge_permit_v": 0.0,
+          "logical_ready_v": 0.0,
+          "gate_permit_v": 0.0,
+          "bst_uvlo_s": 0.103387,
+          "bst_full_s": 0.367341
+        },
+        "20u": {
+          "bst_at_request_v": 1.25974,
+          "bst_at_arm_v": 1.35419,
+          "precharge_permit_v": 0.0,
+          "logical_ready_v": 0.0,
+          "gate_permit_v": 0.0,
+          "bst_uvlo_s": 0.103387,
+          "bst_full_s": 0.367341
+        }
+      }
+    },
+    "30ua-prebiased": {
+      "inputs": [
+        30,
+        true,
+        3000,
+        50
+      ],
+      "steps": {
+        "40u": {
+          "bst_at_request_v": 1.25974,
+          "bst_at_arm_v": 1.35419,
+          "precharge_permit_v": 0.0,
+          "logical_ready_v": 3.3,
+          "gate_permit_v": 0.0,
+          "bst_uvlo_s": 0.103387,
+          "bst_full_s": 0.367341
+        },
+        "20u": {
+          "bst_at_request_v": 1.25974,
+          "bst_at_arm_v": 1.35419,
+          "precharge_permit_v": 0.0,
+          "logical_ready_v": 3.3,
+          "gate_permit_v": 0.0,
+          "bst_uvlo_s": 0.103387,
+          "bst_full_s": 0.367341
+        }
+      }
+    }
+  },
+  "brownout": {
+    "p-drive-1us-det20us-sink1": {
+      "inputs": [
+        "p",
+        "drive",
+        1,
+        20,
+        1
+      ],
+      "steps": {
+        "500n": {
+          "normal_min_vgs": 10.9995,
+          "pwm_off_s": 0.0010201,
+          "post_fault_gate_v": 4.39999e-09,
+          "recovered_pg_v": 3.3,
+          "recovered_gate_v": 4.39999e-09,
+          "recovered_pwm_v": 0.0
+        },
+        "250n": {
+          "normal_min_vgs": 10.9995,
+          "pwm_off_s": 0.00102011,
+          "post_fault_gate_v": 4.39999e-09,
+          "recovered_pg_v": 3.3,
+          "recovered_gate_v": 4.39999e-09,
+          "recovered_pwm_v": 0.0
+        }
+      }
+    },
+    "s-logic-1us-det20us-sink1": {
+      "inputs": [
+        "s",
+        "logic",
+        1,
+        20,
+        1
+      ],
+      "steps": {
+        "500n": {
+          "normal_min_vgs": 10.9995,
+          "pwm_off_s": 0.00100051,
+          "post_fault_gate_v": 4.39999e-09,
+          "recovered_pg_v": 3.3,
+          "recovered_gate_v": 4.39999e-09,
+          "recovered_pwm_v": 0.0
+        },
+        "250n": {
+          "normal_min_vgs": 10.9995,
+          "pwm_off_s": 0.0010005,
+          "post_fault_gate_v": 4.39999e-09,
+          "recovered_pg_v": 3.3,
+          "recovered_gate_v": 4.39999e-09,
+          "recovered_pwm_v": 0.0
+        }
+      }
+    },
+    "s-logic-80us-det100us-sink1": {
+      "inputs": [
+        "s",
+        "logic",
+        80,
+        100,
+        1
+      ],
+      "steps": {
+        "500n": {
+          "normal_min_vgs": 10.9995,
+          "pwm_off_s": 0.00104001,
+          "post_fault_gate_v": 4.39999e-09,
+          "recovered_pg_v": 3.3,
+          "recovered_gate_v": 4.39999e-09,
+          "recovered_pwm_v": 0.0
+        },
+        "250n": {
+          "normal_min_vgs": 10.9995,
+          "pwm_off_s": 0.00104001,
+          "post_fault_gate_v": 4.39999e-09,
+          "recovered_pg_v": 3.3,
+          "recovered_gate_v": 4.39999e-09,
+          "recovered_pwm_v": 0.0
+        }
+      }
+    },
+    "p-drive-1us-det20us-sink0": {
+      "inputs": [
+        "p",
+        "drive",
+        1,
+        20,
+        0
+      ],
+      "steps": {
+        "500n": {
+          "normal_min_vgs": 10.9995,
+          "pwm_off_s": 0.00102011,
+          "post_fault_gate_v": 3.94969,
+          "recovered_pg_v": 3.3,
+          "recovered_gate_v": 4.39999e-09,
+          "recovered_pwm_v": 0.0
+        },
+        "250n": {
+          "normal_min_vgs": 10.9995,
+          "pwm_off_s": 0.00102011,
+          "post_fault_gate_v": 4.08639,
+          "recovered_pg_v": 3.3,
+          "recovered_gate_v": 4.39999e-09,
+          "recovered_pwm_v": 0.0
+        }
+      }
+    }
+  },
+  "fuse": {
+    "primary-3a-upstream-tail3a-at0us": {
+      "inputs": [
+        12.6,
+        470,
+        3,
+        "upstream",
+        0,
+        3
+      ],
+      "steps": {
+        "500n": {
+          "pre_fault_cap_v": 12.6,
+          "peak_source_a": 3.0,
+          "peak_fault_a": 171.673,
+          "tail_source_a": 3.0,
+          "source_i2t_a2s": 0.018,
+          "branch_i2t_a2s": 0.655254,
+          "fault_energy_j": 0.0131051
+        },
+        "250n": {
+          "pre_fault_cap_v": 12.6,
+          "peak_source_a": 3.0,
+          "peak_fault_a": 171.412,
+          "tail_source_a": 3.0,
+          "source_i2t_a2s": 0.018,
+          "branch_i2t_a2s": 0.654358,
+          "fault_energy_j": 0.0130872
+        }
+      }
+    },
+    "primary-5.5a-upstream-tail5.5a-at0us": {
+      "inputs": [
+        12.6,
+        470,
+        5.5,
+        "upstream",
+        0,
+        5.5
+      ],
+      "steps": {
+        "500n": {
+          "pre_fault_cap_v": 12.6,
+          "peak_source_a": 5.5,
+          "peak_fault_a": 172.946,
+          "tail_source_a": 5.5,
+          "source_i2t_a2s": 0.0605,
+          "branch_i2t_a2s": 0.717898,
+          "fault_energy_j": 0.014358
+        },
+        "250n": {
+          "pre_fault_cap_v": 12.6,
+          "peak_source_a": 5.5,
+          "peak_fault_a": 172.684,
+          "tail_source_a": 5.5,
+          "source_i2t_a2s": 0.0605,
+          "branch_i2t_a2s": 0.717001,
+          "fault_energy_j": 0.01434
+        }
+      }
+    },
+    "primary-10a-upstream-tail10a-at0us": {
+      "inputs": [
+        12.6,
+        470,
+        10,
+        "upstream",
+        0,
+        10
+      ],
+      "steps": {
+        "500n": {
+          "pre_fault_cap_v": 12.6,
+          "peak_source_a": 10.0,
+          "peak_fault_a": 175.211,
+          "tail_source_a": 10.0,
+          "source_i2t_a2s": 0.199999,
+          "branch_i2t_a2s": 0.89262,
+          "fault_energy_j": 0.0178524
+        },
+        "250n": {
+          "pre_fault_cap_v": 12.6,
+          "peak_source_a": 10.0,
+          "peak_fault_a": 174.944,
+          "tail_source_a": 10.0,
+          "source_i2t_a2s": 0.199999,
+          "branch_i2t_a2s": 0.891694,
+          "fault_energy_j": 0.0178339
+        }
+      }
+    },
+    "primary-30a-upstream-tail30a-at0us": {
+      "inputs": [
+        12.6,
+        470,
+        30,
+        "upstream",
+        0,
+        30
+      ],
+      "steps": {
+        "500n": {
+          "pre_fault_cap_v": 12.6,
+          "peak_source_a": 30.0,
+          "peak_fault_a": 184.718,
+          "tail_source_a": 30.0,
+          "source_i2t_a2s": 1.79914,
+          "branch_i2t_a2s": 2.63024,
+          "fault_energy_j": 0.0526049
+        },
+        "250n": {
+          "pre_fault_cap_v": 12.6,
+          "peak_source_a": 30.0,
+          "peak_fault_a": 184.488,
+          "tail_source_a": 30.0,
+          "source_i2t_a2s": 1.79912,
+          "branch_i2t_a2s": 2.62941,
+          "fault_energy_j": 0.0525881
+        }
+      }
+    },
+    "primary-10a-after-bulk-tail10a-at0us": {
+      "inputs": [
+        12.6,
+        470,
+        10,
+        "after-bulk",
+        0,
+        10
+      ],
+      "steps": {
+        "500n": {
+          "pre_fault_cap_v": 12.6,
+          "peak_source_a": 10.0,
+          "peak_fault_a": 143.072,
+          "tail_source_a": 10.0,
+          "source_i2t_a2s": 0.2,
+          "branch_i2t_a2s": 0.747933,
+          "fault_energy_j": 0.0149587
+        },
+        "250n": {
+          "pre_fault_cap_v": 12.6,
+          "peak_source_a": 10.0,
+          "peak_fault_a": 142.834,
+          "tail_source_a": 10.0,
+          "source_i2t_a2s": 0.2,
+          "branch_i2t_a2s": 0.74725,
+          "fault_energy_j": 0.014945
+        }
+      }
+    },
+    "primary-10a-upstream-tail0a-at100us": {
+      "inputs": [
+        12.6,
+        470,
+        10,
+        "upstream",
+        100,
+        0
+      ],
+      "steps": {
+        "500n": {
+          "pre_fault_cap_v": 12.6,
+          "peak_source_a": 10.0,
+          "peak_fault_a": 175.211,
+          "tail_source_a": 0.0,
+          "source_i2t_a2s": 0.0100333,
+          "branch_i2t_a2s": 0.701829,
+          "fault_energy_j": 0.0140366
+        },
+        "250n": {
+          "pre_fault_cap_v": 12.6,
+          "peak_source_a": 10.0,
+          "peak_fault_a": 174.944,
+          "tail_source_a": 0.0,
+          "source_i2t_a2s": 0.0100324,
+          "branch_i2t_a2s": 0.700904,
+          "fault_energy_j": 0.0140181
+        }
+      }
+    },
+    "primary-10a-upstream-tail3a-at100us": {
+      "inputs": [
+        12.6,
+        470,
+        10,
+        "upstream",
+        100,
+        3
+      ],
+      "steps": {
+        "500n": {
+          "pre_fault_cap_v": 12.6,
+          "peak_source_a": 10.0,
+          "peak_fault_a": 175.211,
+          "tail_source_a": 3.0,
+          "source_i2t_a2s": 0.0271366,
+          "branch_i2t_a2s": 0.719748,
+          "fault_energy_j": 0.014395
+        },
+        "250n": {
+          "pre_fault_cap_v": 12.6,
+          "peak_source_a": 10.0,
+          "peak_fault_a": 174.944,
+          "tail_source_a": 3.0,
+          "source_i2t_a2s": 0.0271361,
+          "branch_i2t_a2s": 0.718823,
+          "fault_energy_j": 0.0143765
+        }
+      }
+    },
+    "secondary-3a-upstream-tail3a-at0us": {
+      "inputs": [
+        25.2,
+        2200,
+        3,
+        "upstream",
+        0,
+        3
+      ],
+      "steps": {
+        "500n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 3.0,
+          "peak_fault_a": 386.34,
+          "tail_source_a": 3.0,
+          "source_i2t_a2s": 0.018,
+          "branch_i2t_a2s": 11.7065,
+          "fault_energy_j": 0.234131
+        },
+        "250n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 3.0,
+          "peak_fault_a": 386.129,
+          "tail_source_a": 3.0,
+          "source_i2t_a2s": 0.018,
+          "branch_i2t_a2s": 11.7027,
+          "fault_energy_j": 0.234054
+        }
+      }
+    },
+    "secondary-5.5a-upstream-tail5.5a-at0us": {
+      "inputs": [
+        25.2,
+        2200,
+        5.5,
+        "upstream",
+        0,
+        5.5
+      ],
+      "steps": {
+        "500n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 5.5,
+          "peak_fault_a": 387.461,
+          "tail_source_a": 5.5,
+          "source_i2t_a2s": 0.0605,
+          "branch_i2t_a2s": 11.9415,
+          "fault_energy_j": 0.238829
+        },
+        "250n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 5.5,
+          "peak_fault_a": 387.254,
+          "tail_source_a": 5.5,
+          "source_i2t_a2s": 0.0605,
+          "branch_i2t_a2s": 11.9376,
+          "fault_energy_j": 0.238752
+        }
+      }
+    },
+    "secondary-10a-upstream-tail10a-at0us": {
+      "inputs": [
+        25.2,
+        2200,
+        10,
+        "upstream",
+        0,
+        10
+      ],
+      "steps": {
+        "500n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 10.0,
+          "peak_fault_a": 389.476,
+          "tail_source_a": 10.0,
+          "source_i2t_a2s": 0.2,
+          "branch_i2t_a2s": 12.4229,
+          "fault_energy_j": 0.248458
+        },
+        "250n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 10.0,
+          "peak_fault_a": 389.275,
+          "tail_source_a": 10.0,
+          "source_i2t_a2s": 0.2,
+          "branch_i2t_a2s": 12.419,
+          "fault_energy_j": 0.24838
+        }
+      }
+    },
+    "secondary-30a-upstream-tail30a-at0us": {
+      "inputs": [
+        25.2,
+        2200,
+        30,
+        "upstream",
+        0,
+        30
+      ],
+      "steps": {
+        "500n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 30.0,
+          "peak_fault_a": 398.389,
+          "tail_source_a": 30.0,
+          "source_i2t_a2s": 1.79981,
+          "branch_i2t_a2s": 15.4728,
+          "fault_energy_j": 0.309456
+        },
+        "250n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 30.0,
+          "peak_fault_a": 398.195,
+          "tail_source_a": 30.0,
+          "source_i2t_a2s": 1.79983,
+          "branch_i2t_a2s": 15.4692,
+          "fault_energy_j": 0.309383
+        }
+      }
+    },
+    "secondary-10a-after-bulk-tail10a-at0us": {
+      "inputs": [
+        25.2,
+        2200,
+        10,
+        "after-bulk",
+        0,
+        10
+      ],
+      "steps": {
+        "500n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 10.0,
+          "peak_fault_a": 308.351,
+          "tail_source_a": 10.0,
+          "source_i2t_a2s": 0.2,
+          "branch_i2t_a2s": 9.78357,
+          "fault_energy_j": 0.195671
+        },
+        "250n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 10.0,
+          "peak_fault_a": 308.158,
+          "tail_source_a": 10.0,
+          "source_i2t_a2s": 0.2,
+          "branch_i2t_a2s": 9.78075,
+          "fault_energy_j": 0.195615
+        }
+      }
+    },
+    "secondary-10a-upstream-tail0a-at100us": {
+      "inputs": [
+        25.2,
+        2200,
+        10,
+        "upstream",
+        100,
+        0
+      ],
+      "steps": {
+        "500n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 10.0,
+          "peak_fault_a": 389.476,
+          "tail_source_a": 0.0,
+          "source_i2t_a2s": 0.0100346,
+          "branch_i2t_a2s": 11.8766,
+          "fault_energy_j": 0.237532
+        },
+        "250n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 10.0,
+          "peak_fault_a": 389.275,
+          "tail_source_a": 0.0,
+          "source_i2t_a2s": 0.0100337,
+          "branch_i2t_a2s": 11.8727,
+          "fault_energy_j": 0.237454
+        }
+      }
+    },
+    "secondary-10a-upstream-tail3a-at100us": {
+      "inputs": [
+        25.2,
+        2200,
+        10,
+        "upstream",
+        100,
+        3
+      ],
+      "steps": {
+        "500n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 10.0,
+          "peak_fault_a": 389.476,
+          "tail_source_a": 3.0,
+          "source_i2t_a2s": 0.027138,
+          "branch_i2t_a2s": 12.0034,
+          "fault_energy_j": 0.240068
+        },
+        "250n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 10.0,
+          "peak_fault_a": 389.275,
+          "tail_source_a": 3.0,
+          "source_i2t_a2s": 0.0271375,
+          "branch_i2t_a2s": 11.9995,
+          "fault_energy_j": 0.23999
+        }
+      }
+    }
+  },
+  "vendor_pair": {
+    "model_sha256": "e4416739b90d1e00e80723cb8aa3ba9546f428c54f802b084c66d8c3a30ac541",
+    "cases": {
+      "25c-0v": {
+        "load_v": 5.09399e-10
+      },
+      "25c-4v": {
+        "load_v": 23.9417
+      },
+      "25c-11v": {
+        "load_v": 23.9745
+      },
+      "100c-0v": {
+        "load_v": 2.51875e-07
+      },
+      "100c-4v": {
+        "load_v": 23.9398
+      },
+      "100c-11v": {
+        "load_v": 23.9607
+      }
+    }
+  }
+}

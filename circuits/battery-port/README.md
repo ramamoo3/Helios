@@ -1,6 +1,6 @@
 # Helios battery port · Rev A
 
-One base-unit channel connects one protected 16S LFP cabinet to the shared DC link. Each cabinet gets its own converter and sensing electronics. The low-voltage bench PCB is fully routed and passes KiCad’s geometry and schematic parity checks. A reproducible return-plane trial adds board mounting features and has its own KiCad and filled-copper extraction results. Routed switching qualification and assembly fit remain open. The independent SPICE netlists use ideal supplies for the single-channel operating points and a finite capacitor for the two-channel link. [Bench PCB routing and verification](BENCH-PCB.md)
+One base-unit channel connects one protected 16S LFP cabinet to the shared DC link. Each cabinet gets its own converter and sensing electronics. The main low-voltage bench PCB includes split filled return planes, wider winding routes and mounting features. It passes KiCad geometry and schematic parity checks. Routed switching qualification, hardware cutoff integration and assembly fit remain open. The independent SPICE netlists use ideal supplies for the single-channel operating points and a finite capacitor for the two-channel link. [Bench PCB routing and verification](BENCH-PCB.md)
 
 ## Secondary-leg experiments
 
@@ -13,6 +13,8 @@ The rear-bypass DFN board is the current candidate for isolated-leg replay. Earl
 | Clamp, pin bypass and two DFN clamp layouts | [Local clamp](BENCH-SECONDARY-PROTECTED.md#local-high-side-clamp-revision) · [Pin bypass](BENCH-SECONDARY-PROTECTED.md#high-side-pin-bypass-revision) · [DFN layouts](BENCH-SECONDARY-PROTECTED.md#routed-dfn-clamp-and-pin-bias-screen) |
 
 Open the [12 V / 24 V bench project](battery-port-bench.kicad_pro) and its [top-level schematic](battery-port-bench.kicad_sch) to inspect the wired assembly. The bench power sheet uses a 1:2 transformer and the series current detector. The separate 700 V power study remains outside this assembly. [Bench component selection, updated model and startup limits](BENCH-PARTS.md)
+
+Open the [gate-feedback bench project](battery-port-bench-gate-feedback.kicad_pro) for the isolated cutoff bias, gate-voltage feedback and passive gate discharge revision. The [earlier protected project](battery-port-bench-protected.kicad_pro) reproduces the LTC7001 cold-start observations. Routing depends on component-level turn-off verification and independent interruption of a failed cutoff. [Gate-feedback verification](BENCH-LOCAL-SHUTDOWN.md#gate-feedback-and-passive-turn-off) · [Protected firmware and J701](BENCH-HRTIM.md#protected-bench-rail-sequence)
 
 | Circuit | Editable source | Preview | Simulation |
 | --- | --- | --- | --- |

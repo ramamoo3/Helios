@@ -1,0 +1,1236 @@
+{
+  "scope": "DC copper screen with unit-current terminal excitations, ideal pad lands and prescribed copper temperatures",
+  "inputs_sha256": {
+    "filled PCB": "087ace563ac8013dfa031f5a1e2030dde9b049c315582a520176369db9be2c14",
+    "solver": "9da516bf19bfb9b5f712043c883374699a4cdac2124b4c551715ad7122a8bc98",
+    "layout parser": "4c6da893f6f8a1a328b0d718a28d82b9d62c8341acb56fb2c02fc22ffcd43926",
+    "KiCad parser": "c757ad3989ee8ed5f11cc4f5f7212feb287180456364332258b73acd0f7d35b5"
+  },
+  "versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.17.1",
+    "shapely": "2.1.2"
+  },
+  "cases": {
+    "filled /P0 plating 0.02 mm pitch 0.4 mm": {
+      "network": {
+        "trace_and_barrel_edges": 289,
+        "fill_area_mm2": 4910.225895753028,
+        "modeled_area_mm2": 4922.919333797005,
+        "mesh_cells": 33276,
+        "plated_contacts": 25,
+        "cells_touching_multiple_contacts": 0
+      },
+      "paths": {
+        "J3.2 to C24.2": {
+          "resistance_mohm_20c": 2.967800331108431,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.027808960300208883,
+            "4.35": 0.07381434040044081
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.9618274326491967,
+            "terminal_barrel": 0.03784043430832364,
+            "trace": 0.00033146114865473914,
+            "via": 6.718942515116078e-07
+          },
+          "max_via_current_fraction": 0.0018604424150232405,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 41.66114686822631,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 3.0259667425053612e-05
+        },
+        "C24.2 to Q2.3": {
+          "resistance_mohm_20c": 1.6963005118478742,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.015894719431338338,
+            "4.35": 0.04218993511474416
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.9286277757861834,
+            "terminal_barrel": 0.07135774451338552,
+            "trace": 1.4443638780596402e-05,
+            "via": 3.6062348321520605e-08
+          },
+          "max_via_current_fraction": 0.0003432239190953971,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 41.66114686817264,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 3.0259667424975648e-05
+        },
+        "C24.2 to Q4.3": {
+          "resistance_mohm_20c": 2.0762701883467445,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.01945512123407479,
+            "4.35": 0.05164043983669011
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.9403255712570286,
+            "terminal_barrel": 0.0582991618406362,
+            "trace": 0.0013724803460518037,
+            "via": 2.786556788053322e-06
+          },
+          "max_via_current_fraction": 0.002506856621354875,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 41.661146868172494,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 3.025966742497543e-05
+        },
+        "C26.2 to Q2.3": {
+          "resistance_mohm_20c": 3.6669206349206362,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.034359875659977154,
+            "4.35": 0.09120267463085716
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.0,
+            "terminal_barrel": 0.0,
+            "trace": 1.0000000000000002,
+            "via": 0.0
+          },
+          "max_via_current_fraction": 0.0,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 84.76190476190476,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00012525732226494464
+        },
+        "C28.2 to Q4.3": {
+          "resistance_mohm_20c": 3.6669206349206362,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.034359875659977154,
+            "4.35": 0.09120267463085716
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.0,
+            "terminal_barrel": 0.0,
+            "trace": 1.0000000000000002,
+            "via": 0.0
+          },
+          "max_via_current_fraction": 0.0,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 84.76190476190476,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00012525732226494464
+        }
+      }
+    },
+    "filled /P0 plating 0.02 mm pitch 0.2 mm": {
+      "network": {
+        "trace_and_barrel_edges": 289,
+        "fill_area_mm2": 4910.225895753028,
+        "modeled_area_mm2": 4922.919333797005,
+        "mesh_cells": 128021,
+        "plated_contacts": 25,
+        "cells_touching_multiple_contacts": 0
+      },
+      "paths": {
+        "J3.2 to C24.2": {
+          "resistance_mohm_20c": 3.019069916420761,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.02828936790971483,
+            "4.35": 0.07508950388861939
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.9624742509871558,
+            "terminal_barrel": 0.037197831001844206,
+            "trace": 0.0003272589207670772,
+            "via": 6.590936104983465e-07
+          },
+          "max_via_current_fraction": 0.0018749968779939955,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 41.66114686860519,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 3.0259667425603997e-05
+        },
+        "C24.2 to Q2.3": {
+          "resistance_mohm_20c": 1.725618239327626,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.01616943316832086,
+            "4.35": 0.04291911783410504
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.929840428827094,
+            "terminal_barrel": 0.07014539815519247,
+            "trace": 1.4138330350314064e-05,
+            "via": 3.469450470956291e-08
+          },
+          "max_via_current_fraction": 0.00034414345258043053,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 41.66114686817264,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 3.0259667424975648e-05
+        },
+        "C24.2 to Q4.3": {
+          "resistance_mohm_20c": 2.108487197889012,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.01975700189968472,
+            "4.35": 0.05244173272830086
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.9412230976851124,
+            "terminal_barrel": 0.05740836969409777,
+            "trace": 0.0013657809095837222,
+            "via": 2.7517189839454474e-06
+          },
+          "max_via_current_fraction": 0.00251854327149157,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 41.661146868172494,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 3.025966742497543e-05
+        },
+        "C26.2 to Q2.3": {
+          "resistance_mohm_20c": 3.6669206349206362,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.034359875659977154,
+            "4.35": 0.09120267463085716
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.0,
+            "terminal_barrel": 0.0,
+            "trace": 1.0000000000000002,
+            "via": 0.0
+          },
+          "max_via_current_fraction": 0.0,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 84.76190476190476,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00012525732226494464
+        },
+        "C28.2 to Q4.3": {
+          "resistance_mohm_20c": 3.6669206349206362,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.034359875659977154,
+            "4.35": 0.09120267463085716
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.0,
+            "terminal_barrel": 0.0,
+            "trace": 1.0000000000000002,
+            "via": 0.0
+          },
+          "max_via_current_fraction": 0.0,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 84.76190476190476,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00012525732226494464
+        }
+      }
+    },
+    "filled /S0 plating 0.02 mm pitch 0.4 mm": {
+      "network": {
+        "trace_and_barrel_edges": 244,
+        "fill_area_mm2": 5306.423468426367,
+        "modeled_area_mm2": 5313.986792139603,
+        "mesh_cells": 35357,
+        "plated_contacts": 18,
+        "cells_touching_multiple_contacts": 0
+      },
+      "paths": {
+        "J4.2 to C25.2": {
+          "resistance_mohm_20c": 2.9220457850065205,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.027380229855385838,
+            "4.35": 0.07267634550050335
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.7418124399052408,
+            "terminal_barrel": 0.16401895431162736,
+            "trace": 0.09412299774918335,
+            "via": 4.5608034861507555e-05
+          },
+          "max_via_current_fraction": 0.005944573899640043,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 34.831450660364666,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 2.1151678304962296e-05
+        },
+        "C25.2 to Q6.3": {
+          "resistance_mohm_20c": 3.9864439318049154,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.03735388121517167,
+            "4.35": 0.09914977307776597
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.7120756489394254,
+            "terminal_barrel": 0.11741663968739026,
+            "trace": 0.16971017557399926,
+            "via": 0.0007975358046146011
+          },
+          "max_via_current_fraction": 0.044464903117410255,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 40.63888565723568,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 2.8792892094691563e-05
+        },
+        "C25.2 to Q8.3": {
+          "resistance_mohm_20c": 3.656665876106506,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.034263786250672494,
+            "4.35": 0.09094762099739795
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.7675747003543324,
+            "terminal_barrel": 0.14236500068293334,
+            "trace": 0.08967113733566529,
+            "via": 0.0003891616316853209
+          },
+          "max_via_current_fraction": 0.028355044140155744,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 37.941401612333514,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 2.5097383601208358e-05
+        },
+        "C27.2 to Q6.3": {
+          "resistance_mohm_20c": 3.379587301587299,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.03166749734333712,
+            "4.35": 0.08405619639485706
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.0,
+            "terminal_barrel": 0.0,
+            "trace": 0.9999999999999999,
+            "via": 0.0
+          },
+          "max_via_current_fraction": 0.0,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 84.76190476190474,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00012525732226494453
+        },
+        "C29.2 to Q8.3": {
+          "resistance_mohm_20c": 3.379587301587299,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.03166749734333712,
+            "4.35": 0.08405619639485706
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.0,
+            "terminal_barrel": 0.0,
+            "trace": 0.9999999999999999,
+            "via": 0.0
+          },
+          "max_via_current_fraction": 0.0,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 84.76190476190474,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00012525732226494453
+        }
+      }
+    },
+    "filled /S0 plating 0.02 mm pitch 0.2 mm": {
+      "network": {
+        "trace_and_barrel_edges": 244,
+        "fill_area_mm2": 5306.423468426367,
+        "modeled_area_mm2": 5313.986792139603,
+        "mesh_cells": 136983,
+        "plated_contacts": 18,
+        "cells_touching_multiple_contacts": 0
+      },
+      "paths": {
+        "J4.2 to C25.2": {
+          "resistance_mohm_20c": 3.065411313510782,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.02872359728101869,
+            "4.35": 0.07624209479023077
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.745815646776638,
+            "terminal_barrel": 0.154866277934421,
+            "trace": 0.09927139648572957,
+            "via": 4.667880756720685e-05
+          },
+          "max_via_current_fraction": 0.006536804036512287,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 34.83145066058788,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 2.11516783052334e-05
+        },
+        "C25.2 to Q6.3": {
+          "resistance_mohm_20c": 4.1088331150408015,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.038500695541629604,
+            "4.35": 0.1021938042876862
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.712891009836597,
+            "terminal_barrel": 0.11297936250300494,
+            "trace": 0.17332682864498256,
+            "via": 0.0008027990274961759
+          },
+          "max_via_current_fraction": 0.045325886155716526,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 41.31955517078691,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 2.9765486339365614e-05
+        },
+        "C25.2 to Q8.3": {
+          "resistance_mohm_20c": 3.8463173427640545,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.036040863384829425,
+            "4.35": 0.09566458182881436
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.7706235767371564,
+            "terminal_barrel": 0.13409012828019362,
+            "trace": 0.09487539237667042,
+            "via": 0.00041090261539281276
+          },
+          "max_via_current_fraction": 0.030419371250615296,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 37.94140161265727,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 2.509738360163667e-05
+        },
+        "C27.2 to Q6.3": {
+          "resistance_mohm_20c": 3.379587301587299,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.03166749734333712,
+            "4.35": 0.08405619639485706
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.0,
+            "terminal_barrel": 0.0,
+            "trace": 0.9999999999999999,
+            "via": 0.0
+          },
+          "max_via_current_fraction": 0.0,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 84.76190476190474,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00012525732226494453
+        },
+        "C29.2 to Q8.3": {
+          "resistance_mohm_20c": 3.379587301587299,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.03166749734333712,
+            "4.35": 0.08405619639485706
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.0,
+            "terminal_barrel": 0.0,
+            "trace": 0.9999999999999999,
+            "via": 0.0
+          },
+          "max_via_current_fraction": 0.0,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 84.76190476190474,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00012525732226494453
+        }
+      }
+    },
+    "filled /PRI_A plating 0.02 mm": {
+      "network": {
+        "trace_and_barrel_edges": 42
+      },
+      "paths": {
+        "Q1.3 to L1.1": {
+          "resistance_mohm_20c": 12.431473179239898,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.11648571519145205,
+            "4.35": 0.30919229414218896
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.030569234903941648,
+            "trace": 0.9276885993984746,
+            "via": 0.041742165697575245
+          },
+          "max_via_current_fraction": 0.5776562037028264,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 63.571428571427596,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 7.045724377402918e-05
+        }
+      }
+    },
+    "filled /PRI_B plating 0.02 mm": {
+      "network": {
+        "trace_and_barrel_edges": 37
+      },
+      "paths": {
+        "Q3.3 to T1.2": {
+          "resistance_mohm_20c": 15.94020984968374,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.14936337132939626,
+            "4.35": 0.3964606592855139
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.034200917657654276,
+            "trace": 0.9657990823425168,
+            "via": 2.445885573387614e-30
+          },
+          "max_via_current_fraction": 3.745835176617881e-15,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 109.78618421054719,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.0002101343686723595
+        }
+      }
+    },
+    "filled /SEC_A plating 0.02 mm": {
+      "network": {
+        "trace_and_barrel_edges": 38
+      },
+      "paths": {
+        "Q5.3 to T1.3": {
+          "resistance_mohm_20c": 17.35817553999626,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.16265003053474505,
+            "4.35": 0.43172792475609323
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.03140709133041862,
+            "trace": 0.9685929086691797,
+            "via": 1.6333174348892457e-26
+          },
+          "max_via_current_fraction": 5.019419136667961e-13,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 109.78618421048219,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00021013436867211064
+        }
+      }
+    },
+    "filled /SEC_B plating 0.02 mm": {
+      "network": {
+        "trace_and_barrel_edges": 40
+      },
+      "paths": {
+        "Q7.3 to T1.4": {
+          "resistance_mohm_20c": 19.368304898417367,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.18148539723400656,
+            "4.35": 0.4817233274643337
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.028147522840710697,
+            "trace": 0.9718524771588405,
+            "via": 1.824968231787879e-26
+          },
+          "max_via_current_fraction": 5.6699060809693e-13,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 109.78618421047703,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00021013436867209093
+        }
+      }
+    },
+    "filled /CT_RETURN plating 0.02 mm": {
+      "network": {
+        "trace_and_barrel_edges": 16
+      },
+      "paths": {
+        "T2.3 to T1.1": {
+          "resistance_mohm_20c": 12.34557115104755,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.11568079375968707,
+            "4.35": 0.30705576174692845
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.018050451376117792,
+            "trace": 0.9466619684359635,
+            "via": 0.035287580187955254
+          },
+          "max_via_current_fraction": 0.5584668209961847,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 109.786184210531,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00021013436867229756
+        }
+      }
+    },
+    "filled /CT_OUTBOUND plating 0.02 mm": {
+      "network": {
+        "trace_and_barrel_edges": 21
+      },
+      "paths": {
+        "L1.2 to T2.4": {
+          "resistance_mohm_20c": 8.335745556490755,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.07810782107653343,
+            "4.35": 0.20732444617271997
+          },
+          "loss_fraction_by_conductor": {
+            "trace": 0.8774438166030885,
+            "via": 0.12255618339690964
+          },
+          "max_via_current_fraction": 0.5636347406508394,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 61.0285714285713,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 6.4933395862147e-05
+        }
+      }
+    },
+    "filled /PACK12 plating 0.02 mm": {
+      "network": {
+        "trace_and_barrel_edges": 41
+      },
+      "paths": {
+        "J3.1 to R30.1": {
+          "resistance_mohm_20c": 7.182620096298515,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.06730277472367807,
+            "4.35": 0.178644216458191
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 1.647511015862562e-29,
+            "trace": 1.0000000000000322,
+            "via": 6.384251682611363e-30
+          },
+          "max_via_current_fraction": 1.2886150184021135e-14,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 52.61083743842534,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 4.825609086069522e-05
+        }
+      }
+    },
+    "filled /PRIMARY12 plating 0.02 mm": {
+      "network": {
+        "trace_and_barrel_edges": 30
+      },
+      "paths": {
+        "R30.4 to Q1.2": {
+          "resistance_mohm_20c": 9.029731071651124,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.0846106223053502,
+            "4.35": 0.22458506930564165
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.04208548635642943,
+            "trace": 0.901066779735496,
+            "via": 0.0568477339080271
+          },
+          "max_via_current_fraction": 0.5571753904741847,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 56.37337402227132,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 5.540510285390589e-05
+        },
+        "R30.4 to Q3.2": {
+          "resistance_mohm_20c": 6.415432971237829,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.06011405785481923,
+            "4.35": 0.1595629423554569
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.05923538216702589,
+            "trace": 0.8609367917326071,
+            "via": 0.0798278261003332
+          },
+          "max_via_current_fraction": 0.5517884462806943,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 55.828338787319026,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 5.43389345340158e-05
+        }
+      }
+    },
+    "filled /LINK24 plating 0.02 mm": {
+      "network": {
+        "trace_and_barrel_edges": 42
+      },
+      "paths": {
+        "J4.1 to C25.1": {
+          "resistance_mohm_20c": 18.63801591355238,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.1746424242836648,
+            "4.35": 0.4635597740896417
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.03601848699416221,
+            "trace": 0.9639815130058436,
+            "via": 3.404703402224681e-34
+          },
+          "max_via_current_fraction": 5.85286746346544e-17,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 49.21658986175472,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 4.223035630993542e-05
+        },
+        "C25.1 to Q5.2": {
+          "resistance_mohm_20c": 13.69277220708416,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.12830437233774092,
+            "4.35": 0.34056298805719004
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.053231880670510386,
+            "trace": 0.9467681193295168,
+            "via": 2.274745749078856e-30
+          },
+          "max_via_current_fraction": 8.590766789347421e-15,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 49.21658986175271,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 4.223035630993198e-05
+        },
+        "C25.1 to Q7.2": {
+          "resistance_mohm_20c": 22.273048704780116,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.20870350363648477,
+            "4.35": 0.5539693427543355
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.03272529171184075,
+            "trace": 0.9672747082881806,
+            "via": 8.511191538147285e-30
+          },
+          "max_via_current_fraction": 1.7181533578694843e-14,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 49.21658986175405,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 4.223035630993427e-05
+        }
+      }
+    },
+    "filled /P0 plating 0.025 mm pitch 0.4 mm": {
+      "network": {
+        "trace_and_barrel_edges": 289,
+        "fill_area_mm2": 4910.225895753028,
+        "modeled_area_mm2": 4922.919333797005,
+        "mesh_cells": 33276,
+        "plated_contacts": 25,
+        "cells_touching_multiple_contacts": 0
+      },
+      "paths": {
+        "J3.2 to C24.2": {
+          "resistance_mohm_20c": 2.9449443342189405,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.0275947944402421,
+            "4.35": 0.07324587212550057
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.969291989031758,
+            "terminal_barrel": 0.030373165462456452,
+            "trace": 0.0003343104792636963,
+            "via": 5.350269020104892e-07
+          },
+          "max_via_current_fraction": 0.0018619557300365475,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 33.16633740923891,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 1.9177709566185078e-05
+        },
+        "C24.2 to Q2.3": {
+          "resistance_mohm_20c": 1.6716393086785106,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.015663638380263693,
+            "4.35": 0.041576568229395795
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.9423275333059202,
+            "terminal_barrel": 0.05765776619114666,
+            "trace": 1.4671583167401268e-05,
+            "via": 2.892041318004012e-08
+          },
+          "max_via_current_fraction": 0.0003436163260781108,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 33.166337409198825,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 1.9177709566138725e-05
+        },
+        "C24.2 to Q4.3": {
+          "resistance_mohm_20c": 2.051607638449166,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.019224027563852202,
+            "4.35": 0.051027039455875826
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.9516281379611121,
+            "terminal_barrel": 0.04697949721362894,
+            "trace": 0.0013901365023095786,
+            "via": 2.228323424213486e-06
+          },
+          "max_via_current_fraction": 0.002508693652119719,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 33.166337409198825,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 1.9177709566138725e-05
+        },
+        "C26.2 to Q2.3": {
+          "resistance_mohm_20c": 3.6669206349206362,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.034359875659977154,
+            "4.35": 0.09120267463085716
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.0,
+            "terminal_barrel": 0.0,
+            "trace": 1.0000000000000002,
+            "via": 0.0
+          },
+          "max_via_current_fraction": 0.0,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 84.76190476190476,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00012525732226494464
+        },
+        "C28.2 to Q4.3": {
+          "resistance_mohm_20c": 3.6669206349206362,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.034359875659977154,
+            "4.35": 0.09120267463085716
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.0,
+            "terminal_barrel": 0.0,
+            "trace": 1.0000000000000002,
+            "via": 0.0
+          },
+          "max_via_current_fraction": 0.0,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 84.76190476190476,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00012525732226494464
+        }
+      }
+    },
+    "filled /P0 plating 0.025 mm pitch 0.2 mm": {
+      "network": {
+        "trace_and_barrel_edges": 289,
+        "fill_area_mm2": 4910.225895753028,
+        "modeled_area_mm2": 4922.919333797005,
+        "mesh_cells": 128021,
+        "plated_contacts": 25,
+        "cells_touching_multiple_contacts": 0
+      },
+      "paths": {
+        "J3.2 to C24.2": {
+          "resistance_mohm_20c": 2.996213920622334,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.028075202059971556,
+            "4.35": 0.07452103564081579
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.9698160126358009,
+            "terminal_barrel": 0.029853436087265848,
+            "trace": 0.0003300265300413554,
+            "via": 5.247501940963108e-07
+          },
+          "max_via_current_fraction": 0.0018765245404874066,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 33.16633740953661,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 1.917770956652935e-05
+        },
+        "C24.2 to Q2.3": {
+          "resistance_mohm_20c": 1.7009570364535618,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.01593835212001324,
+            "4.35": 0.042305750956101285
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.9433216387610147,
+            "terminal_barrel": 0.05666397580017478,
+            "trace": 1.4357636421084215e-05,
+            "via": 2.7809431210213847e-08
+          },
+          "max_via_current_fraction": 0.00034453627247573246,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 33.166337409198825,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 1.9177709566138725e-05
+        },
+        "C24.2 to Q4.3": {
+          "resistance_mohm_20c": 2.0838246443738866,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.019525908195564885,
+            "4.35": 0.051828332257511885
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.9523615435692137,
+            "terminal_barrel": 0.04625317020898801,
+            "trace": 0.0013830862272639572,
+            "via": 2.2000022064445105e-06
+          },
+          "max_via_current_fraction": 0.0025196481422431138,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 33.166337409198825,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 1.9177709566138725e-05
+        },
+        "C26.2 to Q2.3": {
+          "resistance_mohm_20c": 3.6669206349206362,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.034359875659977154,
+            "4.35": 0.09120267463085716
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.0,
+            "terminal_barrel": 0.0,
+            "trace": 1.0000000000000002,
+            "via": 0.0
+          },
+          "max_via_current_fraction": 0.0,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 84.76190476190476,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00012525732226494464
+        },
+        "C28.2 to Q4.3": {
+          "resistance_mohm_20c": 3.6669206349206362,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.034359875659977154,
+            "4.35": 0.09120267463085716
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.0,
+            "terminal_barrel": 0.0,
+            "trace": 1.0000000000000002,
+            "via": 0.0
+          },
+          "max_via_current_fraction": 0.0,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 84.76190476190476,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00012525732226494464
+        }
+      }
+    },
+    "filled /S0 plating 0.025 mm pitch 0.4 mm": {
+      "network": {
+        "trace_and_barrel_edges": 244,
+        "fill_area_mm2": 5306.423468426367,
+        "modeled_area_mm2": 5313.986792139603,
+        "mesh_cells": 35357,
+        "plated_contacts": 18,
+        "cells_touching_multiple_contacts": 0
+      },
+      "paths": {
+        "J4.2 to C25.2": {
+          "resistance_mohm_20c": 2.8244021386867146,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.0264652868062822,
+            "4.35": 0.07024777870244706
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.7719682299012932,
+            "terminal_barrel": 0.13591502818968867,
+            "trace": 0.09208047792541023,
+            "via": 3.6263984480520964e-05
+          },
+          "max_via_current_fraction": 0.0055533003865535484,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 27.7514251791931,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 1.3426792911635208e-05
+        },
+        "C25.2 to Q6.3": {
+          "resistance_mohm_20c": 3.890331280958235,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.03645328393990117,
+            "4.35": 0.09675928479187247
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.7344257058141065,
+            "terminal_barrel": 0.09632398892417277,
+            "trace": 0.16861914834892228,
+            "via": 0.0006311569182083727
+          },
+          "max_via_current_fraction": 0.04411275129121674,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 40.13304321714196,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 2.808056834253044e-05
+        },
+        "C25.2 to Q8.3": {
+          "resistance_mohm_20c": 3.5502278212275775,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.03326643760442645,
+            "4.35": 0.08830032200897185
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.7943763659304233,
+            "terminal_barrel": 0.11736585732474156,
+            "trace": 0.0879565811929965,
+            "via": 0.0003011955563904491
+          },
+          "max_via_current_fraction": 0.027791689593419874,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 30.218218528574223,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 1.5919866558563527e-05
+        },
+        "C27.2 to Q6.3": {
+          "resistance_mohm_20c": 3.379587301587299,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.03166749734333712,
+            "4.35": 0.08405619639485706
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.0,
+            "terminal_barrel": 0.0,
+            "trace": 0.9999999999999999,
+            "via": 0.0
+          },
+          "max_via_current_fraction": 0.0,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 84.76190476190474,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00012525732226494453
+        },
+        "C29.2 to Q8.3": {
+          "resistance_mohm_20c": 3.379587301587299,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.03166749734333712,
+            "4.35": 0.08405619639485706
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.0,
+            "terminal_barrel": 0.0,
+            "trace": 0.9999999999999999,
+            "via": 0.0
+          },
+          "max_via_current_fraction": 0.0,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 84.76190476190474,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00012525732226494453
+        }
+      }
+    },
+    "filled /S0 plating 0.025 mm pitch 0.2 mm": {
+      "network": {
+        "trace_and_barrel_edges": 244,
+        "fill_area_mm2": 5306.423468426367,
+        "modeled_area_mm2": 5313.986792139603,
+        "mesh_cells": 136983,
+        "plated_contacts": 18,
+        "cells_touching_multiple_contacts": 0
+      },
+      "paths": {
+        "J4.2 to C25.2": {
+          "resistance_mohm_20c": 2.9686935162349584,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.027817329646847192,
+            "4.35": 0.07383655546332056
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.7746234978151727,
+            "terminal_barrel": 0.1280757600686254,
+            "trace": 0.09726375804612276,
+            "via": 3.6984074226865306e-05
+          },
+          "max_via_current_fraction": 0.0061512892012106175,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 27.751425179362567,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 1.3426792911799194e-05
+        },
+        "C25.2 to Q6.3": {
+          "resistance_mohm_20c": 4.013484875295854,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.03760726097126155,
+            "4.35": 0.09982232823138162
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.7345397599354704,
+            "terminal_barrel": 0.0925936164647612,
+            "trace": 0.17223143867448773,
+            "via": 0.0006351849371289936
+          },
+          "max_via_current_fraction": 0.044982517783042714,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 40.82209633307824,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 2.9053088999388064e-05
+        },
+        "C25.2 to Q8.3": {
+          "resistance_mohm_20c": 3.7408337240934824,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.03505245802171097,
+            "4.35": 0.09304102132388246
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.7961192672856288,
+            "terminal_barrel": 0.11034644542718551,
+            "trace": 0.09321560530748399,
+            "via": 0.00031868198879584367
+          },
+          "max_via_current_fraction": 0.029873346217355823,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 30.218218528818777,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 1.5919866558821205e-05
+        },
+        "C27.2 to Q6.3": {
+          "resistance_mohm_20c": 3.379587301587299,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.03166749734333712,
+            "4.35": 0.08405619639485706
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.0,
+            "terminal_barrel": 0.0,
+            "trace": 0.9999999999999999,
+            "via": 0.0
+          },
+          "max_via_current_fraction": 0.0,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 84.76190476190474,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00012525732226494453
+        },
+        "C29.2 to Q8.3": {
+          "resistance_mohm_20c": 3.379587301587299,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.03166749734333712,
+            "4.35": 0.08405619639485706
+          },
+          "loss_fraction_by_conductor": {
+            "plane": 0.0,
+            "terminal_barrel": 0.0,
+            "trace": 0.9999999999999999,
+            "via": 0.0
+          },
+          "max_via_current_fraction": 0.0,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 84.76190476190474,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00012525732226494453
+        }
+      }
+    },
+    "filled /PRI_A plating 0.025 mm": {
+      "network": {
+        "trace_and_barrel_edges": 42
+      },
+      "paths": {
+        "Q1.3 to L1.1": {
+          "resistance_mohm_20c": 12.245288800397438,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.11474112545423909,
+            "4.35": 0.3045615657966641
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.024716878429568052,
+            "trace": 0.9416775546137695,
+            "via": 0.03360556695671134
+          },
+          "max_via_current_fraction": 0.5825660164785809,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 63.57142857142944,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 7.045724377403327e-05
+        }
+      }
+    },
+    "filled /PRI_B plating 0.025 mm": {
+      "network": {
+        "trace_and_barrel_edges": 37
+      },
+      "paths": {
+        "Q3.3 to T1.2": {
+          "resistance_mohm_20c": 15.82948130145009,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.14832581979007847,
+            "4.35": 0.3937066482876404
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.027445072141458197,
+            "trace": 0.9725549278587756,
+            "via": 3.126848801097837e-30
+          },
+          "max_via_current_fraction": 4.7554548140656695e-15,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 109.78618421055377,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00021013436867238475
+        }
+      }
+    },
+    "filled /SEC_A plating 0.025 mm": {
+      "network": {
+        "trace_and_barrel_edges": 38
+      },
+      "paths": {
+        "Q5.3 to T1.3": {
+          "resistance_mohm_20c": 17.247446991763645,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.16161247899543701,
+            "4.35": 0.4289739137582455
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.025188728307854395,
+            "trace": 0.9748112716918582,
+            "via": 1.2275427241643144e-26
+          },
+          "max_via_current_fraction": 5.016873574247811e-13,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 109.78618421049646,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.0002101343686721653
+        }
+      }
+    },
+    "filled /SEC_B plating 0.025 mm": {
+      "network": {
+        "trace_and_barrel_edges": 40
+      },
+      "paths": {
+        "Q7.3 to T1.4": {
+          "resistance_mohm_20c": 19.25757635018531,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.1804478456947037,
+            "4.35": 0.47896931646649976
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.02255949805830281,
+            "trace": 0.9774405019413791,
+            "via": 1.3397556036066407e-26
+          },
+          "max_via_current_fraction": 5.45312345026936e-13,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 109.78618421049323,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00021013436867215295
+        }
+      }
+    },
+    "filled /CT_RETURN plating 0.025 mm": {
+      "network": {
+        "trace_and_barrel_edges": 16
+      },
+      "paths": {
+        "T2.3 to T1.1": {
+          "resistance_mohm_20c": 12.209060793429051,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.11440166083561924,
+            "4.35": 0.3036605124439962
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.01455689110613644,
+            "trace": 0.95712509636314,
+            "via": 0.028318012530723
+          },
+          "max_via_current_fraction": 0.5662556168390918,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 109.7861842105263,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 0.00021013436867227953
+        }
+      }
+    },
+    "filled /CT_OUTBOUND plating 0.025 mm": {
+      "network": {
+        "trace_and_barrel_edges": 21
+      },
+      "paths": {
+        "L1.2 to T2.4": {
+          "resistance_mohm_20c": 8.121618978108666,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.07610140661022628,
+            "4.35": 0.20199874687287053
+          },
+          "loss_fraction_by_conductor": {
+            "trace": 0.9003653919620052,
+            "via": 0.09963460803799129
+          },
+          "max_via_current_fraction": 0.5707468677827542,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 61.028571428571134,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 6.493339586214668e-05
+        }
+      }
+    },
+    "filled /PACK12 plating 0.025 mm": {
+      "network": {
+        "trace_and_barrel_edges": 41
+      },
+      "paths": {
+        "J3.1 to R30.1": {
+          "resistance_mohm_20c": 7.182620096297888,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.06730277472367219,
+            "4.35": 0.17864421645817544
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 6.525573661525739e-29,
+            "trace": 0.9999999999999446,
+            "via": 1.8070327490782128e-30
+          },
+          "max_via_current_fraction": 5.45312345026936e-15,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 52.610837438420745,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 4.825609086068677e-05
+        }
+      }
+    },
+    "filled /PRIMARY12 plating 0.025 mm": {
+      "network": {
+        "trace_and_barrel_edges": 30
+      },
+      "paths": {
+        "R30.4 to Q1.2": {
+          "resistance_mohm_20c": 8.844726147829322,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.08287708432842635,
+            "4.35": 0.21998367605165553
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.034219862724482485,
+            "trace": 0.9197577518119958,
+            "via": 0.04602238546354353
+          },
+          "max_via_current_fraction": 0.5635387674196732,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 47.67857142857331,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 3.963219962289577e-05
+        },
+        "R30.4 to Q3.2": {
+          "resistance_mohm_20c": 6.230704908222751,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.05838311412626922,
+            "4.35": 0.15496843510981062
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.048576416163587176,
+            "trace": 0.8862794556170882,
+            "via": 0.06514412821929903
+          },
+          "max_via_current_fraction": 0.5575522793279394,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 47.67857142857006,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 3.963219962289036e-05
+        }
+      }
+    },
+    "filled /LINK24 plating 0.025 mm": {
+      "network": {
+        "trace_and_barrel_edges": 42
+      },
+      "paths": {
+        "J4.1 to C25.1": {
+          "resistance_mohm_20c": 18.50164070587334,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.1733645577450952,
+            "4.35": 0.46016788620005383
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.028912999371431332,
+            "trace": 0.9710870006286247,
+            "via": 1.706172380054008e-33
+          },
+          "max_via_current_fraction": 3.4082021564183493e-16,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 49.21658986175491,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 4.223035630993575e-05
+        },
+        "C25.1 to Q5.2": {
+          "resistance_mohm_20c": 13.544503447514808,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.1269150605281134,
+            "4.35": 0.33687528690867113
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.04286781415479993,
+            "trace": 0.9571321858451903,
+            "via": 3.8330618138914686e-30
+          },
+          "max_via_current_fraction": 1.0906246900538718e-14,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 49.216589861751224,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 4.223035630992942e-05
+        },
+        "C25.1 to Q7.2": {
+          "resistance_mohm_20c": 22.12477994520943,
+          "copper_loss_w_100c_at_current_a": {
+            "2.67": 0.20731419182684474,
+            "4.35": 0.5502816416057834
+          },
+          "loss_fraction_by_conductor": {
+            "terminal_barrel": 0.026243120069214476,
+            "trace": 0.9737568799307238,
+            "via": 1.4914316210756874e-30
+          },
+          "max_via_current_fraction": 4.7554548140656695e-15,
+          "peak_trace_or_barrel_density_a_per_mm2_at_2_67a": 49.2165898617489,
+          "trace_or_barrel_adiabatic_rise_k_for_1us_4_35a_at_100c": 4.223035630992544e-05
+        }
+      }
+    }
+  }
+}

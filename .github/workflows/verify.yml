@@ -17,6 +17,10 @@ jobs:
         run: python3 circuits/battery-port/bench_disconnect_test.py --ngspice ngspice --output "$RUNNER_TEMP/helios-dc-cutoff.json"
       - name: Check linked cutoff and PWM inhibit
         run: python3 circuits/battery-port/bench_linked_cutoff_test.py --ngspice ngspice --output "$RUNNER_TEMP/helios-linked-cutoff.json"
+      - name: Check loaded precharge, bias loss and failed-cutoff cases
+        run: python3 circuits/battery-port/bench_rail_analog_test.py --ngspice ngspice --output "$RUNNER_TEMP/helios-rail-analog.json"
+      - name: Check physical gate sensing and independent cutoff placement
+        run: python3 circuits/battery-port/bench_gate_feedback_test.py --ngspice ngspice --output "$RUNNER_TEMP/helios-gate-feedback.json"
       - name: Check local Markdown link targets
         run: |
           python3 - <<'PY'
@@ -49,7 +53,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends kicad kicad-footprints kicad-symbols
           kicad-cli version
-      - name: Check bench and rear-bypass projects
+      - name: Check bench, rail protection and rear-bypass projects
         working-directory: circuits/battery-port
         run: |
           work="$RUNNER_TEMP/helios-kicad"
@@ -57,6 +61,7 @@ jobs:
           cp *.kicad_sch Helios.kicad_sym sym-lib-table fp-lib-table "$work/"
           cp -r Helios_Bench.pretty "$work/"
           cp battery-port-bench.kicad_{pcb,pro,dru} "$work/"
+          cp battery-port-bench-{protected,gate-feedback}.kicad_pro "$work/"
           leg=battery-port-secondary-isolated-dfn-rear-bypass
           cp "$leg.kicad_pcb" "$work/"
           printf '{}\n' > "$work/$leg.kicad_pro"
@@ -65,20 +70,21 @@ jobs:
             kicad-cli sch erc --exit-code-violations --severity-error "$board.kicad_sch"
             kicad-cli pcb drc --exit-code-violations --severity-error --schematic-parity "$board.kicad_pcb"
           done
-      - name: Refill and verify the bench copper trial
+          protected=battery-port-bench-protected.kicad_sch
+          kicad-cli sch erc --exit-code-violations --severity-all "$protected"
+          kicad-cli sch export netlist --format kicadxml --output rail-protection.xml "$protected"
+          python3 "$GITHUB_WORKSPACE/circuits/battery-port/verify_bench_rail_protection.py" rail-protection.xml
+          feedback=battery-port-bench-gate-feedback.kicad_sch
+          kicad-cli sch erc --exit-code-violations --severity-all "$feedback"
+          kicad-cli sch export netlist --format kicadxml --output gate-feedback.xml "$feedback"
+          python3 "$GITHUB_WORKSPACE/circuits/battery-port/verify_bench_rail_protection.py" gate-feedback.xml --gate-feedback
+      - name: Verify the committed bench return planes
         working-directory: circuits/battery-port
         run: |
-          trial="$RUNNER_TEMP/helios-copper-trial"
-          mkdir -p "$trial"
-          cp *.kicad_sch battery-port-bench.kicad_{pro,dru} Helios.kicad_sym sym-lib-table fp-lib-table "$trial/"
-          cp -r Helios_Bench.pretty "$trial/"
-          board="$trial/battery-port-bench.kicad_pcb"
-          python3 bench_return_plane_trial.py "$board"
-          kicad-cli pcb drc --refill-zones --save-board --schematic-parity --severity-error --exit-code-violations "$board"
           python3 -m venv "$RUNNER_TEMP/helios-copper-python"
           python="$RUNNER_TEMP/helios-copper-python/bin/python"
           "$python" -m pip install -r requirements-copper.txt
-          "$python" bench_plane_dc.py "$board" --pitch-mm .4 --plating-mm .02 --output "$trial/copper-dc.json"
+          "$python" bench_plane_dc.py --pitch-mm .4 --plating-mm .02 --output "$RUNNER_TEMP/helios-copper-dc.json"
   firmware:
     runs-on: ubuntu-24.04
     env:
@@ -99,7 +105,7 @@ jobs:
           tar -xf "$zig"
           curl -fsSL "https://codeload.github.com/STMicroelectronics/cmsis-device-g4/tar.gz/$ST_CMSIS" | tar -xz
           curl -fsSL "https://codeload.github.com/ARM-software/CMSIS_5/tar.gz/$ARM_CMSIS" | tar -xz
-      - name: Build and emulate charge and discharge firmware
+      - name: Build and emulate baseline and protected firmware
         working-directory: circuits/battery-port
         run: |
           python3 -m venv "$RUNNER_TEMP/helios-emulator"

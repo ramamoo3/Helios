@@ -30,6 +30,13 @@ BOOTSTRAP_CONNECTIONS = (
     ("hs_junction", "sourceh"), ("hb", "hb_cap"), ("hs_cap", "hs_junction"),
 )
 
+# These exact datasets remain inputs to the coupon studies after the parent
+# PCB gains planes. A custom extraction still has to match the supplied PCB.
+TRACE_REFERENCE_DIGESTS = {
+    "19d303f19efac59e3ceb59334d470ce3ff806dd1b6f8461c32884e297e8c617c",  # bench-impedance.json
+    "0966e915591c6d65e1d16985a17fa1123098eb49a01bf14c58fefc705b9dfca5",  # bench-bootstrap-impedance.json
+}
+
 # Continuous-output driver for numerical screening with the same TI MOSFET models.
 # Gate-switch conductances are normalized to keep the bootstrap and bias currents explicit.
 SCREENING_DRIVER = """Dboot vdd hb DSCREENING
@@ -165,11 +172,14 @@ def switching_case(args, case, fault, fault_start, scratch, source, pwm, vectors
         return {"case": label, "error": detail}
 
 
-def read_extraction(path):
-    extraction = json.loads(path.read_text(encoding="utf-8"))
+def read_extraction(path, board_path=None):
+    data = path.read_bytes()
+    extraction = json.loads(data)
     if tuple(extraction["ports"]) not in (PORTS, BOOTSTRAP_PORTS):
         raise ValueError("Unexpected extraction port order")
-    board = DEFAULT_BOARD.read_bytes()
+    if board_path is None and hashlib.sha256(data).hexdigest() in TRACE_REFERENCE_DIGESTS:
+        return extraction
+    board = (board_path or DEFAULT_BOARD).read_bytes()
     # The original extraction predates these three hidden purchasing fields.
     # Match the original full digest after removing only their exact CAD syntax.
     pre_bom = re.sub(
@@ -183,7 +193,7 @@ def read_extraction(path):
 
 
 def run(args):
-    extraction = read_extraction(args.extraction)
+    extraction = read_extraction(args.extraction, args.board)
     source, vectors, measures = layout_fixture((ROOT / "vendor-dab-startup.cir").read_text(encoding="ascii"),
                                                extraction, args.screening_driver, args.screening_devices)
     cases = [(case, None, 12) for case in CASES if "LFEED" in case.parameters]
@@ -232,6 +242,7 @@ def run(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--extraction", type=Path, required=True)
+    parser.add_argument("--board", type=Path, help="require that the extraction matches this PCB")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--driver", type=Path, required=True)
     parser.add_argument("--mosfet", type=Path, required=True)

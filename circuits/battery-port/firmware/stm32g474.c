@@ -1,6 +1,10 @@
 #include "stm32g474xx.h"
 #include "../bench-hrtim.h"
 
+#ifndef HELIOS_PROTECTED
+#define HELIOS_PROTECTED 0
+#endif
+
 enum {
     CORE_HZ = 160000000, CYCLES_PER_US = CORE_HZ / 1000000,
     REQUEST_PIN = 6, PERMIT_PIN = 12, RUN_PIN = 10, ARM_PIN = 5, LED_PIN = 5,
@@ -9,9 +13,18 @@ enum {
     HRTIM_AF = 13,
     PRESS_MS = 20, RELEASE_MS = 20, PERMIT_TIMEOUT_MS = 2,
     ACK_TIMEOUT_US = 20, PRECHARGE_US = 7, PRECHARGE_GAP_US = 1,
+    ARM_US = 2,
     MID_FRAME = BENCH_HRTIM_PERIOD / 2,
     LATEST_UPDATE = BENCH_HRTIM_PERIOD * 3 / 4
 };
+
+#if HELIOS_PROTECTED
+enum {
+    CUT_ENABLE_PIN = 13, DC_PRE_REQ_PIN = 14, DC_READY_PIN = 15,
+    DC_ENABLE_SETTLE_US = 2000, DC_REQUEST_US = 3000, DC_RELEASE_SETTLE_US = 50,
+    DC_READY_TIMEOUT_US = 5000, DC_READY_SETTLE_US = 250
+};
+#endif
 
 #ifndef HELIOS_SHIFT
 #define HELIOS_SHIFT 120
@@ -36,6 +49,19 @@ static bool request_high(void) { return (GPIOA->IDR & (1u << REQUEST_PIN)) != 0;
 static bool permit_high(void) { return (GPIOA->IDR & (1u << PERMIT_PIN)) != 0; }
 static unsigned precharge_ack(void) { return GPIOB->IDR & ACK_MASK; }
 
+#if HELIOS_PROTECTED
+static bool dc_ready(void) { return (GPIOB->IDR & (1u << DC_READY_PIN)) != 0; }
+#endif
+
+static bool idle_feedback(void)
+{
+#if HELIOS_PROTECTED
+    if (dc_ready())
+        return true;
+#endif
+    return permit_high() || precharge_ack();
+}
+
 static void gpio_mode(GPIO_TypeDef *port, unsigned pin, unsigned mode, unsigned pull)
 {
     unsigned shift = 2u * pin;
@@ -45,8 +71,11 @@ static void gpio_mode(GPIO_TypeDef *port, unsigned pin, unsigned mode, unsigned 
 
 static void disable_requests(void)
 {
-    GPIOB->BSRR = (1u << (RUN_PIN + 16)) | (1u << (ARM_PIN + 16)) |
-                  (1u << (PRECHARGE_PIN + 16));
+    uint32_t mask = (1u << RUN_PIN) | (1u << ARM_PIN) | (1u << PRECHARGE_PIN);
+#if HELIOS_PROTECTED
+    mask |= (1u << CUT_ENABLE_PIN) | (1u << DC_PRE_REQ_PIN);
+#endif
+    GPIOB->BSRR = mask << 16;
 }
 
 static void stop_timer(void)
@@ -160,6 +189,10 @@ static void program_compares(HRTIM_Timerx_TypeDef *timer, bench_hrtim_compares v
 
 static bool start_permitted(void)
 {
+#if HELIOS_PROTECTED
+    if (!dc_ready())
+        return false;
+#endif
     return request_high() && permit_high() && !(COMMON.ISR & HRTIM_ISR_FLT1);
 }
 
@@ -259,6 +292,57 @@ static void configure_watchdog(void)
     IWDG->KR = 0xAAAA;
 }
 
+static void pulse_arm(void)
+{
+    GPIOB->BSRR = 1u << ARM_PIN;
+    uint32_t start = DWT->CYCCNT;
+    while (DWT->CYCCNT - start < ARM_US * CYCLES_PER_US) __NOP();
+    GPIOB->BSRR = 1u << (ARM_PIN + 16);
+}
+
+#if HELIOS_PROTECTED
+static bool dc_start_allowed(void)
+{
+    return request_high() && !permit_high() && !precharge_ack();
+}
+
+static bool hold_dc_state(bool ready, unsigned microseconds)
+{
+    uint32_t start = DWT->CYCCNT;
+    do {
+        if (!dc_start_allowed() || dc_ready() != ready)
+            return false;
+    } while (DWT->CYCCNT - start < microseconds * CYCLES_PER_US);
+    return true;
+}
+
+static bool prepare_dc_rails(void)
+{
+    /* The bounded startup wait fits inside the independent watchdog window. */
+    if (!dc_start_allowed() || dc_ready())
+        return false;
+    GPIOB->BSRR = 1u << CUT_ENABLE_PIN;
+    if (!hold_dc_state(false, DC_ENABLE_SETTLE_US))
+        return false;
+
+    GPIOB->BSRR = 1u << DC_PRE_REQ_PIN;
+    bool requested = hold_dc_state(false, DC_REQUEST_US);
+    GPIOB->BSRR = 1u << (DC_PRE_REQ_PIN + 16);
+    if (!requested || !hold_dc_state(false, DC_RELEASE_SETTLE_US))
+        return false;
+
+    pulse_arm();
+    uint32_t start = DWT->CYCCNT;
+    do {
+        if (!dc_start_allowed())
+            return false;
+        if (dc_ready())
+            return hold_dc_state(true, DC_READY_SETTLE_US) && dc_start_allowed() && dc_ready();
+    } while (DWT->CYCCNT - start < DC_READY_TIMEOUT_US * CYCLES_PER_US);
+    return false;
+}
+#endif
+
 static void run_bench(void)
 {
     enum { WAIT_RELEASE, WAIT_PRESS, WAIT_PERMIT, RUNNING } mode = WAIT_RELEASE;
@@ -269,7 +353,7 @@ static void run_bench(void)
         bool request = request_high();
         switch (mode) {
         case WAIT_RELEASE:
-            if (request || permit_high() || precharge_ack())
+            if (request || idle_feedback())
                 changed = now;
             else if (now - changed >= RELEASE_MS) {
                 bench_hrtim_frame unused;
@@ -279,22 +363,31 @@ static void run_bench(void)
             }
             break;
         case WAIT_PRESS:
-            if (permit_high() || precharge_ack()) {
+            if (idle_feedback()) {
                 mode = WAIT_RELEASE;
                 changed = now;
             } else if (!request) {
                 changed = now;
             } else if (now - changed >= PRESS_MS) {
-                GPIOB->BSRR = 1u << ARM_PIN;
-                uint32_t start = DWT->CYCCNT;
-                while (DWT->CYCCNT - start < 2u * CYCLES_PER_US) __NOP();
-                GPIOB->BSRR = 1u << (ARM_PIN + 16);
+#if HELIOS_PROTECTED
+                if (!prepare_dc_rails()) {
+                    stop_timer();
+                    mode = WAIT_RELEASE;
+                    changed = millis;
+                    break;
+                }
+#else
+                pulse_arm();
+#endif
                 GPIOB->BSRR = 1u << RUN_PIN;
                 mode = WAIT_PERMIT;
-                changed = now;
+                changed = millis;
             }
             break;
         case WAIT_PERMIT:
+#if HELIOS_PROTECTED
+            request = request && dc_ready();
+#endif
             if (request) {
                 if (permit_high()) {
                     if (prepare_bootstrap() && start_timer()) {
@@ -345,6 +438,11 @@ void Reset_Handler(void)
     gpio_mode(GPIOB, PRECHARGE_PIN, 1, 2);
     gpio_mode(GPIOB, ACK_PRIMARY_PIN, 0, 2);
     gpio_mode(GPIOB, ACK_SECONDARY_PIN, 0, 2);
+#if HELIOS_PROTECTED
+    gpio_mode(GPIOB, CUT_ENABLE_PIN, 1, 2);
+    gpio_mode(GPIOB, DC_PRE_REQ_PIN, 1, 2);
+    gpio_mode(GPIOB, DC_READY_PIN, 0, 2);
+#endif
     GPIOA->BSRR = 1u << (LED_PIN + 16);
     gpio_mode(GPIOA, LED_PIN, 1, 0);
     gpio_mode(GPIOA, REQUEST_PIN, 0, 2);

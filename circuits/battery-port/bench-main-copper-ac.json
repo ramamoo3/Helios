@@ -1,0 +1,202 @@
+{
+  "scope": "Loop diagnostic using resistive-mesh-derived filaments with ideal bridged pads",
+  "inputs_sha256": {
+    "filled PCB": "087ace563ac8013dfa031f5a1e2030dde9b049c315582a520176369db9be2c14",
+    "solver": "ee0986b664eaa4ff67d0c3a2beb73f250467bd059626cf401344cf7414817a5f",
+    "copper mesh": "9da516bf19bfb9b5f712043c883374699a4cdac2124b4c551715ad7122a8bc98",
+    "layout parser": "4c6da893f6f8a1a328b0d718a28d82b9d62c8341acb56fb2c02fc22ffcd43926",
+    "KiCad parser": "c757ad3989ee8ed5f11cc4f5f7212feb287180456364332258b73acd0f7d35b5"
+  },
+  "solver_options": [
+    "-s",
+    "iterative",
+    "-m",
+    "multi",
+    "-p",
+    "diag",
+    "-t",
+    "1e-4",
+    "-b",
+    "1e-7",
+    "-c",
+    "250"
+  ],
+  "series_10mhz": true,
+  "relative_reciprocity_floor": 0.0003,
+  "cases_by_leg": {
+    "pa": {
+      "filled 1.5 mm": {
+        "nodes": 3116,
+        "conductors": 5300,
+        "contact_connections": 75,
+        "warnings": [
+          "Internal Warning: realcos = 1.02418e-13,  cose = 1.1673e-13",
+          "Internal warning: distance d between filaments is negative and large",
+          "Warning: Filaments meeting at a point, case 1",
+          "Warning: Filaments meeting at a point, case 2",
+          "Warning: Filaments meeting at a point, case 3",
+          "Warning: Filaments meeting at a point, case 4"
+        ],
+        "completed": true,
+        "loop": {
+          "1e+07": {
+            "resistance_mohm": 23.2084,
+            "inductance_nh": 5.211608189015658
+          }
+        }
+      },
+      "filled 1 mm": {
+        "nodes": 6211,
+        "conductors": 11139,
+        "contact_connections": 109,
+        "warnings": [
+          "Internal Warning: realcos = 1.01065e-13,  cose = 1.27693e-13",
+          "Internal warning: distance d between filaments is negative and large",
+          "Warning: Filaments meeting at a point, case 1",
+          "Warning: Filaments meeting at a point, case 2",
+          "Warning: Filaments meeting at a point, case 3",
+          "Warning: Filaments meeting at a point, case 4"
+        ],
+        "completed": true,
+        "loop": {
+          "1e+07": {
+            "resistance_mohm": 24.0798,
+            "inductance_nh": 4.899362106163669
+          }
+        }
+      }
+    },
+    "pb": {
+      "filled 1.5 mm": {
+        "nodes": 3116,
+        "conductors": 5300,
+        "contact_connections": 75,
+        "warnings": [
+          "Internal Warning: realcos = 1.02418e-13,  cose = 1.1673e-13",
+          "Internal warning: distance d between filaments is negative and large",
+          "Warning: Filaments meeting at a point, case 1",
+          "Warning: Filaments meeting at a point, case 2",
+          "Warning: Filaments meeting at a point, case 3",
+          "Warning: Filaments meeting at a point, case 4"
+        ],
+        "completed": true,
+        "loop": {
+          "1e+07": {
+            "resistance_mohm": 23.2084,
+            "inductance_nh": 5.217194527518184
+          }
+        }
+      },
+      "filled 1 mm": {
+        "nodes": 6211,
+        "conductors": 11139,
+        "contact_connections": 109,
+        "warnings": [
+          "Internal Warning: realcos = 1.01065e-13,  cose = 1.27693e-13",
+          "Internal warning: distance d between filaments is negative and large",
+          "Warning: Filaments meeting at a point, case 1",
+          "Warning: Filaments meeting at a point, case 2",
+          "Warning: Filaments meeting at a point, case 3",
+          "Warning: Filaments meeting at a point, case 4"
+        ],
+        "completed": true,
+        "loop": {
+          "1e+07": {
+            "resistance_mohm": 24.0565,
+            "inductance_nh": 4.911155487446779
+          }
+        }
+      }
+    },
+    "sa": {
+      "filled 1.5 mm": {
+        "nodes": 3085,
+        "conductors": 5409,
+        "contact_connections": 53,
+        "warnings": [
+          "Internal Warning: realcos = -1.69826e-13,  cose = -1.89872e-13",
+          "Internal warning: distance d between filaments is negative and large",
+          "Warning: Filaments meeting at a point, case 3",
+          "Warning: Filaments meeting at a point, case 4"
+        ],
+        "completed": true,
+        "loop": {
+          "1e+07": {
+            "resistance_mohm": 17.2074,
+            "inductance_nh": 7.611123604034928
+          }
+        }
+      },
+      "filled 1 mm": {
+        "nodes": 6403,
+        "conductors": 11765,
+        "contact_connections": 80,
+        "completed": false,
+        "error": "Timeout after 210 s"
+      },
+      "filled 1.25 mm": {
+        "nodes": 4251,
+        "conductors": 7622,
+        "contact_connections": 59,
+        "warnings": [
+          "Internal Warning: realcos = -1.69826e-13,  cose = -1.89872e-13",
+          "Internal warning: distance d between filaments is negative and large",
+          "Warning: Filaments meeting at a point, case 3",
+          "Warning: Filaments meeting at a point, case 4"
+        ],
+        "completed": true,
+        "loop": {
+          "1e+07": {
+            "resistance_mohm": 17.165799999999997,
+            "inductance_nh": 7.607287969906413
+          }
+        }
+      }
+    },
+    "sb": {
+      "filled 1.5 mm": {
+        "nodes": 3085,
+        "conductors": 5409,
+        "contact_connections": 53,
+        "warnings": [
+          "Internal Warning: realcos = -1.69826e-13,  cose = -1.89872e-13",
+          "Internal warning: distance d between filaments is negative and large",
+          "Warning: Filaments meeting at a point, case 3",
+          "Warning: Filaments meeting at a point, case 4"
+        ],
+        "completed": true,
+        "loop": {
+          "1e+07": {
+            "resistance_mohm": 17.2525,
+            "inductance_nh": 7.494287960311167
+          }
+        }
+      },
+      "filled 1 mm": {
+        "nodes": 6403,
+        "conductors": 11765,
+        "contact_connections": 80,
+        "completed": false,
+        "error": "Timeout after 210 s"
+      },
+      "filled 1.25 mm": {
+        "nodes": 4251,
+        "conductors": 7622,
+        "contact_connections": 59,
+        "warnings": [
+          "Internal Warning: realcos = -1.69826e-13,  cose = -1.89872e-13",
+          "Internal warning: distance d between filaments is negative and large",
+          "Warning: Filaments meeting at a point, case 3",
+          "Warning: Filaments meeting at a point, case 4"
+        ],
+        "completed": true,
+        "loop": {
+          "1e+07": {
+            "resistance_mohm": 17.1919,
+            "inductance_nh": 7.5102512011032845
+          }
+        }
+      }
+    }
+  }
+}

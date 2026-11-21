@@ -1,0 +1,858 @@
+{
+  "scope": "Bench gate feedback and discharge models with an ideal backup interrupter placement study. The backup actuation times are stimuli and are not a component rating.",
+  "sha256": {
+    "bench_gate_feedback_test.py": "0529770de1e1b4b4d33a7049f058ed24cdc78050103d2596c10a56d05a69900e",
+    "bench_rail_analog_test.py": "98ab8648816568fa634372b0fa6d40fb1f5ee003cf4c46ae4554ea91707c3c4e",
+    "battery-port-rail-gate-feedback.kicad_sch": "072a79a88d8664630a2790f06b8692f968117e902e0ee9c0d91a1f977a3232e6"
+  },
+  "thresholds": {
+    "min_v": 6.709135891353242,
+    "max_v": 8.862512223208547
+  },
+  "sense": {
+    "cm-4-logic3.135-11v-11v": {
+      "inputs": [
+        -4,
+        3.135,
+        11,
+        11
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": 0.0819454,
+          "g2_margin_v": 0.0819454
+        },
+        "50n": {
+          "g1_margin_v": 0.0819454,
+          "g2_margin_v": 0.0819454
+        }
+      }
+    },
+    "cm-4-logic3.135-0v-11v": {
+      "inputs": [
+        -4,
+        3.135,
+        0,
+        11
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": -0.185045,
+          "g2_margin_v": 0.0819454
+        },
+        "50n": {
+          "g1_margin_v": -0.185045,
+          "g2_margin_v": 0.0819454
+        }
+      }
+    },
+    "cm-4-logic3.135-11v-0v": {
+      "inputs": [
+        -4,
+        3.135,
+        11,
+        0
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": 0.0819454,
+          "g2_margin_v": -0.185045
+        },
+        "50n": {
+          "g1_margin_v": 0.0819454,
+          "g2_margin_v": -0.185045
+        }
+      }
+    },
+    "cm-4-logic3.135-6v-6v": {
+      "inputs": [
+        -4,
+        3.135,
+        6,
+        6
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": -0.0394138,
+          "g2_margin_v": -0.0394138
+        },
+        "50n": {
+          "g1_margin_v": -0.0394138,
+          "g2_margin_v": -0.0394138
+        }
+      }
+    },
+    "cm-4-logic3.465-11v-11v": {
+      "inputs": [
+        -4,
+        3.465,
+        11,
+        11
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": 0.0625068,
+          "g2_margin_v": 0.0625068
+        },
+        "50n": {
+          "g1_margin_v": 0.0625068,
+          "g2_margin_v": 0.0625068
+        }
+      }
+    },
+    "cm-4-logic3.465-0v-11v": {
+      "inputs": [
+        -4,
+        3.465,
+        0,
+        11
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": -0.204484,
+          "g2_margin_v": 0.0625068
+        },
+        "50n": {
+          "g1_margin_v": -0.204484,
+          "g2_margin_v": 0.0625068
+        }
+      }
+    },
+    "cm-4-logic3.465-11v-0v": {
+      "inputs": [
+        -4,
+        3.465,
+        11,
+        0
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": 0.0625068,
+          "g2_margin_v": -0.204484
+        },
+        "50n": {
+          "g1_margin_v": 0.0625068,
+          "g2_margin_v": -0.204484
+        }
+      }
+    },
+    "cm-4-logic3.465-6v-6v": {
+      "inputs": [
+        -4,
+        3.465,
+        6,
+        6
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": -0.0588524,
+          "g2_margin_v": -0.0588524
+        },
+        "50n": {
+          "g1_margin_v": -0.0588524,
+          "g2_margin_v": -0.0588524
+        }
+      }
+    },
+    "cm0-logic3.135-11v-11v": {
+      "inputs": [
+        0,
+        3.135,
+        11,
+        11
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": 0.0823231,
+          "g2_margin_v": 0.0823231
+        },
+        "50n": {
+          "g1_margin_v": 0.0823231,
+          "g2_margin_v": 0.0823231
+        }
+      }
+    },
+    "cm0-logic3.135-0v-11v": {
+      "inputs": [
+        0,
+        3.135,
+        0,
+        11
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": -0.184667,
+          "g2_margin_v": 0.0823231
+        },
+        "50n": {
+          "g1_margin_v": -0.184667,
+          "g2_margin_v": 0.0823231
+        }
+      }
+    },
+    "cm0-logic3.135-11v-0v": {
+      "inputs": [
+        0,
+        3.135,
+        11,
+        0
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": 0.0823231,
+          "g2_margin_v": -0.184667
+        },
+        "50n": {
+          "g1_margin_v": 0.0823231,
+          "g2_margin_v": -0.184667
+        }
+      }
+    },
+    "cm0-logic3.135-6v-6v": {
+      "inputs": [
+        0,
+        3.135,
+        6,
+        6
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": -0.0390361,
+          "g2_margin_v": -0.0390361
+        },
+        "50n": {
+          "g1_margin_v": -0.0390361,
+          "g2_margin_v": -0.0390361
+        }
+      }
+    },
+    "cm0-logic3.465-11v-11v": {
+      "inputs": [
+        0,
+        3.465,
+        11,
+        11
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": 0.0628844,
+          "g2_margin_v": 0.0628844
+        },
+        "50n": {
+          "g1_margin_v": 0.0628844,
+          "g2_margin_v": 0.0628844
+        }
+      }
+    },
+    "cm0-logic3.465-0v-11v": {
+      "inputs": [
+        0,
+        3.465,
+        0,
+        11
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": -0.204106,
+          "g2_margin_v": 0.0628844
+        },
+        "50n": {
+          "g1_margin_v": -0.204106,
+          "g2_margin_v": 0.0628844
+        }
+      }
+    },
+    "cm0-logic3.465-11v-0v": {
+      "inputs": [
+        0,
+        3.465,
+        11,
+        0
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": 0.0628844,
+          "g2_margin_v": -0.204106
+        },
+        "50n": {
+          "g1_margin_v": 0.0628844,
+          "g2_margin_v": -0.204106
+        }
+      }
+    },
+    "cm0-logic3.465-6v-6v": {
+      "inputs": [
+        0,
+        3.465,
+        6,
+        6
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": -0.0584748,
+          "g2_margin_v": -0.0584748
+        },
+        "50n": {
+          "g1_margin_v": -0.0584748,
+          "g2_margin_v": -0.0584748
+        }
+      }
+    },
+    "cm25.2-logic3.135-11v-11v": {
+      "inputs": [
+        25.2,
+        3.135,
+        11,
+        11
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": 0.0847024,
+          "g2_margin_v": 0.0847024
+        },
+        "50n": {
+          "g1_margin_v": 0.0847024,
+          "g2_margin_v": 0.0847024
+        }
+      }
+    },
+    "cm25.2-logic3.135-0v-11v": {
+      "inputs": [
+        25.2,
+        3.135,
+        0,
+        11
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": -0.182288,
+          "g2_margin_v": 0.0847024
+        },
+        "50n": {
+          "g1_margin_v": -0.182288,
+          "g2_margin_v": 0.0847024
+        }
+      }
+    },
+    "cm25.2-logic3.135-11v-0v": {
+      "inputs": [
+        25.2,
+        3.135,
+        11,
+        0
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": 0.0847024,
+          "g2_margin_v": -0.182288
+        },
+        "50n": {
+          "g1_margin_v": 0.0847024,
+          "g2_margin_v": -0.182288
+        }
+      }
+    },
+    "cm25.2-logic3.135-6v-6v": {
+      "inputs": [
+        25.2,
+        3.135,
+        6,
+        6
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": -0.0366568,
+          "g2_margin_v": -0.0366568
+        },
+        "50n": {
+          "g1_margin_v": -0.0366568,
+          "g2_margin_v": -0.0366568
+        }
+      }
+    },
+    "cm25.2-logic3.465-11v-11v": {
+      "inputs": [
+        25.2,
+        3.465,
+        11,
+        11
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": 0.0652637,
+          "g2_margin_v": 0.0652637
+        },
+        "50n": {
+          "g1_margin_v": 0.0652637,
+          "g2_margin_v": 0.0652637
+        }
+      }
+    },
+    "cm25.2-logic3.465-0v-11v": {
+      "inputs": [
+        25.2,
+        3.465,
+        0,
+        11
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": -0.201727,
+          "g2_margin_v": 0.0652637
+        },
+        "50n": {
+          "g1_margin_v": -0.201727,
+          "g2_margin_v": 0.0652637
+        }
+      }
+    },
+    "cm25.2-logic3.465-11v-0v": {
+      "inputs": [
+        25.2,
+        3.465,
+        11,
+        0
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": 0.0652637,
+          "g2_margin_v": -0.201727
+        },
+        "50n": {
+          "g1_margin_v": 0.0652637,
+          "g2_margin_v": -0.201727
+        }
+      }
+    },
+    "cm25.2-logic3.465-6v-6v": {
+      "inputs": [
+        25.2,
+        3.465,
+        6,
+        6
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": -0.0560955,
+          "g2_margin_v": -0.0560955
+        },
+        "50n": {
+          "g1_margin_v": -0.0560955,
+          "g2_margin_v": -0.0560955
+        }
+      }
+    },
+    "cm60-logic3.135-11v-11v": {
+      "inputs": [
+        60,
+        3.135,
+        11,
+        11
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": 0.0879881,
+          "g2_margin_v": 0.0879881
+        },
+        "50n": {
+          "g1_margin_v": 0.0879881,
+          "g2_margin_v": 0.0879881
+        }
+      }
+    },
+    "cm60-logic3.135-0v-11v": {
+      "inputs": [
+        60,
+        3.135,
+        0,
+        11
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": -0.179002,
+          "g2_margin_v": 0.0879881
+        },
+        "50n": {
+          "g1_margin_v": -0.179002,
+          "g2_margin_v": 0.0879881
+        }
+      }
+    },
+    "cm60-logic3.135-11v-0v": {
+      "inputs": [
+        60,
+        3.135,
+        11,
+        0
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": 0.0879881,
+          "g2_margin_v": -0.179002
+        },
+        "50n": {
+          "g1_margin_v": 0.0879881,
+          "g2_margin_v": -0.179002
+        }
+      }
+    },
+    "cm60-logic3.135-6v-6v": {
+      "inputs": [
+        60,
+        3.135,
+        6,
+        6
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": -0.0333711,
+          "g2_margin_v": -0.0333711
+        },
+        "50n": {
+          "g1_margin_v": -0.0333711,
+          "g2_margin_v": -0.0333711
+        }
+      }
+    },
+    "cm60-logic3.465-11v-11v": {
+      "inputs": [
+        60,
+        3.465,
+        11,
+        11
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": 0.0685494,
+          "g2_margin_v": 0.0685494
+        },
+        "50n": {
+          "g1_margin_v": 0.0685494,
+          "g2_margin_v": 0.0685494
+        }
+      }
+    },
+    "cm60-logic3.465-0v-11v": {
+      "inputs": [
+        60,
+        3.465,
+        0,
+        11
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": -0.198441,
+          "g2_margin_v": 0.0685494
+        },
+        "50n": {
+          "g1_margin_v": -0.198441,
+          "g2_margin_v": 0.0685494
+        }
+      }
+    },
+    "cm60-logic3.465-11v-0v": {
+      "inputs": [
+        60,
+        3.465,
+        11,
+        0
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": 0.0685494,
+          "g2_margin_v": -0.198441
+        },
+        "50n": {
+          "g1_margin_v": 0.0685494,
+          "g2_margin_v": -0.198441
+        }
+      }
+    },
+    "cm60-logic3.465-6v-6v": {
+      "inputs": [
+        60,
+        3.465,
+        6,
+        6
+      ],
+      "runs": {
+        "100n": {
+          "g1_margin_v": -0.0528098,
+          "g2_margin_v": -0.0528098
+        },
+        "50n": {
+          "g1_margin_v": -0.0528098,
+          "g2_margin_v": -0.0528098
+        }
+      }
+    }
+  },
+  "discharge": {
+    "4.8nf-sink0": {
+      "inputs": [
+        4.8,
+        0
+      ],
+      "runs": {
+        "40n": {
+          "before_vgs": 11.0615,
+          "below_1p8_s": 2.93704e-05,
+          "after_vgs": 0.260166
+        },
+        "20n": {
+          "before_vgs": 11.0615,
+          "below_1p8_s": 2.93705e-05,
+          "after_vgs": 0.260169
+        }
+      }
+    },
+    "4.8nf-sink1": {
+      "inputs": [
+        4.8,
+        1
+      ],
+      "runs": {
+        "40n": {
+          "before_vgs": 11.0615,
+          "below_1p8_s": 1.0111e-05,
+          "after_vgs": 4.85227e-11
+        },
+        "20n": {
+          "before_vgs": 11.0615,
+          "below_1p8_s": 1.01121e-05,
+          "after_vgs": 4.85227e-11
+        }
+      }
+    },
+    "6.0nf-sink0": {
+      "inputs": [
+        6.0,
+        0
+      ],
+      "runs": {
+        "40n": {
+          "before_vgs": 11.0615,
+          "below_1p8_s": 3.42118e-05,
+          "after_vgs": 0.550763
+        },
+        "20n": {
+          "before_vgs": 11.0615,
+          "below_1p8_s": 3.42118e-05,
+          "after_vgs": 0.550766
+        }
+      }
+    },
+    "6.0nf-sink1": {
+      "inputs": [
+        6.0,
+        1
+      ],
+      "runs": {
+        "40n": {
+          "before_vgs": 11.0615,
+          "below_1p8_s": 1.01386e-05,
+          "after_vgs": 4.85227e-11
+        },
+        "20n": {
+          "before_vgs": 11.0615,
+          "below_1p8_s": 1.01406e-05,
+          "after_vgs": 4.85227e-11
+        }
+      }
+    }
+  },
+  "backup": {
+    "ahead-of-bulk-20us": {
+      "inputs": [
+        20,
+        "ahead-of-bulk"
+      ],
+      "runs": {
+        "500n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 2.99999,
+          "peak_fault_a": 386.34,
+          "tail_source_a": 2.52e-09,
+          "source_i2t_a2s": 0.000184611,
+          "branch_i2t_a2s": 11.4887,
+          "fault_energy_j": 0.229774,
+          "current_before_backup_a": 374.621,
+          "residual_fault_a": 4.05133e-09,
+          "peak_backup_v": 25.2
+        },
+        "250n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 2.99999,
+          "peak_fault_a": 386.129,
+          "tail_source_a": 2.52e-09,
+          "source_i2t_a2s": 0.000184498,
+          "branch_i2t_a2s": 11.4848,
+          "fault_energy_j": 0.229696,
+          "current_before_backup_a": 374.579,
+          "residual_fault_a": 4.05147e-09,
+          "peak_backup_v": 25.2
+        }
+      }
+    },
+    "after-bulk-20us": {
+      "inputs": [
+        20,
+        "after-bulk"
+      ],
+      "runs": {
+        "500n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 2.99999,
+          "peak_fault_a": 336.578,
+          "tail_source_a": 0.00321943,
+          "source_i2t_a2s": 0.0181552,
+          "branch_i2t_a2s": 1.97998,
+          "fault_energy_j": 0.0395996,
+          "current_before_backup_a": 325.147,
+          "residual_fault_a": 2.51997e-09,
+          "peak_backup_v": 81.1032
+        },
+        "250n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 2.99999,
+          "peak_fault_a": 336.376,
+          "tail_source_a": 0.0032017,
+          "source_i2t_a2s": 0.0181439,
+          "branch_i2t_a2s": 1.9756,
+          "fault_energy_j": 0.039512,
+          "current_before_backup_a": 325.125,
+          "residual_fault_a": 2.51997e-09,
+          "peak_backup_v": 87.5681
+        }
+      }
+    },
+    "ahead-of-bulk-200us": {
+      "inputs": [
+        200,
+        "ahead-of-bulk"
+      ],
+      "runs": {
+        "500n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 3.0,
+          "peak_fault_a": 386.34,
+          "tail_source_a": 2.52e-09,
+          "source_i2t_a2s": 0.0018046,
+          "branch_i2t_a2s": 11.64,
+          "fault_energy_j": 0.2328,
+          "current_before_backup_a": 97.2011,
+          "residual_fault_a": 4.07316e-09,
+          "peak_backup_v": 25.2
+        },
+        "250n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 3.0,
+          "peak_fault_a": 386.129,
+          "tail_source_a": 2.52e-09,
+          "source_i2t_a2s": 0.00180449,
+          "branch_i2t_a2s": 11.6361,
+          "fault_energy_j": 0.232723,
+          "current_before_backup_a": 97.2015,
+          "residual_fault_a": 4.0733e-09,
+          "peak_backup_v": 25.2
+        }
+      }
+    },
+    "after-bulk-200us": {
+      "inputs": [
+        200,
+        "after-bulk"
+      ],
+      "runs": {
+        "500n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 3.0,
+          "peak_fault_a": 336.578,
+          "tail_source_a": 2.99999,
+          "source_i2t_a2s": 0.0314998,
+          "branch_i2t_a2s": 9.23089,
+          "fault_energy_j": 0.184618,
+          "current_before_backup_a": 102.705,
+          "residual_fault_a": 1.15122e-09,
+          "peak_backup_v": 50.3912
+        },
+        "250n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 3.0,
+          "peak_fault_a": 336.376,
+          "tail_source_a": 2.99999,
+          "source_i2t_a2s": 0.0314998,
+          "branch_i2t_a2s": 9.22772,
+          "fault_energy_j": 0.184554,
+          "current_before_backup_a": 102.705,
+          "residual_fault_a": 1.15118e-09,
+          "peak_backup_v": 49.1664
+        }
+      }
+    },
+    "ahead-of-bulk-2000us": {
+      "inputs": [
+        2000,
+        "ahead-of-bulk"
+      ],
+      "runs": {
+        "500n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 3.0,
+          "peak_fault_a": 386.34,
+          "tail_source_a": 2.52e-09,
+          "source_i2t_a2s": 0.0180097,
+          "branch_i2t_a2s": 11.7068,
+          "fault_energy_j": 0.234137,
+          "current_before_backup_a": 3.0001,
+          "residual_fault_a": 2.76975e-05,
+          "peak_backup_v": 25.2
+        },
+        "250n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 3.0,
+          "peak_fault_a": 386.129,
+          "tail_source_a": 2.52e-09,
+          "source_i2t_a2s": 0.018009,
+          "branch_i2t_a2s": 11.703,
+          "fault_energy_j": 0.234059,
+          "current_before_backup_a": 3.0001,
+          "residual_fault_a": 2.76683e-05,
+          "peak_backup_v": 25.2
+        }
+      }
+    },
+    "after-bulk-2000us": {
+      "inputs": [
+        2000,
+        "after-bulk"
+      ],
+      "runs": {
+        "500n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 3.0,
+          "peak_fault_a": 336.578,
+          "tail_source_a": 3.0,
+          "source_i2t_a2s": 0.0315,
+          "branch_i2t_a2s": 10.0832,
+          "fault_energy_j": 0.201664,
+          "current_before_backup_a": 3.00079,
+          "residual_fault_a": 2.18904e-10,
+          "peak_backup_v": 4.02453
+        },
+        "250n": {
+          "pre_fault_cap_v": 25.2,
+          "peak_source_a": 3.0,
+          "peak_fault_a": 336.376,
+          "tail_source_a": 3.0,
+          "source_i2t_a2s": 0.0315,
+          "branch_i2t_a2s": 10.08,
+          "fault_energy_j": 0.201599,
+          "current_before_backup_a": 3.00079,
+          "residual_fault_a": 2.18897e-10,
+          "peak_backup_v": 15.0214
+        }
+      }
+    }
+  }
+}

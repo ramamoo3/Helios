@@ -62,15 +62,15 @@ def widen_winding_routes(source, nets):
     return source.replace(old, replacement)
 
 
-def write_trial(output):
-    board = read_schematic(DEFAULT_BOARD)
+def write_trial(output, baseline):
+    board = read_schematic(baseline)
     if any(not children(zone, "keepout") for zone in children(board, "zone")):
         raise ValueError("Update the plane trial for the existing board pours")
     outline = next(rect for rect in children(board, "gr_rect") if first(rect, "layer")[1] == "Edge.Cuts")
     if (first(outline, "start")[1:] != ["35", "42"] or first(outline, "end")[1:] != ["157", "145"]):
         raise ValueError("Update the plane geometry for the new bench outline")
     nets = {value[2]: value[1] for value in children(board, "net")}
-    source = DEFAULT_BOARD.read_text(encoding="utf-8").rstrip().removesuffix(")")
+    source = baseline.read_text(encoding="utf-8").rstrip().removesuffix(")")
     source = widen_winding_routes(source, nets)
     fixtures = []
     for i, (x, y) in enumerate(MOUNTS, 1):
@@ -91,4 +91,6 @@ def write_trial(output):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("output", type=Path, help="new .kicad_pcb path in a scratch project")
-    write_trial(parser.parse_args().output)
+    parser.add_argument("--baseline", type=Path, required=True, help="archived trace-only bench PCB")
+    args = parser.parse_args()
+    write_trial(args.output, args.baseline)

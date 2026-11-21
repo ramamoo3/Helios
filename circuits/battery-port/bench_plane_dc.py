@@ -216,18 +216,26 @@ def analyze(layout, net, name, layer, fill, pitch):
 
 
 def run(args):
-    baseline, trial = map(read_schematic, (args.baseline, args.filled))
-    if any(not children(z, "keepout") for z in children(baseline, "zone")):
-        raise ValueError("Choose a trace-only baseline PCB")
+    filled = read_schematic(args.filled)
+    boards = [("filled", filled)]
+    files = {"filled PCB": args.filled, "solver": Path(__file__),
+             "layout parser": Path(__file__).with_name("extract_layout.py"),
+             "KiCad parser": Path(__file__).with_name("verify.py")}
+    if args.baseline is not None:
+        baseline = read_schematic(args.baseline)
+        if any(not children(z, "keepout") for z in children(baseline, "zone")):
+            raise ValueError("Choose a trace-only baseline PCB")
+        boards = [("baseline", baseline), ("trial", filled)]
+        files["baseline PCB"] = args.baseline
     results = {}
-    for label, board in (("baseline", baseline), ("trial", trial)):
+    for label, board in boards:
         names = {value[2]: value[1] for value in children(board, "net")}
         for plating in args.plating_mm:
             layout = Layout(board, plating)
             for name in PAIRS:
                 layer = PLANES.get(name)
                 net = names.get(name, name)
-                fill = filled_plane(board, net, layer) if label == "trial" and layer is not None else None
+                fill = filled_plane(board, net, layer) if label != "baseline" and layer is not None else None
                 for pitch in args.pitch_mm if fill is not None else (None,):
                     key = f"{label} {name} plating {plating:g} mm"
                     if pitch is not None:
@@ -235,19 +243,16 @@ def run(args):
                     results[key] = analyze(layout, net, name, layer, fill, pitch)
                     if layer is not None:
                         print(key, "complete", flush=True)
-    files = (args.baseline, args.filled, Path(__file__), Path(__file__).with_name("extract_layout.py"),
-             Path(__file__).with_name("verify.py"))
     return {"scope": "DC copper screen with unit-current terminal excitations, ideal pad lands and prescribed copper temperatures",
-            "inputs_sha256": {name: hashlib.sha256(path.read_bytes()).hexdigest()
-                              for name, path in zip(("baseline PCB", "filled trial PCB", "solver", "layout parser", "KiCad parser"), files)},
+            "inputs_sha256": {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in files.items()},
             "versions": {"numpy": np.__version__, "scipy": scipy.__version__, "shapely": geo.__version__},
             "cases": results}
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("filled", type=Path)
-    parser.add_argument("--baseline", type=Path, default=DEFAULT_BOARD)
+    parser.add_argument("filled", type=Path, nargs="?", default=DEFAULT_BOARD)
+    parser.add_argument("--baseline", type=Path, help="optional trace-only PCB for comparison")
     parser.add_argument("--pitch-mm", type=float, nargs="+", default=[.8, .4, .2])
     parser.add_argument("--plating-mm", type=float, nargs="+", default=[.020, .025])
     parser.add_argument("--output", type=Path, required=True)

@@ -27,7 +27,7 @@ ACTIVE_FAULT = "PWL(0 0 2m 0 2.00001m 3.3 2.25m 3.3 2.25001m 0)"
 LOSS_OF_PERMIT = "PWL(0 3.3 2m 3.3 2.00001m 0 2.25m 0 2.25001m 3.3)"
 
 
-def make_rail(rail, volts, bulk, peer, control):
+def make_rail(rail, volts, bulk, peer, control, bridge_cap_nf):
     precharge = "3.3" if rail == "s" and control in ("precharge-stuck", "both-precharge-stuck") else "v(pre)"
     guard = "3.3" if rail == "s" and control == "both-precharge-stuck" else "v(pre_guard)"
     pg = LOSS_OF_PERMIT if rail == "s" and control == "bias-loss" else "3.3"
@@ -49,7 +49,7 @@ Bpre_guard_{rail} pre_guard_{rail} 0 V={guard}
 Spre_{rail} source_{rail} pre_guard_in_{rail} pre_{rail} 0 AUX
 Spre_guard_{rail} pre_guard_in_{rail} precharge_{rail} pre_guard_{rail} 0 AUX
 Rprecharge_{rail} precharge_{rail} bus_{rail} 200
-Cceramic_{rail} bus_{rail} 0 700n
+Cceramic_{rail} bus_{rail} 0 {bridge_cap_nf}n
 Rbleed_{rail} bus_{rail} 0 100k
 {bypass}
 .meas tran before_{rail}_a AVG i(Vsense_{rail}) from=1.9m to=2m
@@ -63,7 +63,7 @@ Rbleed_{rail} bus_{rail} 0 100k
 """
 
 
-def deck(shift, fault_rail, control, step):
+def deck(shift, fault_rail, control, step, bridge_cap_nf=700):
     link = LOSS_OF_PERMIT if control == "peer-loss" else "3.3"
     fault_switch = ACTIVE_FAULT if fault_rail else "0"
     permit = "3.3" if control == "pwm-stuck" else "min(v(enable_p),v(enable_s))"
@@ -84,8 +84,8 @@ Rpeer_p tx_p peer_p 1k
 Cpeer_p peer_p 0 100p
 Rpeer_s ready_p peer_s 1k
 Cpeer_s peer_s 0 100p
-{make_rail("p", 12, 470, "peer_p", control)}
-{make_rail("s", 24, 2200, "peer_s", control)}
+{make_rail("p", 12, 470, "peer_p", control, bridge_cap_nf)}
+{make_rail("s", 24, 2200, "peer_s", control, bridge_cap_nf)}
 * Raw commands remain available after the fault. Both hardware permits
 * are required at the bridge input, independently of the PWM request.
 Bpwm_guard pwm_raw 0 V={permit}
@@ -138,6 +138,7 @@ def run(args):
     report = {
         "scope": "Two independently powered bench rails with an ideal DAB transformer and switching stages. "
         "Logic gates and returns share a simulator reference. Physical isolation, timing and device limits are outside this fixture.",
+        "bridge_capacitance_nf_per_rail": args.bridge_cap_nf,
         "inputs_sha256": {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in sources},
         "cases": {},
     }
@@ -149,7 +150,7 @@ def run(args):
             runs = {}
             for step in ("100n", "50n"):
                 path = work / f"{name}-{step}.cir"
-                path.write_text(deck(shift, fault_rail, control, step), encoding="ascii")
+                path.write_text(deck(shift, fault_rail, control, step, args.bridge_cap_nf), encoding="ascii")
                 runs[step] = analyze(run_spice(args.ngspice, path, cwd=work), shift, control)
             report["cases"][name] = {"phase_shift": shift, "fault_rail": fault_rail,
                                      "control": control, "runs": runs}
@@ -162,7 +163,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ngspice", default="ngspice")
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--bridge-cap-nf", type=int, default=700, help="total ceramic capacitance downstream of each cutoff")
     args = parser.parse_args()
+    if args.bridge_cap_nf <= 0:
+        parser.error("Choose a positive bridge capacitance in nF")
     report = run(args)
     args.output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8", newline="\n")
     if any(not run["matches_expectations"] for case in report["cases"].values() for run in case["runs"].values()):

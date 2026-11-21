@@ -1,5 +1,6 @@
-"""Build both flash images for the NUCLEO-G474RE with Zig and Arm/ST CMSIS."""
+"""Build the baseline and protected NUCLEO-G474RE images in both directions."""
 import argparse
+from itertools import product
 from pathlib import Path
 import struct
 import subprocess
@@ -9,14 +10,17 @@ ROOT = Path(__file__).resolve().parent
 
 
 def build(zig, device, core, output):
-    for direction, shift in [("discharge", 120), ("charge", -120)]:
-        elf = output / ("helios-g474-" + direction + ".elf")
+    directions = (("discharge", 120), ("charge", -120))
+    for protected, (direction, shift) in product((False, True), directions):
+        board = "helios-g474-protected" if protected else "helios-g474"
+        elf = output / f"{board}-{direction}.elf"
         binary = elf.with_suffix(".bin")
         command = [zig, "cc", "-target", "thumb-freestanding-eabi", "-mcpu=cortex_m4",
                    "-std=c11", "-Os", "-g", "-Wall", "-Wextra", "-Werror", "-ffreestanding",
                    "-ffunction-sections", "-fdata-sections", "-fno-builtin", "-fno-stack-protector",
                    "-nostdlib", "-Wl,--gc-sections,-e,Reset_Handler", "-T", str(ROOT / "stm32g474.ld"),
                    "-isystem", str(device), "-isystem", str(core), f"-DHELIOS_SHIFT={shift}",
+                   f"-DHELIOS_PROTECTED={int(protected)}",
                    str(ROOT / "stm32g474.c"), str(ROOT / "startup.S"), "-o", str(elf)]
         subprocess.run(command, check=True)
         subprocess.run([zig, "objcopy", "-O", "binary", str(elf), str(binary)], check=True)
